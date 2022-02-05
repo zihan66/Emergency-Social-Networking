@@ -1,0 +1,36 @@
+.ui.menu.header {
+  margin: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.header .right-items {
+  display: inline-block;
+  align-items: center;
+  height: inherit;
+
+  position: absolute;
+  right: 0;
+}
+.header .ui.item {
+  height: inherit;
+  display: inline-flex !important;
+}
+.header .left-items {
+  height: inherit;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+}
+.header {
+  height: 80px;
+}
+.rounded-image {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+}
+
+h1 {
+  text-align: center;
+}
