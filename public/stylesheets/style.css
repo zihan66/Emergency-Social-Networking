@@ -2,14 +2,13 @@
   font-family: "Source Sans Pro", sans-serif !important;
 }
 
-a {
-  color: #00b7ff;
-}
-
 footer {
-  text-align: center;
-  padding-top: 2rem;
-  font-weight: 900;
-  color: whitesmoke;
+  position        : absolute;
+  bottom          : 0;
+  width           : 100%;
+  text-align      : center;
+  padding-top     : 2rem;
+  font-weight     : 900;
+  color           : whitesmoke;
   background-image: url("/black.png");
 }

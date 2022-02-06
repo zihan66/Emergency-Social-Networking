@@ -24,3 +24,9 @@ const type = () => {
   }
 };
 window.addEventListener("load", type);
+
+const joinCommunity = document.getElementById("link-signup");
+console.log(joinCommunity);
+joinCommunity.addEventListener("click", () => {
+  window.location.href = "/signup";
+});
