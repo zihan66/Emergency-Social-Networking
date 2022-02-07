@@ -26,7 +26,7 @@ a:hover {
 }
 
 .signup-form {
-  width : 199px;
+  width : 220px;
   margin: 20px auto;
 }
 
@@ -50,14 +50,23 @@ label {
   font-size : 18px;
 }
 
+#username-hint,
+#password-hint {
+  display   : inline-block;
+  color     : rgba(255, 0, 0, 0.79);
+  font-size : 12px;
+  margin-top: 5px;
+}
+
 @media only screen and (max-width: 518px) {
   .signup-form {
-    width : 160px;
+    width : 180px;
     margin: 10px auto;
   }
 
   input {
-    height: 30px;
+    font-size: 14px;
+    height   : 30px;
   }
 
   .signup-container {

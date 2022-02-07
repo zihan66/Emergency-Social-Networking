@@ -1,19 +1,3 @@
-// $(function () {
-//   $("#join_form").submit(function (event) {
-//     event.preventDefault();
-//     let username = $("#username").val();
-//     $.ajax({
-//       type: "POST",
-//       url: "/users/" + username,
-//       complete: function (xhr) {
-//         switch (xhr.status) {
-//           case 200:
-//             alert(xhr.responseText);
-//         }
-//       },
-//     });
-//   });
-// });
 let i = 0;
 const text = "A Social Network Making You Stay Connected in Any Situation";
 const type = () => {
@@ -26,7 +10,6 @@ const type = () => {
 window.addEventListener("load", type);
 
 const joinCommunity = document.getElementById("link-signup");
-console.log(joinCommunity);
 joinCommunity.addEventListener("click", () => {
   window.location.href = "/signup";
 });

@@ -11,18 +11,20 @@
         <input
           type="text"
           name="username"
-          placeholder="Username"
+          placeholder="Username (at least 4 characters)"
           autocomplete
         />
+        <span id="username-hint"></span>
       </div>
       <div class="field">
         <label>Password</label>
         <input
           type="password"
           name="password"
-          placeholder="Password"
+          placeholder="Password (at least 4 characters)"
           autocomplete
         />
+        <span id="password-hint"></span>
       </div>
       <button class="ui right labeled icon button" type="submit">
         <i class="right arrow icon"></i>
@@ -35,4 +37,5 @@
     </div>
   </div>
   <%- include('footer.ejs') %>
+  <script type="module" src="/javascripts/signup.js"></script>
 </div>
