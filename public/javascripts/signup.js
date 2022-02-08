@@ -602,8 +602,9 @@ const reservedUsernameList = [
   "yourusername",
 ];
 
+const { cookies } = brownies;
 const joinCommunity = document.querySelector("button");
-joinCommunity.addEventListener("click", (e) => {
+joinCommunity.addEventListener("click", async (e) => {
   e.preventDefault();
   const username = document.forms[0].querySelectorAll("input")[0].value;
   if (username.length < 4) {
@@ -621,5 +622,27 @@ joinCommunity.addEventListener("click", (e) => {
     const ele = document.querySelector("#password-hint");
     ele.innerHTML = "Password should have minimum four characters";
     return;
+  }
+  const data = { username, password };
+  try {
+    let response = await fetch("/register", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    if (response.status === 200) {
+      const token = cookies.jwtToken;
+      const { userId } = cookies;
+      response = await fetch(`/welcome/${userId}`, {
+        method: "get",
+        headers: {
+          Authorization: token,
+        },
+      });
+    }
+  } catch (err) {
+    console.error(err);
   }
 });
