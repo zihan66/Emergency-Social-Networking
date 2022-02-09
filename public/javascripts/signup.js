@@ -607,7 +607,7 @@ const joinCommunity = document.querySelector("button");
 joinCommunity.addEventListener("click", async (e) => {
   e.preventDefault();
   const username = document.forms[0].querySelectorAll("input")[0].value;
-  if (username.length < 4) {
+  if (username.length < 3) {
     const ele = document.querySelector("#username-hint");
     ele.innerHTML = "Username should have minimum four characters";
     return;
@@ -633,6 +633,12 @@ joinCommunity.addEventListener("click", async (e) => {
       body: JSON.stringify(data),
     });
     if (response.status === 200) {
+      console.log(response);
+      if (response.message) {
+        const ele = document.querySelector("#username-hint");
+        ele.innerHTML = response.message;
+        return;
+      }
       const token = cookies.jwtToken;
       const { userId } = cookies;
       response = await fetch(`/welcome/${userId}`, {
