@@ -15,8 +15,8 @@ router.get("/signUp", (req, res) => {
   res.render("signUp", { title: "SignUp" });
 });
 
-router.get("/home", (req, res) => {
-  res.render("home", { title: "Home" });
+router.get("/welcome", (req, res) => {
+  res.render("welcome", { title: "Home" });
 });
 
 // establish database connection
