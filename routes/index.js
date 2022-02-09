@@ -89,7 +89,7 @@ router.post("/register", async (req, res) => {
     if (one.length > 0) {
       res
         .status(200)
-        .send({ status: "error", message: "username already exists" });
+        .json({ status: "error", message: "username already exists" });
       return;
     }
     const result = await User.create(user);

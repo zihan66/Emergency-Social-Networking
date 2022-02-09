@@ -632,22 +632,21 @@ joinCommunity.addEventListener("click", async (e) => {
       },
       body: JSON.stringify(data),
     });
-    if (response.status === 200) {
-      console.log(response);
-      if (response.message) {
-        const ele = document.querySelector("#username-hint");
-        ele.innerHTML = response.message;
-        return;
-      }
-      const token = cookies.jwtToken;
-      const { userId } = cookies;
-      response = await fetch(`/welcome/${userId}`, {
-        method: "get",
-        headers: {
-          Authorization: token,
-        },
-      });
+    response = await response.json();
+    if (response.status === "error") {
+      console.log(response.message);
+      const ele = document.querySelector("#username-hint");
+      ele.innerHTML = response.message;
+      return;
     }
+    const token = cookies.jwtToken;
+    const { userId } = cookies;
+    response = await fetch(`/welcome/${userId}`, {
+      method: "get",
+      headers: {
+        Authorization: token,
+      },
+    });
   } catch (err) {
     console.error(err);
   }
