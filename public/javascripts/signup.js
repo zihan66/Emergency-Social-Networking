@@ -640,8 +640,7 @@ joinCommunity.addEventListener("click", async (e) => {
       return;
     }
 
-    const token = cookies.jwtToken;
-    console.log(token);
+    // const token = cookies.jwtToken;
     // response = await fetch("/welcome", {
     //   method: "get",
     //   headers: {
