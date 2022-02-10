@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
@@ -69,7 +70,7 @@ router.post("/login", async (req, res) => {
             return;
           }
           res.status(200).send({ status: "success", token });
-        }
+        },
       );
     } else {
       res
@@ -117,16 +118,49 @@ router.post("/register", async (req, res) => {
     const one = await User.find({ username: user.username });
     console.log(one);
     if (one.length > 0) {
-      res
-        .status(200)
-        .send({ status: "error", message: "username already exists" });
+      res.json({
+        status: 200,
+        message: "user has already exists",
+      });
+      // .status(200)
+      // .json({ status: "error", message: "username already exists" });
       return;
     }
-    const result = await User.create(user);
-    res.status(200).send({ user: result });
+    const newUser = await User.create({
+      username: req.body.username,
+      password: req.body.password,
+    });
+    // res.status(200).send({ user: result });
+    const token = jwt.sign({
+      id: String(newUser._id),
+    }, process.env.TOKEN_SECRET, {expiresIn: "1h" });
+    res.json({
+      status: true,
+      jwtToken: token,
+    });
   } catch (e) {
     res.status(200).send({ error: "error" });
   }
+});
+
+const auth = async (req, res, next) => {
+  const token = String(req.headers.authorization).split(" ").pop();
+  jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
+    if (err) {
+      res.json({
+        status: false,
+        message: "token does not exist or has expired",
+      });
+    // eslint-disable-next-line no-empty
+    } else {
+      console.log(decoded);
+      next();
+    }
+  });
+};
+
+router.get("/welcome", auth, async (req, res) => {
+  res.send("welcome");
 });
 
 // check token
