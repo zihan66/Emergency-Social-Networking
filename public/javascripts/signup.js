@@ -633,7 +633,7 @@ joinCommunity.addEventListener("click", async (e) => {
       body: JSON.stringify(data),
     });
     response = await response.json();
-    if (response.status === "error") {
+    if (response.status === false) {
       console.log(response.message);
       const ele = document.querySelector("#username-hint");
       ele.innerHTML = response.message;
@@ -642,14 +642,14 @@ joinCommunity.addEventListener("click", async (e) => {
 
     const token = cookies.jwtToken;
     console.log(token);
-    response = await fetch("/welcome", {
-      method: "get",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    console.log(token);
-    // window.location.href = "/welcome";
+    // response = await fetch("/welcome", {
+    //   method: "get",
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // });
+    // console.log(token);
+    window.location.href = "/welcome";
   } catch (err) {
     console.error(err);
   }

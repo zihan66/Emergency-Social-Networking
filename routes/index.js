@@ -8,7 +8,10 @@ const resevedUsernameList = require("./reservedUsernameList");
 const router = express.Router();
 
 const auth = async (req, res, next) => {
-  const token = String(req.headers.authorization).split(" ").pop();
+  let token = String(req.headers.authorization).split(" ").pop();
+  if (token === "undefined") {
+    token = req.cookies.jwtToken;
+  }
   jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
     if (err) {
       res.json({
@@ -97,7 +100,7 @@ router.post("/login", async (req, res) => {
 // TODO send json
 
 // post user register page, given that the user is new
-router.post("/register", async (req, res) => {
+router.post("/register", async (req, res, next) => {
   const user = req.body;
   console.log("req: POST /register", user);
   try {
