@@ -639,14 +639,17 @@ joinCommunity.addEventListener("click", async (e) => {
       ele.innerHTML = response.message;
       return;
     }
+
     const token = cookies.jwtToken;
-    const { userId } = cookies;
-    response = await fetch(`/welcome/${userId}`, {
+    console.log(token);
+    response = await fetch("/welcome", {
       method: "get",
       headers: {
-        Authorization: token,
+        Authorization: `Bearer ${token}`,
       },
     });
+    console.log(token);
+    // window.location.href = "/welcome";
   } catch (err) {
     console.error(err);
   }

@@ -7,6 +7,22 @@ const resevedUsernameList = require("./reservedUsernameList");
 
 const router = express.Router();
 
+const auth = async (req, res, next) => {
+  const token = String(req.headers.authorization).split(" ").pop();
+  jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
+    if (err) {
+      res.json({
+        status: false,
+        message: "token does not exist or has expired",
+      });
+      // eslint-disable-next-line no-empty
+    } else {
+      console.log(decoded);
+      next();
+    }
+  });
+};
+
 /* GET home page. */
 router.get("/", (req, res) => {
   res.render("index", { title: "Login" });
@@ -16,7 +32,7 @@ router.get("/signUp", (req, res) => {
   res.render("signUp", { title: "SignUp" });
 });
 
-router.get("/welcome", (req, res) => {
+router.get("/welcome", auth, (req, res) => {
   res.render("welcome", { title: "Home" });
 });
 
@@ -66,7 +82,7 @@ router.post("/login", async (req, res) => {
             return;
           }
           res.status(200).send({ status: "success", token });
-        },
+        }
       );
     } else {
       res
@@ -101,9 +117,14 @@ router.post("/register", async (req, res) => {
       password: req.body.password,
     });
     // res.status(200).send({ user: result });
-    const token = jwt.sign({
-      id: String(newUser._id),
-    }, process.env.TOKEN_SECRET, {expiresIn: "1h" });
+    const token = jwt.sign(
+      {
+        id: String(newUser._id),
+      },
+      process.env.TOKEN_SECRET,
+      { expiresIn: "1h" }
+    );
+    res.cookie("jwtToken", token);
     res.json({
       status: true,
       jwtToken: token,
@@ -111,26 +132,6 @@ router.post("/register", async (req, res) => {
   } catch (e) {
     res.status(200).send({ error: "error" });
   }
-});
-
-const auth = async (req, res, next) => {
-  const token = String(req.headers.authorization).split(" ").pop();
-  jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
-    if (err) {
-      res.json({
-        status: false,
-        message: "token does not exist or has expired",
-      });
-    // eslint-disable-next-line no-empty
-    } else {
-      console.log(decoded);
-      next();
-    }
-  });
-};
-
-router.get("/welcome", auth, async (req, res) => {
-  res.send("welcome");
 });
 
 // check token
