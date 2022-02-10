@@ -13,3 +13,15 @@ const joinCommunity = document.getElementById("link-signup");
 joinCommunity.addEventListener("click", () => {
   window.location.href = "/signup";
 });
+
+const clickHamburger = () => {
+  const hamburger = document.querySelector(".links");
+  if (hamburger.style.display === "block") {
+    hamburger.style.display = "";
+  } else {
+    hamburger.style.display = "block";
+  }
+};
+
+const hamburger = document.getElementById("bar");
+hamburger.addEventListener("click", clickHamburger);

@@ -16,12 +16,8 @@ router.get("/signUp", (req, res) => {
   res.render("signUp", { title: "SignUp" });
 });
 
-// router.get("/register", (req, res) => {
-//   res.render("register", { title: "Register" });
-// });
-
-router.get("/home", (req, res) => {
-  res.render("home", { title: "Home" });
+router.get("/welcome", (req, res) => {
+  res.render("welcome", { title: "Home" });
 });
 
 // establish database connection
@@ -82,44 +78,18 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// TODO send json
+
 // post user register page, given that the user is new
 router.post("/register", async (req, res) => {
   const user = req.body;
   console.log("req: POST /register", user);
   try {
-    if (!user.username || !user.password) {
-      res
-        .status(200)
-        .send({ status: "error", message: "username or password is empty" });
-      return;
-    }
-    if (user.username.length < 4) {
-      res.status(200).send({
-        status: "error",
-        message: "username too short, should be at least 4 characters long.",
-      });
-      return;
-    }
-    if (resevedUsernameList.includes(user.username)) {
-      res.status(200).send({
-        status: "error",
-        message: "username is reserved, please choose another one.",
-      });
-      return;
-    }
-    if (user.password.length < 4) {
-      res.status(200).send({
-        status: "error",
-        message: "password too short, should be at least 4 characters long.",
-      });
-      return;
-    }
     user.username = user.username.toLowerCase();
     const one = await User.find({ username: user.username });
-    console.log(one);
     if (one.length > 0) {
       res.json({
-        status: 200,
+        status: false,
         message: "user has already exists",
       });
       // .status(200)
