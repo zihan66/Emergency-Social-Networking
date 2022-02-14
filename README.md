@@ -15,6 +15,10 @@ Install dependencies: `npm ci`
 
 To start, run `npm start`
 
+## API Spec
+
+https://go.postman.co/workspace/S2022-FSE-SA2~162f5e45-6077-4a43-b8f4-199b5c9f35c6/api/7639c18f-558b-4647-9372-c58f7e5e20a1
+
 ## Note:
 
 <br>YOU ARE _NOT_ PERMITTED TO SHARE THIS REPO OUTSIDE THIS GITHUB ORG.
