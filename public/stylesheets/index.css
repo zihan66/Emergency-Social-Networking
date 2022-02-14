@@ -1,0 +1,129 @@
+.home-wrapper {
+  height: 100%;
+}
+
+.ui.menu.header {
+  margin          : 0;
+  padding-left    : 10px;
+  padding-right   : 10px;
+  background-color: #24292f;
+  border-radius   : 0;
+}
+
+.header .right-items {
+  display    : inline-flex;
+  align-items: center;
+  height     : inherit;
+  position   : absolute;
+  right      : 10px;
+  font-size  : 3rem;
+}
+
+.header .ui.item {
+  height : inherit;
+  display: inline-flex !important;
+  color  : whitesmoke !important;
+}
+
+.header .left-items {
+  height  : inherit;
+  display : inline-block;
+  position: absolute;
+  left    : 0;
+}
+
+.header {
+  height: 80px;
+}
+
+.rounded-image {
+  width       : 60px;
+  height      : 60px;
+  margin-right: 10px;
+}
+
+.bars {
+  color: whitesmoke;
+}
+
+.hamburger-menu {
+  overflow: hidden;
+}
+
+.links {
+  display         : none;
+  color           : whitesmoke;
+  background-color: rgb(108, 114, 121);
+}
+
+.menu-item {
+  color          : white;
+  padding        : 14px 16px;
+  text-decoration: none;
+  font-size      : 1rem;
+  display        : block;
+}
+
+
+.main {
+  height                 : 100%;
+  background             : url("/background.jpg") no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size   : cover;
+  -o-background-size     : cover;
+  background-size        : cover;
+  /* display             : flex; */
+  /* justify-content     : center; */
+  /* align-items         : center; */
+}
+
+/* @media only screen and (min-width: 1600px) {
+  .main {
+    background-size: c
+  }
+} */
+
+.background-image {
+  width          : 100%;
+  height         : 25%;
+  display        : flex;
+  padding-top    : 4%;
+  justify-content: space-evenly;
+  background     : url("/black.png") no-repeat center center;
+  background-size: cover;
+}
+
+.image-item {
+  height       : 30vw;
+  width        : 30vw;
+  border-radius: 50%;
+}
+
+/* @media only screen and (max-width: 518px) {
+  .background-image {
+    flex-flow  : column;
+    align-items: center;
+  }
+
+  .image-item {
+    width : 30vw;
+    height: 30vh;
+  }
+} */
+
+.description {
+  display        : flex;
+  width          : 100%;
+  height         : 25%;
+  text-align     : center;
+  align-items    : center;
+  justify-content: center;
+  padding-left   : 5%;
+  padding-right  : 5%;
+  font-size      : 42px;
+  color          : rgba(233, 149, 52, 0.932);
+}
+
+footer {
+  position: relative;
+}

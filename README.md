@@ -15,6 +15,10 @@ Install dependencies: `npm ci`
 
 To start, run `npm start`
 
+## API Spec
+
+https://docs.google.com/spreadsheets/d/1mK4TGJzJDAB8AwUz_0kO4UJhLFMTMmq2PlZ5Uz8OYj8/edit#gid=1001548426
+
 ## Note:
 
 <br>YOU ARE _NOT_ PERMITTED TO SHARE THIS REPO OUTSIDE THIS GITHUB ORG.
