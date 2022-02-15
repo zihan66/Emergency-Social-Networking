@@ -3,12 +3,11 @@
 }
 
 footer {
-  position        : absolute;
-  bottom          : 0;
-  width           : 100%;
-  text-align      : center;
-  padding-top     : 2rem;
-  font-weight     : 900;
-  color           : whitesmoke;
-  background-image: url("/black.png");
+  position   : absolute;
+  bottom     : 0;
+  width      : 100%;
+  text-align : center;
+  padding-top: 2rem;
+  font-weight: 900;
+  color      : whitesmoke;
 }
