@@ -7,11 +7,12 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     set(val) {
-      return bcrypt.hashSync(val, 10);
+      return bcrypt.hashSync(val, 6);
     },
     trim: true,
   }, // trim: true will remove all leading and trailing spaces
 });
 
 // current user
-module.exports = { userSchema };
+const User = mongoose.model("User", userSchema);
+module.exports = User;

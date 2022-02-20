@@ -631,21 +631,21 @@ confirmButton.addEventListener("click", async (e) => {
   modal.style.display = "none";
   const data = { username, password };
   try {
-    let response = await fetch("/register", {
+    const response = await fetch("/users", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
-    response = await response.json();
-    if (response.status === false) {
-      console.log(response.message);
+    if (response.status === 405) {
       const ele = document.querySelector("#username-hint");
-      ele.innerHTML = response.message;
+      ele.innerHTML = "user has already exists";
       return;
     }
-    window.location.href = "/welcome";
+    if (response.status === 201) {
+      window.location.href = response.headers.get("Location");
+    }
   } catch (err) {
     console.error(err);
   }
