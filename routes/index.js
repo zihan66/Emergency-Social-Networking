@@ -13,8 +13,12 @@ router.get("/signUp", (req, res) => {
   res.render("signUp", { title: "SignUp" });
 });
 
+router.get("/publicWall", (req, res) => {
+  res.render("publicWall", { title: "publicWall" });
+});
+
 router.get("/welcome", auth, (req, res) => {
-  res.render("welcome", { title: "Home" });
+  res.render("/welcome");
 });
 
 router.post("/users", joinController.join);

@@ -602,7 +602,6 @@ const reservedUsernameList = [
   "yourusername",
 ];
 
-const { cookies } = brownies;
 const joinCommunity = document.querySelector(".button");
 // Get the modal
 const modal = document.querySelector(".modal-wrapper");

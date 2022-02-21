@@ -23,6 +23,7 @@
     "mongoose-url-slugs": "^1.0.2",
     "morgan": "~1.10.0",
     "node-sass": "^7.0.1",
+    "paginationjs": "^2.1.5",
     "serve-favicon": "~2.5.0"
   },
   "devDependencies": {
