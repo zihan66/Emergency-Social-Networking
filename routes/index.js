@@ -1,5 +1,6 @@
 const express = require("express");
 const joinController = require("../controllers/joinController");
+const publicMessageController = require("../controllers/publicMessageController");
 const auth = require("../middleware/auth");
 
 const router = express.Router();
@@ -17,6 +18,7 @@ router.get("/publicWall", (req, res) => {
   res.render("publicWall", { title: "publicWall" });
 });
 
+router.post("/messages/public", publicMessageController.createNewPublicMessage);
 router.get("/welcome", auth, (req, res) => {
   res.render("/welcome");
 });

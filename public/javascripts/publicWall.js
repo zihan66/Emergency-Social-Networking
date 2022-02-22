@@ -8,7 +8,12 @@ const fakeData = [
 ];
 
 const msgContainer = document.querySelector(".message-container");
+const msgList = document.querySelector(".message-list");
+const infScroll = new InfiniteScroll(msgList);
 const { cookies } = brownies;
+// eslint-disable-next-line no-undef
+const socket = io();
+
 const getAllMessages = async () => {
   try {
     const response = await fetch("/messages/public", {
@@ -23,12 +28,14 @@ const getAllMessages = async () => {
   }
 };
 
-const appendSingleMessage = (message) => {
+const addSingleMessage = (message, before) => {
   const { content, username, status, timeStamp } = message;
 
   const item = document.createElement("li");
-  const recStatus =
-    status === "OK" ? "green" : status === "Help" ? "yellow" : "red";
+  let recStatus = "";
+  if (status === "OK") recStatus = "green";
+  else if (status === "Help") recStatus = "yellow";
+  else if (status === "Emergency") recStatus = "red";
   if (username === cookies.username) item.className = "self-message";
   else item.className = "other-message";
   item.innerHTML = `${content}
@@ -36,17 +43,47 @@ const appendSingleMessage = (message) => {
     username === cookies.username ? "you" : username
   } </span>`;
   const p = document.createElement("p");
-  p.innerHTML = ` in
-  <span class="${recStatus}"></span>
-  situation`;
+  p.innerHTML = `${username}'s status is ${status}
+  <span class="${recStatus}"></span>`;
   item.appendChild(p);
   item.innerHTML += `<span class="time-stamp">${timeStamp}</span>`;
-  msgContainer.appendChild(item);
+  if (before === false) msgContainer.appendChild(item);
+  else msgContainer.insertBefore(item, msgContainer.firstChild);
 };
 
 const appendPreviousMessages = (messages) => {
-  messages.map(appendSingleMessage);
+  messages.map(addSingleMessage, true);
 };
+
+socket.on("publicMessage", (message) => {
+  addSingleMessage(message, true);
+  msgContainer.scrollTop = 0;
+});
+
+const sendButton = document.getElementById("msg-button");
+sendButton.addEventListener("click", async (e) => {
+  const msgInput = document.getElementById("msg");
+  const msgContent = msgInput.value;
+  const { username } = cookies;
+  e.preventDefault();
+  e.stopPropagation();
+  if (!msgContent) return;
+  msgInput.value = "";
+  const requestBody = { username, content: msgContent };
+  try {
+    const response = await fetch("/messages/public", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${cookies.jwtToken}`,
+      },
+      body: JSON.stringify(requestBody),
+    });
+  } catch (error) {
+    console.error(error);
+  }
+  msgInput.focus();
+});
 
 window.addEventListener("load", () => {
   appendPreviousMessages(fakeData);
