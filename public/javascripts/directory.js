@@ -4,22 +4,9 @@ const { cookies } = brownies;
 // eslint-disable-next-line no-undef
 const socket = io();
 
-const getAllUsers = async () => {
-  try {
-    const response = await fetch("/users", {
-      method: "get",
-      headers: {
-        Authorization: `Bearer ${cookies.jwtToken}`,
-      },
-    });
-    const data = response.json();
-    return data;
-  } catch (err) {
-    console.error(err);
-  }
-};
+const getAllUsers = async () => {};
 
-const addSingleUser = (user, before) => {
+const addSingleUser = (user) => {
   const { username, status, isLogin } = user;
 
   const item = document.createElement("li");
@@ -39,12 +26,12 @@ const addSingleUser = (user, before) => {
     <span class=${recStatus}></span>
     situation
 </span>`;
-  if (before === false) userList.appendChild(item);
-  else userList.insertBefore(item, directoryContainer.firstChild);
+  userList.appendChild(item);
 };
 
 const appendAllUsers = (users) => {
-  users.map(addSingleUser, true);
+  console.log(users);
+  users.map(addSingleUser);
 };
 
 socket.on("userList", (users) => {
@@ -53,6 +40,42 @@ socket.on("userList", (users) => {
   directoryContainer.scrollTop = 0;
 });
 
-window.addEventListener("load", () => {
-  appendAllUsers(getAllUsers());
+window.addEventListener("load", async () => {
+  try {
+    const response = await fetch("/users", {
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${cookies.jwtToken}`,
+      },
+    });
+    const data = await response.json();
+    appendAllUsers(data);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+const logout = document.querySelector("#logout");
+logout.addEventListener("click", async (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  const { username } = cookies;
+  try {
+    const response = await fetch(`/users/${username}/offline`, {
+      method: "put",
+      headers: {
+        Authorization: `Bearer ${cookies.jwtToken}`,
+      },
+    });
+    window.location.href = "/";
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+const publicButton = document.querySelector("#go-to");
+publicButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  window.location.href = "/publicWall";
 });

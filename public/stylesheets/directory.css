@@ -32,6 +32,13 @@
   border: none;
 }
 
+#publicWall {
+  height: 2rem;
+  border-radius: 8px;
+  color: rgb(216, 224, 215);
+  border: none;
+}
+
 .header1 {
   display: inline-block;
   font-size: 22px;

@@ -1,12 +1,3 @@
-const fakeData = [
-  {
-    content: "lareom laroeam",
-    username: "Zihan",
-    status: "OK",
-    timeStamp: "Jan 16th 22, 8:56:05 ",
-  },
-];
-
 const msgContainer = document.querySelector(".message-container");
 const msgList = document.querySelector(".message-list");
 const infScroll = new InfiniteScroll(msgList);
@@ -29,24 +20,26 @@ const getAllMessages = async () => {
 };
 
 const addSingleMessage = (message, before) => {
-  const { content, username, status, timeStamp } = message;
+  const { content, author, deliveryStatus, postedAt } = message;
 
   const item = document.createElement("li");
   let recStatus = "";
-  if (status === "OK") recStatus = "green";
-  else if (status === "Help") recStatus = "yellow";
-  else if (status === "Emergency") recStatus = "red";
-  if (username === cookies.username) item.className = "self-message";
+  if (deliveryStatus === "OK") recStatus = "green";
+  else if (deliveryStatus === "Help") recStatus = "yellow";
+  else if (deliveryStatus === "Emergency") recStatus = "red";
+  if (author === cookies.username) item.className = "self-message";
   else item.className = "other-message";
   item.innerHTML = `${content}
   <span class="username">Sent by ${
-    username === cookies.username ? "you" : username
+    author === cookies.username ? "you" : author
   } </span>`;
   const p = document.createElement("p");
-  p.innerHTML = `${username}'s status is ${status}
+  p.innerHTML = `${author}'s status is ${deliveryStatus}
   <span class="${recStatus}"></span>`;
   item.appendChild(p);
-  item.innerHTML += `<span class="time-stamp">${timeStamp}</span>`;
+  item.innerHTML += `<span class="time-stamp">${moment(postedAt).format(
+    "MMM Do YY, h:mm:ss"
+  )}</span>`;
   if (before === false) msgContainer.appendChild(item);
   else msgContainer.insertBefore(item, msgContainer.firstChild);
 };
@@ -85,7 +78,24 @@ sendButton.addEventListener("click", async (e) => {
   msgInput.focus();
 });
 
-window.addEventListener("load", () => {
-  // appendPreviousMessages(fakeData);
-  getAllMessages();
+window.addEventListener("load", async () => {
+  try {
+    const response = await fetch("/messages/public", {
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${cookies.jwtToken}`,
+      },
+    });
+    const data = await response.json();
+    appendPreviousMessages(data);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+const leave = document.querySelector("#leave");
+leave.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  window.location.href = "/directory";
 });

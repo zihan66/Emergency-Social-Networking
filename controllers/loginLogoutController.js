@@ -75,13 +75,12 @@ class loginLogoutController {
     const io = req.app.get("socketio");
     console.log("req: POST /logout", user);
     try {
-      user.username = user.username.toLowerCase();
       let result = await User.findOne({ username: user.username });
       if (result) {
-        await User.updateOne({ username: user.username }, { islogin: false });
+        await User.updateOne({ username: user.username }, { isLogin: false });
 
         result = await User.find();
-
+        console.log;
         let onlineUsers = await User.find({ isLogin: true }).sort({
           username: 1,
         });
@@ -93,7 +92,7 @@ class loginLogoutController {
           const { username: name, isLogin } = user;
           return { username: name, isLogin };
         });
-        
+
         io.emit("userList", filteredUserList);
         res.clearCookie("jwtToken");
         res.clearCookie("username");
@@ -106,10 +105,8 @@ class loginLogoutController {
     }
   }
 
-
   static async getAllUsers(req, res) {
     try {
-      
       const result = await User.find();
 
       let onlineUsers = await User.find({ isLogin: true }).sort({
@@ -123,14 +120,12 @@ class loginLogoutController {
         const { username: name, isLogin } = user;
         return { username: name, isLogin };
       });
-      
+      console.log(filteredUserList);
       res.status(200).json(filteredUserList);
     } catch (error) {
       console.log(error);
     }
   }
-
-
 }
 
 module.exports = loginLogoutController;
