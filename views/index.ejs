@@ -1,0 +1,40 @@
+<link rel="stylesheet" href="/stylesheets/index.css" />
+<div class="home-wrapper">
+  <div class="ui menu header">
+    <div class="left-items">
+      <div class="ui item">
+        <img class="ui rounded-image" src="/images/logo.png" />
+        Emergency SN
+      </div>
+    </div>
+    <div class="right-items">
+      <i class="bars icon" id="bar"></i>
+    </div>
+  </div>
+  <div class="hamburger-menu">
+    <div class="links">
+      <a href="#about" class="menu-item">About Us</a>
+      <!-- <span class="ui item menu-item">Login</span> -->
+      <div class="menu-item">
+        <button class="ui inverted whitesmoke button" id="link-login">
+          Login
+        </button>
+      </div>
+      <div class="menu-item">
+        <button class="ui inverted whitesmoke button" id="link-signup">
+          Join Community
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="background-image">
+    <img class="image-item" src="/images/snow.png" />
+    <img class="image-item" src="/images/flood.png" />
+    <img class="image-item" src="/images/earthquake.png" />
+  </div>
+  <div class="main">
+    <h1 class="description" id="type-writer"></h1>
+  </div>
+  <%- include('footer.ejs') %>
+  <script src="/javascripts/index.js"></script>
+</div>

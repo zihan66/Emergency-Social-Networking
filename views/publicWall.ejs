@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="/stylesheets/publicWall.css" />
+<div class="public-wall-wrapper">
+  <header class="chat-header">
+    <span class="header1">Public Wall</span>
+    <button id="leave" class="ui inverted button compact">
+      Back to Directory
+    </button>
+  </header>
+  <div class="message-container">
+    <ul class="message-list">
+      <li class="other-message">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+        nulla a id hic culpa amet facilis nam consectetur, nobis temporibus
+        quis, commodi eum vitae possimus eligendi rerum reiciendis. Quasi, odio.
+        <span class="username">Sent by Zihan</span>
+        <p>
+          in
+          <span class="green"></span>
+          situation
+        </p>
+        <span class="time-stamp">Jan 25th 12: 45</span>
+      </li>
+    </ul>
+  </div>
+  <div class="input-area-container">
+    <textarea id="msg"></textarea>
+    <button id="msg-button">
+      <i class="paper plane outline icon"></i>
+    </button>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/brownies"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.min.js"></script>
+  <script src="/javascripts/publicWall.js"></script>
+</div>
