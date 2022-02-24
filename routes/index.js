@@ -1,7 +1,7 @@
 const express = require("express");
 const joinController = require("../controllers/joinController");
 const publicMessageController = require("../controllers/publicMessageController");
-const auth = require("../middleware/auth");
+const auth = require("../middlewares/auth");
 
 const router = express.Router();
 
