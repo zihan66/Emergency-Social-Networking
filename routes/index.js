@@ -14,17 +14,13 @@ router.get("/signUp", (req, res) => {
   res.render("signUp", { title: "SignUp" });
 });
 
-router.get("/publicWall", auth, (req, res) => {
+router.get("/publicWall", (req, res) => {
   res.render("publicWall", { title: "publicWall" });
 });
 
-router.post(
-  "/messages/public",
-  auth,
-  publicMessageController.createNewPublicMessage
-);
-router.get("/messages/public", auth, publicMessageController.getPublicMessage);
-router.get("/welcome", auth, (req, res) => {
+router.post("/messages/public", publicMessageController.createNewPublicMessage);
+router.get("/messages/public", publicMessageController.getPublicMessage);
+router.get("/welcome", (req, res) => {
   res.render("welcome");
 });
 
@@ -32,7 +28,7 @@ router.get("/login", (req, res) => {
   res.render("login", { title: "login" });
 });
 
-router.get("/directory", auth, (req, res) => {
+router.get("/directory", (req, res) => {
   res.render("directory", { title: "directory" });
 });
 
@@ -41,9 +37,9 @@ router.put(
   auth,
   joinController.acknowledge
 );
-router.put("/users/:username/online", auth, loginLogoutController.login);
-router.put("/users/:username/offline", auth, loginLogoutController.logout);
-router.get("/users", auth, loginLogoutController.getAllUsers);
-router.post("/users", auth, joinController.join);
+router.put("/users/:username/online", loginLogoutController.login);
+router.put("/users/:username/offline", loginLogoutController.logout);
+router.get("/users", loginLogoutController.getAllUsers);
+router.post("/users", joinController.join);
 
 module.exports = router;
