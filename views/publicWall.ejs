@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="/stylesheets/publicWall.css" />
+<div class="public-wall-wrapper">
+  <header class="chat-header">
+    <span class="header1">Public Wall</span>
+    <button id="leave" class="ui inverted button compact">
+      Back to Directory
+    </button>
+  </header>
+  <div class="message-container">
+    <ul class="message-list"></ul>
+  </div>
+  <div class="input-area-container">
+    <textarea id="msg"></textarea>
+    <button id="msg-button">
+      <i class="paper plane outline icon"></i>
+    </button>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/brownies"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://momentjs.com/downloads/moment.js"></script>
+  <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.min.js"></script>
+  <script src="/javascripts/publicWall.js"></script>
+</div>

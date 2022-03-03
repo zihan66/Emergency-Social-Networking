@@ -5,6 +5,7 @@ const favicon = require("serve-favicon");
 const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 const index = require("./routes/index");
 
@@ -22,7 +23,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-
+// establish database connection
+mongoose.connect("mongodb://localhost:27017/citizen");
 app.use("/", index);
 
 // catch 404 and forward to error handler

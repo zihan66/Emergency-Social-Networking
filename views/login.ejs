@@ -1,17 +1,17 @@
-<link rel="stylesheet" href="/stylesheets/signup.css" />
-<div class="signup-container">
+<link rel="stylesheet" href="/stylesheets/login.css" />
+<div class="login-container">
   <div class="title">
     <img class="ui rounded-image" src="/images/logo.png" />
     <h1>Emergency SN</h1>
   </div>
-  <div class="signup-form">
+  <div class="login-form">
     <form class="ui form">
       <div class="field">
         <label>Username</label>
         <input
           type="text"
           name="username"
-          placeholder="Username (at least 3 characters)"
+          placeholder="Enter username"
           autocomplete
         />
         <span id="username-hint"></span>
@@ -21,21 +21,18 @@
         <input
           type="password"
           name="password"
-          placeholder="Password (at least 4 characters)"
+          placeholder="Enter Password"
           autocomplete
         />
         <span id="password-hint"></span>
       </div>
       <button class="ui right labeled icon button" type="submit">
         <i class="arrow right icon"></i>
-        Confirm Joining
+        Login
       </button>
     </form>
-    <div class="form-footer">
-      <span>Already have an account?</span>
-      <a href="/login">Login</a>
-    </div>
   </div>
-  <%- include('modal.ejs') %> <%- include('footer.ejs') %>
-  <script type="module" src="/javascripts/signup.js"></script>
+  <%- include('footer.ejs') %>
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="module" src="/javascripts/login.js"></script>
 </div>

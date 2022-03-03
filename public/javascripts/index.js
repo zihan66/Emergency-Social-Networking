@@ -14,6 +14,11 @@ joinCommunity.addEventListener("click", () => {
   window.location.href = "/signup";
 });
 
+const login = document.getElementById("link-login");
+login.addEventListener("click", () => {
+  window.location.href = "/login";
+});
+
 const clickHamburger = () => {
   const hamburger = document.querySelector(".links");
   if (hamburger.style.display === "block") {
