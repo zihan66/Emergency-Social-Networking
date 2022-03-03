@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
-
 // establish database connection
 const messageSchema = new mongoose.Schema({
-  message: { type: String, default: "", trim: true },
-  username: { type: String, default: "", trim: true },
-  time: { type: String, default: "", trim: true },
+  content: { type: String, default: "", trim: true }, // trim: true will remove all leading and trailing spaces
+  author: { type: String, trim: true }, // trim: true will remove all leading and trailing spaces
+  postedAt: { type: String },
+  deliveryStatus: { type: String },
 });
 
+// current user
 const Message = mongoose.model("Message", messageSchema);
+
 module.exports = Message;

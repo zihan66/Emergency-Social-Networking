@@ -11,6 +11,12 @@ const userSchema = new mongoose.Schema({
     },
     trim: true,
   }, // trim: true will remove all leading and trailing spaces
+  isLogin: {
+    type: Boolean,
+    default: false,
+  },
+  isAcknowledge: { type: Boolean, default: false },
+  lastStatusCode: { type: String, default: "unknown" },
 });
 
 // current user
