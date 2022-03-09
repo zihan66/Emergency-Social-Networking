@@ -5,6 +5,8 @@ module.exports = {
     commonjs: true,
     es2021: true,
     jquery: true,
+    jest: true,
+    brownies: true,
   },
   extends: ["airbnb-base"],
   parserOptions: {
