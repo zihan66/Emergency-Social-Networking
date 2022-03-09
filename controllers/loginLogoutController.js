@@ -4,6 +4,9 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
 
+const Chat = require("../models/chat");
+
+
 class loginLogoutController {
   static async login(req, res) {
     try {
@@ -80,7 +83,7 @@ class loginLogoutController {
         await User.updateOne({ username: user.username }, { isLogin: false });
 
         result = await User.find();
-        console.log;
+
         let onlineUsers = await User.find({ isLogin: true }).sort({
           username: 1,
         });
@@ -107,18 +110,29 @@ class loginLogoutController {
 
   static async getAllUsers(req, res) {
     try {
-      const result = await User.find();
+      const onlineUsers = await User.find({ isLogin: true }).sort({
+        username: 1,
+      });
+      const offlineUsers = await User.find({ isLogin: false }).sort({
+        username: 1,
+      });
 
-      let onlineUsers = await User.find({ isLogin: true }).sort({
-        username: 1,
-      });
-      let offlineUsers = await User.find({ isLogin: false }).sort({
-        username: 1,
-      });
+      const CurUser = req.cookies.username;
+      const chats = await Chat.find({
+        $and: [
+          {
+            $or: [{ username1: CurUser }, { username2: CurUser }],
+          },
+        ] }
+      ) || [];
       const wholeUserList = onlineUsers.concat(offlineUsers);
       const filteredUserList = wholeUserList.map((user) => {
         const { username: name, isLogin } = user;
-        return { username: name, isLogin };
+        const chat =  chats.find(
+          (e) => (e.username2 === name && e.username1 === CurUser)
+              || (e.username1 === name && e.username2 === CurUser),
+        ) || {};
+        return { username: name, isLogin, chatId: chat.chatID };
       });
       console.log(filteredUserList);
       res.status(200).json(filteredUserList);

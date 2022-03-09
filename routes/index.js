@@ -1,7 +1,6 @@
 const express = require("express");
 const joinController = require("../controllers/joinController");
 const loginLogoutController = require("../controllers/loginLogoutController");
-const publicMessageController = require("../controllers/publicMessageController");
 const auth = require("../middlewares/auth");
 
 const router = express.Router();
@@ -18,8 +17,10 @@ router.get("/publicWall", (req, res) => {
   res.render("publicWall", { title: "publicWall" });
 });
 
-router.post("/messages/public", publicMessageController.createNewPublicMessage);
-router.get("/messages/public", publicMessageController.getPublicMessage);
+router.get("/privateWall", (req, res) => {
+  res.render("privateWall", { title: "privateWall" });
+});
+
 router.get("/welcome", (req, res) => {
   res.render("welcome");
 });

@@ -1,22 +1,16 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const  = require("../models/user");
-const { messageSchema } = require("../models/message");
+const { Message } = require("../models/message");
 
 const router = express.Router();
 
 // establish database connection
-mongoose.connect("mongodb://127.0.0.1:27017/citizen");
-
-// current user
-const User = mongoose.model("User", userSchema);
-const Message = mongoose.model("Message", messageSchema);
-
 
 router.get("/chatlist", async (req, res) => {
   try {
     const result = await Message.find();
+    // eslint-disable-next-line no-array-constructor
     let temp = new Array();
+    // eslint-disable-next-line no-plusplus
     for (let i = 0; i < result.length; i++) {
       temp.push({
         message: result[i].message,

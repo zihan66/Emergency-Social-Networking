@@ -6,10 +6,23 @@ const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const http = require("http");
+const socketIo = require("socket.io");
 
 const index = require("./routes/index");
+const chat = require("./routes/chat");
+const message = require("./routes/msgRouter");
+const User = require("./models/user");
 
 const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
+
+io.on("connection", (socket) => {
+  socket.on("message", async () => {
+
+  });
+});
 
 // view engine setup
 app.use(expressLayouts);
@@ -24,8 +37,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 // establish database connection
-mongoose.connect("mongodb://localhost:27017/citizen");
+mongoose.connect("mongodb://localhost:35314/citizen");
+
 app.use("/", index);
+app.use("/", chat);
+app.use("/", message);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

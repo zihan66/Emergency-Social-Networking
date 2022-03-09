@@ -9,7 +9,7 @@ class JoinController {
       const { username, password } = req.body;
       const io = req.app.get("socketio");
       const existedUser = await User.findOne({
-        username,
+        username: username.toLowerCase(),
       });
       if (existedUser) {
         res.status(405).json({
@@ -19,7 +19,7 @@ class JoinController {
       }
 
       const newUser = await User.create({
-        username,
+        username: username.toLowerCase(),
         password,
       });
       const token = jwt.sign(
