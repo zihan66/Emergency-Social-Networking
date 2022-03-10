@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const expressLayouts = require("express-ejs-layouts");
@@ -24,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 // establish database connection
-mongoose.connect("mongodb://localhost:27017/citizen");
+mongoose.connect(process.env.DATABASE);
 app.use("/", index);
 
 // catch 404 and forward to error handler
