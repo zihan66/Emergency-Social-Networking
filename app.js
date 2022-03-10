@@ -37,7 +37,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 // establish database connection
-mongoose.connect("mongodb://localhost:35314/citizen");
+mongoose.connect("mongodb://localhost:27017/citizen");
 
 app.use("/", index);
 app.use("/", chat);
