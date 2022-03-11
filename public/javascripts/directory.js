@@ -4,8 +4,6 @@ const { cookies } = brownies;
 // eslint-disable-next-line no-undef
 const socket = io();
 
-const getAllUsers = async () => {};
-
 const addSingleUser = (user) => {
   const { username, status, isLogin } = user;
 
