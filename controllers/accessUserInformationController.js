@@ -14,7 +14,7 @@ class accessUserInformationController {
       const userIsLogin = user.isLogin;
       const userLastStatus = user.lastStatusCode;
       const userUsername = user.username;
-      const userLastUpdateTime = user.lastStatusUpdateTime;
+      // const userLastUpdateTime = user.lastStatusUpdateTime;
       // merge into a list
       const userInformationList = {userUsername, userIsLogin, userLastStatus, userLastUpdateTime};
       console.log(userInformationList);
@@ -32,16 +32,16 @@ class accessUserInformationController {
   //     let result = await User.findOne({ username: user.username });
   //     if (result) {
   //       if (user.lastStatusCode === "red"){
-  //         await User.updateOne({ username: user.username }, { lastStatusCode: "red", lastStatusUpdateTime: "unknown-updated" });
+  //         await User.updateOne({ username: user.username }, { lastStatusCode: "red"  });
   //       }
   //       else if (user.lastStatusCode === "green"){
-  //         await User.updateOne({ username: user.username }, { lastStatusCode: "green", lastStatusUpdateTime: "unknown-updated" });
+  //         await User.updateOne({ username: user.username }, { lastStatusCode: "green" });
   //       }
   //       else if (user.lastStatusCode === "yellow"){
-  //         await User.updateOne({ username: user.username }, { lastStatusCode: "yellow", lastStatusUpdateTime: "unknown-updated" });
+  //         await User.updateOne({ username: user.username }, { lastStatusCode: "yellow" });
   //       }
   //       else if (user.lastStatusCode === "grey"){
-  //         await User.updateOne({ username: user.username }, { lastStatusCode: "grey", lastStatusUpdateTime: "unknown-updated" });
+  //         await User.updateOne({ username: user.username }, { lastStatusCode: "grey" });
   //       }
   //       res.status(200).json({});
   //     }
