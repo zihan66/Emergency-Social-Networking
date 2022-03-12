@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
   },
   isAcknowledge: { type: Boolean, default: false },
   lastStatusCode: { type: String, default: "unknown" },
+  // lastStatusUpdateTime: {type: String, default: "unknownTime"},
 });
 
 userSchema.statics.findAllUsers = async function () {
@@ -28,8 +29,8 @@ userSchema.statics.findAllUsers = async function () {
   });
   const wholeUserList = onlineUsers.concat(offlineUsers);
   const filteredUserList = wholeUserList.map((user) => {
-    const { username: name, isLogin } = user;
-    return { username: name, isLogin };
+    const { username: name, isLogin, lastStatusCode } = user;
+    return { username: name, isLogin, lastStatusCode };
   });
   return filteredUserList;
 };
