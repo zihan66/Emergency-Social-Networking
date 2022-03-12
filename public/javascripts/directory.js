@@ -120,8 +120,8 @@ hamburger2.addEventListener("click", clickHamburger2);
 //   const username = document.forms[0].querySelectorAll("input")[0].value;
 //   const password = document.forms[0].querySelectorAll("input")[1].value;
 //   const lastStatusCode = document.forms[0].querySelectorAll("input")[2].value;
-//   const lastStatusUpdateTime = document.forms[0].querySelectorAll("input")[3].value;
-//   const data = { username, password, lastStatusCode, lastStatusUpdateTime };
+//   
+//   const data = { username, password, lastStatusCode };
 //   try {
 //     const response = await fetch(`/users/${userName}/status/${lastStatusCode}`, {
 //       method: "put",
