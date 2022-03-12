@@ -5,6 +5,7 @@ const { cookies } = brownies;
 const socket = io();
 const pathname = document.URL.split("/");
 const chatId = pathname[pathname.length - 1];
+let another = "";
 console.log(`/messages/private?chat_id=${chatId}`);
 
 const getCorrectStatusSpan = (deliveryStatus) => {
@@ -167,7 +168,7 @@ sendButton.addEventListener("click", async (e) => {
   e.stopPropagation();
   if (!msgContent) return;
   msgInput.value = "";
-  const requestBody = { author: username, content: msgContent, target };
+  const requestBody = { author: username, content: msgContent, target: another };
   try {
     const response = await fetch("/messages/private", {
       method: "post",
@@ -187,7 +188,6 @@ window.addEventListener("load", async () => {
   try {
     // const chatInfo = await getChatInfo();
     const chatInfo = ["zihan", "pinzhi"];
-    let another = "";
     for (const username of chatInfo) {
       if (username != cookies.username) another = username;
     }
