@@ -42,4 +42,4 @@ class accessUserInformationController {
   }
 
 }
-module.exports = accessUserInformationController;
+module.exports = accessUserInformationController; //shareStatus
