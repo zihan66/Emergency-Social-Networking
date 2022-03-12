@@ -5,20 +5,6 @@ const { cookies } = brownies;
 // eslint-disable-next-line no-undef
 const socket = io();
 
-const getAllMessages = async () => {
-  try {
-    const response = await fetch("/messages/public", {
-      method: "get",
-      headers: {
-        Authorization: `Bearer ${cookies.jwtToken}`,
-      },
-    });
-    const data = response.json();
-  } catch (err) {
-    console.error(err);
-  }
-};
-
 const addSingleMessage = (message, before) => {
   const { content, author, deliveryStatus, postedAt } = message;
 
@@ -40,8 +26,8 @@ const addSingleMessage = (message, before) => {
   item.innerHTML += `<span class="time-stamp">${moment(postedAt).format(
     "MMM Do YY, h:mm:ss"
   )}</span>`;
-  if (before === false) msgContainer.appendChild(item);
-  else msgContainer.insertBefore(item, msgContainer.firstChild);
+  if (before === false) msgList.appendChild(item);
+  else msgList.insertBefore(item, msgList.firstChild);
 };
 
 const appendPreviousMessages = (messages) => {

@@ -1,7 +1,7 @@
 const express = require("express");
-const joinController = require("../controllers/joinController");
-const loginLogoutController = require("../controllers/loginLogoutController");
-const publicMessageController = require("../controllers/publicMessageController");
+const userRoute = require("./user");
+const messageRouter = require("./message");
+
 const auth = require("../middlewares/auth");
 
 const router = express.Router();
@@ -14,13 +14,11 @@ router.get("/signUp", (req, res) => {
   res.render("signUp", { title: "SignUp" });
 });
 
-router.get("/publicWall", (req, res) => {
+router.get("/publicWall", auth, (req, res) => {
   res.render("publicWall", { title: "publicWall" });
 });
 
-router.post("/messages/public", publicMessageController.createNewPublicMessage);
-router.get("/messages/public", publicMessageController.getPublicMessage);
-router.get("/welcome", (req, res) => {
+router.get("/welcome", auth, (req, res) => {
   res.render("welcome");
 });
 
@@ -28,18 +26,15 @@ router.get("/login", (req, res) => {
   res.render("login", { title: "login" });
 });
 
-router.get("/directory", (req, res) => {
+router.get("/directory", auth, (req, res) => {
   res.render("directory", { title: "directory" });
 });
 
-router.put(
-  "/users/:username/acknowledgement",
-  auth,
-  joinController.acknowledge
-);
-router.put("/users/:username/online", loginLogoutController.login);
-router.put("/users/:username/offline", loginLogoutController.logout);
-router.get("/users", loginLogoutController.getAllUsers);
-router.post("/users", joinController.join);
+router.get("/chatroom/:chatid", (req, res) => {
+  res.render("chatRoom", { title: "chatRoom" });
+});
+
+router.use("/users", userRoute);
+router.use("/messages", messageRouter);
 
 module.exports = router;
