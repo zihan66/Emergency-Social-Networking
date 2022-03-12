@@ -12,8 +12,8 @@ const addSingleUser = (user) => {
   const item = document.createElement("li");
   let recStatus = "";
   if (status === "OK") recStatus = "green";
-  else if (status === "Help") recStatus = "yellow";
-  else if (status === "Emergency") recStatus = "red";
+  else if (status === "HELP") recStatus = "yellow";
+  else if (status === "EMERGENCY") recStatus = "red";
   else recStatus = "grey";
   item.className = "user";
   item.innerHTML = ` <span class="avat">
@@ -22,8 +22,7 @@ const addSingleUser = (user) => {
     <span class="username">${username}</span>
     <span class="online">${isLogin ? "online" : "offline"}</span>
     <span class="status">
-    in
-    <span class=${recStatus}></span>
+    in <img class="ui rounded-image" height="20" width="20" src="/images/${recStatus}.png" />
     situation
 </span>`;
   userList.appendChild(item);
@@ -115,12 +114,89 @@ const hamburger2 = document.getElementById("status-bar");
 hamburger2.addEventListener("click", clickHamburger2);
 
 
+const setGreyButton = document.querySelector("#setGreyButton");
+setGreyButton.addEventListener("click", async (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  const { username } = cookies;
+  const lastStatusCode = "UNKNOWN";
+  try {
+    const response = await fetch(`/users/${username}/status/${lastStatusCode}`, {
+      method: "put",
+      headers: {
+        Authorization: `Bearer ${cookies.jwtToken}`,
+      },
+    });
+    window.location.href = "/directory";
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+const setRedButton = document.querySelector("#setRedButton");
+setRedButton.addEventListener("click", async (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  const { username } = cookies;
+  const lastStatusCode = "EMERGENCY";
+  try {
+    const response = await fetch(`/users/${username}/status/${lastStatusCode}`, {
+      method: "put",
+      headers: {
+        Authorization: `Bearer ${cookies.jwtToken}`,
+      },
+    });
+    window.location.href = "/directory";
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+const setGreenButton = document.querySelector("#setGreenButton");
+setGreenButton.addEventListener("click", async (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  const { username } = cookies;
+  const lastStatusCode = "OK";
+  try {
+    const response = await fetch(`/users/${username}/status/${lastStatusCode}`, {
+      method: "put",
+      headers: {
+        Authorization: `Bearer ${cookies.jwtToken}`,
+      },
+    });
+    window.location.href = "/directory";
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+const setYellowButton = document.querySelector("#setYellowButton");
+setYellowButton.addEventListener("click", async (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  const { username } = cookies;
+  const lastStatusCode = "HELP";
+  try {
+    const response = await fetch(`/users/${username}/status/${lastStatusCode}`, {
+      method: "put",
+      headers: {
+        Authorization: `Bearer ${cookies.jwtToken}`,
+      },
+    });
+    window.location.href = "/directory";
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
 // const setStatusButton = () => {
 //   e.preventDefault();
 //   const username = document.forms[0].querySelectorAll("input")[0].value;
 //   const password = document.forms[0].querySelectorAll("input")[1].value;
 //   const lastStatusCode = document.forms[0].querySelectorAll("input")[2].value;
-//   
+  
 //   const data = { username, password, lastStatusCode };
 //   try {
 //     const response = await fetch(`/users/${userName}/status/${lastStatusCode}`, {
