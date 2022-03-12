@@ -44,4 +44,7 @@ router.get("/users", loginLogoutController.getAllUsers);
 router.post("/users", joinController.join);
 router.get("/users/:username", accessUserInformationController.getOneUserRecord);
 
+// router.put("/users/:username/status/:lastStatusCode", accessUserInformationController.setStatus);
+
+
 module.exports = router;

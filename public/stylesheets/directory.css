@@ -109,3 +109,26 @@ li > p {
   margin-bottom: 4px;
   font-size: 22px;
 }
+
+.left-items {
+  height  : inherit;
+  display : inline-block;
+  position: absolute;
+  left    : 0;
+}
+
+.hamburger-menu {
+  overflow: hidden;
+}
+
+.links {
+  display         : none;
+  color           : whitesmoke;
+  background-color: rgb(108, 114, 121);
+}
+
+.links2 {
+  display         : none;
+  color           : whitesmoke;
+  background-color: rgb(108, 114, 121);
+}
