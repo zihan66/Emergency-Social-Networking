@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
   },
   isAcknowledge: { type: Boolean, default: false },
   lastStatusCode: { type: String, default: "unknown" },
+  lastStatusUpdateTime: {type: String, default: "unknownTime"},
 });
 
 // current user

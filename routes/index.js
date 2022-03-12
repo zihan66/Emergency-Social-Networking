@@ -2,6 +2,7 @@ const express = require("express");
 const joinController = require("../controllers/joinController");
 const loginLogoutController = require("../controllers/loginLogoutController");
 const publicMessageController = require("../controllers/publicMessageController");
+const accessUserInformationController = require("../controllers/accessUserInformationController");
 const auth = require("../middlewares/auth");
 
 const router = express.Router();
@@ -41,5 +42,6 @@ router.put("/users/:username/online", loginLogoutController.login);
 router.put("/users/:username/offline", loginLogoutController.logout);
 router.get("/users", loginLogoutController.getAllUsers);
 router.post("/users", joinController.join);
+router.get("/users/:username", accessUserInformationController.getOneUserRecord);
 
 module.exports = router;
