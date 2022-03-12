@@ -10,6 +10,7 @@ const mongoose = require("mongoose");
 const http = require("http");
 const socketIo = require("socket.io");
 
+const index = require("./routes/index");
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
@@ -32,7 +33,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 // establish database connection
 mongoose.connect(process.env.DATABASE);
-
+app.use("/", index);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new Error("Not Found");

@@ -1,7 +1,7 @@
 const express = require("express");
 const userRoute = require("./user");
 const messageRoute = require("./message");
-
+const chatRoute = require("./chat");
 const auth = require("../middlewares/auth");
 
 const router = express.Router();
@@ -30,11 +30,12 @@ router.get("/directory", auth, (req, res) => {
   res.render("directory", { title: "directory" });
 });
 
-router.get("/chatroom/:chatid", (req, res) => {
+router.get("/chatroom/:chatid/:target", (req, res) => {
   res.render("chatRoom", { title: "chatRoom" });
 });
 
 router.use("/users", userRoute);
 router.use("/messages", messageRoute);
+router.use("/chats", chatRoute);
 
 module.exports = router;

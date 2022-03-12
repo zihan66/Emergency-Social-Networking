@@ -5,7 +5,7 @@ const { cookies } = brownies;
 const socket = io();
 const pathname = document.URL.split("/");
 const chatId = pathname[pathname.length - 1];
-let another = "";
+const another = pathname[pathname.length - 2];
 console.log(`/messages/private?chat_id=${chatId}`);
 
 const getCorrectStatusSpan = (deliveryStatus) => {
@@ -104,17 +104,18 @@ const fakeData = [
 </div>; */
 }
 
-const readMessage = (messageId) => { 
+const readMessage = async (messageId) => {
   try {
     const response = await fetch(`/messages/private/${messageId}/read`, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
       },
-    });}
-  catch (error) {
+    });
+  } catch (error) {
     console.log(error);
-}};
+  }
+};
 
 const addSingleMessage = (message) => {
   const { content, author, deliveryStatus, postedAt } = message;
@@ -168,7 +169,11 @@ sendButton.addEventListener("click", async (e) => {
   e.stopPropagation();
   if (!msgContent) return;
   msgInput.value = "";
-  const requestBody = { author: username, content: msgContent, target: another };
+  const requestBody = {
+    author: username,
+    content: msgContent,
+    target: another,
+  };
   try {
     const response = await fetch("/messages/private", {
       method: "post",
@@ -186,17 +191,21 @@ sendButton.addEventListener("click", async (e) => {
 
 window.addEventListener("load", async () => {
   try {
-    // const chatInfo = await getChatInfo();
-    const chatInfo = ["zihan", "pinzhi"];
-    for (const username of chatInfo) {
-      if (username != cookies.username) another = username;
-    }
     // const status = await getUserStatus(username);
     const status = "OK";
     const header1 = document.querySelector(".header1");
     header1.innerHTML = `${another}'s <span class="current-status">current status</span>
     <span class=${getCorrectStatusSpan(status)}></span>`;
-    // const data = await getAllMessages();
+    requestBody = { username1: "zihan", username2: "pinzhi" };
+    const response = await fetch("/chats", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${cookies.jwtToken}`,
+      },
+      body: JSON.stringify(requestBody),
+    });
+    const data = await getAllMessages();
     appendPreviousMessages(fakeData);
   } catch (err) {
     console.error(err);

@@ -9,7 +9,7 @@ router.get("/public", publicMessageController.getPublicMessage);
 
 // eslint-disable-next-line consistent-return
 router.get("/messages/private", async (req, res) => {
-  //   const chatId = req.query.chat_id;
+  const chatId = req.query.chat_id;
   let messges = [];
   const { username2 } = req.query;
   const { username: username1 } = req.cookies;
