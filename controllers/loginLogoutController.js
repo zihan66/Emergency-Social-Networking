@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
 
+const Chat = require("../models/chat");
+
 class loginLogoutController {
   static async login(req, res) {
     try {

@@ -1,6 +1,6 @@
 const express = require("express");
 const userRoute = require("./user");
-const messageRouter = require("./message");
+const messageRoute = require("./message");
 
 const auth = require("../middlewares/auth");
 
@@ -35,6 +35,6 @@ router.get("/chatroom/:chatid", (req, res) => {
 });
 
 router.use("/users", userRoute);
-router.use("/messages", messageRouter);
+router.use("/messages", messageRoute);
 
 module.exports = router;

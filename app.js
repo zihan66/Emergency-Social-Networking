@@ -7,10 +7,16 @@ const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-
-const index = require("./routes/index");
+const http = require("http");
+const socketIo = require("socket.io");
 
 const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
+
+io.on("connection", (socket) => {
+  socket.on("message", async () => {});
+});
 
 // view engine setup
 app.use(expressLayouts);
@@ -26,7 +32,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 // establish database connection
 mongoose.connect(process.env.DATABASE);
-app.use("/", index);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

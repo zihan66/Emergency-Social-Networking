@@ -5,6 +5,7 @@ const messageSchema = new mongoose.Schema({
   author: { type: String, trim: true }, // trim: true will remove all leading and trailing spaces
   postedAt: { type: String },
   deliveryStatus: { type: String },
+  chatID: { type: String },
 });
 
 // current user

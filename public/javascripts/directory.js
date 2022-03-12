@@ -5,7 +5,7 @@ const { cookies } = brownies;
 const socket = io();
 
 const addSingleUser = (user) => {
-  const { username, status, isLogin } = user;
+  const { username, status, isLogin, chatId } = user;
 
   const item = document.createElement("li");
   let recStatus = "";
@@ -23,13 +23,19 @@ const addSingleUser = (user) => {
     in
     <span class=${recStatus}></span>
     situation
+    <button id="go-private" class="ui inverted button compact">
+      <a href ="/privateWall?chat_id=${chatId?chatId:''}&username2=${username}"> See Private Messages </a>
+    </button>
 </span>`;
   userList.appendChild(item);
 };
 
 const appendAllUsers = (users) => {
   console.log(users);
-  users.map(addSingleUser);
+  const { username } = cookies;
+  // eslint-disable-next-line no-underscore-dangle
+  const _users = users.filter((e) => e.username !== username);
+  _users.map(addSingleUser);
 };
 
 socket.on("userList", (users) => {
