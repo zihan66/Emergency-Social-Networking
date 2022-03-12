@@ -115,38 +115,38 @@ const hamburger2 = document.getElementById("status-bar");
 hamburger2.addEventListener("click", clickHamburger2);
 
 
-const setStatusButton = () => {
-  e.preventDefault();
-  const username = document.forms[0].querySelectorAll("input")[0].value;
-  const password = document.forms[0].querySelectorAll("input")[1].value;
-  const lastStatusCode = document.forms[0].querySelectorAll("input")[2].value;
-  const lastStatusUpdateTime = document.forms[0].querySelectorAll("input")[3].value;
-  const data = { username, password, lastStatusCode, lastStatusUpdateTime };
-  try {
-    const response = await fetch(`/users/${userName}/status/${lastStatusCode}`, {
-      method: "put",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    if (response.status === 404) {
-      // const ele = document.querySelector("#password-hint");
-      // ele.innerHTML = "user does not exist or password is incorrect";
-      return;
-    }
-    if (response.status === 200) {
-      window.location.href = response.headers.get("Location");
-    }
-  } catch (error) {
-    console.log(error);
-  }
-  // const setRedButton = document.querySelector(".setRed");
-  // if (setRedButton.style.display === "block") {
-  //   setRedButton.style.display = "";
-  // } else {
-  //   setRedButton.style.display = "block";
-  // }
-};
-const setStatusButton = document.getElementById("setStatusButton");
-setStatusButton.addEventListener("click", setStatusButton);
+// const setStatusButton = () => {
+//   e.preventDefault();
+//   const username = document.forms[0].querySelectorAll("input")[0].value;
+//   const password = document.forms[0].querySelectorAll("input")[1].value;
+//   const lastStatusCode = document.forms[0].querySelectorAll("input")[2].value;
+//   const lastStatusUpdateTime = document.forms[0].querySelectorAll("input")[3].value;
+//   const data = { username, password, lastStatusCode, lastStatusUpdateTime };
+//   try {
+//     const response = await fetch(`/users/${userName}/status/${lastStatusCode}`, {
+//       method: "put",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(data),
+//     });
+//     if (response.status === 404) {
+//       // const ele = document.querySelector("#password-hint");
+//       // ele.innerHTML = "user does not exist or password is incorrect";
+//       return;
+//     }
+//     if (response.status === 200) {
+//       window.location.href = response.headers.get("Location");
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+//   // const setRedButton = document.querySelector(".setRed");
+//   // if (setRedButton.style.display === "block") {
+//   //   setRedButton.style.display = "";
+//   // } else {
+//   //   setRedButton.style.display = "block";
+//   // }
+// };
+// const setStatusButton = document.getElementById("setStatusButton");
+// setStatusButton.addEventListener("click", setStatusButton);
