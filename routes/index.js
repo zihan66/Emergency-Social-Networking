@@ -1,4 +1,5 @@
 const express = require("express");
+const JoinController = require("../controllers/joinController");
 const joinController = require("../controllers/joinController");
 const loginLogoutController = require("../controllers/loginLogoutController");
 const publicMessageController = require("../controllers/publicMessageController");
@@ -32,6 +33,11 @@ router.get("/directory", (req, res) => {
   res.render("directory", { title: "directory" });
 });
 
+router.get("/chatRoom/:id/:username", (req, res) => {
+  res.render("chatRoom", { title: "chatPrivate" });
+  //console.log(req);
+});
+
 router.put(
   "/users/:username/acknowledgement",
   auth,
@@ -41,5 +47,6 @@ router.put("/users/:username/online", loginLogoutController.login);
 router.put("/users/:username/offline", loginLogoutController.logout);
 router.get("/users", loginLogoutController.getAllUsers);
 router.post("/users", joinController.join);
+router.get("/chats/:username", loginLogoutController.chatPrivate);
 
 module.exports = router;

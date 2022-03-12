@@ -31,7 +31,7 @@ class JoinController {
       );
 
       await User.updateOne(
-        { username: req.params.username },
+        { username: req.body.username },
         { isLogin: true }
       );
       // user signup successfully, update the userlist and send it to front-end
@@ -43,11 +43,12 @@ class JoinController {
         username: 1,
       });
       const wholeUserList = onlineUsers.concat(offlineUsers);
+      console.log("wholeUserList", wholeUserList);
       const filteredUserList = wholeUserList.map((user) => {
-        const { username: name, isLogin } = user;
-        return { username: name, isLogin };
+        const { username: name, lastStatusCode, isLogin } = user;
+        return { username: name, lastStatusCode, isLogin };
       });
-      console.log(filteredUserList);
+      console.log("filteredUserList", filteredUserList);
 
       io.emit("userList", filteredUserList);
       res.cookie("jwtToken", token);

@@ -54,9 +54,10 @@ class loginLogoutController {
       });
       const wholeUserList = onlineUsers.concat(offlineUsers);
       const filteredUserList = wholeUserList.map((user) => {
-        const { username: name, isLogin } = user;
-        return { username: name, isLogin };
+        const { username: name, lastStatusCode, isLogin } = user;
+        return { username: name, lastStatusCode, isLogin };
       });
+      console.log("filteredUserList", filteredUserList);
       io.emit("userList", filteredUserList);
 
       res.cookie("jwtToken", token);
@@ -117,8 +118,8 @@ class loginLogoutController {
       });
       const wholeUserList = onlineUsers.concat(offlineUsers);
       const filteredUserList = wholeUserList.map((user) => {
-        const { username: name, isLogin } = user;
-        return { username: name, isLogin };
+        const { username: name, lastStatusCode, isLogin } = user;
+        return { username: name, lastStatusCode, isLogin };
       });
       console.log(filteredUserList);
       res.status(200).json(filteredUserList);
@@ -126,6 +127,15 @@ class loginLogoutController {
       console.log(error);
     }
   }
+
+  static async chatPrivate(req, res) {
+    res.status(200).json([
+      { username: 'user1', chatID: 1 },
+      { username: "user2", chatID: 2 },
+      { username: 'user3', chatID: 333 },
+    ]);
+  }
 }
+
 
 module.exports = loginLogoutController;

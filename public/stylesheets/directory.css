@@ -109,3 +109,7 @@ li > p {
   margin-bottom: 4px;
   font-size: 22px;
 }
+
+.out{background-color: black;}
+.over{background-color: white;}
+
