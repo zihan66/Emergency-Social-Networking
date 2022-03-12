@@ -7,13 +7,13 @@ const socket = io();
 const getAllUsers = async () => {};
 
 const addSingleUser = (user) => {
-  const { username, status, isLogin } = user;
+  const { username, lastStatusCode, isLogin } = user;
 
   const item = document.createElement("li");
   let recStatus = "";
-  if (status === "OK") recStatus = "green";
-  else if (status === "HELP") recStatus = "yellow";
-  else if (status === "EMERGENCY") recStatus = "red";
+  if (lastStatusCode === "OK") recStatus = "green";
+  else if (lastStatusCode === "HELP") recStatus = "yellow";
+  else if (lastStatusCode === "EMERGENCY") recStatus = "red";
   else recStatus = "grey";
   item.className = "user";
   item.innerHTML = ` <span class="avat">

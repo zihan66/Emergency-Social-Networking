@@ -117,8 +117,8 @@ class loginLogoutController {
       });
       const wholeUserList = onlineUsers.concat(offlineUsers);
       const filteredUserList = wholeUserList.map((user) => {
-        const { username: name, isLogin } = user;
-        return { username: name, isLogin };
+        const { username: name, lastStatusCode: lastStatusCode, isLogin } = user;
+        return { username: name, lastStatusCode: lastStatusCode, isLogin };
       });
       console.log(filteredUserList);
       res.status(200).json(filteredUserList);
