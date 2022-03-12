@@ -61,7 +61,7 @@ li > p {
   color: #ffddaa;
 }
 
-.green {
+/* .green {
   display: inline-block;
   width: 1rem;
   height: 1rem;
@@ -87,15 +87,20 @@ li > p {
   width: 1rem;
   height: 1rem;
   background-color: rgb(170, 170, 165);
-}
+} */
 
 .avat {
   color: whitesmoke;
-  font-size: 2rem;
+  font-size: 1rem;
 }
 
 .status {
   color: whitesmoke;
+}
+
+.status img{
+  height: 20px;
+  width: 20px;
 }
 
 .online {

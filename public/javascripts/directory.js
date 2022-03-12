@@ -54,7 +54,7 @@ const addSingleUser = (user) => {
     <span class="username">${username}</span>
     <span class="online">${isLogin ? "online" : "offline"}</span>
     <span class="status">
-    Status:
+    <span>Status:</span>
     <span id="${username}Status" class=${userStatus}><img src="../images/${userStatus}.png"> ${lastStatusCode}</span>
 </span></div>`;
   userList.appendChild(item);
