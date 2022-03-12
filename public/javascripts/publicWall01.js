@@ -1,6 +1,6 @@
 const msgContainer = document.querySelector(".message-container");
 const msgList = document.querySelector(".message-list");
-//const infScroll = new InfiniteScroll(msgList);
+const infScroll = new InfiniteScroll(msgList);
 const { cookies } = brownies;
 // eslint-disable-next-line no-undef
 const socket = io();
@@ -14,44 +14,43 @@ const getAllMessages = async () => {
       },
     });
     const data = response.json();
-    console.log("messagedata", data);
   } catch (err) {
     console.error(err);
   }
 };
 
-const addSingleMessage = (message, before) => {
+const addSingleMessage = (message) => {
   const { content, author, deliveryStatus, postedAt } = message;
 
   const item = document.createElement("li");
+  item.innerHTML = `<span class="username"> 
+  ${author === cookies.username ? "you" : author} </span>`;
   let userStatus = "";
   if (deliveryStatus === "OK") userStatus = "green";
   else if (deliveryStatus === "HELP") userStatus = "yellow";
   else if (deliveryStatus === "EMERGENCY") userStatus = "red";
   else userStatus = "grey";
+
   if (author === cookies.username) item.className = "self-message";
   else item.className = "other-message";
-  item.innerHTML = `${content}
-  <span class="username">Sent by ${
-  author === cookies.username ? "you" : author} </span>`;
-  const p = document.createElement("p");
-  p.innerHTML = `<span class="status">${author}'s status: <img src="../images/${userStatus}.png"> ${deliveryStatus}</span>`;
+  
+  item.innerHTML = `<span>${author}'s status: <img src="../images/${userStatus}.png"> ${deliveryStatus}</span>
+  <span class="${recStatus}"></span>`;
   item.appendChild(p);
   item.innerHTML += `<span class="time-stamp">${moment(postedAt).format(
     "MMM Do YY, h:mm:ss"
   )}</span>`;
-  if (before === false) msgContainer.appendChild(item);
-  else msgContainer.insertBefore(item, msgContainer.lastChild);
+  msgContainer.appendChild(item);
+  
 };
 
 const appendPreviousMessages = (messages) => {
   messages.map(addSingleMessage, true);
-  msgContainer.scrollTop = msgContainer.scrollHeight;
 };
 
 socket.on("publicMessage", (message) => {
   addSingleMessage(message, true);
-  msgContainer.scrollTop = msgContainer.scrollHeight;
+  msgContainer.scrollTop = 0;
 });
 
 const sendButton = document.getElementById("msg-button");
