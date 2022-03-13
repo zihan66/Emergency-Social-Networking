@@ -6,5 +6,9 @@ const chatSchema = new mongoose.Schema({
   username2: { type: String },
 });
 
+chatSchema.statics.findChatsOfUser = async function (username) {
+  return this.find({ $or: [{ username1: username }, { username2: username }] });
+};
+
 const Chat = mongoose.model("Chat", chatSchema);
 module.exports = Chat;

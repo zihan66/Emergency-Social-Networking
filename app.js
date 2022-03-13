@@ -32,7 +32,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 // establish database connection
-mongoose.connect(process.env.DATABASE);
+if (process.env.ENVIRONMENT === "DEV") {
+  mongoose.connect(process.env.DEV_DATABASE);
+} else {
+  mongoose.connect(process.env.DATABASE);
+}
 app.use("/", index);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
