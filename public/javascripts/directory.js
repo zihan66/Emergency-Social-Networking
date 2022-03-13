@@ -83,6 +83,15 @@ socket.on("userList", (users) => {
   directoryContainer.scrollTop = 0;
 });
 
+socket.on("updateStatus", (user) => {
+  const id = `${user.username}Status`;
+  const statusUpdated = user.lastStatusCode;
+  const userStatus = statusImage(statusUpdated);
+  console.log("id", id);
+  const updateStatus = document.getElementById(`${id}`);
+  updateStatus.innerHTML = `<img src="../images/${userStatus}.png"> ${statusUpdated}`;
+});
+
 window.addEventListener("load", async () => {
   try {
     const allUser = await fetch("/users", {
