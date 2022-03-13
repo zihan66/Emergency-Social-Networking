@@ -47,6 +47,25 @@ router.put("/users/:username/online", loginLogoutController.login);
 router.put("/users/:username/offline", loginLogoutController.logout);
 router.get("/users", loginLogoutController.getAllUsers);
 router.post("/users", joinController.join);
-router.get("/chats/:username", loginLogoutController.chatPrivate);
-
+router.get("/chats/:username", (req, res) => {
+  res.json([
+    { username: "user1", chatID: 1 },
+    { username: "user2", chatID: 2 },
+    { username: "user3", chatID: 333 },
+  ]);
+});
+router.get("/messages/private/unread/:username", (req, res) => {
+  res.json([
+    { username: 'user1', chatID: 1 },
+    { username: "user2", chatID: 2 },
+    { username: 'frank', chatID: "frank1" },
+    { username: 'user1', chatID: 1 },
+    { username: "user2", chatID: 2 },
+    { username: 'user1', chatID: 1 },
+    { username: "user2", chatID: 2 },
+    { username: 'user1', chatID: 1 },
+    { username: "user2", chatID: 2 },
+  ]);
+});
+//router.get("/messages/private/unread/:username", loginLogoutController.chatPrivate);
 module.exports = router;

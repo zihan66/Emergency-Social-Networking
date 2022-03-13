@@ -51,10 +51,15 @@
   overflow: auto;
 }
 
-ul {
+.directory-container ul {
   list-style-type: none;
   padding-left: 1rem;
 }
+
+.directory-container ul li{
+  cursor:pointer;
+}
+
 
 li > p {
   text-align: end;
@@ -112,8 +117,43 @@ li > p {
 .username {
   color: #ffddaa;
   margin-bottom: 4px;
-  font-size: 22px;
+  font-size: 18px;
 }
+
+.unreadMsgs{
+  width: 94px;
+}
+.unreadMsgs button{
+  position: relative;
+  width: 93px;
+}
+.unreadMsgBlock{
+  position: absolute;
+  display: none;
+  width: 93px;
+  height: 200px;
+  
+  background-color: rgb(108, 114, 121);
+  opacity: 0.8;
+  overflow: scroll;
+
+}
+.unreadMsgList{
+  color          : #ffddaa;
+  padding        : 10px 10px;
+  text-decoration: none;
+  font-size      : 20px;
+  display        : block;
+  list-style-type: none;
+  text-align: center;
+}
+.unreadMsgList li{
+  cursor:pointer;
+  margin-bottom: 10px;
+}
+
+
+
 
 .out{background-color: black;}
 .over{background-color: white;}

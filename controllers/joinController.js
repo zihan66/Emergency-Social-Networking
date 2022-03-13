@@ -11,13 +11,12 @@ class JoinController {
       const existedUser = await User.findOne({
         username: username.toLowerCase(),
       });
-      if (existedUser) {
-        res.status(405).json({
-          error: "user has already exists",
-        });
-        return;
-      }
-
+      // if (existedUser) {
+      //   res.status(405).json({
+      //     error: "user has already exists",
+      //   });
+      //   return;
+      // }
       const newUser = await User.create({
         username: username.toLowerCase(),
         password,

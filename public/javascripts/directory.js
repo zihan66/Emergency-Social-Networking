@@ -7,10 +7,20 @@ const userChatMap = new Map();
 
 const getAllUsers = async () => {};
 
+const statusImage = (lastStatusCode) => {
+  let userStatus = "";
+  if (lastStatusCode === "OK") userStatus = "green";
+  else if (lastStatusCode === "HELP") userStatus = "yellow";
+  else if (lastStatusCode === "EMERGENCY") userStatus = "red";
+  else userStatus = "grey";
+  return userStatus;
+};
+
 const addSingleUser = (user) => {
   const { username, lastStatusCode, isLogin } = user;
   const item = document.createElement("li");
-  item.onclick = async () => {
+  item.addEventListener("click", async function(e) {
+    e.preventDefault();
     const chatObject = this.id;
     console.log("chatObject", chatObject);
     console.log("ifexist", userChatMap.has(chatObject));
@@ -40,12 +50,13 @@ const addSingleUser = (user) => {
         console.log(error);
       }
     }
-  };
-  let userStatus = "";
-  if (lastStatusCode === "OK") userStatus = "green";
-  else if (lastStatusCode === "HELP") userStatus = "yellow";
-  else if (lastStatusCode === "EMERGENCY") userStatus = "red";
-  else userStatus = "grey";
+  });
+  // let userStatus = "";
+  // if (lastStatusCode === "OK") userStatus = "green";
+  // else if (lastStatusCode === "HELP") userStatus = "yellow";
+  // else if (lastStatusCode === "EMERGENCY") userStatus = "red";
+  // else userStatus = "grey";
+  const userStatus = statusImage(lastStatusCode);
   item.className = "user";
   item.id = `${username}`;
   item.innerHTML = ` <div><span class="avat">
@@ -72,13 +83,6 @@ socket.on("userList", (users) => {
   directoryContainer.scrollTop = 0;
 });
 
-socket.on("updateStatus", (user) => {
-  const id = `${user.username}Status`;
-  console.log("id", id);
-  const updateStatus = document.getElementById(`${id}`);
-  updateStatus.innerHTML = "kkkkk";
-});
-
 window.addEventListener("load", async () => {
   try {
     const allUser = await fetch("/users", {
@@ -102,10 +106,54 @@ window.addEventListener("load", async () => {
     const chatPrivateData = await chatPrivateInfo.json();
     console.log("chatPrivate", chatPrivateData);
     console.log("chatPrivate", chatPrivateData.length);
-    for(let i = 0; i < chatPrivateData.length; i++) {
+    for (let i = 0; i < chatPrivateData.length; i++) {
       userChatMap.set(chatPrivateData[i].username, chatPrivateData[i].chatID);
     }
-    console.log("map", userChatMap);
+    console.log("userChatMap", userChatMap);
+
+    const unreadMsgs = await fetch(`/messages/private/unread/${cookies.username}`, {
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${cookies.jwtToken}`,
+      },
+    });
+    const unreadMsgsData = await unreadMsgs.json();
+    const unreadMsgMap = new Map();
+    for (let i = 0; i < unreadMsgsData.length; i += 1) {
+      unreadMsgMap.set(unreadMsgsData[i].username, unreadMsgsData[i].chatID);
+    }
+    console.log("unreadMsgMap", unreadMsgMap);
+    console.log("unreadMsgsData", unreadMsgsData);
+    const clickUnreadMsgBlock = () => {
+      const unreadMsgBlock = document.querySelector(".unreadMsgBlock");
+      if (unreadMsgBlock.style.display === "block") {
+        unreadMsgBlock.style.display = "";
+      } else {
+        unreadMsgBlock.style.display = "block";
+      }
+    };
+    if (unreadMsgsData) {
+      const unreadButton = document.querySelector(".unreadMsgs");
+      unreadButton.innerHTML = '<button id="unread" class="ui inverted button compact">Unread Messages</button>';
+      unreadButton.innerHTML += '<div class="unreadMsgBlock"><ul class="unreadMsgList"></ul></div>';
+      const unreadMsgList = document.querySelector(".unreadMsgList");
+      console.log("unreadMsgList", unreadMsgList);
+      for (let i = 0; i < unreadMsgsData.length; i += 1) {
+        const item = document.createElement("li");
+        item.id = `${unreadMsgsData[i].username}`;
+        item.innerHTML = `<span> ${unreadMsgsData[i].username}</span>`;
+        unreadMsgList.appendChild(item);
+        // eslint-disable-next-line no-loop-func
+        item.addEventListener("click", function (e) {
+          e.preventDefault();
+          const chatObject = this.id;
+          const chatID = unreadMsgMap.get(chatObject);
+          window.location.href = `/chatRoom/${chatID}/${chatObject}`;
+        });
+      }
+      const unread = document.getElementById("unread");
+      unread.addEventListener("click", clickUnreadMsgBlock);
+    }
   } catch (err) {
     console.log(err);
   }
@@ -136,32 +184,6 @@ publicButton.addEventListener("click", (e) => {
   window.location.href = "/publicWall";
 });
 
-const list = userList.getElementsByTagName("li");
-console.log("list", list);
-console.log("length", list.length);
-// for (let i = 0; i < list.length; i++){
-//   alert("aaa");
-// };
-
-// userList.onmouseover = () => {
-//   userList.style.backgroundColor = "white";
-// };
-
-// const changeBkColor = (obj) => {
-//   obj.onmouseover = () => { this.className = "over"; };//鼠标悬停事件
-//   obj.onmouseout = () => { this.className = "out"; };//鼠标离开事件
-// };
-// changeBkColor(userList);
-// window.onload = function() {
-//   let list = document.getElementsByTagName("li");
-//   console.log("list", list);
-//   console.log("list0", list.length);
-// };
-
-// eslint-disable-next-line no-plusplus
-// for (let i = 0; i < list.length; i++) {
-//   list[i].onclick = function () {
-//     alert("aaaa");
-//     window.location.href = "/chatPrivate";
-//   };
-// }
+// const list = userList.getElementsByTagName("li");
+// console.log("list", list);
+// console.log("length", list.length);
