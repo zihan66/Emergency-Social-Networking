@@ -5,7 +5,7 @@ const { cookies } = brownies;
 const socket = io();
 
 const addSingleMessage = (message, before) => {
-  const { content, author, deliveryStatus, postedAt } = message;
+  const { content, author, deliveryStatus, postedAt, unread, target } = message;
 
   const item = document.createElement("li");
   let recStatus = "";
@@ -16,12 +16,18 @@ const addSingleMessage = (message, before) => {
   else item.className = "other-message";
   item.innerHTML = `${content}
   <span class="username">Sent by ${
-    author === cookies.username ? "you" : author
-  } </span>`;
+  author === cookies.username ? "you" : author
+} </span>`;
   const p = document.createElement("p");
   p.innerHTML = `${author}'s status is ${deliveryStatus}
   <span class="${recStatus}"></span>`;
   item.appendChild(p);
+
+  if (author === cookies.username) {
+    const p2 = document.createElement("p");
+    p2.innerHTML = `${target}: ${unread ? "unread" : "read"}`;
+    item.appendChild(p2);
+  }
   item.innerHTML += `<span class="time-stamp">${moment(postedAt).format(
     "MMM Do YY, h:mm:ss"
   )}</span>`;

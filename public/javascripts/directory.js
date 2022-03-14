@@ -85,3 +85,10 @@ publicButton.addEventListener("click", (e) => {
   e.stopPropagation();
   window.location.href = "/publicWall";
 });
+
+const unreadButton = document.querySelector("#go-to-unread");
+unreadButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  window.location.href = "/unreadWall";
+});

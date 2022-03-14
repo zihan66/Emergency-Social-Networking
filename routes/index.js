@@ -21,6 +21,10 @@ router.get("/privateWall", (req, res) => {
   res.render("privateWall", { title: "privateWall" });
 });
 
+router.get("/unreadWall", (req, res) => {
+  res.render("unreadWall", { title: "unreadWall" });
+});
+
 router.get("/welcome", (req, res) => {
   res.render("welcome");
 });
