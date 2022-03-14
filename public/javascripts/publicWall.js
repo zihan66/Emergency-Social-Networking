@@ -39,6 +39,10 @@ socket.on("publicMessage", (message) => {
   msgContainer.scrollTop = 0;
 });
 
+socket.on("privateMessage", (message, author) => {
+  window.alert("You recieved a new message from " + author);
+});
+
 const sendButton = document.getElementById("msg-button");
 sendButton.addEventListener("click", async (e) => {
   const msgInput = document.getElementById("msg");
