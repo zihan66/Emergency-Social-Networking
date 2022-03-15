@@ -4,9 +4,9 @@ const { cookies } = brownies;
 // eslint-disable-next-line no-undef
 const socket = io();
 const pathname = document.URL.split("/");
-const chatId = pathname[pathname.length - 1];
+const chatID = pathname[pathname.length - 1];
 const another = pathname[pathname.length - 2];
-console.log(`/messages/private?chat_id=${chatId}`);
+console.log(`/messages/private?chat_id=${chatID}`);
 
 const getCorrectStatusSpan = (deliveryStatus) => {
   let recStatus = "";
@@ -18,7 +18,7 @@ const getCorrectStatusSpan = (deliveryStatus) => {
 
 const getAllMessages = async () => {
   try {
-    const response = await fetch(`/messages/private?chat_id=${chatId}`, {
+    const response = await fetch(`/messages/private?chat_id=${chatID}`, {
       method: "get",
       headers: {
         Authorization: `Bearer ${cookies.jwtToken}`,
@@ -173,6 +173,7 @@ sendButton.addEventListener("click", async (e) => {
     author: username,
     content: msgContent,
     target: another,
+    chatID,
   };
   try {
     const response = await fetch("/messages/private", {

@@ -6,69 +6,78 @@ const Chat = require("../models/chat");
 class PrivateMessageController {
   static async createNewPrivateChat(req, res) {
     try {
-      console.log(req.body);
       const { username1, username2 } = req.body;
       if (username1 === undefined || username2 === undefined)
         res.status(404).json({});
+      const existedChat = Chat.findChatBetweenTwoUsers(username1, username2);
+      if (existedChat) {
+        res.status(404).json({});
+      }
       const currentChat = {
         chatID: new Date().getTime().toString(36),
         username1,
         username2,
       };
-      await Chat.create(currentChat);
+      const response = await Chat.create(currentChat);
+      res.location(`/chatRoom/${chatID}/${username2}`);
       res.status(201).json();
     } catch (error) {
       console.log("error", error);
       res.status(500).json({ error });
     }
   }
+  //eslint-disable-next-line consistent-return
+  static async getPrivateMessage(req, res) {
+    const { chatID } = req.query;
+    const chat = await Chat.findOne({
+      chatID,
+    });
 
-  static async getPrivateMessage(chatId) {
-    let message = [];
     try {
-      message = await Message.find({ chatID: chatId });
-      console.log("message", message, chatId);
+      if (!chat) {
+        res.status(404).json();
+      }
+      await Message.update(
+        { chatID, unread: true },
+        { $set: { unread: false } }
+      );
+      const messages = await Message.find({ chatID });
+      res.status(200).json({ messages });
     } catch (error) {
-      console.log(error);
+      res.status(404).json({
+        message: "ChatID does not exist",
+      });
     }
-    return message;
   }
 
   static async createNewPrivateMessage(req, res) {
     try {
       const io = req.app.get("socketio");
       let {
-        sendignUserName: username1,
-        receivingUserName: username2,
+        // eslint-disable-next-line prefer-const
+        author,
+        target,
         content,
-        conversationId: chatID,
+        chatID,
       } = req.body;
-      if (!chatID) {
-        const chat = await Chat.findOne({
-          $and: [
-            {
-              $or: [
-                { username1, username2 },
-                { username1: username2, username2: username1 },
-              ],
-            },
-          ],
-        });
-        chatID = chat.chatID;
+      const chat = await Chat.findOne({
+        chatID,
+      });
+      const authorUser = await User.findOne({ username: author });
+      const targetUser = await User.findOne({ username: target });
+      if (!chat || !authorUser || !targetUser) {
+        res.status(404).json({});
       }
-      const user = await User.findOne({ username: username1 });
-      console.log(user);
       const currentMessage = {
         content,
-        author: username1,
-        deliveryStatus: user.lastStatusCode,
+        author: authorUser.username,
+        target: targetUser.username,
+        deliveryStatus: authorUser.lastStatusCode,
         postedAt: moment().format(),
         chatID,
       };
-      console.log(currentMessage);
       await Message.create(currentMessage);
-      const message = await Message.find({ chatID });
-      io.sockets.emit("privateMessage", message);
+      io.sockets.emit("privateMessage", currentMessage);
       res.status(201).json({});
     } catch (e) {
       console.log(e);
@@ -104,6 +113,40 @@ class PrivateMessageController {
     } catch (error) {
       console.log(error);
       res.status(500).send({ error: "error" });
+    }
+  }
+
+  static async getUserAllUnreadMsg(req, res) {
+    const { username } = req.query;
+    console.log("username", username);
+    try {
+      if (username) {
+        const messges = await Message.find({
+          target: username,
+          unread: true,
+        });
+        res.status(200).json(messges);
+      } else {
+        return res.status(404).json({
+          error: "user does not exist",
+        });
+      }
+    } catch (error) {
+      console.log("error", error);
+      res.status(404).json({
+        error: "user does not exist",
+      });
+    }
+  }
+
+  static async readMessage(req, res) {
+    const { messageId } = req.params;
+    try {
+      await Message.updateOne({ _id: messageId }, { unread: False });
+      res.status(200).json();
+    } catch (error) {
+      console.error("error", error);
+      res.status(500).send();
     }
   }
 }
