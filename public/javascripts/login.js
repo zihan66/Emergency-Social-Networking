@@ -676,8 +676,9 @@ loginOrSignUp.addEventListener("click", async (e) => {
           window.location.href = registerResponse.headers.get("Location");
         }
       });
+      return;
     }
-    if (response.status === 404 || response.status === 401) {
+    if (response.status === 401) {
       const ele = document.querySelector("#password-hint");
       ele.innerHTML = "user does not exist or password is incorrect";
       return;
@@ -689,6 +690,3 @@ loginOrSignUp.addEventListener("click", async (e) => {
     console.log(error);
   }
 });
-
-
-

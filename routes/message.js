@@ -10,10 +10,7 @@ router.get("/public", publicMessageController.getPublicMessage);
 router.get("/private", privateMessageController.getPrivateMessage);
 
 router.post("/private", privateMessageController.createNewPrivateMessage);
-router.get(
-  "/private/unread/:username",
-  privateMessageController.getUserAllUnreadMsg
-);
+router.get("/private/unread", privateMessageController.getUserAllUnreadMsg);
 router.put("/private/:messageId/unread", privateMessageController.readMessage);
 
 module.exports = router;

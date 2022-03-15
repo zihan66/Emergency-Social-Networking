@@ -7,11 +7,20 @@ class PrivateMessageController {
   static async createNewPrivateChat(req, res) {
     try {
       const { username1, username2 } = req.body;
-      if (username1 === undefined || username2 === undefined)
+      if (username1 === undefined || username2 === undefined) {
+        console.log("undefined");
         res.status(404).json({});
-      const existedChat = Chat.findChatBetweenTwoUsers(username1, username2);
+        return;
+      }
+      const existedChat = await Chat.findChatBetweenTwoUsers(
+        username1,
+        username2
+      );
+      console.log(existedChat);
       if (existedChat) {
+        console.log("existed");
         res.status(404).json({});
+        return;
       }
       const currentChat = {
         chatID: new Date().getTime().toString(36),
@@ -19,7 +28,7 @@ class PrivateMessageController {
         username2,
       };
       const response = await Chat.create(currentChat);
-      res.location(`/chatRoom/${chatID}/${username2}`);
+      res.location(`/chatRoom/${currentChat.chatID}/${username2}`);
       res.status(201).json();
     } catch (error) {
       console.log("error", error);
@@ -38,7 +47,7 @@ class PrivateMessageController {
         res.status(404).json();
       }
       await Message.update(
-        { chatID, unread: true },
+        { chatID, unread: true, target: req.cookies.username },
         { $set: { unread: false } }
       );
       const messages = await Message.find({ chatID });
@@ -107,9 +116,9 @@ class PrivateMessageController {
       const result = chats.map((chat) => {
         const { username1, username2, chatID } = chat;
         if (username1 === username) {
-          return { username: username2, chatId: chatID };
+          return { username: username2, chatID };
         } else {
-          return { username: username1, chatId: chatID };
+          return { username: username1, chatID };
         }
       });
       res.status(200).json({ chats: result });
@@ -120,15 +129,19 @@ class PrivateMessageController {
   }
 
   static async getUserAllUnreadMsg(req, res) {
+    console.log("hello");
     const { username } = req.query;
     console.log("username", username);
     try {
       if (username) {
-        const messges = await Message.find({
+        const messages = await Message.find({
           target: username,
           unread: true,
         });
-        res.status(200).json(messges);
+        const msgs = messages.map((msg) => {
+          return { chatID: msg.chatID, username: msg.author };
+        });
+        res.status(200).json(msgs);
         return;
       } else {
         res.status(404).json({

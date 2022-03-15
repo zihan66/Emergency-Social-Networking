@@ -116,10 +116,11 @@ window.addEventListener("load", async () => {
     });
     //const chatPrivateData = await chatPrivateInfo.json();
     const chatPrivateData = await chatPrivateInfo.json();
-    console.log("chatPrivate", chatPrivateData);
-    console.log("chatPrivate", chatPrivateData.length);
-    for (let i = 0; i < chatPrivateData.length; i++) {
-      userChatMap.set(chatPrivateData[i].username, chatPrivateData[i].chatID);
+    const chats = chatPrivateData.chats;
+    console.log("chatPrivate", chats);
+    // console.log("chatPrivate", chatPrivateData.length);
+    for (let i = 0; i < chats.length; i++) {
+      userChatMap.set(chats[i].username, chats[i].chatID);
     }
     console.log("userChatMap", userChatMap);
 

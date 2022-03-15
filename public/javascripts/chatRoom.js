@@ -2,11 +2,11 @@ const msgContainer = document.querySelector(".message-container");
 const msgList = document.querySelector(".message-list");
 const { cookies } = brownies;
 // eslint-disable-next-line no-undef
-const socket = io();
+const socket = io({ autoConnect: false });
 const pathname = document.URL.split("/");
-const chatID = pathname[pathname.length - 1];
-const another = pathname[pathname.length - 2];
-console.log(`/messages/private?chat_id=${chatID}`);
+const chatID = pathname[pathname.length - 2];
+const another = pathname[pathname.length - 1];
+console.log(`/messages/private?chatID=${chatID}`);
 
 const getCorrectStatusSpan = (deliveryStatus) => {
   let recStatus = "";
@@ -18,7 +18,7 @@ const getCorrectStatusSpan = (deliveryStatus) => {
 
 const getAllMessages = async () => {
   try {
-    const response = await fetch(`/messages/private?chat_id=${chatID}`, {
+    const response = await fetch(`/messages/private?chatID=${chatID}`, {
       method: "get",
       headers: {
         Authorization: `Bearer ${cookies.jwtToken}`,
@@ -59,50 +59,6 @@ const getChatInfo = async () => {
     console.err(err);
   }
 };
-
-const fakeData = [
-  {
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur dolore voluptatibus repellat, nihil quas voluptate eligendi modi",
-    author: "dihan",
-    target: "zihan",
-    messageID: "12344",
-    deliveryStatus: "OK",
-    postedAt: "2022-03-11T14:03:16-08:00",
-  },
-  {
-    content:
-      "Hello Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur dolore voluptatibus repellat, nihil quas voluptate eligendi modi",
-    author: "zihan",
-    target: "Pinzhi",
-    messageID: "12344",
-    deliveryStatus: "OK",
-    postedAt: "2022-03-11T14:03:16-08:00",
-  },
-];
-
-{
-  /* <div class="self-message">
-  <div class="avatar">
-    <i class="user circle outline icon"></i>
-    <span class="username">Pinzhi</span>
-    <span class="current-status">current status</span>
-    <span class="red"></span>
-  </div>
-  <p class="content">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur dolore
-    voluptatibus repellat, nihil quas voluptate eligendi modi recusandae!
-    Delectus totam odio suscipit esse, sit iusto? A modi sapiente ea aliquid?
-    <div class="time-stamp">
-      Sent at 20111.12..12,
-      <span class="message-status">
-        the user was
-        <span class="red"></span>
-      </span>
-    </div>
-  </p>
-</div>; */
-}
 
 const readMessage = async (messageId) => {
   try {
@@ -193,21 +149,21 @@ sendButton.addEventListener("click", async (e) => {
 window.addEventListener("load", async () => {
   try {
     // const status = await getUserStatus(username);
-    const status = "OK";
-    const header1 = document.querySelector(".header1");
-    header1.innerHTML = `${another}'s <span class="current-status">current status</span>
-    <span class=${getCorrectStatusSpan(status)}></span>`;
-    requestBody = { username1: "zihan", username2: "pinzhi" };
-    const response = await fetch("/chats", {
-      method: "post",
+    socket.auth = { username: cookies.username };
+    socket.connect();
+    const repsonse = await fetch(`/users/${cookies.username}`, {
+      method: "get",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${cookies.jwtToken}`,
       },
-      body: JSON.stringify(requestBody),
     });
+    const status = repsonse.json();
+    const header1 = document.querySelector(".header1");
+    header1.innerHTML = `${another}'s <span class="current-status">current status</span>
+    <span class=${getCorrectStatusSpan(status.userLastStatus)}></span>`;
     const data = await getAllMessages();
-    appendPreviousMessages(fakeData);
+    if (data.messages) appendPreviousMessages(data.messages);
   } catch (err) {
     console.error(err);
   }
