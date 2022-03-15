@@ -21,16 +21,16 @@ const addSingleUser = (user) => {
   const item = document.createElement("li");
   item.addEventListener("click", async function(e) {
     e.preventDefault();
-    const chatObject = this.id;
-    console.log("chatObject", chatObject);
-    console.log("ifexist", userChatMap.has(chatObject));
+    const username2 = this.id;
+    console.log("username2", username2);
+    console.log("ifexist", userChatMap.has(username2));
     const chatID = userChatMap.get(this.id);
     console.log("chatid", chatID);
-    if (userChatMap.has(chatObject)) {
-      window.location.href = `/chatRoom/${chatID}/${chatObject}`;
+    if (userChatMap.has(username2)) {
+      window.location.href = `/chatRoom/${chatID}/${username2}`;
     } else {
-      const currentUser = cookies.username;
-      const data = { currentUser, chatObject };
+      const username1 = cookies.username;
+      const data = { username1, username2 };
       const jsonData = JSON.stringify(data);
       console.log("user12", data);
       console.log("jsonData", jsonData);
@@ -105,7 +105,7 @@ window.addEventListener("load", async () => {
     console.log("allUserjson", allUserData);
     appendAllUsers(allUserData);
 
-    const chatPrivateInfo = await fetch(`/chats/${cookies.username}`, {
+    const chatPrivateInfo = await fetch(`/chats?username=${cookies.username}`, {
       method: "get",
       headers: {
         Authorization: `Bearer ${cookies.jwtToken}`,
@@ -120,7 +120,7 @@ window.addEventListener("load", async () => {
     }
     console.log("userChatMap", userChatMap);
 
-    const unreadMsgs = await fetch(`/messages/private/unread/${cookies.username}`, {
+    const unreadMsgs = await fetch(`/messages/private/unread?username=${cookies.username}`, {
       method: "get",
       headers: {
         Authorization: `Bearer ${cookies.jwtToken}`,
@@ -155,9 +155,9 @@ window.addEventListener("load", async () => {
         // eslint-disable-next-line no-loop-func
         item.addEventListener("click", function (e) {
           e.preventDefault();
-          const chatObject = this.id;
-          const chatID = unreadMsgMap.get(chatObject);
-          window.location.href = `/chatRoom/${chatID}/${chatObject}`;
+          const username2 = this.id;
+          const chatID = unreadMsgMap.get(username2);
+          window.location.href = `/chatRoom/${chatID}/${username2}`;
         });
       }
       const unread = document.getElementById("unread");
