@@ -53,20 +53,22 @@ class PrivateMessageController {
   static async createNewPrivateMessage(req, res) {
     try {
       const io = req.app.get("socketio");
-      let {
+      const {
         // eslint-disable-next-line prefer-const
         author,
         target,
         content,
         chatID,
       } = req.body;
+      console.log(req.body);
       const chat = await Chat.findOne({
         chatID,
       });
       const authorUser = await User.findOne({ username: author });
       const targetUser = await User.findOne({ username: target });
-      if (!chat || !authorUser || !targetUser) {
+      if (chat == null || authorUser == null || targetUser == null) {
         res.status(404).json({});
+        return;
       }
       const currentMessage = {
         content,
@@ -77,7 +79,7 @@ class PrivateMessageController {
         chatID,
       };
       await Message.create(currentMessage);
-      io.sockets.emit("privateMessage", currentMessage);
+      // io.sockets.emit("privateMessage", currentMessage);
       res.status(201).json({});
     } catch (e) {
       console.log(e);
@@ -99,6 +101,7 @@ class PrivateMessageController {
         res.status(404).json({
           message: "username does not exist",
         });
+        return;
       }
       const chats = await Chat.findChatsOfUser(username);
       const result = chats.map((chat) => {
@@ -126,8 +129,9 @@ class PrivateMessageController {
           unread: true,
         });
         res.status(200).json(messges);
+        return;
       } else {
-        return res.status(404).json({
+        res.status(404).json({
           error: "user does not exist",
         });
       }

@@ -11,13 +11,12 @@ class JoinController {
       const existedUser = await User.findOne({
         username,
       });
-      if (existedUser) {
-        res.status(405).json({
-          error: "user has already exists",
-        });
-        return;
-      }
-
+      // if (existedUser) {
+      //   res.status(405).json({
+      //     error: "user has already exists",
+      //   });
+      //   return;
+      // }
       const newUser = await User.create({
         username,
         password,
@@ -30,10 +29,7 @@ class JoinController {
         { expiresIn: "24h" }
       );
 
-      await User.updateOne(
-        { username: req.params.username },
-        { isLogin: true }
-      );
+      await User.updateOne({ username: req.body.username }, { isLogin: true });
       // user signup successfully, update the userlist and send it to front-end
       const userList = await User.findAllUsers();
       io.emit("userList", userList);

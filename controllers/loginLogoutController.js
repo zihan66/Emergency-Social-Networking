@@ -22,8 +22,8 @@ class loginLogoutController {
         user.password
       );
       if (!isPasswordValid) {
-        return res.status(404).json({
-          error: "user does not exist",
+        return res.status(401).json({
+          error: "password is wrong",
         });
       }
 
@@ -87,5 +87,4 @@ class loginLogoutController {
     }
   }
 }
-
 module.exports = loginLogoutController;

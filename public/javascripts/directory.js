@@ -3,26 +3,71 @@ const userList = document.querySelector(".user-list");
 const { cookies } = brownies;
 // eslint-disable-next-line no-undef
 const socket = io();
+const userChatMap = new Map();
+
+const getAllUsers = async () => {};
+
+const statusImage = (lastStatusCode) => {
+  let userStatus = "";
+  if (lastStatusCode === "OK") userStatus = "green";
+  else if (lastStatusCode === "HELP") userStatus = "yellow";
+  else if (lastStatusCode === "EMERGENCY") userStatus = "red";
+  else userStatus = "grey";
+  return userStatus;
+};
 
 const addSingleUser = (user) => {
   const { username, lastStatusCode, isLogin } = user;
-
   const item = document.createElement("li");
-  let recStatus = "";
-  if (lastStatusCode === "OK") recStatus = "green";
-  else if (lastStatusCode === "HELP") recStatus = "yellow";
-  else if (lastStatusCode === "EMERGENCY") recStatus = "red";
-  else recStatus = "grey";
+  item.addEventListener("click", async function (e) {
+    e.preventDefault();
+    const username2 = this.id;
+    console.log("username2", username2);
+    console.log("ifexist", userChatMap.has(username2));
+    const chatID = userChatMap.get(this.id);
+    console.log("chatid", chatID);
+    if (userChatMap.has(username2)) {
+      window.location.href = `/chatRoom/${chatID}/${username2}`;
+    } else {
+      const username1 = cookies.username;
+      const data = { username1, username2 };
+      const jsonData = JSON.stringify(data);
+      console.log("user12", data);
+      console.log("jsonData", jsonData);
+      try {
+        const response = await fetch("/chats", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        console.log(response);
+        if (response.status === 201) {
+          window.location.href = response.headers.get("Location");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  });
+  // let userStatus = "";
+  // if (lastStatusCode === "OK") userStatus = "green";
+  // else if (lastStatusCode === "HELP") userStatus = "yellow";
+  // else if (lastStatusCode === "EMERGENCY") userStatus = "red";
+  // else userStatus = "grey";
+  const userStatus = statusImage(lastStatusCode);
   item.className = "user";
-  item.innerHTML = ` <span class="avat">
+  item.id = `${username}`;
+  item.innerHTML = ` <div><span class="avat">
   <i class="address card icon"></i>
     </span>
     <span class="username">${username}</span>
     <span class="online">${isLogin ? "online" : "offline"}</span>
     <span class="status">
-    in <img class="ui rounded-image" height="20" width="20" src="/images/${recStatus}.png" />
-    situation
-</span>`;
+    <span>Status:</span>
+    <span id="${username}Status" class=${userStatus}><img src="../images/${userStatus}.png"> ${lastStatusCode}</span>
+</span></div>`;
   userList.appendChild(item);
 };
 
@@ -36,23 +81,98 @@ const appendAllUsers = (users) => {
 
 socket.on("userList", (users) => {
   userList.innerHTML = "";
-  appendAllUsers(users);
+  const allUSer = appendAllUsers(users);
+  console.log("allusers", allUSer);
   directoryContainer.scrollTop = 0;
+});
+
+socket.on("updateStatus", (user) => {
+  const id = `${user.username}Status`;
+  const statusUpdated = user.lastStatusCode;
+  const userStatus = statusImage(statusUpdated);
+  console.log("id", id);
+  const updateStatus = document.getElementById(`${id}`);
+  updateStatus.innerHTML = `<img src="../images/${userStatus}.png"> ${statusUpdated}`;
 });
 
 window.addEventListener("load", async () => {
   try {
-    const response = await fetch("/users", {
+    const allUser = await fetch("/users", {
       method: "get",
       headers: {
         Authorization: `Bearer ${cookies.jwtToken}`,
       },
     });
-    const data = await response.json();
-    console.log(data);
-    appendAllUsers(data);
+    const allUserData = await allUser.json();
+    //console.log("allUSer", allUser);
+    console.log("allUserjson", allUserData);
+    appendAllUsers(allUserData);
+
+    const chatPrivateInfo = await fetch(`/chats?username=${cookies.username}`, {
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${cookies.jwtToken}`,
+      },
+    });
+    //const chatPrivateData = await chatPrivateInfo.json();
+    const chatPrivateData = await chatPrivateInfo.json();
+    console.log("chatPrivate", chatPrivateData);
+    console.log("chatPrivate", chatPrivateData.length);
+    for (let i = 0; i < chatPrivateData.length; i++) {
+      userChatMap.set(chatPrivateData[i].username, chatPrivateData[i].chatID);
+    }
+    console.log("userChatMap", userChatMap);
+
+    const unreadMsgs = await fetch(
+      `/messages/private/unread?username=${cookies.username}`,
+      {
+        method: "get",
+        headers: {
+          Authorization: `Bearer ${cookies.jwtToken}`,
+        },
+      }
+    );
+    const unreadMsgsData = await unreadMsgs.json();
+    const unreadMsgMap = new Map();
+    for (let i = 0; i < unreadMsgsData.length; i += 1) {
+      unreadMsgMap.set(unreadMsgsData[i].username, unreadMsgsData[i].chatID);
+    }
+    console.log("unreadMsgMap", unreadMsgMap);
+    console.log("unreadMsgsData", unreadMsgsData);
+    const clickUnreadMsgBlock = () => {
+      const unreadMsgBlock = document.querySelector(".unreadMsgBlock");
+      if (unreadMsgBlock.style.display === "block") {
+        unreadMsgBlock.style.display = "";
+      } else {
+        unreadMsgBlock.style.display = "block";
+      }
+    };
+    if (unreadMsgsData) {
+      const unreadButton = document.querySelector(".unreadMsgs");
+      unreadButton.innerHTML =
+        '<button id="unread" class="ui inverted button compact">Unread Messages</button>';
+      unreadButton.innerHTML +=
+        '<div class="unreadMsgBlock"><ul class="unreadMsgList"></ul></div>';
+      const unreadMsgList = document.querySelector(".unreadMsgList");
+      console.log("unreadMsgList", unreadMsgList);
+      for (let i = 0; i < unreadMsgsData.length; i += 1) {
+        const item = document.createElement("li");
+        item.id = `${unreadMsgsData[i].username}`;
+        item.innerHTML = `<span> ${unreadMsgsData[i].username}</span>`;
+        unreadMsgList.appendChild(item);
+        // eslint-disable-next-line no-loop-func
+        item.addEventListener("click", function (e) {
+          e.preventDefault();
+          const username2 = this.id;
+          const chatID = unreadMsgMap.get(username2);
+          window.location.href = `/chatRoom/${chatID}/${username2}`;
+        });
+      }
+      const unread = document.getElementById("unread");
+      unread.addEventListener("click", clickUnreadMsgBlock);
+    }
   } catch (err) {
-    console.error(err);
+    console.log(err);
   }
 });
 
@@ -200,39 +320,3 @@ setYellowButton.addEventListener("click", async (e) => {
     console.log(error);
   }
 });
-
-// const setStatusButton = () => {
-//   e.preventDefault();
-//   const username = document.forms[0].querySelectorAll("input")[0].value;
-//   const password = document.forms[0].querySelectorAll("input")[1].value;
-//   const lastStatusCode = document.forms[0].querySelectorAll("input")[2].value;
-
-//   const data = { username, password, lastStatusCode };
-//   try {
-//     const response = await fetch(`/users/${userName}/status/${lastStatusCode}`, {
-//       method: "put",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(data),
-//     });
-//     if (response.status === 404) {
-//       // const ele = document.querySelector("#password-hint");
-//       // ele.innerHTML = "user does not exist or password is incorrect";
-//       return;
-//     }
-//     if (response.status === 200) {
-//       window.location.href = response.headers.get("Location");
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-//   // const setRedButton = document.querySelector(".setRed");
-//   // if (setRedButton.style.display === "block") {
-//   //   setRedButton.style.display = "";
-//   // } else {
-//   //   setRedButton.style.display = "block";
-//   // }
-// };
-// const setStatusButton = document.getElementById("setStatusButton");
-// setStatusButton.addEventListener("click", setStatusButton);

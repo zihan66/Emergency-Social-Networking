@@ -659,7 +659,7 @@ joinCommunity.addEventListener("click", async (e) => {
     ele.innerHTML = "Username should have minimum three characters";
     return;
   }
-
+  
   if (reservedUsernameList.includes(username)) {
     const ele = document.querySelector("#username-hint");
     ele.innerHTML = "Username is reserved, please choose another one";
