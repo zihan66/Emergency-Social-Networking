@@ -1,4 +1,8 @@
 version: 3.3 # CircleCI syntax version
+
+orbs:
+  heroku: circleci/heroku@0.0.10
+
 jobs: # a collection of steps
   build: # runs that are not using Workflows must have a `build` job as the entry point
     docker:
@@ -22,3 +26,13 @@ jobs: # a collection of steps
       - store_artifacts:
           path: coverage/lcov-report
           destination: coverage
+workflows:
+  heroku_deploy:
+    jobs:
+      - build
+      - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
+          requires:
+            - build
+          filters:
+            branches:
+              only: iteration2
