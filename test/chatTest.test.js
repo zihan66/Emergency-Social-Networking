@@ -26,6 +26,6 @@ test("It should be possible to save a new chat", async () => {
     chatID: new Date().getTime().toString(36),
   });
   const response = await hakanChat.save();
-  const chat = await Chat.findOne({ username1: "Hadßan" });
+  const chat = await Chat.findOne({ username1: "Hakan" });
   expect(chat.username2).toBe(hakanChat.username2);
 });
