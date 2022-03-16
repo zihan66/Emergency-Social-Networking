@@ -1,4 +1,4 @@
-version: 3.3 # CircleCI syntax version
+version: 2.1 # CircleCI syntax version
 
 orbs:
   heroku: circleci/heroku@1.2.6
