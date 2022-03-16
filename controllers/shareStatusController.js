@@ -26,6 +26,7 @@ class shareStatusController {
 
   static async setStatus(req, res) {
     const user = req.params;
+    const io = req.app.get("socketio");
     // const io = req.app.get("socketio");
     // console.log("setStatus user ", user);
     try {
@@ -37,6 +38,18 @@ class shareStatusController {
           { username: user.username },
           { lastStatusCode: user.lastStatusCode }
         );
+        //here just use the same emit method userList
+        const userList = await User.findAllUsers();
+        console.log("test: ", userList);
+        io.emit("userList", userList);
+        const updateUser = user.username;
+        const updatedStatus = user.lastStatusCode;
+        
+        console.log("updateUser&updatedStatus",updateUser,updatedStatus);
+        io.emit("updateDirectoryProfile", updateUser, updatedStatus);
+        // const input_user = result;
+        // console.log("emit_test user:", input_user);
+        // io.emit("userList", input_user);
         res.status(200).json({});
       }
     } catch (e) {
