@@ -3,7 +3,7 @@ const msgList = document.querySelector(".message-list");
 //const infScroll = new InfiniteScroll(msgList);
 const { cookies } = brownies;
 // eslint-disable-next-line no-undef
-const socket = io();
+const socket = io({ URL: "http://localhost:3000", autoConnect: false });
 
 const getAllMessages = async () => {
   try {
@@ -55,8 +55,10 @@ socket.on("publicMessage", (message) => {
   msgContainer.scrollTop = msgContainer.scrollHeight;
 });
 
-socket.on("privateMessage", (message, author) => {
-  window.alert("You recieved a new message from " + author);
+socket.on("privateMessage", (message) => {
+  const { target, author } = message;
+  if (target === cookies.username)
+    window.alert("You received a new message from " + author);
 });
 
 const sendButton = document.getElementById("msg-button");
@@ -86,6 +88,8 @@ sendButton.addEventListener("click", async (e) => {
 
 window.addEventListener("load", async () => {
   try {
+    socket.auth = { username: cookies.username };
+    socket.connect();
     const response = await fetch("/messages/public", {
       method: "get",
       headers: {

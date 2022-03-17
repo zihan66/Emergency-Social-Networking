@@ -2,7 +2,7 @@ const msgContainer = document.querySelector(".message-container");
 const msgList = document.querySelector(".message-list");
 const { cookies } = brownies;
 // eslint-disable-next-line no-undef
-const socket = io({ autoConnect: false });
+const socket = io({ URL: "http://localhost:3000", autoConnect: false });
 const pathname = document.URL.split("/");
 const chatID = pathname[pathname.length - 2];
 const another = pathname[pathname.length - 1];
@@ -109,8 +109,8 @@ const addSingleMessage = (message) => {
 const appendPreviousMessages = (messages) => {
   messages.map(addSingleMessage, true);
 };
-
 socket.on("privateMessage", async (message) => {
+  console.log(message);
   addSingleMessage(message);
   msgContainer.scrollTop = msgContainer.scrollHeight;
   await readMessage(message.id);

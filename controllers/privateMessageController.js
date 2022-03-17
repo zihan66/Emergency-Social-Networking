@@ -89,6 +89,12 @@ class PrivateMessageController {
       };
       await Message.create(currentMessage);
       // io.sockets.emit("privateMessage", currentMessage);
+      const authorSocketId = req.app.locals.hasName[authorUser.username];
+      const targetSocketId = req.app.locals.hasName[targetUser.username];
+      io.sockets.to(authorSocketId).emit("privateMessage", currentMessage);
+      if (targetSocketId !== undefined)
+        io.sockets.to(targetSocketId).emit("privateMessage", currentMessage);
+
       res.status(201).json({});
     } catch (e) {
       console.log(e);

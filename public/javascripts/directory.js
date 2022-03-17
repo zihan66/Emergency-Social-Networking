@@ -2,7 +2,7 @@ const directoryContainer = document.querySelector(".directory-container");
 const userList = document.querySelector(".user-list");
 const { cookies } = brownies;
 // eslint-disable-next-line no-undef
-const socket = io();
+const socket = io({ URL: "http://localhost:3000", autoConnect: false });
 const userChatMap = new Map();
 
 const getAllUsers = async () => {};
@@ -22,18 +22,14 @@ const addSingleUser = (user) => {
   item.addEventListener("click", async function (e) {
     e.preventDefault();
     const username2 = this.id;
-    console.log("username2", username2);
-    console.log("ifexist", userChatMap.has(username2));
     const chatID = userChatMap.get(this.id);
-    console.log("chatid", chatID);
     if (userChatMap.has(username2)) {
       window.location.href = `/chatRoom/${chatID}/${username2}`;
     } else {
       const username1 = cookies.username;
       const data = { username1, username2 };
       const jsonData = JSON.stringify(data);
-      console.log("user12", data);
-      console.log("jsonData", jsonData);
+
       try {
         const response = await fetch("/chats", {
           method: "post",
@@ -42,7 +38,7 @@ const addSingleUser = (user) => {
           },
           body: JSON.stringify(data),
         });
-        console.log(response);
+
         if (response.status === 201) {
           window.location.href = response.headers.get("Location");
         }
@@ -72,7 +68,6 @@ const addSingleUser = (user) => {
 };
 
 const appendAllUsers = (users) => {
-  console.log(users);
   const { username } = cookies;
   // eslint-disable-next-line no-underscore-dangle
   // const _users = users.filter((e) => e.username !== username);
@@ -82,7 +77,6 @@ const appendAllUsers = (users) => {
 socket.on("userList", (users) => {
   userList.innerHTML = "";
   const allUSer = appendAllUsers(users);
-  console.log("allusers", allUSer);
   directoryContainer.scrollTop = 0;
 });
 
@@ -90,13 +84,22 @@ socket.on("updateStatus", (user) => {
   const id = `${user.username}Status`;
   const statusUpdated = user.lastStatusCode;
   const userStatus = statusImage(statusUpdated);
-  console.log("id", id);
+
   const updateStatus = document.getElementById(`${id}`);
   updateStatus.innerHTML = `<img src="../images/${userStatus}.png"> ${statusUpdated}`;
 });
 
+socket.on("privateMessage", (message) => {
+  console.log("I am in");
+  const { target, author } = message;
+  if (target === cookies.username)
+    window.alert("You received a new message from " + author);
+});
+
 window.addEventListener("load", async () => {
   try {
+    socket.auth = { username: cookies.username };
+    socket.connect();
     const allUser = await fetch("/users", {
       method: "get",
       headers: {
@@ -104,8 +107,6 @@ window.addEventListener("load", async () => {
       },
     });
     const allUserData = await allUser.json();
-    //console.log("allUSer", allUser);
-    console.log("allUserjson", allUserData);
     appendAllUsers(allUserData);
 
     const chatPrivateInfo = await fetch(`/chats?username=${cookies.username}`, {
@@ -114,15 +115,12 @@ window.addEventListener("load", async () => {
         Authorization: `Bearer ${cookies.jwtToken}`,
       },
     });
-    //const chatPrivateData = await chatPrivateInfo.json();
     const chatPrivateData = await chatPrivateInfo.json();
     const chats = chatPrivateData.chats;
-    console.log("chatPrivate", chats);
-    // console.log("chatPrivate", chatPrivateData.length);
+
     for (let i = 0; i < chats.length; i++) {
       userChatMap.set(chats[i].username, chats[i].chatID);
     }
-    console.log("userChatMap", userChatMap);
 
     const unreadMsgs = await fetch(
       `/messages/private/unread?username=${cookies.username}`,
@@ -138,8 +136,7 @@ window.addEventListener("load", async () => {
     for (let i = 0; i < unreadMsgsData.length; i += 1) {
       unreadMsgMap.set(unreadMsgsData[i].username, unreadMsgsData[i].chatID);
     }
-    console.log("unreadMsgMap", unreadMsgMap);
-    console.log("unreadMsgsData", unreadMsgsData);
+
     const clickUnreadMsgBlock = () => {
       const unreadMsgBlock = document.querySelector(".unreadMsgBlock");
       if (unreadMsgBlock.style.display === "block") {
@@ -155,7 +152,7 @@ window.addEventListener("load", async () => {
       unreadButton.innerHTML +=
         '<div class="unreadMsgBlock"><ul class="unreadMsgList"></ul></div>';
       const unreadMsgList = document.querySelector(".unreadMsgList");
-      console.log("unreadMsgList", unreadMsgList);
+
       for (let i = 0; i < unreadMsgsData.length; i += 1) {
         const item = document.createElement("li");
         item.id = `${unreadMsgsData[i].username}`;

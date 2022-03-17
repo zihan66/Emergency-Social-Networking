@@ -89,8 +89,13 @@ function onListening() {
 /**
  * Set up socket
  */
+
+let hasName = {};
+app.locals.hasName = hasName;
 const io = new Server(server);
-io.on("connection", () => {
-  console.log("a user connected");
+io.on("connection", (socket) => {
+  const username = socket.handshake.auth.username;
+  hasName[username] = socket.id;
+  console.log("hasName", hasName);
 });
 app.set("socketio", io);
