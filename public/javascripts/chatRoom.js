@@ -13,6 +13,7 @@ const getCorrectStatusSpan = (deliveryStatus) => {
   if (deliveryStatus === "OK") recStatus = "green";
   else if (deliveryStatus === "Help") recStatus = "yellow";
   else if (deliveryStatus === "Emergency") recStatus = "red";
+  else recStatus = "grey";
   return recStatus;
 };
 
@@ -24,7 +25,7 @@ const getAllMessages = async () => {
         Authorization: `Bearer ${cookies.jwtToken}`,
       },
     });
-    const data = response.json();
+    const data = await response.json();
     return data;
   } catch (err) {
     console.error(err);
@@ -39,7 +40,7 @@ const getUserStatus = async (username) => {
         Authorization: `Bearer ${cookies.jwtToken}`,
       },
     });
-    const data = response.json();
+    const data = await response.json();
     return data.lastStatusCode;
   } catch (error) {
     console.error(error);
@@ -54,7 +55,7 @@ const getChatInfo = async () => {
         Authorization: `Bearer ${cookies.jwtToken}`,
       },
     });
-    const data = response.json();
+    const data = await response.json();
   } catch (err) {
     console.err(err);
   }
@@ -99,7 +100,9 @@ const addSingleMessage = (message) => {
   )}
   <span class="message-status">
     the user was
-    <span class=${getCorrectStatusSpan(deliveryStatus)}></span>
+    <img class="status" src="../../images/${getCorrectStatusSpan(
+      deliveryStatus
+    )}.png"></span>
   </span>`;
   item.appendChild(paragraph);
   item.appendChild(timeStamp);
@@ -109,11 +112,20 @@ const addSingleMessage = (message) => {
 const appendPreviousMessages = (messages) => {
   messages.map(addSingleMessage, true);
 };
+
 socket.on("privateMessage", async (message) => {
   console.log(message);
   addSingleMessage(message);
   msgContainer.scrollTop = msgContainer.scrollHeight;
   await readMessage(message.id);
+});
+
+socket.on("updateStatus", (user) => {
+  if (user.username === another) {
+    const header1 = document.querySelector(".header1");
+    header1.innerHTML = `${another}'s <span class="current-status">current status</span>
+    <img  src="../../images/${getCorrectStatusSpan(user.lastStatusCode)}.png">`;
+  }
 });
 
 const sendButton = document.getElementById("msg-button");
@@ -151,17 +163,19 @@ window.addEventListener("load", async () => {
     // const status = await getUserStatus(username);
     socket.auth = { username: cookies.username };
     socket.connect();
-    const repsonse = await fetch(`/users/${cookies.username}`, {
+    const repsonse = await fetch(`/users/${another}`, {
       method: "get",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${cookies.jwtToken}`,
       },
     });
-    const status = repsonse.json();
+    const status = await repsonse.json();
     const header1 = document.querySelector(".header1");
     header1.innerHTML = `${another}'s <span class="current-status">current status</span>
-    <span class=${getCorrectStatusSpan(status.userLastStatus)}></span>`;
+    <img  src="../../images/${getCorrectStatusSpan(
+      status.userLastStatus
+    )}.png">`;
     const data = await getAllMessages();
     if (data.messages) appendPreviousMessages(data.messages);
   } catch (err) {

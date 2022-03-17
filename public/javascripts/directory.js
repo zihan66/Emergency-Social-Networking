@@ -17,10 +17,6 @@ const statusImage = (lastStatusCode) => {
   return userStatus;
 };
 
-// const statusID = (lastStatusCode) =>{
-//   let status = "";
-// };
-
 const addSingleUser = (user) => {
   const { username, lastStatusCode, isLogin } = user;
   const item = document.createElement("li");
@@ -86,8 +82,6 @@ socket.on("userList", (users) => {
 });
 
 socket.on("updateStatus", (user) => {
-  // console.log("updateStatus called");
-  // console.log("updateStatus user&status:",user,updated_status);
   const id = `${user.username}Status`;
   const statusUpdated = user.lastStatusCode;
   const userStatus = statusImage(statusUpdated);
@@ -206,16 +200,6 @@ publicButton.addEventListener("click", (e) => {
   window.location.href = "/publicWall";
 });
 
-const joinCommunity = document.getElementById("link-signup");
-joinCommunity.addEventListener("click", () => {
-  window.location.href = "/signup";
-});
-
-// const login = document.getElementById("link-login");
-// login.addEventListener("click", () => {
-//   window.location.href = "/login";
-// });
-
 const clickHamburger = () => {
   const hamburger = document.querySelector(".links");
   if (hamburger.style.display === "block") {
@@ -254,7 +238,6 @@ setGreyButton.addEventListener("click", async (e) => {
         },
       }
     );
-    // window.location.href = "/directory";
   } catch (error) {
     console.log(error);
   }
@@ -276,7 +259,6 @@ setRedButton.addEventListener("click", async (e) => {
         },
       }
     );
-    // window.location.href = "/directory";
   } catch (error) {
     console.log(error);
   }
@@ -298,7 +280,6 @@ setGreenButton.addEventListener("click", async (e) => {
         },
       }
     );
-    // window.location.href = "/directory";
   } catch (error) {
     console.log(error);
   }
@@ -320,7 +301,6 @@ setYellowButton.addEventListener("click", async (e) => {
         },
       }
     );
-    // window.location.href = "/directory";
   } catch (error) {
     console.log(error);
   }
