@@ -1,6 +1,6 @@
 const directoryContainer = document.querySelector(".directory-container");
 const userList = document.querySelector(".user-list");
-// const userprofile
+const userprofile = document.querySelector("user-directory-profile");
 const { cookies } = brownies;
 // eslint-disable-next-line no-undef
 const socket = io();
@@ -105,7 +105,18 @@ socket.on("updateStatus", (user) => {
 
 socket.on("updateDirectoryProfile", (user,status) => {
   console.log("updateDirectoryProfile called");
-
+  item.className = "user";
+  item.id = `${username}`;
+  item.innerHTML = ` <div><span class="avat">
+  <i class="address card icon"></i>
+    </span>
+    <span class="username">${username}</span>
+    <span class="online">${isLogin ? "online" : "offline"}</span>
+    <span class="status">
+    <span>Status:</span>
+    <span id="${username}Status" class=${userStatus}><img src="../images/${userStatus}.png"> ${lastStatusCode}</span>
+</span></div>`;
+  userList.appendChild(item);
 });
 
 window.addEventListener("load", async () => {
