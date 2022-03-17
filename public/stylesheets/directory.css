@@ -121,12 +121,14 @@ li>p {
 }
 
 .unreadMsgs {
-  width: 94px;
+  width: 160px;
+  /* width: 94px; */
 }
 
 .unreadMsgs button {
   position: relative;
-  width   : 93px;
+  width   : 158px;
+  /* width   : 93px; */
 }
 
 .unreadMsgBlock {

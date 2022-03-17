@@ -1,5 +1,6 @@
 const directoryContainer = document.querySelector(".directory-container");
 const userList = document.querySelector(".user-list");
+const userprofile = document.querySelector("user-directory-profile");
 const { cookies } = brownies;
 // eslint-disable-next-line no-undef
 const socket = io({ URL: "http://localhost:3000", autoConnect: false });
@@ -15,6 +16,10 @@ const statusImage = (lastStatusCode) => {
   else userStatus = "grey";
   return userStatus;
 };
+
+// const statusID = (lastStatusCode) =>{
+//   let status = "";
+// };
 
 const addSingleUser = (user) => {
   const { username, lastStatusCode, isLogin } = user;
@@ -81,6 +86,8 @@ socket.on("userList", (users) => {
 });
 
 socket.on("updateStatus", (user) => {
+  // console.log("updateStatus called");
+  // console.log("updateStatus user&status:",user,updated_status);
   const id = `${user.username}Status`;
   const statusUpdated = user.lastStatusCode;
   const userStatus = statusImage(statusUpdated);
@@ -247,7 +254,7 @@ setGreyButton.addEventListener("click", async (e) => {
         },
       }
     );
-    window.location.href = "/directory";
+    // window.location.href = "/directory";
   } catch (error) {
     console.log(error);
   }
@@ -269,7 +276,7 @@ setRedButton.addEventListener("click", async (e) => {
         },
       }
     );
-    window.location.href = "/directory";
+    // window.location.href = "/directory";
   } catch (error) {
     console.log(error);
   }
@@ -291,7 +298,7 @@ setGreenButton.addEventListener("click", async (e) => {
         },
       }
     );
-    window.location.href = "/directory";
+    // window.location.href = "/directory";
   } catch (error) {
     console.log(error);
   }
@@ -313,7 +320,7 @@ setYellowButton.addEventListener("click", async (e) => {
         },
       }
     );
-    window.location.href = "/directory";
+    // window.location.href = "/directory";
   } catch (error) {
     console.log(error);
   }
