@@ -60,7 +60,7 @@ const getChatInfo = async () => {
     console.err(err);
   }
 };
-
+// circleCi test
 const readMessage = async (messageId) => {
   try {
     const response = await fetch(`/messages/private/${messageId}/read`, {
