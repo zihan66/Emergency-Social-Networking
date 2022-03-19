@@ -5,6 +5,8 @@ module.exports = {
     commonjs: true,
     es2021: true,
     jquery: true,
+    jest: true,
+    brownies: true,
   },
   extends: ["airbnb-base"],
   parserOptions: {
@@ -14,4 +16,5 @@ module.exports = {
     quotes: [2, "double", { avoidEscape: true }],
     "no-console": "off",
   },
+  "comma-dangle": ["error", "never"],
 };

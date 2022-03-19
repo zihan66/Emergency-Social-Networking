@@ -9,17 +9,16 @@ class JoinController {
       const { username, password } = req.body;
       const io = req.app.get("socketio");
       const existedUser = await User.findOne({
-        username: username.toLowerCase(),
+        username,
       });
-      if (existedUser) {
-        res.status(405).json({
-          error: "user has already exists",
-        });
-        return;
-      }
-
+      // if (existedUser) {
+      //   res.status(405).json({
+      //     error: "user has already exists",
+      //   });
+      //   return;
+      // }
       const newUser = await User.create({
-        username: username.toLowerCase(),
+        username,
         password,
       });
       const token = jwt.sign(
@@ -30,26 +29,10 @@ class JoinController {
         { expiresIn: "24h" }
       );
 
-      await User.updateOne(
-        { username: req.params.username },
-        { isLogin: true }
-      );
+      await User.updateOne({ username: req.body.username }, { isLogin: true });
       // user signup successfully, update the userlist and send it to front-end
-
-      const onlineUsers = await User.find({ isLogin: true }).sort({
-        username: 1,
-      });
-      const offlineUsers = await User.find({ isLogin: false }).sort({
-        username: 1,
-      });
-      const wholeUserList = onlineUsers.concat(offlineUsers);
-      const filteredUserList = wholeUserList.map((user) => {
-        const { username: name, isLogin } = user;
-        return { username: name, isLogin };
-      });
-      console.log(filteredUserList);
-
-      io.emit("userList", filteredUserList);
+      const userList = await User.findAllUsers();
+      io.emit("userList", userList);
       res.cookie("jwtToken", token);
       res.cookie("username", username);
       res.location("/welcome");

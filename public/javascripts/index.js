@@ -9,11 +9,6 @@ const type = () => {
 };
 window.addEventListener("load", type);
 
-const joinCommunity = document.getElementById("link-signup");
-joinCommunity.addEventListener("click", () => {
-  window.location.href = "/signup";
-});
-
 const login = document.getElementById("link-login");
 login.addEventListener("click", () => {
   window.location.href = "/login";

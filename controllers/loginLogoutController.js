@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
 
+const Chat = require("../models/chat");
+
 class loginLogoutController {
   static async login(req, res) {
     try {
@@ -20,8 +22,8 @@ class loginLogoutController {
         user.password
       );
       if (!isPasswordValid) {
-        return res.status(404).json({
-          error: "user does not exist",
+        return res.status(401).json({
+          error: "password is wrong",
         });
       }
 
@@ -43,22 +45,8 @@ class loginLogoutController {
         { isLogin: true }
       );
       // user login successfully, update the userlist and send it to front-end
-
-      result = await User.find();
-
-      let onlineUsers = await User.find({ isLogin: true }).sort({
-        username: 1,
-      });
-      let offlineUsers = await User.find({ isLogin: false }).sort({
-        username: 1,
-      });
-      const wholeUserList = onlineUsers.concat(offlineUsers);
-      const filteredUserList = wholeUserList.map((user) => {
-        const { username: name, isLogin } = user;
-        return { username: name, isLogin };
-      });
-      io.emit("userList", filteredUserList);
-
+      const userList = await User.findAllUsers();
+      io.emit("userList", userList);
       res.cookie("jwtToken", token);
       res.cookie("username", req.params.username);
       res.status(200).json({
@@ -78,25 +66,10 @@ class loginLogoutController {
       let result = await User.findOne({ username: user.username });
       if (result) {
         await User.updateOne({ username: user.username }, { isLogin: false });
-
-        result = await User.find();
-        console.log;
-        let onlineUsers = await User.find({ isLogin: true }).sort({
-          username: 1,
-        });
-        let offlineUsers = await User.find({ isLogin: false }).sort({
-          username: 1,
-        });
-        const wholeUserList = onlineUsers.concat(offlineUsers);
-        const filteredUserList = wholeUserList.map((user) => {
-          const { username: name, isLogin } = user;
-          return { username: name, isLogin };
-        });
-
-        io.emit("userList", filteredUserList);
+        const userList = await User.findAllUsers();
+        io.emit("userList", userList);
         res.clearCookie("jwtToken");
         res.clearCookie("username");
-        // res.cookie("express.sid", "", { expires: new Date() });
 
         res.status(200).json({});
       }
@@ -107,25 +80,11 @@ class loginLogoutController {
 
   static async getAllUsers(req, res) {
     try {
-      const result = await User.find();
-
-      let onlineUsers = await User.find({ isLogin: true }).sort({
-        username: 1,
-      });
-      let offlineUsers = await User.find({ isLogin: false }).sort({
-        username: 1,
-      });
-      const wholeUserList = onlineUsers.concat(offlineUsers);
-      const filteredUserList = wholeUserList.map((user) => {
-        const { username: name, isLogin } = user;
-        return { username: name, isLogin };
-      });
-      console.log(filteredUserList);
-      res.status(200).json(filteredUserList);
+      const userList = await User.findAllUsers();
+      res.status(200).json(userList);
     } catch (error) {
       console.log(error);
     }
   }
 }
-
 module.exports = loginLogoutController;

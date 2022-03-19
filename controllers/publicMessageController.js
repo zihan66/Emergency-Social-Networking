@@ -26,7 +26,7 @@ class PublicMessageController {
 
   static async getPublicMessage(req, res) {
     try {
-      const message = await Message.find();
+      const message = await Message.find({ chatID: { $exists: false } });
       res.status(200).json(message);
     } catch (error) {
       console.log(error);
