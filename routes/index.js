@@ -30,7 +30,7 @@ router.get("/directory", auth, (req, res) => {
   res.render("directory", { title: "directory" });
 });
 
-router.get("/chatroom/:chatid/:target", (req, res) => {
+router.get("/chatroom/:chatid/:target", auth, (req, res) => {
   res.render("chatRoom", { title: "chatRoom" });
 });
 
