@@ -6,9 +6,8 @@
 
 const debug = require("debug")("fse-code-architecture-demo:server");
 const http = require("http");
-const { Server } = require("socket.io");
-
 const app = require("../app");
+const Socket = require("../socket");
 /**
  * Get port from environment and store in Express.
  */
@@ -90,12 +89,10 @@ function onListening() {
  * Set up socket
  */
 
-let hasName = {};
-app.locals.hasName = hasName;
-const io = new Server(server);
-io.on("connection", (socket) => {
-  const username = socket.handshake.auth.username;
-  hasName[username] = socket.id;
-  console.log("hasName", hasName);
-});
-app.set("socketio", io);
+Socket.setServer(server);
+
+/**
+ * Set up publicMessage strategy
+ */
+
+app.locals.inTest = false;

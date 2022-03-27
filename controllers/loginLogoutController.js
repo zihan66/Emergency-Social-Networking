@@ -1,17 +1,14 @@
 require("dotenv").config();
 const brypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
+const socket = require("../socket");
 const User = require("../models/user");
-
-const Chat = require("../models/chat");
 
 class loginLogoutController {
   static async login(req, res) {
     try {
       const user = await User.findOne({ username: req.params.username });
-      const io = req.app.get("socketio");
-      console.log("login user", user);
+      const io = socket.getInstance();
       if (!user) {
         return res.status(404).json({
           message: "username does not exist",
@@ -60,7 +57,7 @@ class loginLogoutController {
 
   static async logout(req, res) {
     const user = req.params;
-    const io = req.app.get("socketio");
+    const io = socket.getInstance();
     console.log("req: POST /logout", user);
     try {
       let result = await User.findOne({ username: user.username });

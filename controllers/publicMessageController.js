@@ -1,21 +1,27 @@
 const moment = require("moment");
-const Message = require("../models/message");
+const normalStrategy = require("../lib/publicMessageStrategy").normalStrategy;
 const User = require("../models/user");
-
+const socket = require("../socket");
 class PublicMessageController {
-  static async createNewPublicMessage(req, res) {
+  constructor(strategy) {
+    this.strategy = strategy;
+    this.createNewPublicMessage = this.createNewPublicMessage.bind(this);
+    this.getPublicMessage = this.getPublicMessage.bind(this);
+  }
+
+  async createNewPublicMessage(req, res) {
     try {
-      const io = req.app.get("socketio");
+      const io = socket.getInstance();
       const user = await User.findOne({ username: req.body.username });
-      console.log(user);
       const currentMessage = {
         content: req.body.content,
         author: req.body.username,
         deliveryStatus: user.lastStatusCode,
         postedAt: moment().format(),
+        type: "public",
       };
-      console.log(currentMessage);
-      await Message.create(currentMessage);
+      console.log(this);
+      await this.strategy.createMessage(currentMessage);
       io.sockets.emit("publicMessage", currentMessage);
       res.status(201).json({});
     } catch (e) {
@@ -24,14 +30,20 @@ class PublicMessageController {
     }
   }
 
-  static async getPublicMessage(req, res) {
+  async getPublicMessage(req, res) {
     try {
-      const message = await Message.find({ chatID: { $exists: false } });
+      const message = await this.strategy.getMessages();
       res.status(200).json(message);
     } catch (error) {
       console.log(error);
     }
   }
-}
 
-module.exports = PublicMessageController;
+  setStrategy(strategy) {
+    this.strategy = strategy;
+  }
+}
+const ns = new normalStrategy();
+publicMessageController = new PublicMessageController(ns);
+
+module.exports = publicMessageController;

@@ -7,17 +7,9 @@ const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const http = require("http");
-const socketIo = require("socket.io");
 
 const index = require("./routes/index");
 const app = express();
-const server = http.createServer(app);
-const io = socketIo(server);
-
-io.on("connection", (socket) => {
-  socket.on("message", async () => {});
-});
 
 // view engine setup
 app.use(expressLayouts);

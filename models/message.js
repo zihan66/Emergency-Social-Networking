@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-// establish database connection
 const messageSchema = new mongoose.Schema({
   content: { type: String, default: "", trim: true }, // trim: true will remove all leading and trailing spaces
   author: { type: String, trim: true }, // trim: true will remove all leading and trailing spaces
@@ -8,9 +7,11 @@ const messageSchema = new mongoose.Schema({
   deliveryStatus: { type: String },
   chatID: { type: String },
   unread: { type: Boolean, default: true },
+  type: { type: String },
 });
 
-// current user
 const Message = mongoose.model("Message", messageSchema);
+const MessageTest = mongoose.model("MessageTest", messageSchema);
 
-module.exports = Message;
+exports.Message = Message;
+exports.MessageTest = MessageTest;

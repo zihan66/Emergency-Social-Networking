@@ -2,6 +2,7 @@ const express = require("express");
 const userRoute = require("./user");
 const messageRoute = require("./message");
 const chatRoute = require("./chat");
+const peformanceRoute = require("./performance");
 const auth = require("../middlewares/auth");
 
 const router = express.Router();
@@ -37,5 +38,6 @@ router.get("/chatroom/:chatid/:target", auth, (req, res) => {
 router.use("/users", userRoute);
 router.use("/messages", messageRoute);
 router.use("/chats", chatRoute);
+router.use("/performances", peformanceRoute);
 
 module.exports = router;

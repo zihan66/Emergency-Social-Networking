@@ -2,7 +2,7 @@ const moment = require("moment");
 const Message = require("../models/message");
 const User = require("../models/user");
 const Chat = require("../models/chat");
-
+const socket = require("../socket");
 class PrivateMessageController {
   static async createNewPrivateChat(req, res) {
     try {
@@ -61,15 +61,9 @@ class PrivateMessageController {
 
   static async createNewPrivateMessage(req, res) {
     try {
-      const io = req.app.get("socketio");
-      const {
-        // eslint-disable-next-line prefer-const
-        author,
-        target,
-        content,
-        chatID,
-      } = req.body;
-      console.log(req.body);
+      const io = socket.getInstance();
+      console.log(socket.hasName);
+      const { author, target, content, chatID } = req.body;
       const chat = await Chat.findOne({
         chatID,
       });
@@ -86,11 +80,11 @@ class PrivateMessageController {
         deliveryStatus: authorUser.lastStatusCode,
         postedAt: moment().format(),
         chatID,
+        type: "private",
       };
       await Message.create(currentMessage);
-      // io.sockets.emit("privateMessage", currentMessage);
-      const authorSocketId = req.app.locals.hasName[authorUser.username];
-      const targetSocketId = req.app.locals.hasName[targetUser.username];
+      const authorSocketId = socket.hasName[authorUser.username];
+      const targetSocketId = socket.hasName[targetUser.username];
       io.sockets.to(authorSocketId).emit("privateMessage", currentMessage);
       if (targetSocketId !== undefined)
         io.sockets.to(targetSocketId).emit("privateMessage", currentMessage);
