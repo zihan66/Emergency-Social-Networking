@@ -20,6 +20,8 @@ const userSchema = new mongoose.Schema({
   // lastStatusUpdateTime: {type: String, default: "unknownTime"},
 });
 
+userSchema.index({ username: "text" });
+
 userSchema.statics.findAllUsers = async function () {
   const onlineUsers = await this.find({ isLogin: true }).sort({
     username: 1,
@@ -29,8 +31,47 @@ userSchema.statics.findAllUsers = async function () {
   });
   const wholeUserList = onlineUsers.concat(offlineUsers);
   const filteredUserList = wholeUserList.map((user) => {
-    const { username: name, isLogin, lastStatusCode } = user;
-    return { username: name, isLogin, lastStatusCode };
+    const { username, isLogin, lastStatusCode } = user;
+    return { username, isLogin, lastStatusCode };
+  });
+  return filteredUserList;
+};
+
+userSchema.statics.searchUsersByUsername = async function (searchContent) {
+  const onlineUsers = await this.find({
+    isLogin: true,
+    $text: { $search: searchContent },
+  });
+
+  const offlineUsers = await this.find({
+    isLogin: false,
+    $text: { $search: searchContent },
+  });
+
+  const wholeUserList = onlineUsers.concat(offlineUsers);
+  const filteredUserList = wholeUserList.map((user) => {
+    const { username, isLogin, lastStatusCode } = user;
+    return { username, isLogin, lastStatusCode };
+  });
+
+  return filteredUserList;
+};
+
+userSchema.statics.findUserByStatus = async function (status) {
+  const onlineUsers = await this.find({
+    isLogin: true,
+    lastStatusCode: status,
+  });
+
+  const offlineUsers = await this.find({
+    isLogin: false,
+    lastStatusCode: status,
+  });
+
+  const wholeUserList = onlineUsers.concat(offlineUsers);
+  const filteredUserList = wholeUserList.map((user) => {
+    const { username, isLogin, lastStatusCode } = user;
+    return { username, isLogin, lastStatusCode };
   });
   return filteredUserList;
 };

@@ -2,7 +2,9 @@ const express = require("express");
 const userRoute = require("./user");
 const messageRoute = require("./message");
 const chatRoute = require("./chat");
+const searchRoute = require("./search");
 const peformanceRoute = require("./performance");
+const suspend = require("../middlewares/suspend");
 const auth = require("../middlewares/auth");
 
 const router = express.Router();
@@ -35,9 +37,10 @@ router.get("/chatroom/:chatid/:target", auth, (req, res) => {
   res.render("chatRoom", { title: "chatRoom" });
 });
 
-router.use("/users", userRoute);
+router.use("/users", suspend, userRoute);
 router.use("/messages", messageRoute);
-router.use("/chats", chatRoute);
+router.use("/chats", suspend, chatRoute);
 router.use("/performances", peformanceRoute);
+router.use("/search", suspend, searchRoute);
 
 module.exports = router;
