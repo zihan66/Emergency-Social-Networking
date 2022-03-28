@@ -1,6 +1,6 @@
 const User = require("../models/user");
 const Message = require("../models/message").Message;
-
+const stopWords = require("../lib/stopWords");
 class searchController {
   static async searchUsername(req, res) {
     const query = req.query.q;
@@ -54,6 +54,12 @@ class searchController {
     const query = req.query.q;
     if (!query) {
       res.status(400).json({ message: "Invalid query" });
+    }
+  }
+
+  static removeStopWords(searchContent) {
+    const contents = searchContent.split(" ");
+    for (word of contents) {
     }
   }
 }
