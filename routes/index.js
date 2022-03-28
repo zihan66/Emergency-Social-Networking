@@ -34,6 +34,13 @@ router.get("/chatroom/:chatid/:target", auth, (req, res) => {
   res.render("chatRoom", { title: "chatRoom" });
 });
 
+
+router.get("/measure", (req, res) => {
+  res.render("measure", { title: "measure" });
+});
+
+
+
 router.use("/users", userRoute);
 router.use("/messages", messageRoute);
 router.use("/chats", chatRoute);
