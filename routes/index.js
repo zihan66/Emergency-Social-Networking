@@ -22,7 +22,7 @@ router.get("/publicWall", auth, (req, res) => {
 });
 
 router.get("/welcome", auth, (req, res) => {
-  res.render("welcome");
+  res.render("welcome", { username: req.cookies.username });
 });
 
 router.get("/login", (req, res) => {
