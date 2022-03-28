@@ -35,7 +35,7 @@ test("It should be possible to delete a new message", async () => {
   await message1.remove();
   const messageFound = await Message.findOne({ author: "Hakan" });
   expect(messageFound).toBe(null);
-});
+}, 30000);
 
 test("It should be possible to save a new message", async () => {
   const message1 = new Message({
