@@ -1,5 +1,5 @@
 const moment = require("moment");
-const Message = require("../models/message");
+const Message = require("../models/message").Message;
 const User = require("../models/user");
 const Chat = require("../models/chat");
 const socket = require("../socket");

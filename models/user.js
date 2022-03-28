@@ -20,8 +20,6 @@ const userSchema = new mongoose.Schema({
   // lastStatusUpdateTime: {type: String, default: "unknownTime"},
 });
 
-userSchema.index({ username: "text" });
-
 userSchema.statics.findAllUsers = async function () {
   const onlineUsers = await this.find({ isLogin: true }).sort({
     username: 1,
@@ -40,12 +38,12 @@ userSchema.statics.findAllUsers = async function () {
 userSchema.statics.searchUsersByUsername = async function (searchContent) {
   const onlineUsers = await this.find({
     isLogin: true,
-    $text: { $search: searchContent },
+    username: { $regex: searchContent },
   });
 
   const offlineUsers = await this.find({
     isLogin: false,
-    $text: { $search: searchContent },
+    username: { $regex: searchContent },
   });
 
   const wholeUserList = onlineUsers.concat(offlineUsers);

@@ -24,6 +24,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 // establish database connection
+mongoose.set("useCreateIndex", true);
+mongoose.set("autoIndex", false);
 if (process.env.ENVIRONMENT === "DEV") {
   mongoose.connect(process.env.DEV_DATABASE);
 } else {

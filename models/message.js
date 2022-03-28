@@ -10,6 +10,35 @@ const messageSchema = new mongoose.Schema({
   type: { type: String },
 });
 
+messageSchema.index({ content: "text" });
+
+messageSchema.statics.searchPublicMessage = async function (
+  searchContent,
+  limit
+) {
+  const result = await this.find({
+    type: "public",
+    $text: { $search: searchContent },
+  })
+    .sort({ postedAt: -1 })
+    .limit(limit);
+  return result;
+};
+
+messageSchema.statics.searchPrivateMessage = async function (
+  searchContent,
+  limit,
+  chatId
+) {
+  const result = await this.find({
+    chatId,
+    $text: { $search: searchContent },
+  })
+    .sort({ postedAt: -1 })
+    .limit(limit);
+  return result;
+};
+
 const Message = mongoose.model("Message", messageSchema);
 const MessageTest = mongoose.model("MessageTest", messageSchema);
 
