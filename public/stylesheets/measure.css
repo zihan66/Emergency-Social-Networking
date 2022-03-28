@@ -1,0 +1,182 @@
+.directory-wrapper {
+  position  : relative;
+  background: rgb(10, 3, 3, 0.89);
+  height    : 100%;
+  overflow  : auto;
+}
+
+.user {
+  font-size    : 18px;
+  border       : 1px solid #ffddaa;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+  padding      : 5px 8px;
+  height       : 5%;
+  width        : 95%;
+  display      : table;
+}
+
+.directory-wrapper .directory-header {
+  display         : flex;
+  align-items     : center;
+  height          : 3.5rem;
+  padding         : 10px 10px;
+  justify-content : space-between;
+  color           : whitesmoke;
+  background-color: #24292f;
+}
+
+#leave {
+  height       : 2rem;
+  border-radius: 8px;
+  color        : rgba(255, 0, 0, 0.79);
+  border       : none;
+}
+
+#publicWall {
+  height       : 2rem;
+  border-radius: 8px;
+  color        : rgb(216, 224, 215);
+  border       : none;
+}
+
+.header1 {
+  display  : inline-block;
+  font-size: 22px;
+}
+
+.directory-container {
+  padding   : 15px 12px;
+  box-sizing: border-box;
+  height    : calc(100% - 80px);
+}
+
+.directory-container ul {
+  list-style-type: none;
+  padding-left   : 1rem;
+}
+
+.directory-container ul li {
+  cursor: pointer;
+}
+
+
+li>p {
+  text-align: end;
+  color     : #ffddaa;
+}
+
+.avat {
+  color    : whitesmoke;
+  font-size: 1rem;
+}
+
+.status {
+  color: whitesmoke;
+}
+
+.status img {
+  height: 20px;
+  width : 20px;
+}
+
+.online {
+  color       : rgb(71, 156, 196);
+  margin-left : 2px;
+  margin-right: 2px;
+}
+
+.username {
+  color        : #ffddaa;
+  margin-bottom: 4px;
+  font-size    : 18px;
+}
+
+.unreadMsgs {
+  width   : 160px;
+  /* width: 94px; */
+}
+
+.unreadMsgs button {
+  position   : relative;
+  width      : 158px;
+  /* width   : 93px; */
+}
+
+.unreadMsgBlock {
+  position: absolute;
+  display : none;
+  width   : 93px;
+  height  : 200px;
+
+  background-color: rgb(108, 114, 121);
+  opacity         : 0.8;
+  overflow        : scroll;
+
+}
+
+.unreadMsgList {
+  color          : #ffddaa;
+  padding        : 10px 10px;
+  text-decoration: none;
+  font-size      : 20px;
+  display        : block;
+  list-style-type: none;
+  text-align     : center;
+}
+
+.unreadMsgList li {
+  cursor       : pointer;
+  margin-bottom: 10px;
+}
+
+.left-items {
+  height  : inherit;
+  display : inline-block;
+  position: absolute;
+  left    : 0;
+}
+
+.hamburger-menu {
+  overflow: hidden;
+}
+
+.links {
+  display         : none;
+  color           : whitesmoke;
+  background-color: rgb(108, 114, 121);
+}
+
+.links2 {
+  display         : none;
+  color           : whitesmoke;
+  background-color: rgb(108, 114, 121);
+}
+
+.measure-container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+}
+
+.measure-result{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 300px;
+  width: 300px;
+  margin-top: 20px;
+  align-items: center;
+  background-color: #eeece8;
+}
+
+.duration,.interval,.start{
+  width: 300px;
+  margin-bottom: 30px;
+}
+
+.desc-word{
+  color:white;
+}
