@@ -43,6 +43,13 @@ router.get("/measure", (req, res) => {
   res.render("measure", { title: "measure" });
 });
 
+router.get("/searchPage/:criteria", (req, res) => {
+  res.render("search", { title: "search" });
+});
+router.get("/searchPage/:criteria/:chatID", (req, res) => {
+  res.render("search", { title: "search" });
+});
+
 router.use("/users", userRoute);
 router.use("/messages", messageRoute);
 router.use("/chats", suspend, chatRoute);
