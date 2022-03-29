@@ -1,15 +1,17 @@
 const normalStrategy = require("../lib/publicMessageStrategy").normalStrategy;
 const testStrategy = require("../lib/publicMessageStrategy").testStrategy;
+const MessageTest = require("../models/message").MessageTest;
 const publicMessageController = require("./publicMessageController");
 
 class measurePerformanceController {
-  static startTest(req, res) {
+  static async startTest(req, res) {
     if (req.app.locals.inTest) {
       res.status(404).json({ error: "There is an ongoing test" });
     }
     const { testDuration } = req.body;
     req.app.locals.inTest = true;
     try {
+      await MessageTest.deleteMany({});
       publicMessageController.setStrategy(new testStrategy());
       setTimeout(() => {
         measurePerformanceController.resumeNormalOperation(req);
