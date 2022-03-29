@@ -28,7 +28,6 @@
             Measure
           </button>
         </a>
-
       </div>
       <div class="links2">
         <!-- <div class="ham-img">
@@ -84,24 +83,25 @@
     </div>
   </div>
   <div class="measure-container">
-    <label class="desc-word">duration</label>
-    <input type="text" name="duration" class="duration">
-    <label class="desc-word">interval</label>
-    <input type="text" name="interval" class="interval">
+    <label class="desc-word">duration (seconds)</label>
+    <input type="text" name="duration" class="duration" />
+    <label class="desc-word">interval (millisecond)</label>
+    <input type="text" name="interval" class="interval" />
     <button class="ui inverted whitesmoke button start" id="start">
       Start
     </button>
 
-    <button class="ui inverted whitesmoke button start" id="start" style="margin-top:10px;">
+    <button
+      class="ui inverted whitesmoke button start"
+      id="start"
+      style="margin-top: 10px"
+    >
       Stop
     </button>
-	
+
     <h2 class="desc-word">Performance Result</h2>
-    <div class="measure-result">
-
-    </div>
+    <div class="measure-result"></div>
   </div>
-
 
   <script src="https://cdn.jsdelivr.net/npm/brownies"></script>
   <script src="/socket.io/socket.io.js"></script>

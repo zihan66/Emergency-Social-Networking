@@ -38,6 +38,12 @@ router.get("/chatroom/:chatid/:target", auth, (req, res) => {
 });
 
 router.use("/users", suspend, userRoute);
+
+router.get("/measure", (req, res) => {
+  res.render("measure", { title: "measure" });
+});
+
+router.use("/users", userRoute);
 router.use("/messages", messageRoute);
 router.use("/chats", suspend, chatRoute);
 router.use("/performances", peformanceRoute);
