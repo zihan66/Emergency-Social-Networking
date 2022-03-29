@@ -13,7 +13,7 @@ class measurePerformanceController {
       publicMessageController.setStrategy(new testStrategy());
       setTimeout(() => {
         measurePerformanceController.resumeNormalOperation(req);
-      }, 1000 * testDuration);
+      }, 1000 * (testDuration + 5));
       res.status(200).json({});
     } catch (error) {
       console.log(error);

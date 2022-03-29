@@ -1,92 +1,15 @@
 <link rel="stylesheet" href="/stylesheets/measure.css" />
-<div class="directory-wrapper">
+<div class="measure-wrapper">
   <header class="directory-header">
-    <!-- <span class="header1">User Directory</span> -->
-    <i class="bars icon" id="bar"></i>
-    <button id="go-to" class="ui inverted button compact">
-      See Public Messages
-    </button>
-    <div class="unreadMsgs"></div>
-    <!-- <button id="logout" class="ui inverted button compact">Logout</button> -->
+    <button id="leave" class="ui inverted button compact">Leave</button>
   </header>
-  <div class="hamburger-menu">
-    <div class="links">
-      <div class="menu-item">
-        <ul class="directory_profile"></ul>
-        <!-- <button class="ui inverted whitesmoke button" id="user-profile"> -->
-        <!-- My Status:<var>directory_profile_username</var> <var>directory_profile_status</var> -->
-        <!-- </button> -->
-      </div>
-      <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
-      <div class="menu-item">
-        <button class="ui inverted whitesmoke button" id="status-bar">
-          Set Status:
-        </button>
-
-        <a href="./measure">
-          <button class="ui inverted whitesmoke button" id="measure-bar">
-            Measure
-          </button>
-        </a>
-      </div>
-      <div class="links2">
-        <!-- <div class="ham-img">
-        </div> -->
-        <p></p>
-        <form class="ui form">
-          <button id="setRedButton" class="ui inverted button compact">
-            <img
-              class="ui rounded-image"
-              height="30"
-              width="30"
-              src="/images/red.png"
-            />
-            <i> Emergency </i>
-            <i class="circle outline icon"></i>
-          </button>
-          <button id="setGreenButton" class="ui inverted button compact">
-            <img
-              class="ui rounded-image"
-              height="30"
-              width="30"
-              src="/images/green.png"
-            />
-            <i> I am OK </i>
-            <i class="circle outline icon"></i>
-          </button>
-          <p></p>
-          <button id="setYellowButton" class="ui inverted button compact">
-            <img
-              class="ui rounded-image"
-              height="30"
-              width="30"
-              src="/images/yellow.png"
-            />
-            <i> I need Help </i>
-            <i class="circle outline icon"></i>
-          </button>
-          <button id="setGreyButton" class="ui inverted button compact">
-            <img
-              class="ui rounded-image"
-              height="30"
-              width="30"
-              src="/images/grey.png"
-            />
-            <i> Undefined </i>
-            <i class="circle outline icon"></i>
-          </button>
-        </form>
-      </div>
-      <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
-      <button id="logout" class="ui inverted button compact">Logout</button>
-      <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
-    </div>
-  </div>
   <div class="measure-container">
     <label class="desc-word">duration (seconds)</label>
     <input type="text" name="duration" class="duration" />
+    <span id="duration-hint"></span>
     <label class="desc-word">interval (millisecond)</label>
     <input type="text" name="interval" class="interval" />
+    <span id="interval-hint"></span>
     <button class="ui inverted whitesmoke button start" id="start">
       Start
     </button>
@@ -99,14 +22,12 @@
       Stop
     </button>
 
-    <h2 class="desc-word">Performance Result</h2>
     <div class="measure-result" id="result">
       <h2 class="desc-word">Performance Result</h2>
       <div class="measure-result"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/brownies"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/javascripts/directory.js"></script>
+    <script src="/javascripts/measure.js"></script>
   </div>
 </div>

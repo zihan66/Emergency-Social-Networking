@@ -12,6 +12,7 @@ class PublicMessageController {
   async createNewPublicMessage(req, res) {
     try {
       const io = socket.getInstance();
+      console.log(req.body);
       const user = await User.findOne({ username: req.body.username });
       const currentMessage = {
         content: req.body.content,
@@ -20,7 +21,6 @@ class PublicMessageController {
         postedAt: moment().format(),
         type: "public",
       };
-      console.log(this);
       await this.strategy.createMessage(currentMessage);
       io.sockets.emit("publicMessage", currentMessage);
       res.status(201).json({});
