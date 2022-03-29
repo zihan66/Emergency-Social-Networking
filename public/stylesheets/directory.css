@@ -94,25 +94,30 @@ li>p {
 
 .unreadMsgs {
   width   : 160px;
-  /* width: 94px; */
 }
 
 .unreadMsgs button {
   position   : relative;
-  width      : 158px;
+  width      : 145px;
   /* width   : 93px; */
 }
-
 .unreadMsgBlock {
   position: absolute;
   display : none;
-  width   : 93px;
+  width   : 145px;
   height  : 200px;
-
   background-color: rgb(108, 114, 121);
   opacity         : 0.8;
   overflow        : scroll;
-
+}
+.search button{
+  position   : relative;
+}
+.searchCriteria{
+  position: absolute;
+  display : none;
+  width   : 1px;
+  height  : 200px;
 }
 
 .unreadMsgList {
@@ -128,6 +133,20 @@ li>p {
 .unreadMsgList li {
   cursor       : pointer;
   margin-bottom: 10px;
+}
+.msgNum {
+  border-radius: 50%;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  border: 1px solid red;
+  background-color: red;
+  color: white;
+  margin-left: 4px;
+  padding-bottom: 2px;
+
+
 }
 
 .left-items {

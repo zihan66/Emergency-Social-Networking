@@ -21,6 +21,7 @@ class JoinController {
         username,
         password,
       });
+
       const token = jwt.sign(
         {
           id: String(newUser._id),

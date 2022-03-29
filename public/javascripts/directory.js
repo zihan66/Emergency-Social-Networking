@@ -95,6 +95,8 @@ socket.on("privateMessage", (message) => {
   const { target, author } = message;
   if (target === cookies.username)
     window.alert("You received a new message from " + author);
+
+    
 });
 
 window.addEventListener("load", async () => {
@@ -137,7 +139,6 @@ window.addEventListener("load", async () => {
     for (let i = 0; i < unreadMsgsData.length; i += 1) {
       unreadMsgMap.set(unreadMsgsData[i].username, unreadMsgsData[i].chatID);
     }
-
     const clickUnreadMsgBlock = () => {
       const unreadMsgBlock = document.querySelector(".unreadMsgBlock");
       if (unreadMsgBlock.style.display === "block") {
@@ -157,7 +158,9 @@ window.addEventListener("load", async () => {
       for (let i = 0; i < unreadMsgsData.length; i += 1) {
         const item = document.createElement("li");
         item.id = `${unreadMsgsData[i].username}`;
-        item.innerHTML = `<span> ${unreadMsgsData[i].username}</span>`;
+        // const msgNum = 0;
+        // if({unreadMsgsData[i].username)
+        item.innerHTML = `<span> ${unreadMsgsData[i].username}</span><span class="msgNum"></span>`;
         unreadMsgList.appendChild(item);
         // eslint-disable-next-line no-loop-func
         item.addEventListener("click", function (e) {
@@ -174,6 +177,10 @@ window.addEventListener("load", async () => {
     console.log(err);
   }
 });
+
+
+
+
 
 const logout = document.querySelector("#logout");
 logout.addEventListener("click", async (e) => {
@@ -304,4 +311,27 @@ setYellowButton.addEventListener("click", async (e) => {
   } catch (error) {
     console.log(error);
   }
+});
+
+const clickSearch = () => {
+  const searchBlock = document.querySelector(".searchCriteria");
+  if (searchBlock.style.display === "block") {
+    searchBlock.style.display = "";
+  } else {
+    searchBlock.style.display = "block";
+  }
+};
+const search = document.querySelector("#search");
+search.addEventListener("click",clickSearch);
+const searchUsername = document.querySelector("#searchUsername");
+const searchStatus = document.querySelector("#searchStatus");
+searchUsername.addEventListener("click", (e) => {
+  e.preventDefault();
+  const criteria = "user"
+  window.location.href = `/searchPage/${criteria}`;
+});
+searchStatus.addEventListener("click", (e) => {
+  e.preventDefault();
+  const criteria = "status"
+  window.location.href = `/searchPage/${criteria}`;
 });

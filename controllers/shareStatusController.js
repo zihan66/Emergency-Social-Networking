@@ -1,7 +1,9 @@
 require("dotenv").config();
+const moment = require("moment");
 const brypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
+const Status = require("../models/status");
 
 class shareStatusController {
   static async getOneUserRecord(req, res) {
@@ -24,6 +26,8 @@ class shareStatusController {
     }
   }
 
+  
+
   static async setStatus(req, res) {
     const user = req.params;
     const io = req.app.get("socketio");
@@ -31,6 +35,7 @@ class shareStatusController {
     // console.log("setStatus user ", user);
     try {
       let result = await User.findOne({ username: user.username });
+      
       if (result) {
         console.log(user.username);
         console.log(user.lastStatusCode);
@@ -47,11 +52,23 @@ class shareStatusController {
         
         // console.log("updateUser&updatedStatus",updateUser,updatedStatus);
         // io.emit("updateDirectoryProfile", updateUser, updatedStatus);
+        const statusChange = {
+          username: user.username,
+          statusCode: user.lastStatusCode,
+          updatedAt: moment().format(),
+        };
+        console.log("statusChange",statusChange);
         const input_user = user;
         console.log("emit_test user:", input_user);
+        
+       
         io.emit("updateStatus", input_user);
+        
+        await Status.create(statusChange);
+        console.log("AAaa");
         res.status(200).json({});
       }
+      
     } catch (e) {
       res.status(200).send({ status: false, message: e.message });
     }
