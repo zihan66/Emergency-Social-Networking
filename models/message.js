@@ -31,7 +31,7 @@ messageSchema.statics.searchPrivateMessage = async function (
   chatId
 ) {
   const result = await this.find({
-    chatId,
+    chatID: chatId,
     content: { $in: convertListOfStringToListOfRegex(searchContent) },
   })
     .sort({ postedAt: -1 })

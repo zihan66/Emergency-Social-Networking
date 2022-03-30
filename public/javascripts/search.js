@@ -3,7 +3,7 @@ const sendMsg = document.getElementById("sendMsg-button");
 const deleteMsg = document.getElementById("deleteMsg-button");
 const searchResult = document.querySelector(".searchResultList");
 const pathname = document.URL.split("/");
-console.log("pathname", pathname);
+const username = pathname[6];
 const criteria = pathname[4];
 const chatID = pathname[5];
 let page = 1;
@@ -125,7 +125,7 @@ const searchPublicMessage = async (searchContent) => {
     );
     const publicMessageResponse = await response.json();
     const publicMessageInfo = publicMessageResponse.result;
-    const moreResult = publicMessageReponse.moreResult;
+    const moreResult = publicMessageResponse.moreResult;
     if (publicMessageInfo.length == 0) {
       searchResultIsEmpty();
       return;
@@ -205,7 +205,7 @@ const searchPrivateMessage = async (searchContent) => {
                                               : author
                                           } </span>`;
       const p = document.createElement("p");
-      p.innerHTML = `<span class="MsgStatus">${author}'s status: <img src="../images/${userStatus}.png"> ${deliveryStatus}</span>`;
+      p.innerHTML = `<span class="MsgStatus">${author}'s status: <img src="../../../images/${userStatus}.png"> ${deliveryStatus}</span>`;
       item.appendChild(p);
       item.innerHTML += `<span class="MsgTimestamp">${moment(postedAt).format(
         "MMM Do YY, h:mm:ss"
@@ -238,20 +238,17 @@ const searchStatusChange = async (searchContent) => {
     const statusChangeResponse = await response.json();
     const statusChangeInfo = statusChangeResponse.result;
     const moreResult = statusChangeResponse.moreResult;
-    if (privateMessageInfo.length == 0) {
+    if (statusChangeInfo.length == 0) {
       searchResultIsEmpty();
       return;
     }
-
+    searchResult.innerHTML = `<div class="statusChangeTitle"> ${statusChangeInfo[0].username} status changes: </div>`;
     for (let i = 0; i < statusChangeInfo.length; i++) {
       const item = document.createElement("li");
       const updatedAt = statusChangeInfo[i].updatedAt;
       const status = statusChangeInfo[i].statusCode;
       const userStatus = statusImage(status);
-
-      searchResult.innerHTML = `<div class="statusChangeTitle"> ${statusChangeInfo[0].username} status changes: </div>`;
-
-      item.innerHTML = `<span class="statusChange"><img src="../images/${userStatus}.png">${status}</span> <span class="statusChangeTime">${moment(
+      item.innerHTML = `<span class="statusChange"><img src="../../../images/${userStatus}.png">${status}</span> <span class="statusChangeTime">${moment(
         updatedAt
       ).format("MMM Do YY, h:mm:ss")}</span>`;
       searchResult.appendChild(item);
@@ -350,8 +347,8 @@ leave.addEventListener("click", (e) => {
   } else if (criteria === "publicMessage") {
     window.location.href = "/publicWall";
   } else if (criteria === "privateMessage") {
-    window.location.href = "/chatRoom";
-  } else if (criteria === "privateMessage") {
+    window.location.href = `/chatRoom/${chatID}/${username}`;
+  } else if (criteria === "announcement") {
     window.location.href = "/announcement";
   }
 });

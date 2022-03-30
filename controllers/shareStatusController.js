@@ -37,15 +37,6 @@ class shareStatusController {
           { username: user.username },
           { lastStatusCode: user.lastStatusCode }
         );
-        //here just use the same emit method userList
-        // const userList = await User.findAllUsers();
-        // console.log("test: ", userList);
-        // io.emit("userList", userList);
-        // const updateUser = user.username;
-        // const updatedStatus = user.lastStatusCode;
-
-        // console.log("updateUser&updatedStatus",updateUser,updatedStatus);
-        // io.emit("updateDirectoryProfile", updateUser, updatedStatus);
         const statusChange = {
           username: user.username,
           statusCode: user.lastStatusCode,

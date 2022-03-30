@@ -1,72 +1,77 @@
 .search-wrapper {
-    position: relative;
+    position  : relative;
     background: rgb(10, 3, 3, 0.89);
-    height: 100%;
+    height    : 100%;
+    overflow  : auto;
 }
 
 .input-area-container {
-    position: relative;
-    display: flex;
-    top:10px;
-    height: 44px;
-    padding: 5px 8px;
-    width: 100%;
-    box-sizing: border-box;
+    position                  : relative;
+    display                   : flex;
+    top                       : 10px;
+    height                    : 44px;
+    padding                   : 5px 8px;
+    width                     : 100%;
+    box-sizing                : border-box;
     border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
-    background-color: rgb(104, 107, 107);
-}
-textarea {
-    display: inline-block;
-    border: none;
-    border-radius: 3px;
-    color: black;
-    font-size: 20px;
-    outline: none;
-    /* background: rgb(19, 17, 17); */
-    background-color: white;
-    width: 90%;
-}
-.hint{
-    color: red;
-    margin-top: 15px;
-    margin-left: 15px;
-    font-size: 15px;
-}
-.searchTitle{
-    color: #ffddaa;
-    margin-top: 15px;
-    text-align: center;
-    font-size: 20px;
-}
-#sendMsg-button {
-    display: inline-block;
-    margin-left: 8px;
-    width: 58px;
-    height: 100%;
-    border-radius: 8px;
-    color: rgba(255, 0, 0, 0.79);
-    background-color: #ffddaa;
-    border: none;
-}
-#deleteMsg-button {
-    display: inline-block;
-    margin-left: 8px;
-    width: 58px;
-    height: 100%;
-    border-radius: 8px;
-    color: rgba(255, 0, 0, 0.79);
-    background-color: #ffddaa;
-    border: none;
+    border-bottom-left-radius : 8px;
+    background-color          : rgb(104, 107, 107);
 }
 
-.searchResultContainer{
-    margin-top: 20px;
-    padding: 10px 5px;
-    box-sizing: border-box;
-    height: calc(100% - 80px);
-    /* overflow: auto; */
-    overflow: scroll;
+textarea {
+    display         : inline-block;
+    border          : none;
+    border-radius   : 3px;
+    color           : black;
+    font-size       : 20px;
+    outline         : none;
+    /* background   : rgb(19, 17, 17); */
+    background-color: white;
+    width           : 90%;
+}
+
+.hint {
+    color      : red;
+    margin-top : 15px;
+    margin-left: 15px;
+    font-size  : 15px;
+}
+
+.searchTitle {
+    color     : #ffddaa;
+    margin-top: 15px;
+    text-align: center;
+    font-size : 20px;
+}
+
+#sendMsg-button {
+    display         : inline-block;
+    margin-left     : 8px;
+    width           : 58px;
+    height          : 100%;
+    border-radius   : 8px;
+    color           : rgba(255, 0, 0, 0.79);
+    background-color: #ffddaa;
+    border          : none;
+}
+
+#deleteMsg-button {
+    display         : inline-block;
+    margin-left     : 8px;
+    width           : 58px;
+    height          : 100%;
+    border-radius   : 8px;
+    color           : rgba(255, 0, 0, 0.79);
+    background-color: #ffddaa;
+    border          : none;
+}
+
+.searchResultContainer {
+    margin-top         : 20px;
+    padding            : 10px 5px;
+    box-sizing         : border-box;
+    height             : calc(100% - 80px);
+    /* overflow        : auto; */
     /* background-color: red;
      */
 }
@@ -76,117 +81,119 @@ img {
     width : 20px;
 }
 
-ul{
-    list-style-type: none;
-    /* padding-left: 4rem; */
-    padding-right: 2rem;
-    /* text-align: center; */
+ul {
+    list-style-type    : none;
+    /* padding-left    : 4rem; */
+    padding-right      : 2rem;
+    /* text-align      : center; */
     /* background-color: aqua; */
 }
 
-.userSearchResult{
-    padding-left: 1rem;
-    border: 1px solid #ffddaa;
+.userSearchResult {
+    padding-left : 1rem;
+    border       : 1px solid #ffddaa;
     border-radius: 5px;
     margin-bottom: 7.5px;
-    font-size: 20px;
+    font-size    : 20px;
 }
 
-.directoryStatus{
+.directoryStatus {
     margin-left: 10px;
 }
 
-ul .online{
-    color: white;
+ul .online {
+    color    : white;
     font-size: 20px;
-    
+
 }
 
-ul .offline{
-    color:red;
+ul .offline {
+    color     : red;
     margin-top: 40px;
-    font-size: 20px;   
+    font-size : 20px;
 }
 
-ul .onlineUsers{
+ul .onlineUsers {
     color: white;
-    
+
 }
 
-ul .offlineUsers{
-    color:white; 
+ul .offlineUsers {
+    color: white;
 }
 
-li > p {
+li>p {
     text-align: end;
-    color: #ffddaa;
+    color     : #ffddaa;
 }
 
-.searchStatus{
-    color: #ffddaa;
-    text-align: center;
-    font-size: 20px;
+.searchStatus {
+    color        : #ffddaa;
+    text-align   : center;
+    font-size    : 20px;
     margin-bottom: 20px;
 }
-.directoryUsername{
-    color: aliceblue;
+
+.directoryUsername {
+    color          : aliceblue;
     /* margin-right: 20px; */
 }
 
 .MsgUsername {
-    display: block;
-    text-align: end;
-    color: #ffddaa;
+    display      : block;
+    text-align   : end;
+    color        : #ffddaa;
     margin-bottom: 4px;
-    font-size: 14px;
-}
-.MsgTimestamp {
-    display: block;
-    color: rgba(255, 0, 0, 0.79);
-    margin-top: 4px;
-    font-size: 12px;
-}
-.self-message {
-    font-size: 14px;
-    color: whitesmoke;
-    border: 1px solid #ffddaa;
-    border-radius: 5px;
-    margin-left: 5%;
-    margin-bottom: 10px;
-    padding: 5px 8px;
-    width: 95%;
-    display: table;
-    background-color: rgb(95, 91, 91);
-}
-.other-message {
-    font-size: 14px;
-    color: whitesmoke;
-    border: 1px solid #ffddaa;
-    border-radius: 5px;
-    margin-left: 5%;
-    margin-bottom: 2rem;
-    padding: 5px 8px;
-    width: 95%;
-    display: table;
+    font-size    : 14px;
 }
 
-.statusChangeTitle{
-    color: #ffddaa;
-    text-align: center;
-    font-size: 20px;
+.MsgTimestamp {
+    display   : block;
+    color     : rgba(255, 0, 0, 0.79);
+    margin-top: 4px;
+    font-size : 12px;
+}
+
+.self-message {
+    font-size       : 14px;
+    color           : whitesmoke;
+    border          : 1px solid #ffddaa;
+    border-radius   : 5px;
+    margin-left     : 5%;
+    margin-bottom   : 10px;
+    padding         : 5px 8px;
+    width           : 95%;
+    display         : table;
+    background-color: rgb(95, 91, 91);
+}
+
+.other-message {
+    font-size    : 14px;
+    color        : whitesmoke;
+    border       : 1px solid #ffddaa;
+    border-radius: 5px;
+    margin-left  : 5%;
+    margin-bottom: 2rem;
+    padding      : 5px 8px;
+    width        : 95%;
+    display      : table;
+}
+
+.statusChangeTitle {
+    color        : #ffddaa;
+    text-align   : center;
+    font-size    : 20px;
     margin-bottom: 20px;
 }
-.statusChange{
+
+.statusChange {
     color: white;
 }
-.statusChangeTime{
+
+.statusChangeTime {
     color: royalblue;
 }
 
-#viewMore{
+#viewMore {
     margin-top: 20px;
 }
-
-
-
-

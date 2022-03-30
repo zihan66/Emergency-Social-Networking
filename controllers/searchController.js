@@ -51,6 +51,7 @@ class searchController {
         filteredContents,
         numberOfResult
       );
+      console.log(result.length);
       if (result.length === numberOfResult) {
         moreResult = true;
         result.pop();
@@ -71,7 +72,7 @@ class searchController {
       res.status(400).json({ message: "Invalid query" });
     }
     let moreResult = false;
-    const filteredContents = this.removeStopWords(query);
+    const filteredContents = removeStopWords(query);
     if (filteredContents.length === 0)
       res.status(200).json({ moreResult, result: [] });
     try {
@@ -101,7 +102,7 @@ class searchController {
       res.status(400).json({ message: "Invalid query" });
     }
     let moreResult = false;
-    const filteredContents = this.removeStopWords(query);
+    const filteredContents = removeStopWords(query);
     if (filteredContents.length === 0)
       res.status(200).json({ moreResult, result: [] });
     try {
@@ -128,7 +129,7 @@ class searchController {
     if (!query) {
       res.status(400).json({ message: "Invalid query" });
     }
-    if (!page || page <= 0 || !chatID) {
+    if (!page || page <= 0 || !chatId) {
       res.status(400).json({ message: "Invalid query" });
     }
     const numberOfResult = page * 10 + 1;

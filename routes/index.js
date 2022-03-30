@@ -46,7 +46,7 @@ router.get("/measure", (req, res) => {
 router.get("/searchPage/:criteria", (req, res) => {
   res.render("search", { title: "search" });
 });
-router.get("/searchPage/:criteria/:chatID", (req, res) => {
+router.get("/searchPage/:criteria/:chatID/:username", (req, res) => {
   res.render("search", { title: "search" });
 });
 

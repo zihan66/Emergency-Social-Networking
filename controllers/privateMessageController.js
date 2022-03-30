@@ -72,7 +72,7 @@ class PrivateMessageController {
         res.status(404).json({});
         return;
       }
-      const currentMessage = {
+      let currentMessage = {
         content,
         author: authorUser.username,
         target: targetUser.username,
@@ -81,12 +81,14 @@ class PrivateMessageController {
         chatID,
         type: "private",
       };
-      await Message.create(currentMessage);
-      const authorSocketId = socket.hasName[authorUser.username];
-      const targetSocketId = socket.hasName[targetUser.username];
-      io.sockets.to(authorSocketId).emit("privateMessage", currentMessage);
-      if (targetSocketId !== undefined)
-        io.sockets.to(targetSocketId).emit("privateMessage", currentMessage);
+      let messageId;
+      await Message.create(currentMessage, (err, message) => {
+        const authorSocketId = socket.hasName[authorUser.username];
+        const targetSocketId = socket.hasName[targetUser.username];
+        io.sockets.to(authorSocketId).emit("privateMessage", message);
+        if (targetSocketId !== undefined)
+          io.sockets.to(targetSocketId).emit("privateMessage", message);
+      });
 
       res.status(201).json({});
     } catch (e) {

@@ -117,7 +117,7 @@ socket.on("privateMessage", async (message) => {
   console.log(message);
   addSingleMessage(message);
   msgContainer.scrollTop = msgContainer.scrollHeight;
-  await readMessage(message.id);
+  await readMessage(message._id);
 });
 
 socket.on("updateStatus", (user) => {
@@ -194,6 +194,6 @@ const search = document.querySelector("#search");
 search.addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation();
-  const criteria = "privateMessage"
-  window.location.href = `/searchPage/${criteria}/${chatID}`;
+  const criteria = "privateMessage";
+  window.location.href = `/searchPage/${criteria}/${chatID}/${another}`;
 });
