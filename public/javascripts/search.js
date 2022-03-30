@@ -2,10 +2,10 @@ const { cookies } = brownies;
 const sendMsg = document.getElementById("sendMsg-button");
 const searchResult = document.querySelector(".searchResultList");
 const pathname = document.URL.split("/");
-console.log("pathname",pathname);
+console.log("pathname", pathname);
 const criteria = pathname[4];
 const chatID = pathname[5];
-let page = 0;
+let page = 1;
 const statusImage = (lastStatusCode) => {
   let userStatus = "";
   if (lastStatusCode === "OK") userStatus = "green";
@@ -16,9 +16,8 @@ const statusImage = (lastStatusCode) => {
 };
 
 const searchInput = document.getElementById("searchInput");
-const searchContent = searchInput.value;
 
-const searchUser = async () => {
+const searchUser = async (searchContent) => {
   try {
     const response = await fetch(`/search/username?q=${searchContent}`, {
       method: "get",
@@ -53,7 +52,7 @@ const searchUser = async () => {
   }
 };
 
-const searchStatus = async () => {
+const searchStatus = async (searchContent) => {
   try {
     const response = await fetch(`/search/users?status=${searchContent}`, {
       method: "get",
@@ -87,7 +86,7 @@ const searchStatus = async () => {
   }
 };
 
-const searchPublicMessage = async () => {
+const searchPublicMessage = async (searchContent) => {
   try {
     searchResult.innerHTML = "";
     const response = await fetch(
@@ -134,7 +133,7 @@ const searchPublicMessage = async () => {
   }
 };
 
-const searchPrivateMessage = async () => {
+const searchPrivateMessage = async (searchContent) => {
   try {
     searchResult.innerHTML = "";
     const response = await fetch(
@@ -181,15 +180,18 @@ const searchPrivateMessage = async () => {
   }
 };
 
-const searchStatusChange = async () => {
+const searchStatusChange = async (searchContent) => {
   try {
     searchResult.innerHTML = "";
-    const response = await fetch(`/search/status?q=${searchContent}&chatId=${chatID}&page=${page}`, {
-      method: "get",
-      headers: {
-        Authorization: `Bearer ${cookies.jwtToken}`,
-      },
-    });
+    const response = await fetch(
+      `/search/status?q=${searchContent}&chatId=${chatID}&page=${page}`,
+      {
+        method: "get",
+        headers: {
+          Authorization: `Bearer ${cookies.jwtToken}`,
+        },
+      }
+    );
     const statusChangeInfo = await response.json();
     for (let i = 0; i < statusChangeInfo.length; i++) {
       const item = document.createElement("li");
@@ -212,34 +214,38 @@ const searchStatusChange = async () => {
     console.log(error);
   }
 };
-const viewMoreMsg = () => {
+
+const viewMorePublicMsg = () => {
+  const searchContent = searchInput.value;
   page = page + 1;
-  searchPublicMessage();
+  searchPublicMessage(searchContent);
 };
+
 const viewMoreStatusChanges = () => {
+  const searchContent = searchInput.value;
   page = page + 1;
   searchStatusChange();
 };
-sendMsg.addEventListener("click", async () => {
-  if (!searchContent) return;
-  searchInput.value = "";
 
+sendMsg.addEventListener("click", async () => {
+  const searchContent = searchInput.value;
+  if (!searchContent) return;
   if (criteria === "user") {
-    searchUser();
+    searchUser(searchContent);
   }
   if (criteria === "status") {
-    searchStatus();
+    searchStatus(searchContent);
   }
   if (criteria === "publicMessage") {
-    searchPublicMessage();
+    searchPublicMessage(searchContent);
   }
   if (criteria === "announcement") {
   }
   if (criteria === "privateMessage") {
     if (searchContent === "status") {
-      searchStatusChange();
+      searchStatusChange(searchContent);
     } else {
-      searchPrivateMessage();
+      searchPrivateMessage(searchContent);
     }
   }
 });
@@ -248,14 +254,13 @@ const leave = document.querySelector("#leave");
 leave.addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation();
-  if(criteria === "status" || criteria === "user"){
+  if (criteria === "status" || criteria === "user") {
     window.location.href = "/directory";
-  }else if(criteria === "publicMessage") {
+  } else if (criteria === "publicMessage") {
     window.location.href = "/publicWall";
-  }else if(criteria === "privateMessage"){
+  } else if (criteria === "privateMessage") {
     window.location.href = "/chatRoom";
-  }else if(criteria === "privateMessage"){
+  } else if (criteria === "privateMessage") {
     window.location.href = "/announcement";
   }
-  
 });

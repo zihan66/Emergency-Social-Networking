@@ -1,11 +1,7 @@
 require("dotenv").config();
 const moment = require("moment");
-const brypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const Status = require("../models/status");
-
-const User = require("../models/user");
 const socket = require("../socket");
 class shareStatusController {
   static async getOneUserRecord(req, res) {
@@ -62,7 +58,6 @@ class shareStatusController {
         io.emit("updateStatus", input_user);
 
         await Status.create(statusChange);
-        console.log("AAaa");
         res.status(200).json({});
       }
     } catch (e) {

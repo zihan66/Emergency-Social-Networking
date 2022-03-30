@@ -34,19 +34,44 @@ class searchController {
     if (!query) {
       res.status(400).json({ message: "Invalid query" });
     }
+    const page = req.query.page;
+    if (!page || page <= 0) {
+      res.status(400).json({ message: "Invalid query" });
+    }
+    try {
+      const result = await Message.searchPublicMessage(query, page * 10);
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({ error });
+    }
   }
 
-  static searchAnnouncement(req, res) {
+  static async searchAnnouncement(req, res) {
     const query = req.query.q;
     if (!query) {
       res.status(400).json({ message: "Invalid query" });
     }
   }
 
-  static searchPrivateMessage(req, res) {
+  static async searchPrivateMessage(req, res) {
     const query = req.query.q;
     if (!query) {
       res.status(400).json({ message: "Invalid query" });
+    }
+    const page = req.query.page;
+    const chatID = req.query.chatId;
+    if (!page || page <= 0 || !chatID) {
+      res.status(400).json({ message: "Invalid query" });
+    }
+    try {
+      const result = await Message.searchPrivateMessage(
+        query,
+        page * 10,
+        chatID
+      );
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({ error });
     }
   }
 
