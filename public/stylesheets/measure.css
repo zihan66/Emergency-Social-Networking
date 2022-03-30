@@ -48,20 +48,22 @@
   display         : flex;
   justify-content : center;
   flex-direction  : column;
-  height          : 300px;
-  width           : 300px;
-  margin-top      : 20px;
+  height          : 100px;
+  width           : 200px;
+  margin-top      : 10px;
   align-items     : center;
-  background-color: #eeece8;
+  background-color: #f5f5dc;
 }
 
 .duration,
 .interval,
 .start {
-  width        : 300px;
-  margin-bottom: 30px;
+  width        : 200px;
+  margin-bottom: 20px;
 }
 
 .desc-word {
   color: white;
+  /*font: caption;*/
+  font-size: 16px;
 }
