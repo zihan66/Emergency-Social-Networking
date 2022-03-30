@@ -22,5 +22,10 @@ chatSchema.statics.findChatBetweenTwoUsers = async function (
   });
 };
 
+chatSchema.statics.findAnotherUser = async function (chatID, username) {
+  const { username1, username2 } = await this.findOne({ chatID: chatID });
+  return username2 === username ? username1 : username2;
+};
+
 const Chat = mongoose.model("Chat", chatSchema);
 module.exports = Chat;

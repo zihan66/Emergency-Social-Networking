@@ -62,7 +62,6 @@ class PrivateMessageController {
   static async createNewPrivateMessage(req, res) {
     try {
       const io = socket.getInstance();
-      console.log(socket.hasName);
       const { author, target, content, chatID } = req.body;
       const chat = await Chat.findOne({
         chatID,

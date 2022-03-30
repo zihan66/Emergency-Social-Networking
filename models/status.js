@@ -6,6 +6,13 @@ const statusSchema = new mongoose.Schema({
   updatedAt: { type: String },
 });
 
+statusSchema.statics.searchStatusHistory = async function (username, limit) {
+  const res = await this.find({ username })
+    .sort({ updatedAt: -1 })
+    .limit(limit);
+  return res;
+};
+
 // current user
 const Status = mongoose.model("Status", statusSchema);
 

@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const { convertListOfStringToListOfRegex } = require("../lib/utils");
+
 const messageSchema = new mongoose.Schema({
   content: { type: String, default: "", trim: true }, // trim: true will remove all leading and trailing spaces
   author: { type: String, trim: true }, // trim: true will remove all leading and trailing spaces
@@ -10,15 +12,13 @@ const messageSchema = new mongoose.Schema({
   type: { type: String },
 });
 
-messageSchema.index({ content: "text" });
-
 messageSchema.statics.searchPublicMessage = async function (
   searchContent,
   limit
 ) {
   const result = await this.find({
     type: "public",
-    $text: { $search: searchContent },
+    content: { $in: convertListOfStringToListOfRegex(searchContent) },
   })
     .sort({ postedAt: -1 })
     .limit(limit);
@@ -32,7 +32,20 @@ messageSchema.statics.searchPrivateMessage = async function (
 ) {
   const result = await this.find({
     chatId,
-    $text: { $search: searchContent },
+    content: { $in: convertListOfStringToListOfRegex(searchContent) },
+  })
+    .sort({ postedAt: -1 })
+    .limit(limit);
+  return result;
+};
+
+messageSchema.statics.searchAnnouncement = async function (
+  searchContent,
+  limit
+) {
+  const result = await this.find({
+    type: "announcement",
+    content: { $in: convertListOfStringToListOfRegex(searchContent) },
   })
     .sort({ postedAt: -1 })
     .limit(limit);
