@@ -1,5 +1,6 @@
 const { cookies } = brownies;
 const sendMsg = document.getElementById("sendMsg-button");
+const deleteMsg = document.getElementById("deleteMsg-button");
 const searchResult = document.querySelector(".searchResultList");
 const pathname = document.URL.split("/");
 console.log("pathname", pathname);
@@ -16,7 +17,13 @@ const statusImage = (lastStatusCode) => {
 };
 
 const searchInput = document.getElementById("searchInput");
+const hint = document.querySelector(".hint");
+const searchTitle = document.querySelector(".searchTitle");
 
+const searchResultIsEmpty = () => {
+  hint.innerHTML = "There is no matching result";
+  searchResult.innerHTML = "";
+};
 const searchUser = async (searchContent) => {
   try {
     const response = await fetch(`/search/username?q=${searchContent}`, {
@@ -27,6 +34,10 @@ const searchUser = async (searchContent) => {
     });
     const usernameInfo = await response.json();
     console.log("usernameInfo", usernameInfo);
+    if (usernameInfo.length == 0) {
+      searchResultIsEmpty();
+      return;
+    }
     searchResult.innerHTML = `<div class="online"> online </div> <hr/>
                                        <div class="onlineUsers"> </div> 
                                        <div class="offline"> offline </div> <hr/>
@@ -34,12 +45,12 @@ const searchUser = async (searchContent) => {
     const onlineUser = document.querySelector(".onlineUsers");
     const offlineUser = document.querySelector(".offlineUsers");
     for (let i = 0; i < usernameInfo.length; i++) {
-      const userStatus = statusImage(usernameInfo[i].status);
+      const userStatus = statusImage(usernameInfo[i].lastStatusCode);
       const item = document.createElement("li");
       item.className = "userSearchResult";
       item.innerHTML = `<span class="directoryUsername">${usernameInfo[i].username}</span>
                                     <span class="directoryStatus">Status:</span>
-                                    <span><img src="../images/${userStatus}.png">${usernameInfo[i].status}</span>`;
+                                    <span><img src="../images/${userStatus}.png">${usernameInfo[i].lastStatusCode}</span>`;
 
       if (usernameInfo[i].isLogin === true) {
         onlineUser.appendChild(item);
@@ -54,32 +65,46 @@ const searchUser = async (searchContent) => {
 
 const searchStatus = async (searchContent) => {
   try {
-    const response = await fetch(`/search/users?status=${searchContent}`, {
-      method: "get",
-      headers: {
-        Authorization: `Bearer ${cookies.jwtToken}`,
-      },
-    });
-    const usernameInfo = await response.json();
-    console.log("usernameInfo", usernameInfo);
-    const userStatus = statusImage(usernameInfo[0].status);
-
-    searchResult.innerHTML = `<div class="searchStatus"> Citizens with status <span><img src="../images/${userStatus}.png">${usernameInfo[0].status}</span> </div>
-                              <div class="online"> online </div> <hr/>
-                                       <div class="onlineUsers"> </div> 
-                                       <div class="offline"> offline </div> <hr/>
-                                      <div class="offlineUsers"> </div>`;
-    const onlineUser = document.querySelector(".onlineUsers");
-    const offlineUser = document.querySelector(".offlineUsers");
-    for (let i = 0; i < usernameInfo.length; i++) {
-      const item = document.createElement("li");
-      item.className = "resultList";
-      item.innerHTML = `<span class="username">${usernameInfo[i].username}</span>`;
-      if (usernameInfo[i].isLogin === true) {
-        onlineUser.appendChild(item);
-      } else if (usernameInfo[i].isLogin === false) {
-        offlineUser.appendChild(item);
+    if (
+      searchContent == "OK" ||
+      searchContent == "HELP" ||
+      searchContent == "EMERGENCY"
+    ) {
+      const response = await fetch(`/search/users?status=${searchContent}`, {
+        method: "get",
+        headers: {
+          Authorization: `Bearer ${cookies.jwtToken}`,
+        },
+      });
+      const usernameInfo = await response.json();
+      console.log("usernameInfo", usernameInfo);
+      if (usernameInfo.length == 0) {
+        searchResultIsEmpty();
+        return;
       }
+      const userStatus = statusImage(searchContent);
+      searchResult.innerHTML = "";
+      searchResult.innerHTML = `<div class="searchStatus"> Citizens with status <span><img src="../images/${userStatus}.png">${searchContent}</span> </div>
+                                <div class="online"> online </div> <hr/>
+                                         <div class="onlineUsers"> </div> 
+                                         <div class="offline"> offline </div> <hr/>
+                                        <div class="offlineUsers"> </div>`;
+      const onlineUser = document.querySelector(".onlineUsers");
+      const offlineUser = document.querySelector(".offlineUsers");
+
+      for (let i = 0; i < usernameInfo.length; i++) {
+        const item = document.createElement("li");
+        item.className = "resultList";
+        item.innerHTML = `<span class="username">${usernameInfo[i].username}</span>`;
+        if (usernameInfo[i].isLogin === true) {
+          onlineUser.appendChild(item);
+        } else if (usernameInfo[i].isLogin === false) {
+          offlineUser.appendChild(item);
+        }
+      }
+    } else {
+      hint.innerHTML =
+        'Input is not valid. Please enter "OK" or "HTLP" or "EMERGENCY"';
     }
   } catch (error) {
     console.log(error);
@@ -98,7 +123,15 @@ const searchPublicMessage = async (searchContent) => {
         },
       }
     );
-    const publicMessageInfo = await response.json();
+    const publicMessageResponse = await response.json();
+    const publicMessageInfo = publicMessageResponse.result;
+    const moreResult = publicMessageReponse.moreResult;
+    if (publicMessageInfo.length == 0) {
+      searchResultIsEmpty();
+      return;
+    }
+    // const publicMessageInfo =  await response.json();
+    // const moreResult = false;
     console.log("publicMessageInfo", publicMessageInfo);
     for (let i = 0; i < publicMessageInfo.length; i++) {
       const item = document.createElement("li");
@@ -111,23 +144,25 @@ const searchPublicMessage = async (searchContent) => {
       if (author === cookies.username) item.className = "self-message";
       else item.className = "other-message";
       item.innerHTML = `${content}
-                                        <span class="publicMsgUsername">Sent by ${
+                                        <span class="MsgUsername">Sent by ${
                                           author === cookies.username
                                             ? "you"
                                             : author
                                         } </span>`;
       const p = document.createElement("p");
-      p.innerHTML = `<span class="publicMsgStatus">${author}'s status: <img src="../images/${userStatus}.png"> ${deliveryStatus}</span>`;
+      p.innerHTML = `<span class="MsgStatus">${author}'s status: <img src="../images/${userStatus}.png"> ${deliveryStatus}</span>`;
       item.appendChild(p);
-      item.innerHTML += `<span class="publicMsgTimestamp">${moment(
-        postedAt
-      ).format("MMM Do YY, h:mm:ss")}</span>`;
+      item.innerHTML += `<span class="MsgTimestamp">${moment(postedAt).format(
+        "MMM Do YY, h:mm:ss"
+      )}</span>`;
       searchResult.appendChild(item);
     }
-    const label = document.createElement("div");
-    label.innerHTML = `<center><button onclick="viewMorePublicMsg()" id="viewMore" class="ui inverted button compact">
+    if (moreResult === true) {
+      const label = document.createElement("div");
+      label.innerHTML = `<center><button onclick="viewMorePublicMsg()" id="viewMore" class="ui inverted button compact">
                                     View More </button></center>`;
-    searchResult.appendChild(label);
+      searchResult.appendChild(label);
+    }
   } catch (error) {
     console.log(error);
   }
@@ -137,7 +172,7 @@ const searchPrivateMessage = async (searchContent) => {
   try {
     searchResult.innerHTML = "";
     const response = await fetch(
-      `/search/publicMessage?q=${searchContent}&chatId=${chatID}&page=${page}`,
+      `/search/privateMessage?q=${searchContent}&chatId=${chatID}&page=${page}`,
       {
         method: "get",
         headers: {
@@ -145,36 +180,44 @@ const searchPrivateMessage = async (searchContent) => {
         },
       }
     );
-    const publicMessageInfo = await response.json();
-    console.log("publicMessageInfo", publicMessageInfo);
-    for (let i = 0; i < publicMessageInfo.length; i++) {
+    const privateMessageResponse = await response.json();
+    const privateMessageInfo = privateMessageResponse.result;
+    const moreResult = privateMessageResponse.moreResult;
+    console.log("privateMessageInfo", privateMessageInfo);
+    if (privateMessageInfo.length == 0) {
+      searchResultIsEmpty();
+      return;
+    }
+    for (let i = 0; i < privateMessageInfo.length; i++) {
       const item = document.createElement("li");
-      const author = publicMessageInfo[i].author;
-      const content = publicMessageInfo[i].content;
-      const deliveryStatus = publicMessageInfo[i].deliveryStatus;
-      const postedAt = publicMessageInfo[i].postedAt;
+      const author = privateMessageInfo[i].author;
+      const content = privateMessageInfo[i].content;
+      const deliveryStatus = privateMessageInfo[i].deliveryStatus;
+      const postedAt = privateMessageInfo[i].postedAt;
       const userStatus = statusImage(deliveryStatus);
 
       if (author === cookies.username) item.className = "self-message";
       else item.className = "other-message";
       item.innerHTML = `${content}
-                                          <span class="publicMsgUsername">Sent by ${
+                                          <span class="MsgUsername">Sent by ${
                                             author === cookies.username
                                               ? "you"
                                               : author
                                           } </span>`;
       const p = document.createElement("p");
-      p.innerHTML = `<span class="publicMsgStatus">${author}'s status: <img src="../images/${userStatus}.png"> ${deliveryStatus}</span>`;
+      p.innerHTML = `<span class="MsgStatus">${author}'s status: <img src="../images/${userStatus}.png"> ${deliveryStatus}</span>`;
       item.appendChild(p);
-      item.innerHTML += `<span class="publicMsgTimestamp">${moment(
-        postedAt
-      ).format("MMM Do YY, h:mm:ss")}</span>`;
+      item.innerHTML += `<span class="MsgTimestamp">${moment(postedAt).format(
+        "MMM Do YY, h:mm:ss"
+      )}</span>`;
       searchResult.appendChild(item);
     }
-    const label = document.createElement("div");
-    label.innerHTML = `<center><button onclick="viewMorePublicMsg()" id="viewMore" class="ui inverted button compact">
-                                      View More </button></center>`;
-    searchResult.appendChild(label);
+    if (moreResult === true) {
+      const label = document.createElement("div");
+      label.innerHTML = `<center><button onclick="viewMorePrivateMsg()" id="viewMore" class="ui inverted button compact">
+                                        View More </button></center>`;
+      searchResult.appendChild(label);
+    }
   } catch (error) {
     console.log(error);
   }
@@ -192,7 +235,14 @@ const searchStatusChange = async (searchContent) => {
         },
       }
     );
-    const statusChangeInfo = await response.json();
+    const statusChangeResponse = await response.json();
+    const statusChangeInfo = statusChangeResponse.result;
+    const moreResult = statusChangeResponse.moreResult;
+    if (privateMessageInfo.length == 0) {
+      searchResultIsEmpty();
+      return;
+    }
+
     for (let i = 0; i < statusChangeInfo.length; i++) {
       const item = document.createElement("li");
       const updatedAt = statusChangeInfo[i].updatedAt;
@@ -206,10 +256,12 @@ const searchStatusChange = async (searchContent) => {
       ).format("MMM Do YY, h:mm:ss")}</span>`;
       searchResult.appendChild(item);
     }
-    const label = document.createElement("div");
-    label.innerHTML = `<button onclick="viewMoreStatusChanges()" id="viewMore" class="ui inverted button compact">
+    if (moreResult) {
+      const label = document.createElement("div");
+      label.innerHTML = `<button onclick="viewMoreStatusChanges()" id="viewMore" class="ui inverted button compact">
                                       View More </button>`;
-    searchResult.appendChild(label);
+      searchResult.appendChild(label);
+    }
   } catch (error) {
     console.log(error);
   }
@@ -220,16 +272,51 @@ const viewMorePublicMsg = () => {
   page = page + 1;
   searchPublicMessage(searchContent);
 };
+const viewMorePrivateMsg = () => {
+  const searchContent = searchInput.value;
+  page = page + 1;
+  searchPrivateMessage(searchContent);
+};
 
 const viewMoreStatusChanges = () => {
   const searchContent = searchInput.value;
   page = page + 1;
   searchStatusChange();
 };
+window.addEventListener("load", () => {
+  if (criteria === "user") {
+    hint.innerHTML =
+      "<span>Please enter an existing username (or part of a username)</span>";
+    searchTitle.innerHTML = "Search Citizens by Username";
+  }
+
+  if (criteria === "status") {
+    hint.innerHTML = '<span>Please enter "OK" or "HTLP" or "EMERGENCY"</span>';
+    searchTitle.innerHTML = "Search Citizens by Status";
+  }
+
+  if (criteria === "publicMessage") {
+    hint.innerHTML = "<span>Please enter search content";
+    searchTitle.innerHTML = "Search Public Messages";
+  }
+
+  if (criteria === "privateMessage") {
+    hint.innerHTML = "<span>Please enter search content";
+    searchTitle.innerHTML = "Search Private Messages";
+  }
+  if (criteria === "announcement") {
+    searchTitle.innerHTML = "Search Private Messages";
+  }
+});
 
 sendMsg.addEventListener("click", async () => {
   const searchContent = searchInput.value;
-  if (!searchContent) return;
+  hint.innerHTML = "";
+  if (!searchContent) {
+    hint.innerHTML = "<span>Input can not be empty</span>";
+    searchResult.innerHTML = "";
+    return;
+  }
   if (criteria === "user") {
     searchUser(searchContent);
   }
@@ -248,6 +335,10 @@ sendMsg.addEventListener("click", async () => {
       searchPrivateMessage(searchContent);
     }
   }
+});
+
+deleteMsg.addEventListener("click", () => {
+  searchInput.value = "";
 });
 
 const leave = document.querySelector("#leave");
