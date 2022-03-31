@@ -104,7 +104,12 @@ li>p {
 .unreadMsgBlock {
   position: absolute;
   display : none;
+<<<<<<< HEAD
   width   : 145px;
+=======
+  width   : 158px;
+  /* width   : 93px; */
+>>>>>>> origin/iteration3-haichuanXu
   height  : 200px;
   background-color: rgb(108, 114, 121);
   opacity         : 0.8;

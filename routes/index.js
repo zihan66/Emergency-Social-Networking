@@ -21,6 +21,10 @@ router.get("/publicWall", auth, (req, res) => {
   res.render("publicWall", { title: "publicWall" });
 });
 
+router.get("/announcement", auth, (req, res) => {
+  res.render("announcement", { title: "announcement" });
+});
+
 router.get("/welcome", auth, (req, res) => {
   res.render("welcome", { username: req.cookies.username });
 });
