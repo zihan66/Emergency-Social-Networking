@@ -245,6 +245,7 @@ const searchStatusChange = async (searchContent) => {
     searchResult.innerHTML = `<div class="statusChangeTitle"> ${statusChangeInfo[0].username} status changes: </div>`;
     for (let i = 0; i < statusChangeInfo.length; i++) {
       const item = document.createElement("li");
+      item.className = "statusChangeList";
       const updatedAt = statusChangeInfo[i].updatedAt;
       const status = statusChangeInfo[i].statusCode;
       const userStatus = statusImage(status);
@@ -255,8 +256,57 @@ const searchStatusChange = async (searchContent) => {
     }
     if (moreResult) {
       const label = document.createElement("div");
-      label.innerHTML = `<button onclick="viewMoreStatusChanges()" id="viewMore" class="ui inverted button compact">
-                                      View More </button>`;
+      label.innerHTML = `<center><button onclick="viewMoreStatusChanges()" id="viewMore" class="ui inverted button compact">
+                                      View More </button></center>`;
+      searchResult.appendChild(label);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const searchAnnouncement = async (searchContent) => {
+  try {
+    searchResult.innerHTML = "";
+    const response = await fetch(
+      `/search/announcement?q=${searchContent}&page=${page}`,
+      {
+        method: "get",
+        headers: {
+          Authorization: `Bearer ${cookies.jwtToken}`,
+        },
+      }
+    );
+    const announcementResponse = await response.json();
+    const announcementInfo = announcementResponse.result;
+    const moreResult = announcementResponse.moreResult;
+    console.log("announcementInfo", announcementInfo);
+    if (announcementInfo.length == 0) {
+      searchResultIsEmpty();
+      return;
+    }
+    for (let i = 0; i < announcementInfo.length; i++) {
+      const item = document.createElement("li");
+      const author = announcementInfo[i].author;
+      const content = announcementInfo[i].content;
+      const postedAt = announcementInfo[i].postedAt;
+      if (author === cookies.username) item.className = "self-message";
+      else item.className = "other-message";
+      item.innerHTML = `${content}
+                                          <span class="MsgUsername">Sent by ${
+                                            author === cookies.username
+                                              ? "you"
+                                              : author
+                                          } </span>`;
+      item.innerHTML += `<span class="MsgTimestamp">${moment(postedAt).format(
+        "MMM Do YY, h:mm:ss"
+      )}</span>`;
+      searchResult.appendChild(item);
+    }
+    if (moreResult === true) {
+      const label = document.createElement("div");
+      label.innerHTML = `<center><button onclick="viewMoreAnnouncement()" id="viewMore" class="ui inverted button compact">
+                                        View More </button></center>`;
       searchResult.appendChild(label);
     }
   } catch (error) {
@@ -274,11 +324,15 @@ const viewMorePrivateMsg = () => {
   page = page + 1;
   searchPrivateMessage(searchContent);
 };
-
 const viewMoreStatusChanges = () => {
   const searchContent = searchInput.value;
   page = page + 1;
   searchStatusChange();
+};
+const viewMoreAnnouncement = () => {
+  const searchContent = searchInput.value;
+  page = page + 1;
+  searchAnnouncement(searchContent);
 };
 window.addEventListener("load", () => {
   if (criteria === "user") {
@@ -302,7 +356,7 @@ window.addEventListener("load", () => {
     searchTitle.innerHTML = "Search Private Messages";
   }
   if (criteria === "announcement") {
-    searchTitle.innerHTML = "Search Private Messages";
+    searchTitle.innerHTML = "Search Announcements";
   }
 });
 
@@ -324,6 +378,7 @@ sendMsg.addEventListener("click", async () => {
     searchPublicMessage(searchContent);
   }
   if (criteria === "announcement") {
+    searchAnnouncement(searchContent);
   }
   if (criteria === "privateMessage") {
     if (searchContent === "status") {

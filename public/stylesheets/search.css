@@ -186,12 +186,15 @@ li>p {
     margin-bottom: 20px;
 }
 
-.statusChange {
+.statusChangeList {
     color: white;
+    margin-bottom: 10px;
 }
 
 .statusChangeTime {
     color: royalblue;
+    margin-right: -40px;
+    /* text-align: end; */
 }
 
 #viewMore {

@@ -444,7 +444,7 @@ setYellowButton.addEventListener("click", async (e) => {
 });
 
 const clickSearch = () => {
-  const searchBlock = document.querySelector(".searchCriteria");
+  const searchBlock = document.querySelector(".searchCriteriaBlock");
   if (searchBlock.style.display === "block") {
     searchBlock.style.display = "";
   } else {

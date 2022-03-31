@@ -110,12 +110,10 @@ leave.addEventListener("click", (e) => {
   window.location.href = "/directory";
 });
 
-
 const search = document.querySelector("#search");
 search.addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation();
-  const criteria = "publicMessage"
+  const criteria = "publicMessage";
   window.location.href = `/searchPage/${criteria}`;
 });
-
