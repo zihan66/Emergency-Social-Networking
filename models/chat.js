@@ -22,5 +22,34 @@ chatSchema.statics.findChatBetweenTwoUsers = async function (
   });
 };
 
+chatSchema.statics.createANewPrivateChat = async function (username1,username2) {
+  console.log("createANewPrivateChat1");
+  if (username1 === undefined || username2 === undefined) {
+    console.log("undefined");
+    res.status(404).json({});
+    return;
+  }
+  const existedChat = await Chat.findChatBetweenTwoUsers(
+    username1,
+    username2
+  );
+  console.log(existedChat);
+  if (existedChat) {
+    console.log("existed");
+    res.status(404).json({});
+    return;
+  }
+  const currentChat = {
+    chatID: new Date().getTime().toString(36),
+    username1,
+    username2,
+  };
+  console.log("createANewPrivateChat2");
+  const response = await Chat.create(currentChat);
+  console.log("createANewPrivateChat3");
+  return response;
+};
+// createNewPrivateChat
+
 const Chat = mongoose.model("Chat", chatSchema);
 module.exports = Chat;
