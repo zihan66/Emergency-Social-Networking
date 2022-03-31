@@ -110,15 +110,6 @@ li>p {
   opacity         : 0.8;
   overflow        : scroll;
 }
-.search button{
-  position   : relative;
-}
-.searchCriteria{
-  position: absolute;
-  display : none;
-  width   : 1px;
-  height  : 200px;
-}
 
 .unreadMsgList {
   color          : #ffddaa;
@@ -133,6 +124,32 @@ li>p {
 .unreadMsgList li {
   cursor       : pointer;
   margin-bottom: 10px;
+}
+
+.search button{
+  position   : relative;
+  width      : 80px;
+}
+.searchCriteriaBlock{
+  position: absolute;
+  display : none;
+  width   : 80px;
+  height  : 80px;
+  
+  background-color: rgb(108, 114, 121);
+  opacity         : 0.8;
+}
+.searchCriteriaBlock ul{
+  list-style-type: none;
+  
+}
+.searchCriteriaBlock ul li{
+  color: white;
+  margin-bottom: 10px;
+  margin-left: -35px;
+  text-align: center;
+  cursor       : pointer;
+  
 }
 .msgNum {
   border-radius: 50%;
@@ -172,3 +189,4 @@ li>p {
   color           : whitesmoke;
   background-color: rgb(108, 114, 121);
 }
+
