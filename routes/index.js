@@ -17,7 +17,7 @@ router.get("/signUp", (req, res) => {
   res.render("signUp", { title: "SignUp" });
 });
 
-router.get("/publicWall", auth, (req, res) => {
+router.get("/publicWall", suspend, auth, (req, res) => {
   res.render("publicWall", { title: "publicWall" });
 });
 
