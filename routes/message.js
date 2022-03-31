@@ -6,10 +6,18 @@ const announcementMessageController = require("../controllers/announcementMessag
 
 const suspend = require("../middlewares/suspend");
 
-router.post("/public", publicMessageController.createNewPublicMessage);
-router.get("/public", publicMessageController.getPublicMessage);
-router.post("/announcement", announcementMessageController.createNewAnnouncementMessage);
-router.get("/announcement", announcementMessageController.getAnnouncementMessage);
+router.post("/public", suspend, publicMessageController.createNewPublicMessage);
+router.get("/public", suspend, publicMessageController.getPublicMessage);
+router.post(
+  "/announcement",
+  suspend,
+  announcementMessageController.createNewAnnouncementMessage
+);
+router.get(
+  "/announcement",
+  suspend,
+  announcementMessageController.getAnnouncementMessage
+);
 
 // eslint-disable-next-line consistent-return
 router.get("/private", suspend, privateMessageController.getPrivateMessage);
