@@ -106,7 +106,8 @@ li>p {
 .unreadMsgBlock {
   position: absolute;
   display : none;
-  width   : 93px;
+  width   : 158px;
+  /* width   : 93px; */
   height  : 200px;
 
   background-color: rgb(108, 114, 121);
