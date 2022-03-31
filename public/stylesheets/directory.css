@@ -92,18 +92,18 @@ li > p {
 }
 
 .unreadMsgs {
-  width: 130px;
+  width: 160px;
 }
 
 .unreadMsgs button {
   position: relative;
-  width: 128px;
+  width: 160px;
   /* width   : 93px; */
 }
 .unreadMsgBlock {
   position: absolute;
   display: none;
-  width: 128px;
+  width: 1px;
   /* width   : 93px; */
   height: 200px;
   background-color: rgb(108, 114, 121);
@@ -112,12 +112,27 @@ li > p {
 }
 .search button {
   position: relative;
+  width : 80px;
 }
-.searchCriteria {
+.searchCriteriaBlock{
   position: absolute;
-  display: none;
-  width: 1px;
-  height: 200px;
+  display : none;
+  width   : 80px;
+  height  : 80px;
+  
+  background-color: rgb(108, 114, 121);
+  opacity         : 0.8;
+}
+.searchCriteriaBlock ul{
+  list-style-type: none;
+  
+}
+.searchCriteriaBlock ul li{
+  color: white;
+  margin-bottom: 10px;
+  margin-left: -35px;
+  text-align: center;
+  cursor       : pointer;
 }
 
 .unreadMsgList {
