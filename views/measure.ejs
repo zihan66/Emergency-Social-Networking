@@ -4,10 +4,10 @@
     <button id="leave" class="ui inverted button compact">Leave</button>
   </header>
   <div class="measure-container">
-    <label class="desc-word">duration (seconds)</label>
+    <label class="desc-word">Duration (s)</label>
     <input type="text" name="duration" class="duration" />
     <span id="duration-hint"></span>
-    <label class="desc-word">interval (millisecond)</label>
+    <label class="desc-word">Interval (ms)</label>
     <input type="text" name="interval" class="interval" />
     <span id="interval-hint"></span>
     <button class="ui inverted whitesmoke button start" id="start">
@@ -22,8 +22,13 @@
       Stop
     </button>
 
+<p><br /></p>
+    <label class="desc-word">
+      Performance Results
+    </label>
+
     <div class="measure-result" id="result">
-      <h2 class="desc-word">Performance Result</h2>
+      <label class="desc-word"></label>
       <div class="measure-result"></div>
     </div>
 
