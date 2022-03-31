@@ -9,6 +9,7 @@ class searchController {
     const query = req.query.q;
     if (!query) {
       res.status(400).json({ message: "Invalid query" });
+      return;
     }
     try {
       const result = await User.searchUsersByUsername(query);
@@ -23,6 +24,7 @@ class searchController {
     const statusCodes = ["HELP", "EMERGENCY", "OK"];
     if (!statusCodes.includes(status)) {
       res.status(400).json({ message: "Invalid status" });
+      return;
     }
     try {
       const result = await User.findUserByStatus(status);
@@ -36,22 +38,25 @@ class searchController {
     const query = req.query.q;
     if (!query) {
       res.status(400).json({ message: "Invalid query" });
+      return;
     }
     const page = req.query.page;
     if (!page || page <= 0) {
       res.status(400).json({ message: "Invalid query" });
+      return;
     }
     let moreResult = false;
     const filteredContents = removeStopWords(query);
-    if (filteredContents.length === 0)
+    if (filteredContents.length === 0) {
       res.status(200).json({ moreResult, result: [] });
+      return;
+    }
     try {
       const numberOfResult = page * 10 + 1;
       let result = await Message.searchPublicMessage(
         filteredContents,
         numberOfResult
       );
-      console.log(result.length);
       if (result.length === numberOfResult) {
         moreResult = true;
         result.pop();
@@ -66,15 +71,19 @@ class searchController {
     const query = req.query.q;
     if (!query) {
       res.status(400).json({ message: "Invalid query" });
+      return;
     }
     const page = req.query.page;
     if (!page || page <= 0) {
       res.status(400).json({ message: "Invalid query" });
+      return;
     }
     let moreResult = false;
     const filteredContents = removeStopWords(query);
-    if (filteredContents.length === 0)
+    if (filteredContents.length === 0) {
       res.status(200).json({ moreResult, result: [] });
+      return;
+    }
     try {
       const numberOfResult = page * 10 + 1;
       let result = await Message.searchAnnouncement(
@@ -95,11 +104,13 @@ class searchController {
     const query = req.query.q;
     if (!query) {
       res.status(400).json({ message: "Invalid query" });
+      return;
     }
     const page = req.query.page;
     const chatID = req.query.chatId;
     if (!page || page <= 0 || !chatID) {
       res.status(400).json({ message: "Invalid query" });
+      return;
     }
     let moreResult = false;
     const filteredContents = removeStopWords(query);
@@ -128,9 +139,11 @@ class searchController {
     let moreResult = false;
     if (!query) {
       res.status(400).json({ message: "Invalid query" });
+      return;
     }
     if (!page || page <= 0 || !chatId) {
       res.status(400).json({ message: "Invalid query" });
+      return;
     }
     const numberOfResult = page * 10 + 1;
     try {
