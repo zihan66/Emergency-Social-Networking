@@ -39,12 +39,12 @@ userSchema.statics.searchUsersByUsername = async function (searchContent) {
   const onlineUsers = await this.find({
     isLogin: true,
     username: { $regex: searchContent },
-  });
+  }).sort({ username });
 
   const offlineUsers = await this.find({
     isLogin: false,
     username: { $regex: searchContent },
-  });
+  }).sort({ username });
 
   const wholeUserList = onlineUsers.concat(offlineUsers);
   const filteredUserList = wholeUserList.map((user) => {
@@ -59,12 +59,12 @@ userSchema.statics.findUserByStatus = async function (status) {
   const onlineUsers = await this.find({
     isLogin: true,
     lastStatusCode: status,
-  });
+  }).sort({ username });
 
   const offlineUsers = await this.find({
     isLogin: false,
     lastStatusCode: status,
-  });
+  }).sort({ username });
 
   const wholeUserList = onlineUsers.concat(offlineUsers);
   const filteredUserList = wholeUserList.map((user) => {
