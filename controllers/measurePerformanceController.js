@@ -7,6 +7,7 @@ class measurePerformanceController {
   static async startTest(req, res) {
     if (req.app.locals.inTest) {
       res.status(404).json({ error: "There is an ongoing test" });
+      return;
     }
     const { testDuration } = req.body;
     req.app.locals.inTest = true;
