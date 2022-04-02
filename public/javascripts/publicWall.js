@@ -68,7 +68,7 @@ sendButton.addEventListener("click", async (e) => {
   const { username } = cookies;
   e.preventDefault();
   e.stopPropagation();
-  if (!msgContent) return;
+  //if (!msgContent) return;
   msgInput.value = "";
   const requestBody = { username, content: msgContent };
   try {
@@ -108,4 +108,12 @@ leave.addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation();
   window.location.href = "/directory";
+});
+
+const search = document.querySelector("#search");
+search.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  const criteria = "publicMessage";
+  window.location.href = `/searchPage/${criteria}`;
 });

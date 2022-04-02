@@ -3,12 +3,26 @@
   <header class="directory-header">
     <!-- <span class="header1">User Directory</span> -->
     <i class="bars icon" id="bar"></i>
-    <button id="go-to" class="ui inverted button compact">
-      See Public Messages
-    </button>
+    <div class="unreadMsgs">
+      <button id="unread" class="ui inverted button compact">
+        Unread Messages
+      </button>
+      <div class="unreadMsgBlock"><ul class="unreadMsgList"></ul></div>
+    </div>
+
+    <div class="search">
+      <button id="search" class="ui inverted button compact">search</button>
+      <div class="searchCriteriaBlock">
+        <ul class="searchCriteria">
+          <li id="searchUsername">username</li>
+          <li id="searchStatus">status</li>
+        </ul>
+      </div>
+    </div>
     <div class="unreadMsgs"></div>
     <!-- <button id="logout" class="ui inverted button compact">Logout</button> -->
   </header>
+
   <div class="hamburger-menu">
     <div class="links">
       <div class="menu-item">
@@ -72,7 +86,23 @@
         </form>
       </div>
       <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
-      <button id="logout" class="ui inverted button compact">Logout</button>
+      <button id="go-to" class="ui inverted whitesmoke button">
+        Public Messages
+      </button>
+      <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
+      <a href="./measure">
+        <button class="ui inverted whitesmoke button" id="measure-bar">
+          Measure
+        </button>
+      </a>
+      <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
+      <a href="./announcement">
+        <button class="ui inverted whitesmoke button" id="announcement-bar">
+          Announcement
+        </button>
+      </a>
+      <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
+      <button id="logout" class="ui inverted whitesmoke button">Logout</button>
       <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
     </div>
   </div>

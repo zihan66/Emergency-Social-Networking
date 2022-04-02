@@ -1,8 +1,8 @@
 require("dotenv").config();
-const brypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const moment = require("moment");
 const User = require("../models/user");
-
+const Status = require("../models/status");
+const socket = require("../socket");
 class shareStatusController {
   static async getOneUserRecord(req, res) {
     try {
@@ -26,11 +26,10 @@ class shareStatusController {
 
   static async setStatus(req, res) {
     const user = req.params;
-    const io = req.app.get("socketio");
-    // const io = req.app.get("socketio");
-    // console.log("setStatus user ", user);
+    const io = socket.getInstance();
     try {
       let result = await User.findOne({ username: user.username });
+
       if (result) {
         console.log(user.username);
         console.log(user.lastStatusCode);
@@ -38,18 +37,18 @@ class shareStatusController {
           { username: user.username },
           { lastStatusCode: user.lastStatusCode }
         );
-        //here just use the same emit method userList
-        // const userList = await User.findAllUsers();
-        // console.log("test: ", userList);
-        // io.emit("userList", userList);
-        // const updateUser = user.username;
-        // const updatedStatus = user.lastStatusCode;
-        
-        // console.log("updateUser&updatedStatus",updateUser,updatedStatus);
-        // io.emit("updateDirectoryProfile", updateUser, updatedStatus);
+        const statusChange = {
+          username: user.username,
+          statusCode: user.lastStatusCode,
+          updatedAt: moment().format(),
+        };
+        console.log("statusChange", statusChange);
         const input_user = user;
         console.log("emit_test user:", input_user);
+
         io.emit("updateStatus", input_user);
+
+        await Status.create(statusChange);
         res.status(200).json({});
       }
     } catch (e) {

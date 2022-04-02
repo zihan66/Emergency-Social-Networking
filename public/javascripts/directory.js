@@ -5,7 +5,8 @@ const { cookies } = brownies;
 // eslint-disable-next-line no-undef
 const socket = io({ URL: "http://localhost:3000", autoConnect: false });
 const userChatMap = new Map();
-
+const msgNumMap = new Map();
+const unreadMsgMap = new Map();
 const getAllUsers = async () => {};
 
 const statusImage = (lastStatusCode) => {
@@ -95,7 +96,25 @@ socket.on("privateMessage", (message) => {
   const { target, author } = message;
   if (target === cookies.username)
     window.alert("You received a new message from " + author);
+  // const unreadMsgList = document.querySelector(".unreadMsgList");
+  // const item = document.createElement("li");
+  // item.id = `${message.author}`;      
+  // calculateMsgNum(message.author);
+  // msgNumMap.forEach(function(value,key){
+  //   unreadMsgList.appendChild(item);
+  // })
+  // document.querySelector(".msgNum").innerHTML = `${msgNumMap.get(message.author)}`;
+  //addUnreadMsg(message.author);
 });
+
+// const addUnreadMsg = (username) => {
+//   const unreadMsgList = document.querySelector(".unreadMsgList");
+//   const item = document.createElement("li");
+//   item.id = `${username}`;      
+//   item.innerHTML = `<span> ${username}</span><span class="msgNum"></span>`;
+//   unreadMsgList.appendChild(item);
+// }
+
 
 window.addEventListener("load", async () => {
   try {
@@ -118,61 +137,179 @@ window.addEventListener("load", async () => {
     });
     const chatPrivateData = await chatPrivateInfo.json();
     const chats = chatPrivateData.chats;
-
     for (let i = 0; i < chats.length; i++) {
       userChatMap.set(chats[i].username, chats[i].chatID);
     }
+    // const unreadMsgs = await fetch(
+    //   `/messages/private/unread?username=${cookies.username}`,
+    //   {
+    //     method: "get",
+    //     headers: {
+    //       Authorization: `Bearer ${cookies.jwtToken}`,
+    //     },
+    //   }
+    // );
+    // const unreadMsgsData = await unreadMsgs.json();
+    
+    //let msgNum = 0;
+    // for (let i = 0; i < unreadMsgsData.length; i += 1) {
+    //   unreadMsgMap.set(unreadMsgsData[i].username, unreadMsgsData[i].chatID);
+    //   calculateMsgNum(unreadMsgsData[i].username);
+    //   // if(msgNumMap.has(unreadMsgsData[i].username)){
+    //   //   msgNum++;
+    //   //   msgNumMap.set(unreadMsgsData[i].username, msgNum);
+    //   // }else{
+    //   //   msgNumMap.set(unreadMsgsData[i].username, 1);
+    //   // }
+    // }
+    // console.log("unreadMsgMap",unreadMsgMap);
+    // console.log("msgNumMap", msgNumMap);
+    // // const clickUnreadMsgBlock = () => {
+    //   const unreadMsgBlock = document.querySelector(".unreadMsgBlock");
+    //   if (unreadMsgBlock.style.display === "block") {
+    //     unreadMsgBlock.style.display = "";
+    //   } else {
+    //     unreadMsgBlock.style.display = "block";
+    //   }
+    // };
+    // if (unreadMsgsData) {
+    //   const unreadButton = document.querySelector(".unreadMsgs");
+    //   unreadButton.innerHTML =
+    //     '<button id="unread" class="ui inverted button compact">Unread Messages</button>';
+    //   unreadButton.innerHTML +=
+    //     '<div class="unreadMsgBlock"><ul class="unreadMsgList"></ul></div>';
+    //   const unreadMsgList = document.querySelector(".unreadMsgList");
 
-    const unreadMsgs = await fetch(
-      `/messages/private/unread?username=${cookies.username}`,
-      {
-        method: "get",
-        headers: {
-          Authorization: `Bearer ${cookies.jwtToken}`,
-        },
-      }
-    );
-    const unreadMsgsData = await unreadMsgs.json();
-    const unreadMsgMap = new Map();
-    for (let i = 0; i < unreadMsgsData.length; i += 1) {
-      unreadMsgMap.set(unreadMsgsData[i].username, unreadMsgsData[i].chatID);
-    }
+      // for (let i = 0; i < unreadMsgsData.length; i += 1) {
+      //   const item = document.createElement("li");
+      //   item.id = `${unreadMsgsData[i].username}`;
+      //   // const msgNum = 0;
+      //   // if({unreadMsgsData[i].username)
+      //   item.innerHTML = `<span> ${unreadMsgsData[i].username}</span><span class="msgNum"></span>`;
+      //   unreadMsgList.appendChild(item);
+      //   // eslint-disable-next-line no-loop-func
+      //   item.addEventListener("click", function (e) {
+      //     e.preventDefault();
+      //     const username2 = this.id;
+      //     const chatID = unreadMsgMap.get(username2);
+      //     window.location.href = `/chatRoom/${chatID}/${username2}`;
+      //   });
+      // }
 
-    const clickUnreadMsgBlock = () => {
-      const unreadMsgBlock = document.querySelector(".unreadMsgBlock");
-      if (unreadMsgBlock.style.display === "block") {
-        unreadMsgBlock.style.display = "";
-      } else {
-        unreadMsgBlock.style.display = "block";
-      }
-    };
-    if (unreadMsgsData) {
-      const unreadButton = document.querySelector(".unreadMsgs");
-      unreadButton.innerHTML =
-        '<button id="unread" class="ui inverted button compact">Unread Messages</button>';
-      unreadButton.innerHTML +=
-        '<div class="unreadMsgBlock"><ul class="unreadMsgList"></ul></div>';
-      const unreadMsgList = document.querySelector(".unreadMsgList");
+      // const addUnreadMsg = () => {
+      //   msgNumMap.forEach(function(value, key ,map){
+      //     const item = document.createElement("li");
+      //     item.id = `${key}`;
+      //     item.innerHTML = `<span> ${key}</span><span class="msgNum">${value}</span>`;
+      //     unreadMsgList.appendChild(item);
+      //     item.addEventListener("click", function (e) {
+      //       e.preventDefault();
+      //       const username2 = this.id;
+      //       const chatID = unreadMsgMap.get(username2);
+      //       window.location.href = `/chatRoom/${chatID}/${username2}`;
+      //     });
+      //   })
+      // }
 
+      // msgNumMap.forEach(function(value, key ,map){
+      //   const item = document.createElement("li");
+      //   item.id = `${key}`;
+      //   item.innerHTML = `<span> ${key}</span><span class="msgNum">${value}</span>`;
+      //   unreadMsgList.appendChild(item);
+      //   item.addEventListener("click", function (e) {
+      //     e.preventDefault();
+      //     const username2 = this.id;
+      //     const chatID = unreadMsgMap.get(username2);
+      //     window.location.href = `/chatRoom/${chatID}/${username2}`;
+      //   });
+      // })
+      
+      // const unread = document.getElementById("unread");
+      // unread.addEventListener("click", clickUnreadMsgBlock);
+    //}
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+
+const clickUnreadMsgBlock = () => {
+  const unreadMsgBlock = document.querySelector(".unreadMsgBlock");
+  if (unreadMsgBlock.style.display === "block") {
+    unreadMsgBlock.style.display = "";
+  } else {
+    unreadMsgBlock.style.display = "block";
+  }
+};
+
+const calculateMsgNum = (username) => {
+  if(msgNumMap.has(username)){
+    msgNum++;
+    msgNumMap.set(username, msgNum);
+  }else{
+    msgNumMap.set(username, 1);
+  }
+}
+const unread = document.getElementById("unread");
+unread.addEventListener("click", async() => {
+  //clickUnreadMsgBlock();
+  const unreadMsgBlock = document.querySelector(".unreadMsgBlock");
+  if (unreadMsgBlock.style.display === "block") {
+    unreadMsgBlock.style.display = "";
+  } else {
+    unreadMsgBlock.style.display = "block";
+  }
+  //alert(unreadMsgBlock.style.display);
+  
+  if(unreadMsgBlock.style.display === "block" ){
+    try {
+      const unreadMsgs = await fetch(
+        `/messages/private/unread?username=${cookies.username}`,
+        {
+          method: "get",
+          headers: {
+            Authorization: `Bearer ${cookies.jwtToken}`,
+          },
+        }
+      );
+      const unreadMsgsData = await unreadMsgs.json();
+      console.log("unreadMsgsData",unreadMsgsData);
+      let msgNum = 0;
       for (let i = 0; i < unreadMsgsData.length; i += 1) {
+        unreadMsgMap.set(unreadMsgsData[i].username, unreadMsgsData[i].chatID);
+        if(msgNumMap.has(unreadMsgsData[i].username)){
+          msgNum++;
+          msgNumMap.set(unreadMsgsData[i].username, msgNum);
+        }else{
+          msgNum = 1
+          msgNumMap.set(unreadMsgsData[i].username, msgNum);
+        }
+        //calculateMsgNum(unreadMsgsData[i].username);
+      }
+      console.log("unreadMsgMap",unreadMsgMap);
+      console.log("msgNumMap", msgNumMap);
+      const unreadMsgList = document.querySelector(".unreadMsgList");
+      unreadMsgList.innerHTML = ""
+      msgNumMap.forEach(function(value, key ,map){
         const item = document.createElement("li");
-        item.id = `${unreadMsgsData[i].username}`;
-        item.innerHTML = `<span> ${unreadMsgsData[i].username}</span>`;
+        item.id = `${key}`;
+    
+        item.innerHTML = `<span> ${key}</span><span class="msgNum">${value}</span>`;
         unreadMsgList.appendChild(item);
-        // eslint-disable-next-line no-loop-func
         item.addEventListener("click", function (e) {
           e.preventDefault();
           const username2 = this.id;
           const chatID = unreadMsgMap.get(username2);
           window.location.href = `/chatRoom/${chatID}/${username2}`;
         });
-      }
-      const unread = document.getElementById("unread");
-      unread.addEventListener("click", clickUnreadMsgBlock);
+      });
+      
+    } catch (error) {
+      
     }
-  } catch (err) {
-    console.log(err);
   }
+  
+
 });
 
 const logout = document.querySelector("#logout");
@@ -304,4 +441,27 @@ setYellowButton.addEventListener("click", async (e) => {
   } catch (error) {
     console.log(error);
   }
+});
+
+const clickSearch = () => {
+  const searchBlock = document.querySelector(".searchCriteriaBlock");
+  if (searchBlock.style.display === "block") {
+    searchBlock.style.display = "";
+  } else {
+    searchBlock.style.display = "block";
+  }
+};
+const search = document.querySelector("#search");
+search.addEventListener("click",clickSearch);
+const searchUsername = document.querySelector("#searchUsername");
+const searchStatus = document.querySelector("#searchStatus");
+searchUsername.addEventListener("click", (e) => {
+  e.preventDefault();
+  const criteria = "user"
+  window.location.href = `/searchPage/${criteria}`;
+});
+searchStatus.addEventListener("click", (e) => {
+  e.preventDefault();
+  const criteria = "status"
+  window.location.href = `/searchPage/${criteria}`;
 });

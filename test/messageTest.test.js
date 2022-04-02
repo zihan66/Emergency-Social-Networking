@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { MongoMemoryServer } = require("mongodb-memory-server");
-const Message = require("../models/message");
+const Message = require("../models/message").Message;
 const moment = require("moment");
 
 let mongoServer;
@@ -23,7 +23,7 @@ afterAll(async () => {
 
 test("It should be possible to delete a new message", async () => {
   const message1 = new Message({
-    content: "123", 
+    content: "123",
     author: "Hakan",
     target: "Tony",
     postedAt: moment().format(),
@@ -35,11 +35,11 @@ test("It should be possible to delete a new message", async () => {
   await message1.remove();
   const messageFound = await Message.findOne({ author: "Hakan" });
   expect(messageFound).toBe(null);
-});
+}, 30000);
 
 test("It should be possible to save a new message", async () => {
   const message1 = new Message({
-    content: "123", 
+    content: "123",
     author: "Hakan",
     target: "Tony",
     postedAt: moment().format(),
@@ -60,7 +60,7 @@ test("It should be possible to save a new message", async () => {
 
 test("It should be possible to update a new message", async () => {
   const message1 = new Message({
-    content: "123", 
+    content: "123",
     author: "Tom",
     target: "Tony",
     postedAt: moment().format(),
@@ -69,10 +69,7 @@ test("It should be possible to update a new message", async () => {
     unread: true,
   });
   await message1.save();
-  await Message.updateOne(
-    { chatID: "666" },
-    { unread: false }
-  );
+  await Message.updateOne({ chatID: "666" }, { unread: false });
   const messageFound = await Message.findOne({ chatID: "666" });
   expect(messageFound.content).toBe(message1.content);
   expect(messageFound.author).toBe(message1.author);
@@ -85,7 +82,7 @@ test("It should be possible to update a new message", async () => {
 
 test("messagesAreIndependent", async () => {
   const message1 = new Message({
-    content: "123", 
+    content: "123",
     author: "Tommy",
     target: "Tommy1",
     postedAt: moment().format(),
@@ -95,7 +92,7 @@ test("messagesAreIndependent", async () => {
   });
   await message1.save();
   const message2 = new Message({
-    content: "321", 
+    content: "321",
     author: "Tommy2",
     target: "Tommy3",
     postedAt: moment().format(),

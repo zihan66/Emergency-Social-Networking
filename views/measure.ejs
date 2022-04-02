@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="/stylesheets/measure.css" />
+<div class="measure-wrapper">
+  <header class="directory-header">
+    <button id="leave" class="ui inverted button compact">Leave</button>
+  </header>
+  <div class="measure-container">
+    <label class="desc-word">Duration (s)</label>
+    <input type="text" name="duration" class="duration" />
+    <span id="duration-hint"></span>
+    <label class="desc-word">Interval (ms)</label>
+    <input type="text" name="interval" class="interval" />
+    <span id="interval-hint"></span>
+    <button class="ui inverted whitesmoke button start" id="start">
+      Start
+    </button>
+
+    <button
+      class="ui inverted whitesmoke button start"
+      id="stop"
+      style="margin-top: 10px"
+    >
+      Stop
+    </button>
+
+<p><br /></p>
+    <label class="desc-word">
+      Performance Results
+    </label>
+
+    <div class="measure-result" id="result">
+      <label class="desc-word"></label>
+      <div class="measure-result"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/brownies"></script>
+    <script src="/javascripts/measure.js"></script>
+  </div>
+</div>

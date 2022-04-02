@@ -7,17 +7,9 @@ const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const http = require("http");
-const socketIo = require("socket.io");
 
 const index = require("./routes/index");
 const app = express();
-const server = http.createServer(app);
-const io = socketIo(server);
-
-io.on("connection", (socket) => {
-  socket.on("message", async () => {});
-});
 
 // view engine setup
 app.use(expressLayouts);
@@ -32,6 +24,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 // establish database connection
+mongoose.set("useCreateIndex", true);
+mongoose.set("autoIndex", false);
 if (process.env.ENVIRONMENT === "DEV") {
   mongoose.connect(process.env.DEV_DATABASE);
 } else {

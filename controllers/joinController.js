@@ -1,13 +1,13 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
-
+const socket = require("../socket");
 const User = require("../models/user");
 
 class JoinController {
   static async join(req, res) {
     try {
       const { username, password } = req.body;
-      const io = req.app.get("socketio");
+      const io = socket.getInstance();
       const existedUser = await User.findOne({
         username,
       });
@@ -21,6 +21,7 @@ class JoinController {
         username,
         password,
       });
+
       const token = jwt.sign(
         {
           id: String(newUser._id),

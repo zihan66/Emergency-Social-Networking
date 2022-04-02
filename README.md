@@ -1,5 +1,7 @@
 # Emergency Social Network (ESN)
 
+[![BCH compliance](https://bettercodehub.com/edge/badge/cmusv-fse/s22-ESN-SA2?branch=main&token=c95109ebef7fb3898844e97edc253f5cf74687d8)](https://bettercodehub.com/)
+
 ## About the team
 
 Spring 2022 SA-2

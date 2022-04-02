@@ -33,4 +33,6 @@
 // db.sales.aggregate(aggregation);
 
 use('citizen');
-db.users.drop();
+db.messages.dropIndexes("username_text")
+db.messages.createIndex({content: 'text'})
+db.messages.find({ $text:{$search: "hello"}}).sort({postedAt: -1}).limit(2)
