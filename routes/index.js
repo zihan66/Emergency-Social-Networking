@@ -4,6 +4,7 @@ const messageRoute = require("./message");
 const chatRoute = require("./chat");
 const searchRoute = require("./search");
 const peformanceRoute = require("./performance");
+const eventRoute = require("./event");
 const suspend = require("../middlewares/suspend");
 const auth = require("../middlewares/auth");
 
@@ -54,10 +55,23 @@ router.get("/searchPage/:criteria/:chatID/:username", (req, res) => {
   res.render("search", { title: "search" });
 });
 
+router.get("/eventWall", auth, (req, res) => {
+  res.render("eventWall", { title: "eventWall" });
+});
+
+router.get("/myEvent", auth, (req, res) => {
+  res.render("myEvent", { title: "myEvent" });
+});
+
+router.get("/myEvent/newEvent", auth, (req, res) => {
+  res.render("newEvent", { title: "newEvent" });
+});
+
 router.use("/users", userRoute);
 router.use("/messages", messageRoute);
 router.use("/chats", suspend, chatRoute);
 router.use("/performances", peformanceRoute);
 router.use("/search", suspend, searchRoute);
+router.use("/events", suspend, eventRoute);
 
 module.exports = router;
