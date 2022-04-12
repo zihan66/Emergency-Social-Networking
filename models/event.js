@@ -2,12 +2,7 @@ const mongoose = require("mongoose");
 const moment = require("moment");
 const eventSchema = new mongoose.Schema({
   title: { type: String },
-  location: {
-    streetAddress: { type: String },
-    city: { type: String },
-    state: { type: String },
-    zipCode: { type: String },
-  },
+  location: { type: String },
   startTime: { type: String },
   host: { type: String },
   participants: { type: [String] },
@@ -20,31 +15,26 @@ eventSchema.statics.findAllUnexpiredEvent = async function () {
   const unexpiredEvents = events.filter((event) => {
     const { startTime } = event;
     const now = moment().format();
-    return moment(now).isSameOrAfter(startTime);
+    return moment(startTime).isSameOrAfter(now);
   });
+  return unexpiredEvents;
 };
 
 eventSchema.statics.findEventByHost = async function (username) {
   if (!username) return undefined;
-  const res = await this.findOne({ host: username });
+  const res = await this.find({ host: username });
   return res;
-};
-
-eventSchema.statics.joinEvent = async function (eventId, username) {
-  if (!eventId) return;
-  const event = await this.findOne({ _id: eventId });
-  const { participants } = event;
-  const updatedParticipants = participants.filter((p) => p !== username);
-  await this.updateOne({ _id: eventId }, { participants: updatedParticipants });
-  return;
 };
 
 eventSchema.statics.leaveEvent = async function (eventId, username) {
   if (!eventId) return;
-  const event = await this.findOne({ _id: eventId });
-  const { participants } = event;
-  const updatedParticipants = participants.push(username);
-  await this.updateOne({ _id: eventId }, { participants: updatedParticipants });
+  await this.updateOne({ _id: eventId }, { $pull: { participants: username } });
+  return;
+};
+
+eventSchema.statics.joinEvent = async function (eventId, username) {
+  if (!eventId) return;
+  await this.updateOne({ _id: eventId }, { $push: { participants: username } });
   return;
 };
 

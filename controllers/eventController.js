@@ -4,10 +4,11 @@ const socket = require("../socket");
 class EventController {
   static async createNewEvent(req, res) {
     try {
-      const { title, location, host, type, details } = req.body;
+      const { title, location, host, type, details, startTime } = req.body;
+      console.log([host]);
       const currentEvent = {
         title,
-        startTime: moment().format(),
+        startTime,
         location,
         host,
         type,
@@ -18,7 +19,7 @@ class EventController {
       await Event.create(currentEvent, (err, event) => {
         io.sockets.emit("newEvent", event);
       });
-      res.location("/publicEvent");
+      res.location("/eventWall");
       res.status(201).json();
     } catch (error) {
       res.status(500).json({ error });
@@ -79,6 +80,16 @@ class EventController {
   static async getPublicEvent(req, res) {
     try {
       const events = await Event.findAllUnexpiredEvent();
+      res.status(200).json(events);
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+  }
+
+  static async getEventByHost(req, res) {
+    try {
+      const username = req.params.username;
+      const events = await Event.findEventByHost(username);
       res.status(200).json(events);
     } catch (error) {
       res.status(500).json({ error });
