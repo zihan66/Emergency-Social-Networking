@@ -5,7 +5,6 @@ class EventController {
   static async createNewEvent(req, res) {
     try {
       const { title, location, host, type, details, startTime } = req.body;
-      console.log([host]);
       const currentEvent = {
         title,
         startTime,
@@ -71,6 +70,8 @@ class EventController {
         return;
       }
       await Event.deleteOne({ _id: eventId });
+      const io = socket.getInstance();
+      io.sockets.emit("eventDelete", { host: event.host, eventId });
       res.status(200).json();
     } catch (error) {
       res.status(500).json({ error });

@@ -53,41 +53,19 @@ const unjoin = async (eventId) => {
   }
 };
 
-const appendSingleEvent = (event) => {
-  const {
-    _id: eventId,
-    title,
-    startTime,
-    location,
-    host,
-    type,
-    details,
-    participants,
-  } = event;
+const createCard = (
+  title,
+  startTime,
+  location,
+  host,
+  type,
+  details,
+  participants
+) => {
   const participantsString = participants.join(",");
-  const item = document.createElement("li");
-  item.className = "single-event";
-  item.id = eventId;
-  const button = document.createElement("button");
-  button.className = "circular ui icon button";
-  const isGoing =
-    cookies.username === host || participants.includes(cookies.username)
-      ? true
-      : false;
-  const buttonText = isGoing ? "Unjoin" : "Join";
-  if (isGoing) {
-    button.addEventListener("click", async () => await unjoin(eventId));
-  } else {
-    button.addEventListener("click", async () => await join(eventId));
-  }
-  const iconText = isGoing ? "minus" : "plus";
-  button.innerHTML = `<i class="icon ${iconText}"></i>${buttonText}`;
+  console.log(participantsString);
   const card = document.createElement("div");
   card.className = "ui card";
-  const extraContent = document.createElement("div");
-  extraContent.className = "extra content";
-  extraContent.innerText = isGoing ? "You are going to this event" : "";
-  extraContent.appendChild(button);
   card.innerHTML = ` <div class="content">
     <div class="card-header">${title}</div>
     </div>
@@ -107,10 +85,111 @@ const appendSingleEvent = (event) => {
     <h4 class="ui sub header">EVENT TYPE</h4>
     <div class="info event-type">${type}</div>
     </div>`;
+  return card;
+};
+
+const appendSingleEvent = (event) => {
+  const {
+    _id: eventId,
+    title,
+    startTime,
+    location,
+    host,
+    type,
+    details,
+    participants,
+  } = event;
+  const item = document.createElement("li");
+  item.className = "single-event";
+  item.id = eventId;
+  const button = document.createElement("button");
+  button.className = "circular ui icon button";
+  const isGoing =
+    cookies.username === host || participants.includes(cookies.username)
+      ? true
+      : false;
+  const buttonText = isGoing ? "Unjoin" : "Join";
+  if (isGoing) {
+    button.addEventListener("click", async () => await unjoin(eventId));
+  } else {
+    button.addEventListener("click", async () => await join(eventId));
+  }
+  const iconText = isGoing ? "minus" : "plus";
+  button.innerHTML = `<i class="icon ${iconText}"></i>${buttonText}`;
+  const extraContent = document.createElement("div");
+  extraContent.className = "extra content";
+  extraContent.innerText = isGoing ? "You are going to this event" : "";
+  extraContent.appendChild(button);
+  const card = createCard(
+    title,
+    startTime,
+    location,
+    host,
+    type,
+    details,
+    participants
+  );
   card.appendChild(extraContent);
   item.appendChild(card);
   eventList.appendChild(item);
 };
+
+socket.on("eventDelete", (event) => {
+  const { eventId } = event;
+  const item = document.getElementById(`${eventId}`);
+  if (item) item.remove();
+});
+
+socket.on("newEvent", (event) => {
+  appendSingleEvent(event);
+});
+
+socket.on("eventUpdate", (event) => {
+  const {
+    _id: eventId,
+    title,
+    startTime,
+    location,
+    host,
+    type,
+    details,
+    participants,
+  } = event;
+  const li = document.getElementById(eventId);
+  if (!li) {
+    return;
+  }
+  const card = createCard(
+    title,
+    startTime,
+    location,
+    host,
+    type,
+    details,
+    participants
+  );
+  li.innerHTML = "";
+  li.appendChild(card);
+  const button = document.createElement("button");
+  button.className = "circular ui icon button";
+  const isGoing =
+    cookies.username === host || participants.includes(cookies.username)
+      ? true
+      : false;
+  const buttonText = isGoing ? "Unjoin" : "Join";
+  if (isGoing) {
+    button.addEventListener("click", async () => await unjoin(eventId));
+  } else {
+    button.addEventListener("click", async () => await join(eventId));
+  }
+  const iconText = isGoing ? "minus" : "plus";
+  button.innerHTML = `<i class="icon ${iconText}"></i>${buttonText}`;
+  const extraContent = document.createElement("div");
+  extraContent.className = "extra content";
+  extraContent.innerText = isGoing ? "You are going to this event" : "";
+  extraContent.appendChild(button);
+  card.appendChild(extraContent);
+});
 
 window.addEventListener("load", async () => {
   socket.auth = { username: cookies.username };

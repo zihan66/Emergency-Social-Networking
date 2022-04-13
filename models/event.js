@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const moment = require("moment");
+const socket = require("../socket");
 const eventSchema = new mongoose.Schema({
   title: { type: String },
   location: { type: String },
@@ -28,13 +29,31 @@ eventSchema.statics.findEventByHost = async function (username) {
 
 eventSchema.statics.leaveEvent = async function (eventId, username) {
   if (!eventId) return;
-  await this.updateOne({ _id: eventId }, { $pull: { participants: username } });
+  await this.findOneAndUpdate(
+    { _id: eventId },
+    { $pull: { participants: username } },
+    { new: true },
+    (err, event) => {
+      const io = socket.getInstance();
+      io.sockets.emit("eventUpdate", event);
+    }
+  );
   return;
 };
 
 eventSchema.statics.joinEvent = async function (eventId, username) {
   if (!eventId) return;
-  await this.updateOne({ _id: eventId }, { $push: { participants: username } });
+  console.log(username);
+  await this.findOneAndUpdate(
+    { _id: eventId },
+    { $addToSet: { participants: username } },
+    { new: true },
+    (err, event) => {
+      const io = socket.getInstance();
+      console.log(event);
+      io.sockets.emit("eventUpdate", event);
+    }
+  );
   return;
 };
 
