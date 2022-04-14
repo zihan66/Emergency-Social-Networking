@@ -55,14 +55,36 @@
       </a>
     </div>  -->
     <img src="../images/plusHeart.jpg" height="28" width="28" class="plusHeart">
-    
+    <textarea id="blogID" hidden><%= blog._id %></textarea>
   </center>
-  <div class="message-container">
+
+  <p> </p>
+  <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
+  <p> </p>
+
+  <div class="ui raised very padded text container segment">
     <center>
-      <textarea id="blogID" hidden><%= blog._id %></textarea>
-      
+      <!-- <p>_id of this Blog:</p> -->
+      <p>Header Content:</p>
+      <input type = "text" id="editBlogContent" value="<%= blog.content %>"/>
+      <!-- <p>Header Content:</p>
+      <textarea id="editBlogContent" ><%= blog.content %></textarea> -->
+      <p>Header text:</p>
+      <textarea id="editBlogText"><%= blog.text %></textarea>
+      <p>Header Picture Name:</p>
+      <!-- <textarea id="editBlogPicture"><%= blog.picture %></textarea> -->
+      <input type = "text" id="editBlogPicture" value="<%= blog.picture %>"/>
+      <p> </p>
+      <button id="edit-button" class="editBlogButton">
+        edit&post a new blog
+        <i class="paper plane outline icon"></i>
+      </button>
+      <!-- <button id="edit-button" class="theEditButton">
+        edit and post a new blog
+        <i class="paper plane outline icon"></i>
+      </button> -->
       <!-- <p><%= blog %></p> -->
-  </center>
+    </center>
     <!-- <div class="message-container">
       <span class="header1">
       </span>

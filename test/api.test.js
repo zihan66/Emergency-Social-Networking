@@ -348,6 +348,7 @@ test("Get a blog error", () => {
   })().catch((e) => {});
 });
 
+// since I am not able to know _id here so I just test like/dislike error
 test("Like a blog", () => {
   return (async () => {
     await agent

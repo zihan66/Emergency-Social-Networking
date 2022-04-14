@@ -288,3 +288,36 @@ dislikeButton.addEventListener("click", async (e) => {
 });
 // const dislikeButton = document.getElementById("dislike-button");
 // dislikeButton.addEventListener("click", clickDislikeButton);
+
+const editButton = document.getElementById("edit-button");
+editButton.addEventListener("click", async (e) => {
+  const msgInput = document.getElementById("editBlogContent");
+  var msgInput2 = document.getElementById("editBlogPicture");
+  const msgInput3 = document.getElementById("editBlogText");
+  // console.log("msgInput2: ",msgInput2);
+  const msgContent = msgInput.value;
+  var pictureSelect = msgInput2.value;
+  // console.log("pictureSelect: ",pictureSelect);
+  const text = msgInput3.value;
+  const { username } = cookies;
+  e.preventDefault();
+  e.stopPropagation();
+  //if (!msgContent) return;
+  // msgInput.value = "";
+  const requestBody = { username, content: msgContent, picture: pictureSelect, text: text};
+  console.log("picture:",requestBody.picture);
+  try {
+    const response = await fetch("/blog", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${cookies.jwtToken}`,
+      },
+      body: JSON.stringify(requestBody),
+    });
+    window.location.href = `/blogWall`;
+  } catch (error) {
+    console.error(error);
+  }
+  msgInput.focus();
+});

@@ -88,14 +88,16 @@
 }
 
 textarea {
-  display      : inline-block;
-  border       : none;
+  /* display      : inline-block;
+  border       : none; */
   border-radius: 3px;
-  color        : whitesmoke !important;
+  /* color        : whitesmoke !important; */
   outline      : none;
-  background   : rgb(19, 17, 17);
+  /* background   : rgb(19, 17, 17); */
+  height: 200px;
   width        : 90%;
 }
+
 
 #msg-button {
   display         : inline-block;
@@ -161,6 +163,18 @@ textarea {
   background-color: #ffddaa;
   border          : none;
 }
+
+.editBlogButton{
+  display         : inline-block;
+  margin-left     : 8px;
+  width           : 200px;
+  height          : 30px;
+  border-radius   : 8px;
+  color           : rgba(255, 0, 0, 0.79);
+  background-color: #ffddaa;
+  border          : none;
+}
+
 .theLikeButton{
   display         : inline-block;
   margin-left     : 8px;
