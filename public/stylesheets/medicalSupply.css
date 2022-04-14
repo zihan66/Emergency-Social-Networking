@@ -1,0 +1,96 @@
+.medicalSupply-wrapper {
+    position: relative;
+    background: rgb(10, 3, 3, 0.89);
+    height: 100%;
+    overflow: auto;
+  }
+  
+  .input-area-container {
+    position: relative;
+    display: flex;
+    top: 10px;
+    height: 44px;
+    padding: 5px 8px;
+    width: 100%;
+    box-sizing: border-box;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    background-color: rgb(104, 107, 107);
+  }
+  
+  textarea {
+    display: inline-block;
+    border: none;
+    border-radius: 3px;
+    color: black;
+    font-size: 20px;
+    outline: none;
+    /* background   : rgb(19, 17, 17); */
+    background-color: white;
+    width: 90%;
+  }
+  
+  .hint {
+    color: red;
+    margin-top: 15px;
+    margin-left: 15px;
+    font-size: 15px;
+  }
+  
+  
+  
+  #sendMsg-button {
+    display: inline-block;
+    margin-left: 8px;
+    width: 58px;
+    height: 100%;
+    border-radius: 8px;
+    color: rgba(255, 0, 0, 0.79);
+    background-color: #ffddaa;
+    border: none;
+  }
+  
+  #deleteMsg-button {
+    display: inline-block;
+    margin-left: 8px;
+    width: 58px;
+    height: 100%;
+    border-radius: 8px;
+    color: rgba(255, 0, 0, 0.79);
+    background-color: #ffddaa;
+    border: none;
+  }
+  
+  .yourMedicalSuppliesContainer {
+    margin-top: 20px;
+    padding: 10px 5px;
+    box-sizing: border-box;
+    height: calc(100% - 80px);
+    /* overflow        : auto; */
+    /* background-color: red;
+       */
+  }
+  
+ ul {
+    list-style-type: none;
+    /* padding-left    : 4rem; */
+    padding-right: 2rem;
+    /* text-align      : center; */
+    /* background-color: aqua; */
+  }
+  
+  .yourMedicalSupplies {
+    padding-left: 1rem;
+    margin-bottom: 7.5px;
+    font-size: 20px;
+  }
+  .medicalSupplyName {
+    border: 1px solid #ffddaa;
+    border-radius: 5px;
+    color: #ffddaa;
+  }
+  #delete {
+      margin-right: 0%;
+  }
+  
+  

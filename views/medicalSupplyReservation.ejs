@@ -1,0 +1,41 @@
+<link rel="stylesheet" href="/stylesheets/reserveMedicalSupply.css" />
+<div class="search-wrapper">
+  <button id="leave" class="ui inverted button compact">
+    Back
+  </button>
+
+  <div class="searchTitle">
+
+  </div>
+  <div class="input-area-container">
+    <textarea id="searchInput"></textarea>
+    <button id="sendMsg-button">
+        <i class="paper plane outline icon"></i>
+    </button>
+    <button id="deleteMsg-button">
+            <i class="window close icon"></i>
+    </button>
+  </div>
+  <div class="hint">
+    
+  </div>
+  <div class="allMedicalSupplyContainer">
+  
+    <ul class="allMedicalSupplyList">
+      <div class="notReserved">
+
+      </div>
+      <div class="userReservation">
+        
+      </div>
+      <div class="reserved">
+        
+      </div>
+    </ul>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/brownies"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://momentjs.com/downloads/moment.js"></script>
+  <!-- <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.min.js"></script> -->
+  <script src="/javascripts/reserveMedicalSupply.js"></script>
+</div>

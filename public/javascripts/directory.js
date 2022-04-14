@@ -76,7 +76,11 @@ const appendAllUsers = (users) => {
   users.map(addSingleUser);
 };
 
+socket.on("userReserve", (users) => {
+  alert("aaa");
+});
 socket.on("userList", (users) => {
+  alert("ccc");
   userList.innerHTML = "";
   const allUSer = appendAllUsers(users);
   directoryContainer.scrollTop = 0;
@@ -260,7 +264,6 @@ unread.addEventListener("click", async() => {
     unreadMsgBlock.style.display = "block";
   }
   //alert(unreadMsgBlock.style.display);
-  
   if(unreadMsgBlock.style.display === "block" ){
     try {
       const unreadMsgs = await fetch(
