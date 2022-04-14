@@ -1,6 +1,6 @@
 .blog-wall-wrapper {
   position: relative;
-  background: rgb(10, 3, 3, 0.89);
+  background: rgba(218, 215, 215, 0.755);
   height: 100%;
 }
 
@@ -11,7 +11,7 @@
   padding: 10px 10px;
   justify-content: space-between;
   color: whitesmoke;
-  background-color: #24292f;
+  background-color: rgb(91, 89, 89);
 }
 
 #leave {
@@ -28,6 +28,7 @@
 
 .blog-container {
   padding: 15px 12px;
+  /* padding: 30px 12px; */
   box-sizing: border-box;
   height: calc(100% - 80px);
   /* overflow: auto; */
@@ -40,13 +41,16 @@ ul {
 }
 
 li > p {
-  text-align: end;
-  color: #ffddaa;
+  text-align: center;
+  /* color: #ffddaa; */
 }
 
 .other-blog {
+  /* font-size: 14px; */
   font-size: 14px;
-  color: whitesmoke;
+  text-align: center;
+  /* color: whitesmoke; */
+  color:rgba(255, 0, 0, 0.79)
   border: 1px solid #ffddaa;
   border-radius: 5px;
   margin-left: 5%;
@@ -130,12 +134,19 @@ textarea {
   width: 15px;
 }
 
+.picture img{
+  text-align:center;
+  /* height: 60px; */
+  width: 74%;
+}
+
 .username {
   display: block;
-  text-align: end;
-  color: #ffddaa;
+  /* text-align: center; */
+  /* color: #ffaaaa; */
   margin-bottom: 4px;
-  font-size: 14px;
+  /* font-size: 14px; */
+  font-size: 28px;
 }
 .time-stamp {
   display: block;

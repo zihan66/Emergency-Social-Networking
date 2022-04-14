@@ -11,6 +11,8 @@ router.get("/:blogID", blogController.getABlog);
 router.get("/test", blogController.getBlog);
 // router.get("/delete/:blogID", blogController.deleteABlog);
 router.post("/delete/:blogID", blogController.deleteABlog);
+router.post("/like/:blogID", blogController.likeABlog);
+router.post("/dislike/:blogID", blogController.dislikeABlog);
 // router.get("/:username", shareStatusController.getOneUserRecord);
 // eslint-disable-next-line consistent-return
 

@@ -218,3 +218,73 @@ search.addEventListener("click", (e) => {
 //   }
 //   msgInput.focus();
 // });
+
+const likeButton = document.getElementById("like-button");
+likeButton.addEventListener("click", async (e) => {
+  const likeButton = document.querySelector(".likeButtonDiv");
+  const dislikeButton = document.querySelector(".dislikeButtonDiv");
+  const plusHeart = document.querySelector(".plusHeart");
+  // if (likeButton.style.display === "block") {
+  //   likeButton.style.display = "";
+  // } else {
+  //   likeButton.style.display = "block";
+  // }
+  likeButton.style.display = "none";
+  dislikeButton.style.display = "block";
+  plusHeart.style.display = "block";
+  e.preventDefault();
+  e.stopPropagation();
+  const msgInput = document.getElementById("blogID");
+  const blogID = msgInput.value;
+  if (!blogID) return;
+  try {
+    const response = await fetch(`/blog/like/${blogID}`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${cookies.jwtToken}`,
+      },
+      // body: JSON.stringify(requestBody),
+    });
+    // window.location.href = "/blogWall";
+  } catch (error) {
+    console.error(error);
+  }
+});
+// const likeButton = document.getElementById("like-button");
+// likeButton.addEventListener("click", clickLikeButton);
+
+const dislikeButton = document.getElementById("dislike-button");
+dislikeButton.addEventListener("click", async (e) => {
+  const likeButton = document.querySelector(".likeButtonDiv");
+  const dislikeButton = document.querySelector(".dislikeButtonDiv");
+  const plusHeart = document.querySelector(".plusHeart");
+  // if (likeButton.style.display === "block") {
+  //   likeButton.style.display = "";
+  // } else {
+  //   likeButton.style.display = "block";
+  // }
+  likeButton.style.display = "block";
+  dislikeButton.style.display = "none";
+  plusHeart.style.display = "none";
+  e.preventDefault();
+  e.stopPropagation();
+  const msgInput = document.getElementById("blogID");
+  const blogID = msgInput.value;
+  if (!blogID) return;
+  try {
+    const response = await fetch(`/blog/dislike/${blogID}`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${cookies.jwtToken}`,
+      },
+      // body: JSON.stringify(requestBody),
+    });
+    // window.location.href = "/blogWall";
+  } catch (error) {
+    console.error(error);
+  }
+});
+// const dislikeButton = document.getElementById("dislike-button");
+// dislikeButton.addEventListener("click", clickDislikeButton);

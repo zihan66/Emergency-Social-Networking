@@ -60,7 +60,7 @@ li > p {
   position: absolute;
   display: flex;
   bottom: 0;
-  height: 88px;// 44px;
+  height: 44px;
   padding: 5px 8px;
   width: 100%;
   box-sizing: border-box;

@@ -10,6 +10,8 @@ class blogController {
     this.getBlog = this.getBlog.bind(this);
     this.getABlog = this.getABlog.bind(this);
     this.deleteABlog = this.deleteABlog.bind(this);
+    this.likeABlog = this.likeABlog.bind(this);
+    this.dislikeABlog = this.dislikeABlog.bind(this);
   }
 
   async createNewBlog(req, res) {
@@ -73,7 +75,7 @@ class blogController {
       // console.log("req:", req);
       const blog = await this.strategy.getABlog(blogIDSearch);
       res.render("blog", { blog: blog });
-      // res.status(200).json(blog);
+      res.status(200).json(blog);
     } catch (error) {
       console.log(error);
     }
@@ -89,7 +91,29 @@ class blogController {
       console.log(error);
     }
   }
+  async likeABlog(req, res){
+    try {
+      const blogIDSearch = req.params.blogID;
+      // console.log("blogIDSearch:", blogIDSearch);
+      // console.log("req:", req);
+      const blog = await this.strategy.likeABlog(blogIDSearch);
+      res.status(200).json(blog);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
+  async dislikeABlog(req, res){
+    try {
+      const blogIDSearch = req.params.blogID;
+      // console.log("blogIDSearch:", blogIDSearch);
+      // console.log("req:", req);
+      const blog = await this.strategy.dislikeABlog(blogIDSearch);
+      res.status(200).json(blog);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   setStrategy(strategy) {
     this.strategy = strategy;

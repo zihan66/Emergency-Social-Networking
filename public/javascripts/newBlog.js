@@ -91,6 +91,7 @@ sendButton.addEventListener("click", async (e) => {
       },
       body: JSON.stringify(requestBody),
     });
+    window.location.href = `/blogWall`;
   } catch (error) {
     console.error(error);
   }
@@ -125,6 +126,5 @@ const backToBlogWall = document.querySelector("#backToBlogWall");
 backToBlogWall.addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation();
-  const criteria = "blog";
   window.location.href = `/blogWall`;
 });

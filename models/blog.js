@@ -14,8 +14,8 @@ const blogSchema = new mongoose.Schema({
   text: {type: String, default: ""},
   prevContentLink:{type: String, default: "null", trim: true},
   nextContentLink:{type: String, default: "null", trim: true},
-  likeCount:{type: Number},
-  dislikeCount:{type: Number},
+  likeCount:{type: Number, default: "0"},
+  dislikeCount:{type: Number, default: "0"},
   // blogID: {type: String}, //use _id instead
 });
 

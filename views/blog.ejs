@@ -22,25 +22,46 @@
   <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
   <p> </p>
   <center>
-    <button id="delete-button">
+    <button id="delete-button" class="normalButton">
       delete
       <i class="paper plane outline icon"></i>
     </button>
-         
     <a href="/blog/newBlog">
-      <button id="newBlog-button">
+      <button id="newBlog-button" class="normalButton">
         New Blog
         <i class="paper plane outline icon"></i>
       </button>
     </a>
+    <p> </p>
+    <div class="likeButtonDiv">
+      <button id="like-button" class="theLikeButton">
+        I like this blog
+        <i class="heart icon"></i>
+      </button>
+    </div>
+    <div class="dislikeButtonDiv">
+      <button id="dislike-button" class="theDislikeButton">
+        I dislike this blog
+        <i class="heart outline icon"></i>
+      </button>
+    </div>
+    <!-- <p> </p>
+    <div class="ui labeled button" tabindex="0">
+      <div class="ui red button">
+        <i class="heart icon"></i> Like
+      </div>
+      <a class="ui basic red left pointing label">
+        <%= blog.likeCount %>
+      </a>
+    </div>  -->
+    <img src="../images/plusHeart.jpg" height="28" width="28" class="plusHeart">
+    
   </center>
   <div class="message-container">
     <center>
-      <textarea id="blogID"><%= blog._id %></textarea>
-      <p>_id: <%= blog._id %></p>
-      <p>status: <%= blog.deliveryStatus %></p>
+      <textarea id="blogID" hidden><%= blog._id %></textarea>
       
-      <p><%= blog %></p>
+      <!-- <p><%= blog %></p> -->
   </center>
     <!-- <div class="message-container">
       <span class="header1">
@@ -50,12 +71,12 @@
     </div> -->
   </div>
 </div>
-  <div class="input-area-container">
+  <!-- <div class="input-area-container">
     <textarea id="msg"></textarea>
     <button id="msg-button">
       <i class="paper plane outline icon"></i>
     </button>
-  </div>
+  </div> -->
   <script src="https://cdn.jsdelivr.net/npm/brownies"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://momentjs.com/downloads/moment.js"></script>
