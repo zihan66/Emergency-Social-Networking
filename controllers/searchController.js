@@ -2,6 +2,7 @@ const User = require("../models/user");
 const Message = require("../models/message").Message;
 const Chat = require("../models/chat");
 const Status = require("../models/status");
+const Blog = require("../models/blog").Blog;
 
 const removeStopWords = require("../lib/stopWords");
 class searchController {
@@ -66,6 +67,41 @@ class searchController {
       res.status(500).json({ error });
     }
   }
+
+  static async searchBlog(req, res) {
+    console.log("searchlog test");
+    const query = req.query.q;
+    if (!query) {
+      res.status(400).json({ message: "Invalid query" });
+      return;
+    }
+    const page = req.query.page;
+    if (!page || page <= 0) {
+      res.status(400).json({ message: "Invalid query" });
+      return;
+    }
+    let moreResult = false;
+    const filteredContents = removeStopWords(query);
+    if (filteredContents.length === 0) {
+      res.status(200).json({ moreResult, result: [] });
+      return;
+    }
+    try {
+      const numberOfResult = page * 10 + 1;
+      let result = await Blog.searchBlog(
+        filteredContents,
+        numberOfResult
+      );
+      if (result.length === numberOfResult) {
+        moreResult = true;
+        result.pop();
+      }
+      res.status(200).json({ moreResult, result });
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+  }
+
 
   static async searchAnnouncement(req, res) {
     const query = req.query.q;

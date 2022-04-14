@@ -1,0 +1,64 @@
+<link rel="stylesheet" href="/stylesheets/blog.css" />
+<div class="blog-wrapper">
+  <header class="blog-header">
+    <button id="backToBlogWall" class="ui inverted button compact">
+      backToBlogWall
+    </button>
+    <button id="leave" class="ui inverted button compact">
+      Back to Directory
+    </button>
+  </header>
+  <div class="ui raised very padded text container segment">
+    <center>
+      <h2 class="ui header"><%= blog.content %></h2>
+      <p><%= blog.postedAt %></p>
+      <p>By: <%= blog.author %> <img src="../images/<%= blog.deliveryStatus %>.png" height="15" width="12"></p>
+      <img src="../images/<%= blog.picture %>.jpg">
+    </center>
+      <p> </p>
+      <p><%= blog.text %></p>
+  </div>
+  <p> </p>
+  <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
+  <p> </p>
+  <center>
+    <button id="delete-button">
+      delete
+      <i class="paper plane outline icon"></i>
+    </button>
+         
+    <a href="/blog/newBlog">
+      <button id="newBlog-button">
+        New Blog
+        <i class="paper plane outline icon"></i>
+      </button>
+    </a>
+  </center>
+  <div class="message-container">
+    <center>
+      <textarea id="blogID"><%= blog._id %></textarea>
+      <p>_id: <%= blog._id %></p>
+      <p>status: <%= blog.deliveryStatus %></p>
+      
+      <p><%= blog %></p>
+  </center>
+    <!-- <div class="message-container">
+      <span class="header1">
+      </span>
+      <div class="message-list">
+      </div>
+    </div> -->
+  </div>
+</div>
+  <div class="input-area-container">
+    <textarea id="msg"></textarea>
+    <button id="msg-button">
+      <i class="paper plane outline icon"></i>
+    </button>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/brownies"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://momentjs.com/downloads/moment.js"></script>
+  <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.min.js"></script>
+  <script src="/javascripts/blog.js"></script>
+</div>

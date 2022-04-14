@@ -337,6 +337,13 @@ publicButton.addEventListener("click", (e) => {
   window.location.href = "/publicWall";
 });
 
+const blogButton = document.querySelector("#go-to2");
+blogButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  window.location.href = "/blogWall";
+});
+
 const clickHamburger = () => {
   const hamburger = document.querySelector(".links");
   if (hamburger.style.display === "block") {

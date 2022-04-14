@@ -1,0 +1,147 @@
+.blog-wall-wrapper {
+  position: relative;
+  background: rgba(243, 243, 243, 0.89);
+  height: 100%;
+}
+
+.blog-wall-wrapper .chat-header {
+  display: flex;
+  align-items: center;
+  height: 3.5rem;
+  padding: 10px 10px;
+  justify-content: space-between;
+  color: whitesmoke;
+  background-color: #656669;
+}
+
+#leave {
+  height: 2rem;
+  border-radius: 8px;
+  color: rgba(255, 0, 0, 0.79);
+  border: none;
+}
+
+.header1 {
+  display: inline-block;
+  font-size: 22px;
+}
+
+.blog-container {
+  padding: 15px 12px;
+  box-sizing: border-box;
+  height: calc(100% - 80px);
+  /* overflow: auto; */
+  overflow: scroll;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 1rem;
+}
+
+li > p {
+  text-align: end;
+  color: #ffddaa;
+}
+
+.other-blog {
+  font-size: 14px;
+  color: whitesmoke;
+  border: 1px solid #ffddaa;
+  border-radius: 5px;
+  margin-left: 5%;
+  margin-bottom: 2rem;
+  padding: 5px 8px;
+  width: 95%;
+  display: table;
+}
+
+.input-area-container {
+  position: absolute;
+  display: flex;
+  bottom: 0;
+  height: 88px;// 44px;
+  padding: 5px 8px;
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  background-color: rgb(104, 107, 107);
+}
+
+
+textarea {
+  /* display: inline-block; */
+  /* border: none; */
+  align: center;
+  border-radius: 3px;
+  height: 300px;
+  /* color: whitesmoke !important; */
+  /* outline: none; */
+  /* background: rgb(245, 244, 244); */
+  width: 100%;
+}
+
+#msg-button {
+  /* display: inline-block;
+  margin-left: 8px;*/
+  width: 100px; 
+  /* height: 100%;  */
+  height: 40px;
+  border-radius: 8px;
+  color: rgba(255, 0, 0, 0.79);
+  background-color: #ffddaa;
+  border: none; 
+}
+
+/* .green {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  background-color: rgba(74, 90, 45, 0.918);
+}
+
+.red {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  background-color: rgb(128, 46, 8);
+}
+
+.yellow {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  background-color: rgb(236, 224, 44);
+} */
+.status img{
+  height: 15px;
+  width: 15px;
+}
+
+.username {
+  display: block;
+  text-align: end;
+  color: #ffddaa;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+.time-stamp {
+  display: block;
+  color: rgba(255, 0, 0, 0.79);
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+.self-blog {
+  font-size: 14px;
+  color: whitesmoke;
+  border: 1px solid #ffddaa;
+  border-radius: 5px;
+  margin-left: 5%;
+  margin-bottom: 10px;
+  padding: 5px 8px;
+  width: 95%;
+  display: table;
+  background-color: rgb(95, 91, 91);
+}

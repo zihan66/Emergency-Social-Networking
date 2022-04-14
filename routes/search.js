@@ -8,5 +8,5 @@ router.get("/privateMessage", searchController.searchPrivateMessage);
 router.get("/publicMessage", searchController.searchPublicMessage);
 router.get("/status", searchController.searchStatus);
 router.get("/announcement", searchController.searchAnnouncement);
-
+router.get("/blog", searchController.searchBlog);
 module.exports = router;
