@@ -26,7 +26,7 @@ const addSingleUser = (user) => {
     const username2 = this.id;
     const chatID = userChatMap.get(this.id);
     if (userChatMap.has(username2)) {
-      window.location.href = `/chatRoom/${chatID}/${username2}`;
+      window.location.href = `/chats/${chatID}/${username2}`;
     } else {
       const username1 = cookies.username;
       const data = { username1, username2 };
@@ -85,9 +85,12 @@ socket.on("userList", (users) => {
 socket.on("updateStatus", (user) => {
   const id = `${user.username}Status`;
   const statusUpdated = user.lastStatusCode;
+  console.log("debug_statusUpdated", statusUpdated);
+  cookies.lastStatusCode = statusUpdated;
   const userStatus = statusImage(statusUpdated);
 
   const updateStatus = document.getElementById(`${id}`);
+  
   updateStatus.innerHTML = `<img src="../images/${userStatus}.png"> ${statusUpdated}`;
 });
 
@@ -192,7 +195,7 @@ window.addEventListener("load", async () => {
       //     e.preventDefault();
       //     const username2 = this.id;
       //     const chatID = unreadMsgMap.get(username2);
-      //     window.location.href = `/chatRoom/${chatID}/${username2}`;
+      //     window.location.href = `/chats/${chatID}/${username2}`;
       //   });
       // }
 
@@ -206,7 +209,7 @@ window.addEventListener("load", async () => {
       //       e.preventDefault();
       //       const username2 = this.id;
       //       const chatID = unreadMsgMap.get(username2);
-      //       window.location.href = `/chatRoom/${chatID}/${username2}`;
+      //       window.location.href = `/chats/${chatID}/${username2}`;
       //     });
       //   })
       // }
@@ -220,7 +223,7 @@ window.addEventListener("load", async () => {
       //     e.preventDefault();
       //     const username2 = this.id;
       //     const chatID = unreadMsgMap.get(username2);
-      //     window.location.href = `/chatRoom/${chatID}/${username2}`;
+      //     window.location.href = `/chats/${chatID}/${username2}`;
       //   });
       // })
       
@@ -300,7 +303,7 @@ unread.addEventListener("click", async() => {
           e.preventDefault();
           const username2 = this.id;
           const chatID = unreadMsgMap.get(username2);
-          window.location.href = `/chatRoom/${chatID}/${username2}`;
+          window.location.href = `/chats/${chatID}/${username2}`;
         });
       });
       
@@ -385,7 +388,7 @@ setRedButton.addEventListener("click", async (e) => {
   e.preventDefault();
   e.stopPropagation();
   const { username } = cookies;
-  const lastStatusCode = "EMERGENCY";
+  const lastStatusCode = 'EMERGENCY';
   try {
     const response = await fetch(
       `/users/${username}/status/${lastStatusCode}`,
@@ -464,4 +467,26 @@ searchStatus.addEventListener("click", (e) => {
   e.preventDefault();
   const criteria = "status"
   window.location.href = `/searchPage/${criteria}`;
+});
+
+
+const becomeDonnorBt = document.querySelector("#BecomeDonnor");
+
+becomeDonnorBt.addEventListener("click", ()=>{
+  if (cookies.lastStatusCode == "OK") {
+    window.location.href = "/newDonor";
+  } else {
+    alert("You are not eligible to be a donor due to your current status");
+  }
+});
+
+
+const askforBloodBt = document.querySelector("#AskforBlood");
+
+askforBloodBt.addEventListener("click", () => {
+  if (cookies.lastStatusCode == "EMERGENCY") {
+    window.location.href = "/askForDonor";
+  } else {
+    alert("You are not eligible to ask for blood due to your current status");
+  }
 });

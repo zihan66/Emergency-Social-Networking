@@ -11,3 +11,28 @@ footer {
   font-weight: 900;
   color      : whitesmoke;
 }
+
+
+.flex-wrap{
+  display: flex;
+}
+
+.flex-middle{
+  justify-content: center;
+}
+
+.flex-center{
+  justify-content: center;
+  
+}
+
+.flex-direction-column{
+  flex-direction: column;
+}
+
+
+.btn-outline-dark-active {
+    color: #fff!important;
+    background-color: #212529!important;
+    border-color: #212529 !important;
+}

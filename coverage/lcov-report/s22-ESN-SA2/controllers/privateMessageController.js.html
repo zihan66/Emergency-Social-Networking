@@ -437,7 +437,7 @@ class PrivateMessageController {
         username2,
       };
       const response = await Chat.create(currentChat);
-      res.location(`/chatRoom/${currentChat.chatID}/${username2}`);
+      res.location(`/chats/${currentChat.chatID}/${username2}`);
       res.status(201).json();
     } catch (error) {
 <span class="cstat-no" title="statement not covered" >      console.log("error", error);</span>

@@ -135,6 +135,7 @@ class searchController {
 
   static async searchStatus(req, res) {
     const query = req.query.q;
+    console.log("req.query", req.query);
     const { chatId, page } = req.query;
     let moreResult = false;
     if (!query) {

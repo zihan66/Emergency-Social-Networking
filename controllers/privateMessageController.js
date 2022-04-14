@@ -8,7 +8,6 @@ class PrivateMessageController {
     try {
       const { username1, username2 } = req.body;
       if (username1 === undefined || username2 === undefined) {
-        console.log("undefined");
         res.status(404).json({});
         return;
       }
@@ -16,7 +15,6 @@ class PrivateMessageController {
         username1,
         username2
       );
-      console.log(existedChat);
       if (existedChat) {
         console.log("existed");
         res.status(404).json({});
@@ -28,7 +26,7 @@ class PrivateMessageController {
         username2,
       };
       const response = await Chat.create(currentChat);
-      res.location(`/chatRoom/${currentChat.chatID}/${username2}`);
+      res.location(`/chats/${currentChat.chatID}/${username2}`);
       res.status(201).json();
     } catch (error) {
       console.log("error", error);
@@ -62,7 +60,7 @@ class PrivateMessageController {
   static async createNewPrivateMessage(req, res) {
     try {
       const io = socket.getInstance();
-      const { author, target, content, chatID } = req.body;
+      const { author, target, content, chatID, isToDonor } = req.body;
       const chat = await Chat.findOne({
         chatID,
       });
@@ -82,13 +80,17 @@ class PrivateMessageController {
         type: "private",
       };
       let messageId;
-      await Message.create(currentMessage, (err, message) => {
-        const authorSocketId = socket.hasName[authorUser.username];
-        const targetSocketId = socket.hasName[targetUser.username];
-        io.sockets.to(authorSocketId).emit("privateMessage", message);
-        if (targetSocketId !== undefined)
-          io.sockets.to(targetSocketId).emit("privateMessage", message);
-      });
+      const message = await Message.create(currentMessage);
+
+      const authorSocketId = socket.hasName[authorUser.username];
+      const targetSocketId = socket.hasName[targetUser.username];
+      io.sockets.to(authorSocketId).emit("privateMessage", message);
+      if (targetSocketId !== undefined){
+        if(isToDonor){
+          io.sockets.emit("askForDonorMessage", {user: authorUser.username, target:targetUser.username, url: `/chats/${chatID}/${authorUser.username}?isToDonor=true`});
+        }
+        io.sockets.to(targetSocketId).emit("privateMessage", message);
+      }
 
       res.status(201).json({});
     } catch (e) {
@@ -160,13 +162,41 @@ class PrivateMessageController {
   static async readMessage(req, res) {
     const { messageId } = req.params;
     try {
-      await Message.updateOne({ _id: messageId }, { unread: False });
+      await Message.updateOne({ _id: messageId }, { unread: false });
       res.status(200).json();
     } catch (error) {
-      console.error("error", error);
       res.status(500).send();
     }
   }
+
+  static renderchats (req, res) {
+
+      const { isToDonor } = req.query;
+      
+      if (isToDonor) {
+        try {
+          const io = socket.getInstance();
+          const { chatid, target } = req.params;
+          const author = req.cookies.username;
+
+          
+          const authorSocketId = socket.hasName[author];
+          const targetSocketId = socket.hasName[target];
+
+          const message = { content: "I NEED BLOOD!", target, author };
+          io.sockets.to(authorSocketId).emit("privateMessage", message);
+          if (targetSocketId !== undefined) {
+            io.sockets.to(targetSocketId).emit("privateMessage", message);
+          }
+          
+        } catch (error) {
+          console.log("error", error);
+        }
+        
+      }
+
+      res.render("chatRoom", { title: "chats" });
+    }
 }
 
 module.exports = PrivateMessageController;

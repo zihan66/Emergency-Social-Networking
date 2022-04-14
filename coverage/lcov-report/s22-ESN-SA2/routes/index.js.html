@@ -228,8 +228,8 @@ router.get("/directory", auth, <span class="fstat-no" title="function not covere
 <span class="cstat-no" title="statement not covered" >  res.render("directory", { title: "directory" });</span>
 });
 &nbsp;
-router.get("/chatroom/:chatid/:target", auth, <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
-<span class="cstat-no" title="statement not covered" >  res.render("chatRoom", { title: "chatRoom" });</span>
+router.get("/chats/:chatid/:target", auth, <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >  res.render("chats", { title: "chats" });</span>
 });
 &nbsp;
 router.use("/users", suspend, userRoute);

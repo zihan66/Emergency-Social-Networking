@@ -402,7 +402,7 @@ leave.addEventListener("click", (e) => {
   } else if (criteria === "publicMessage") {
     window.location.href = "/publicWall";
   } else if (criteria === "privateMessage") {
-    window.location.href = `/chatRoom/${chatID}/${username}`;
+    window.location.href = `/chats/${chatID}/${username}`;
   } else if (criteria === "announcement") {
     window.location.href = "/announcement";
   }

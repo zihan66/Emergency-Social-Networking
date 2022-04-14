@@ -6,6 +6,8 @@ const searchRoute = require("./search");
 const peformanceRoute = require("./performance");
 const suspend = require("../middlewares/suspend");
 const auth = require("../middlewares/auth");
+const canAskForDonor = require("../middlewares/canAskForDonor");
+const canBeDonor = require("../middlewares/canBeDonor");
 
 const router = express.Router();
 /* GET home page. */
@@ -37,8 +39,12 @@ router.get("/directory", auth, (req, res) => {
   res.render("directory", { title: "directory" });
 });
 
-router.get("/chatroom/:chatid/:target", auth, (req, res) => {
-  res.render("chatRoom", { title: "chatRoom" });
+router.get("/newDonor", auth, canBeDonor,(req, res) => {
+  res.render("newDonor", { title: "newDonor" });
+});
+
+router.get("/askForDonor", auth, canAskForDonor, (req, res) => {
+  res.render("askForDonor", { title: "askForDonor" });
 });
 
 router.use("/users", suspend, userRoute);

@@ -1,6 +1,6 @@
 {
-  "name": "fse-emergency-social-network",
-  "version": "0.0.0",
+  "name": "ESN-I4-PinzhiNi",
+  "version": "4.1.5",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",

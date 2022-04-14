@@ -46,6 +46,9 @@ class loginLogoutController {
       io.emit("userList", userList);
       res.cookie("jwtToken", token);
       res.cookie("username", req.params.username);
+      res.cookie("isDonor", user.isDonor);
+      res.cookie("bloodType", user.bloodType);
+      res.cookie("lastStatusCode", user.lastStatusCode);
       res.status(200).json({
         jwtToken: token,
       });
@@ -58,7 +61,6 @@ class loginLogoutController {
   static async logout(req, res) {
     const user = req.params;
     const io = socket.getInstance();
-    console.log("req: POST /logout", user);
     try {
       let result = await User.findOne({ username: user.username });
       if (result) {

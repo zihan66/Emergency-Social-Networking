@@ -20,7 +20,6 @@ class AnnouncementMessageController {
         postedAt: moment().format(),
         type: "announcement",
       };
-      console.log(this);
       await this.strategy.createMessage(currentMessage);
       io.sockets.emit("announcementMessage", currentMessage);
       res.status(201).json({});

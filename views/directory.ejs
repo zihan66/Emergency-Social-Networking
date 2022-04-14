@@ -19,8 +19,23 @@
         </ul>
       </div>
     </div>
-    <div class="unreadMsgs"></div>
-    <!-- <button id="logout" class="ui inverted button compact">Logout</button> -->
+    <div>
+      <!-- <a href="./newDonor"> -->
+        <button id="BecomeDonnor" class="ui inverted button compact">
+          Become A Blood Donor
+        </button>
+      <!-- </a> -->
+    </div>
+
+    <div class="unreadMsgs">
+      <!-- <a href="./askForDonor"> -->
+        <button id="AskforBlood" class="ui inverted button compact">
+          Ask for Blood
+        </button>
+      <!-- </a> -->
+      
+    </div>
+
   </header>
 
   <div class="hamburger-menu">
@@ -109,7 +124,22 @@
   <div class="directory-container">
     <ul class="user-list"></ul>
   </div>
+
+  <div class="modal fade" id="askDonorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+        </div>
+    
+      </div>
+    </div>
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/brownies"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="/javascripts/directory.js"></script>
+  <script src="/javascripts/common/showAskDonorModal.js"></script>
 </div>

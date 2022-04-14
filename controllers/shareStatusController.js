@@ -6,7 +6,7 @@ const socket = require("../socket");
 class shareStatusController {
   static async getOneUserRecord(req, res) {
     try {
-      const user = await User.findOne({ username: req.params.username });
+      const user = await User.findOne({ username: req.params.username }) || {}
       // sensitive
       const userPassword = user.password;
       const userIsAcknowledge = user.isAcknowledge;
