@@ -1,5 +1,6 @@
 let agent = require("superagent");
 let app = require("../app");
+const axios = require("axios");
 
 require("dotenv").config();
 const mongoose = require("mongoose");
@@ -215,9 +216,7 @@ test("Can post a chat", () => {
       .then((res, err) => {
         expect(err).toBe(undefined);
         expect(res.statusCode).toBe(201);
-        // chat_id = res.body.find((c) => c.chatID);
         chat_id = res.body.chatID;
-        // console.log(res.body);
       })
       .catch((e) => {
         // deal with it

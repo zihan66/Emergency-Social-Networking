@@ -1,17 +1,92 @@
 <link rel="stylesheet" href="/stylesheets/directory.css" />
+<div class="ui left demo vertical inverted sidebar labeled icon menu">
+  <!-- <div class="menu-item">
+    <button class="ui inverted whitesmoke button" id="status-bar">
+      Set Status:
+    </button>
+  </div> -->
+  <div class="links2">
+    <!-- <div class="ham-img">
+    </div> -->
+    <p></p>
+    <form class="ui form">
+      <button id="setRedButton" class="ui inverted button compact">
+        <img
+          class="ui rounded-image"
+          height="30"
+          width="30"
+          src="/images/red.png"
+        />
+        <i> Emergency </i>
+        <i class="circle outline icon"></i>
+      </button>
+      <button id="setGreenButton" class="ui inverted button compact">
+        <img
+          class="ui rounded-image"
+          height="30"
+          width="30"
+          src="/images/green.png"
+        />
+        <i> I am OK </i>
+        <i class="circle outline icon"></i>
+      </button>
+      <p></p>
+      <button id="setYellowButton" class="ui inverted button compact">
+        <img
+          class="ui rounded-image"
+          height="30"
+          width="30"
+          src="/images/yellow.png"
+        />
+        <i> I need Help </i>
+        <i class="circle outline icon"></i>
+      </button>
+      <button id="setGreyButton" class="ui inverted button compact">
+        <img
+          class="ui rounded-image"
+          height="30"
+          width="30"
+          src="/images/grey.png"
+        />
+        <i> Undefined </i>
+        <i class="circle outline icon"></i>
+      </button>
+    </form>
+  </div>
+  <a class="item" href="./publicWall">
+    <i class="envelope open outline icon"></i>
+    Public Messages
+  </a>
+  <a class="item" href="./measure">
+    <i class="chart bar icon"></i>
+    Measure
+  </a>
+  <a class="item" href="./announcement">
+    <i class="bullhorn icon"></i>
+    Announcement
+  </a>
+  <a class="item" href="./eventWall">
+    <i class="calendar minus outline icon"></i>
+    Volunteering Event
+  </a>
+  <a class="item" id="logout">
+    <i class="share square outline icon"></i>
+    Logout
+  </a>
+</div>
 <div class="directory-wrapper">
   <header class="directory-header">
     <!-- <span class="header1">User Directory</span> -->
     <i class="bars icon" id="bar"></i>
     <div class="unreadMsgs">
-      <button id="unread" class="ui inverted button compact">
-        Unread Messages
-      </button>
+      <div id="unread">Unread Messages</div>
       <div class="unreadMsgBlock"><ul class="unreadMsgList"></ul></div>
     </div>
 
     <div class="search">
-      <button id="search" class="ui inverted button compact">search</button>
+      <button id="search" class="ui inverted button compact">
+        search <i class="search icon"></i>
+      </button>
       <div class="searchCriteriaBlock">
         <ul class="searchCriteria">
           <li id="searchUsername">username</li>
@@ -19,92 +94,10 @@
         </ul>
       </div>
     </div>
-    <div class="unreadMsgs"></div>
-    <!-- <button id="logout" class="ui inverted button compact">Logout</button> -->
   </header>
 
   <div class="hamburger-menu">
-    <div class="links">
-      <div class="menu-item">
-        <ul class="directory_profile"></ul>
-        <!-- <button class="ui inverted whitesmoke button" id="user-profile"> -->
-        <!-- My Status:<var>directory_profile_username</var> <var>directory_profile_status</var> -->
-        <!-- </button> -->
-      </div>
-      <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
-      <div class="menu-item">
-        <button class="ui inverted whitesmoke button" id="status-bar">
-          Set Status:
-        </button>
-      </div>
-      <div class="links2">
-        <!-- <div class="ham-img">
-        </div> -->
-        <p></p>
-        <form class="ui form">
-          <button id="setRedButton" class="ui inverted button compact">
-            <img
-              class="ui rounded-image"
-              height="30"
-              width="30"
-              src="/images/red.png"
-            />
-            <i> Emergency </i>
-            <i class="circle outline icon"></i>
-          </button>
-          <button id="setGreenButton" class="ui inverted button compact">
-            <img
-              class="ui rounded-image"
-              height="30"
-              width="30"
-              src="/images/green.png"
-            />
-            <i> I am OK </i>
-            <i class="circle outline icon"></i>
-          </button>
-          <p></p>
-          <button id="setYellowButton" class="ui inverted button compact">
-            <img
-              class="ui rounded-image"
-              height="30"
-              width="30"
-              src="/images/yellow.png"
-            />
-            <i> I need Help </i>
-            <i class="circle outline icon"></i>
-          </button>
-          <button id="setGreyButton" class="ui inverted button compact">
-            <img
-              class="ui rounded-image"
-              height="30"
-              width="30"
-              src="/images/grey.png"
-            />
-            <i> Undefined </i>
-            <i class="circle outline icon"></i>
-          </button>
-        </form>
-      </div>
-      <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
-      <button id="go-to" class="ui inverted whitesmoke button">
-        Public Messages
-      </button>
-      <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
-      <a href="./measure">
-        <button class="ui inverted whitesmoke button" id="measure-bar">
-          Measure
-        </button>
-      </a>
-      <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
-      <a href="./announcement">
-        <button class="ui inverted whitesmoke button" id="announcement-bar">
-          Announcement
-        </button>
-      </a>
-      <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
-      <button id="logout" class="ui inverted whitesmoke button">Logout</button>
-      <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
-    </div>
+    <div class="links"></div>
   </div>
   <div class="directory-container">
     <ul class="user-list"></ul>

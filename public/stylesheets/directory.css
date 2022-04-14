@@ -1,72 +1,72 @@
 .directory-wrapper {
-  position: relative;
+  position  : relative;
   background: rgb(10, 3, 3, 0.89);
-  height: 100%;
-  overflow: auto;
+  height    : 100%;
+  overflow  : auto;
 }
 
 .user {
-  font-size: 18px;
-  border: 1px solid #ffddaa;
+  font-size    : 18px;
+  border       : 1px solid #ffddaa;
   border-radius: 5px;
   margin-bottom: 2rem;
-  padding: 5px 8px;
-  height: 5%;
-  width: 95%;
-  display: table;
+  padding      : 5px 8px;
+  height       : 5%;
+  width        : 95%;
+  display      : table;
 }
 
 .directory-wrapper .directory-header {
-  display: flex;
-  align-items: center;
-  height: 3.5rem;
-  padding: 10px 10px;
-  justify-content: space-between;
-  color: whitesmoke;
+  display         : flex;
+  align-items     : center;
+  height          : 3.5rem;
+  padding         : 10px 10px;
+  justify-content : space-between;
+  color           : whitesmoke;
   background-color: #24292f;
 }
 
 #leave {
-  height: 2rem;
+  height       : 2rem;
   border-radius: 8px;
-  color: rgba(255, 0, 0, 0.79);
-  border: none;
+  color        : rgba(255, 0, 0, 0.79);
+  border       : none;
 }
 
 #publicWall {
-  height: 2rem;
+  height       : 2rem;
   border-radius: 8px;
-  color: rgb(216, 224, 215);
-  border: none;
+  color        : rgb(216, 224, 215);
+  border       : none;
 }
 
 .header1 {
-  display: inline-block;
+  display  : inline-block;
   font-size: 22px;
 }
 
 .directory-container {
-  padding: 15px 12px;
+  padding   : 15px 12px;
   box-sizing: border-box;
-  height: calc(100% - 80px);
+  height    : calc(100% - 80px);
 }
 
 .directory-container ul {
   list-style-type: none;
-  padding-left: 1rem;
+  padding-left   : 1rem;
 }
 
 .directory-container ul li {
   cursor: pointer;
 }
 
-li > p {
+li>p {
   text-align: end;
-  color: #ffddaa;
+  color     : #ffddaa;
 }
 
 .avat {
-  color: whitesmoke;
+  color    : whitesmoke;
   font-size: 1rem;
 }
 
@@ -76,98 +76,110 @@ li > p {
 
 .status img {
   height: 20px;
-  width: 20px;
+  width : 20px;
 }
 
 .online {
-  color: rgb(71, 156, 196);
-  margin-left: 2px;
+  color       : rgb(71, 156, 196);
+  margin-left : 2px;
   margin-right: 2px;
 }
 
 .username {
-  color: #ffddaa;
+  color        : #ffddaa;
   margin-bottom: 4px;
-  font-size: 18px;
+  font-size    : 18px;
 }
 
 .unreadMsgs {
-  width: 160px;
+  width      : 160px;
+  margin-left: 20px;
 }
 
 .unreadMsgs button {
-  position: relative;
-  width: 160px;
+  position   : relative;
+  width      : 160px;
   /* width   : 93px; */
 }
+
 .unreadMsgBlock {
-  position: absolute;
-  display: none;
-  width: 1px;
-  /* width   : 93px; */
-  height: 200px;
+  position        : absolute;
+  display         : none;
+  /* width        : 1px; */
+  width           : 93px;
+  height          : 200px;
   background-color: rgb(108, 114, 121);
-  opacity: 0.8;
-  overflow: scroll;
+  opacity         : 0.8;
+  overflow        : scroll;
 }
+
+.search {
+  padding: 0.5rem 0.3rem
+}
+
 .search button {
+  padding : 0 !important;
   position: relative;
-  width : 80px;
+  width   : 80px;
 }
-.searchCriteriaBlock{
+
+.searchCriteriaBlock {
   position: absolute;
   display : none;
   width   : 80px;
   height  : 80px;
-  
+
   background-color: rgb(108, 114, 121);
   opacity         : 0.8;
 }
-.searchCriteriaBlock ul{
+
+.searchCriteriaBlock ul {
   list-style-type: none;
-  
+
 }
-.searchCriteriaBlock ul li{
-  color: white;
+
+.searchCriteriaBlock ul li {
+  color        : white;
   margin-bottom: 10px;
-  margin-left: -35px;
-  text-align: center;
+  margin-left  : -35px;
+  text-align   : center;
   cursor       : pointer;
 }
 
 .unreadMsgList {
-  color: #ffddaa;
-  padding: 10px 10px;
+  color          : #ffddaa;
+  padding        : 10px 10px;
   text-decoration: none;
-  font-size: 20px;
-  display: block;
+  font-size      : 20px;
+  display        : block;
   list-style-type: none;
-  text-align: center;
+  text-align     : center;
 }
 
 .unreadMsgList li {
-  cursor: pointer;
+  cursor       : pointer;
   margin-bottom: 10px;
 }
+
 .msgNum {
-  border-radius: 50%;
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  text-align: center;
-  border: 1px solid white;
-  color: rgb(206, 76, 24);
+  border-radius   : 50%;
+  display         : inline-block;
+  width           : 20px;
+  height          : 20px;
+  text-align      : center;
+  border          : 1px solid white;
+  color           : rgb(206, 76, 24);
   background-color: azure;
-  margin-left: 4px;
-  padding-bottom: 2px;
-  margin-bottom: -3px;
+  margin-left     : 4px;
+  padding-bottom  : 2px;
+  margin-bottom   : -3px;
 }
 
 .left-items {
-  height: inherit;
-  display: inline-block;
+  height  : inherit;
+  display : inline-block;
   position: absolute;
-  left: 0;
+  left    : 0;
 }
 
 .hamburger-menu {
@@ -175,13 +187,14 @@ li > p {
 }
 
 .links {
-  display: none;
-  color: whitesmoke;
+  display         : none;
+  color           : whitesmoke;
+  padding-left    : 10px;
   background-color: rgb(108, 114, 121);
 }
 
 .links2 {
-  display: none;
-  color: whitesmoke;
+  display         : block;
+  color           : whitesmoke;
   background-color: rgb(108, 114, 121);
 }

@@ -39,8 +39,12 @@ class EventController {
         return;
       }
       await Event.leaveEvent(eventId, username);
+      const updatedEvent = await Event.findOne({ _id: eventId });
+      const io = socket.getInstance();
+      io.sockets.emit("eventUpdate", updatedEvent);
       res.status(200).json({});
     } catch (error) {
+      console.log(error);
       res.status(500).json({ error });
     }
   }
@@ -55,8 +59,14 @@ class EventController {
         return;
       }
       await Event.joinEvent(eventId, username);
+      const updatedEvent = await Event.findOne({ _id: eventId });
+      console.log(updatedEvent);
+      const io = socket.getInstance();
+      io.sockets.emit("eventUpdate", updatedEvent);
+
       res.status(200).json({});
     } catch (error) {
+      console.log(error);
       res.status(500).json({ error });
     }
   }

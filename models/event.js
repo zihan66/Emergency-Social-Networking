@@ -32,27 +32,17 @@ eventSchema.statics.leaveEvent = async function (eventId, username) {
   await this.findOneAndUpdate(
     { _id: eventId },
     { $pull: { participants: username } },
-    { new: true },
-    (err, event) => {
-      const io = socket.getInstance();
-      io.sockets.emit("eventUpdate", event);
-    }
+    { new: true }
   );
   return;
 };
 
 eventSchema.statics.joinEvent = async function (eventId, username) {
   if (!eventId) return;
-  console.log(username);
   await this.findOneAndUpdate(
     { _id: eventId },
     { $addToSet: { participants: username } },
-    { new: true },
-    (err, event) => {
-      const io = socket.getInstance();
-      console.log(event);
-      io.sockets.emit("eventUpdate", event);
-    }
+    { new: true }
   );
   return;
 };
