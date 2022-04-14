@@ -4,11 +4,8 @@ const { convertListOfStringToListOfRegex } = require("../lib/utils");
 const blogSchema = new mongoose.Schema({
   content: { type: String, default: "", trim: true }, // trim: true will remove all leading and trailing spaces
   author: { type: String, trim: true }, // trim: true will remove all leading and trailing spaces
-  // target: { type: String, trim: true },
   postedAt: { type: String },
   deliveryStatus: { type: String },
-  // chatID: { type: String },
-  // unread: { type: Boolean, default: true },
   type: { type: String },
   picture: {type: String, default: "default_pic", trim: true},
   text: {type: String, default: ""},
@@ -21,14 +18,14 @@ const blogSchema = new mongoose.Schema({
 
 blogSchema.statics.searchBlog = async function (
   searchContent,
-  limit
+  // limit
 ) {
   const result = await this.find({
     type: "blog",
     content: { $in: convertListOfStringToListOfRegex(searchContent) },
   })
     .sort({ postedAt: -1 })
-    .limit(limit);
+    // .limit(limit);
   return result;
 };
 

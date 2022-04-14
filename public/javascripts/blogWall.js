@@ -123,9 +123,17 @@ leave.addEventListener("click", (e) => {
   window.location.href = "/directory";
 });
 
-const search = document.querySelector("#newBlog");
-search.addEventListener("click", (e) => {
+const newBlog = document.querySelector("#newBlog");
+newBlog.addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation();
   window.location.href = `/blog/newBlog`;
+});
+
+const search = document.querySelector("#search");
+search.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  const criteria = "blog";
+  window.location.href = `/searchPage/${criteria}`;
 });

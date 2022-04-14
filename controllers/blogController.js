@@ -97,6 +97,9 @@ class blogController {
       // console.log("blogIDSearch:", blogIDSearch);
       // console.log("req:", req);
       const blog = await this.strategy.likeABlog(blogIDSearch);
+      if(blog == null){
+        res.status(404).json({});
+      }
       res.status(200).json(blog);
     } catch (error) {
       console.log(error);
@@ -109,6 +112,9 @@ class blogController {
       // console.log("blogIDSearch:", blogIDSearch);
       // console.log("req:", req);
       const blog = await this.strategy.dislikeABlog(blogIDSearch);
+      if(blog == null){
+        res.status(404).json({});
+      }
       res.status(200).json(blog);
     } catch (error) {
       console.log(error);

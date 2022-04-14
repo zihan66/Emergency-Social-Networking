@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.33% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>28/30</span>
+                <span class='fraction'>18/30</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">71.42% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/7</span>
+                <span class='fraction'>5/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.33% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/30</span>
+                <span class='fraction'>18/30</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -185,18 +185,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -205,17 +205,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -262,39 +262,39 @@ userSchema.statics.searchUsersByUsername = async function (searchContent) {
   const onlineUsers = await this.find({
     isLogin: true,
     username: { $regex: searchContent },
-  });
+  }).sort({ username });
 &nbsp;
-  const offlineUsers = await this.find({
+  const offlineUsers = <span class="cstat-no" title="statement not covered" >await this.find({</span>
     isLogin: false,
     username: { $regex: searchContent },
+  }).sort({ username });
+&nbsp;
+  const wholeUserList = <span class="cstat-no" title="statement not covered" >onlineUsers.concat(offlineUsers);</span>
+  const filteredUserList = <span class="cstat-no" title="statement not covered" >wholeUserList.map(<span class="fstat-no" title="function not covered" >(u</span>ser) =&gt; {</span>
+    const { username, isLogin, lastStatusCode } = <span class="cstat-no" title="statement not covered" >user;</span>
+<span class="cstat-no" title="statement not covered" >    return { username, isLogin, lastStatusCode };</span>
   });
 &nbsp;
-  const wholeUserList = onlineUsers.concat(offlineUsers);
-  const filteredUserList = wholeUserList.map((user) =&gt; {
-    const { username, isLogin, lastStatusCode } = user;
-    return { username, isLogin, lastStatusCode };
-  });
-&nbsp;
-  return filteredUserList;
+<span class="cstat-no" title="statement not covered" >  return filteredUserList;</span>
 };
 &nbsp;
 userSchema.statics.findUserByStatus = async function (status) {
   const onlineUsers = await this.find({
     isLogin: true,
     lastStatusCode: status,
-  });
+  }).sort({ username });
 &nbsp;
-  const offlineUsers = await this.find({
+  const offlineUsers = <span class="cstat-no" title="statement not covered" >await this.find({</span>
     isLogin: false,
     lastStatusCode: status,
-  });
+  }).sort({ username });
 &nbsp;
-  const wholeUserList = onlineUsers.concat(offlineUsers);
-  const filteredUserList = wholeUserList.map(<span class="fstat-no" title="function not covered" >(u</span>ser) =&gt; {
+  const wholeUserList = <span class="cstat-no" title="statement not covered" >onlineUsers.concat(offlineUsers);</span>
+  const filteredUserList = <span class="cstat-no" title="statement not covered" >wholeUserList.map(<span class="fstat-no" title="function not covered" >(u</span>ser) =&gt; {</span>
     const { username, isLogin, lastStatusCode } = <span class="cstat-no" title="statement not covered" >user;</span>
 <span class="cstat-no" title="statement not covered" >    return { username, isLogin, lastStatusCode };</span>
   });
-  return filteredUserList;
+<span class="cstat-no" title="statement not covered" >  return filteredUserList;</span>
 };
 &nbsp;
 // current user
@@ -307,7 +307,7 @@ module.exports = User;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Mar 31 2022 19:15:58 GMT-0700 (Pacific Daylight Time)
+                at Thu Apr 14 2022 15:26:44 GMT-0700 (北美太平洋夏令时间)
             </div>
         <script src="../../prettify.js"></script>
         <script>
