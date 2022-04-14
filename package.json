@@ -5,7 +5,8 @@
     "collectCoverageFrom": [
       "./models/blog.js",
       "./controllers/blogController.js",
-      "./routes/blog.js"
+      "./routes/blog.js",
+      "./lib/blogStrategy.js"
     ],
     "testPathIgnorePatterns": []
   },
