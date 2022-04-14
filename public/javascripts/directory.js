@@ -76,11 +76,8 @@ const appendAllUsers = (users) => {
   users.map(addSingleUser);
 };
 
-socket.on("userReserve", (users) => {
-  alert("aaa");
-});
+
 socket.on("userList", (users) => {
-  alert("ccc");
   userList.innerHTML = "";
   const allUSer = appendAllUsers(users);
   directoryContainer.scrollTop = 0;

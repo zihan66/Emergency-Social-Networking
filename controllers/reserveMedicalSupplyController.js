@@ -18,26 +18,25 @@ class reserveMedicalSupplyController {
   static async updateMedicalSupplyIsReserved(req, res) {
     const body = req.body;
     console.log("body", body);
-    console.log("params medicalSupplyId",req.params.medicalSupplyId);
+    console.log("params medicalSupplyId", req.params.medicalSupplyId);
     try {
       const io = socket.getInstance();
       const id = req.params.medicalSupplyId;
-      const receiver = body.username
-      
+      const receiver = body.username;
+
       if (body.isReserved === true) {
         const result = await MedicalSupply.updateMedicalSupplyToReserved(
-          id, receiver
+          id,
+          receiver
         );
-        const emitData = {id: id, receiver: receiver}
-        console.log("emitData",emitData);
-
-        const result1 = await MedicalSupply.findAllMedicalSupply();
-        io.emit("userReserve", result1);
-
+        const emitData = { id: id, receiver: receiver };
+        io.emit("reserved", emitData);
       } else if (body.isReserved === false) {
         const result = await MedicalSupply.updateMedicalSupplyToNotReserved(
           req.params.medicalSupplyId
         );
+        const emitData = { id: id };
+        io.emit("cancelReservation", emitData);
       }
       //console.log("result", result);
       res.status(200).json();

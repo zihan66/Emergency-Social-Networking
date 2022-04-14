@@ -71,26 +71,42 @@
        */
   }
   
- ul {
-    list-style-type: none;
-    /* padding-left    : 4rem; */
-    padding-right: 2rem;
-    /* text-align      : center; */
-    /* background-color: aqua; */
-  }
+
   
   .yourMedicalSupplies {
     padding-left: 1rem;
-    margin-bottom: 7.5px;
+    margin-bottom: 30px;
     font-size: 20px;
+    width: 100%;
+    height: 30px;
+    /* background-color: white; */
   }
+  
+  /* .yourMedicalSupplies div {
+    display: table-cell;
+  } */
   .medicalSupplyName {
     border: 1px solid #ffddaa;
     border-radius: 5px;
+    height: 30px;
+    padding-left: 3px;
     color: #ffddaa;
+    width: 80%;
+    float: left;
+  
   }
-  #delete {
-      margin-right: 0%;
+  .deleteButton{
+    width: 18%;
+    float: left;
+    margin-left: 3px;
+    text-align: center;
   }
+  .reservedHint{
+    color: red;
+    font-size: 15px;
+  }
+  
+
+ 
   
   

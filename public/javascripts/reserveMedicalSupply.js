@@ -11,11 +11,17 @@ const hint = document.querySelector(".hint");
 const searchTitle = document.querySelector(".searchTitle");
 const socket = io({ URL: "http://localhost:3000", autoConnect: false });
 let reserveNum = 0;
-socket.on("userList", (users) => {
-  alert("userList");
+socket.on("postNewMedicalSupply", (medicalSupply) => {
+  appendMedicalSupply(medicalSupply);
+});
+socket.on("deleteMedicalSupply", (data) => {
+  const medicalSupply = document.getElementById(data.id);
+  medicalSupply.innerHTML = '<div class="deleteMedicalSupply"> deleted <div>';
 });
 
 window.addEventListener("load", async () => {
+  socket.auth = { username: cookies.username };
+  socket.connect();
   hint.innerHTML = "<span>Please enter your search content";
   searchTitle.innerHTML = "Reserve Medical Supplies";
   try {
@@ -48,15 +54,17 @@ const appendMedicalSupply = (medicalSupply) => {
   const isReserved = medicalSupply.isReserved;
   const provider = medicalSupply.provider;
   const receiver = medicalSupply.receiver;
-  const item = document.createElement("li");
+  const item = document.createElement("div");
   item.className = "allMedicalSupplies";
   if (provider != cookies.username && !isReserved) {
-    item.innerHTML = `<span class="medicalSupplyName">${medicalSupplyName}</span>
-      <span id="${id}" class="reserve">
+    item.innerHTML = `<div class="medicalSupplyName">${medicalSupplyName}</div>
+  
+      <div id="${id}" class="reserve">
         <button class="ui inverted button compact">
         reserve
         </button>
-      </span>`;
+      </div>
+      <div class="provider">provider: ${provider}</div>`;
     notReserved.appendChild(item);
     buttonClick(id);
   } else if (
@@ -64,12 +72,13 @@ const appendMedicalSupply = (medicalSupply) => {
     isReserved &&
     receiver === cookies.username
   ) {
-    item.innerHTML = `<span class="medicalSupplyName">${medicalSupplyName}</span>
-        <span id="${id}" class="cancel">
+    item.innerHTML = `<div class="medicalSupplyName">${medicalSupplyName}</div>
+        <div id="${id}" class="cancel">
           <button class="ui inverted button compact">
           cancel
           </button>
-        </span>`;
+        </div> 
+        <div class="provider">provider: ${provider}</div>`;
     userReservation.appendChild(item);
     reserveNum++;
     console.log("reserveNum", reserveNum);
@@ -79,8 +88,9 @@ const appendMedicalSupply = (medicalSupply) => {
     isReserved &&
     receiver != cookies.username
   ) {
-    item.innerHTML = `<span class="medicalSupplyName">${medicalSupplyName}</span>
-        <span color="red"> reserved</span>`;
+    item.innerHTML = `<div class="medicalSupplyName">${medicalSupplyName}</div>
+        <div class="reservedLabel" id="${id}">  reserved </div>`;
+    item.innerHTML += `<div class="provider">provider: ${provider}</div>`;
     reserved.appendChild(item);
   }
 };
@@ -129,7 +139,6 @@ const reserveMedicalSupply = async (id) => {
 const cancelReservation = async (id) => {
   const operationButton = document.getElementById(id);
   try {
-
     const response = await fetch(`/medicalSupplies/${id}`, {
       method: "put",
       headers: {
@@ -138,7 +147,6 @@ const cancelReservation = async (id) => {
       body: JSON.stringify({ isReserved: false }),
     });
     if (response.status === 200) {
-      
       operationButton.className = "reserve";
       operationButton.innerHTML = `
       <button class="ui inverted button compact">
@@ -156,17 +164,21 @@ const buttonClick = (id) => {
     const operation = this.className;
     if (operation === "reserve") {
       if (reserveNum < 10) {
-        reserveNum++;
-        console.log("reserveNum", reserveNum);
-        reserveMedicalSupply(id);
-      }else{
+        if (confirm("Are you sure to reserve this medical supply?")) {
+          reserveNum++;
+          console.log("reserveNum", reserveNum);
+          reserveMedicalSupply(id);
+        }
+      } else {
         alert("You can reserve at most 10 medical supplies");
       }
       //cancelReservation(id);
     } else {
-      reserveNum--;
-      console.log("reserveNum", reserveNum);
-      cancelReservation(id);
+      if (confirm("Are you sure to cancel reservation?")) {
+        reserveNum--;
+        console.log("reserveNum", reserveNum);
+        cancelReservation(id);
+      }
     }
   });
 };
@@ -174,15 +186,12 @@ const buttonClick = (id) => {
 const searchMedicalSupply = async (searchContent) => {
   try {
     clear();
-    const response = await fetch(
-      `/search/medicalSupply?q=${searchContent}`,
-      {
-        method: "get",
-        headers: {
-          Authorization: `Bearer ${cookies.jwtToken}`,
-        },
-      }
-    );
+    const response = await fetch(`/search/medicalSupplies?q=${searchContent}`, {
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${cookies.jwtToken}`,
+      },
+    });
     const medicalSupplyMatched = await response.json();
     console.log("medicalSupplyMatched", medicalSupplyMatched);
     if (medicalSupplyMatched.length == 0) {

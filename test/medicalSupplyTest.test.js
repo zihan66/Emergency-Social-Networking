@@ -20,47 +20,48 @@ afterAll(async () => {
   await mongoose.connection.close();
   await mongoServer.stop();
 });
-
+let medicalSupply1_id;
 test("find medical supplies by provider", async () => {
   const medicalSupply1 = new MedicalSupply({
-    name: "medical Supply 1",
-    provider: "jiacheng",
-    isReserved: true,
-    receiver: "user1",
+    name: "blood pressure cuff",
+    provider: "frank",
+    isReserved: false,
+    receiver: null,
     isDeleted: false,
   });
-  await medicalSupply1.save();
+  const medicalSupply1Created = await medicalSupply1.save();
+  medicalSupply1_id = medicalSupply1Created._id;
   const medicalSupply2 = new MedicalSupply({
-    name: "medical Supply 2",
-    provider: "jiacheng",
-    isReserved: true,
-    receiver: "user2",
+    name: "medical thermometer",
+    provider: "arvin",
+    isReserved: false,
+    receiver: null,
     isDeleted: false,
   });
   await medicalSupply2.save();
   const medicalSupply3 = new MedicalSupply({
-    name: "medical Supply 3",
-    provider: "frank",
-    isReserved: true,
-    receiver: "user3",
+    name: "medical gloves",
+    provider: "arvin",
+    isReserved: false,
+    receiver: null,
     isDeleted: false,
   });
   await medicalSupply3.save();
-  const result = await MedicalSupply.findMedicalSupplyByProvider("jiacheng");
+  const result = await MedicalSupply.findMedicalSupplyByProvider("arvin");
   console.log(result);
   const expectResult = [
     {
-      name: "medical Supply 1",
-      provider: "jiacheng",
-      isReserved: true,
-      receiver: "user1",
+      name: "medical thermometer",
+      provider: "arvin",
+      isReserved: false,
+      receiver: null,
       isDeleted: false,
     },
     {
-      name: "medical Supply 2",
-      provider: "jiacheng",
-      isReserved: true,
-      receiver: "user2",
+      name: "medical gloves",
+      provider: "arvin",
+      isReserved: false,
+      receiver: null,
       isDeleted: false,
     },
   ];
@@ -68,91 +69,71 @@ test("find medical supplies by provider", async () => {
   expect(result).toMatchObject(expectResult);
 });
 
-test("It should be possible to delete a new medical supply", async () => {
-  const medicalSupply1 = new MedicalSupply({
-    name: "medical Supply 1",
-    provider: "jiacheng",
-    isReserved: true,
-    receiver: "frank",
-    isDeleted: false,
-  });
-  await medicalSupply1.save();
-  await MedicalSupply.deleteMedicalSupplyById(medicalSupply1._id);
-  const result = await MedicalSupply.findOne(medicalSupply1._id);
-  expect(result.isDeleted).toBe(true);
+test("find all medical supplies", async () => {
+  const result = await MedicalSupply.findAllMedicalSupply();
+  console.log(result);
+  const expectResult = [
+    {
+      name: "blood pressure cuff",
+      provider: "frank",
+      isReserved: false,
+      receiver: null,
+      isDeleted: false,
+    },
+    {
+      name: "medical gloves",
+      provider: "arvin",
+      isReserved: false,
+      receiver: null,
+      isDeleted: false,
+    },
+    {
+      name: "medical thermometer",
+      provider: "arvin",
+      isReserved: false,
+      receiver: null,
+      isDeleted: false,
+    },
+  ];
+  expect(result).toHaveLength(3);
+  // expect(result).toContain({
+  //   name: "medical thermometer",
+  //   provider: "arvin",
+  //   isReserved: true,
+  //   receiver: "user2",
+  //   isDeleted: false,
+  // });
+  expect(result).toMatchObject(expectResult);
 });
 
-// test("It should be possible to save a new message", async () => {
-//   const message1 = new Message({
-//     content: "123",
-//     author: "Hakan",
-//     target: "Tony",
-//     postedAt: moment().format(),
-//     deliveryStatus: "OK",
-//     chatID: "345",
-//     unread: true,
-//   });
-//   await message1.save();
-//   const messageFound = await Message.findOne({ author: "Hakan" });
-//   expect(messageFound.content).toBe(message1.content);
-//   expect(messageFound.author).toBe(message1.author);
-//   expect(messageFound.target).toBe(message1.target);
-//   expect(messageFound.postedAt).toBe(message1.postedAt);
-//   expect(messageFound.deliveryStatus).toBe(message1.deliveryStatus);
-//   expect(messageFound.chatID).toBe(message1.chatID);
-//   expect(messageFound.unread).toBe(message1.unread);
-// });
+test("update a medical supply status to reserved", async () => {
+  const result = await MedicalSupply.updateMedicalSupplyToReserved(medicalSupply1_id,"mike");
+  const medicalSupply = await MedicalSupply.findOne({_id:medicalSupply1_id });
+  console.log(medicalSupply);
 
-// test("It should be possible to update a new message", async () => {
-//   const message1 = new Message({
-//     content: "123",
-//     author: "Tom",
-//     target: "Tony",
-//     postedAt: moment().format(),
-//     deliveryStatus: "OK",
-//     chatID: "666",
-//     unread: true,
-//   });
-//   await message1.save();
-//   await Message.updateOne({ chatID: "666" }, { unread: false });
-//   const messageFound = await Message.findOne({ chatID: "666" });
-//   expect(messageFound.content).toBe(message1.content);
-//   expect(messageFound.author).toBe(message1.author);
-//   expect(messageFound.target).toBe(message1.target);
-//   expect(messageFound.postedAt).toBe(message1.postedAt);
-//   expect(messageFound.deliveryStatus).toBe(message1.deliveryStatus);
-//   expect(messageFound.chatID).toBe(message1.chatID);
-//   expect(messageFound.unread).toBe(false);
-// });
+  expect(medicalSupply.isReserved).toBe(true);
+  expect(medicalSupply.receiver).toBe("mike");
+});
 
-// test("messagesAreIndependent", async () => {
-//   const message1 = new Message({
-//     content: "123",
-//     author: "Tommy",
-//     target: "Tommy1",
-//     postedAt: moment().format(),
-//     deliveryStatus: "OK",
-//     chatID: "321",
-//     unread: true,
-//   });
-//   await message1.save();
-//   const message2 = new Message({
-//     content: "321",
-//     author: "Tommy2",
-//     target: "Tommy3",
-//     postedAt: moment().format(),
-//     deliveryStatus: "OK",
-//     chatID: "123",
-//     unread: true,
-//   });
-//   await message2.save();
-//   const messageFound1 = await Message.findOne({ chatID: "321" });
-//   const messageFound2 = await Message.findOne({ chatID: "123" });
-//   expect(messageFound1.content).not.toBe(messageFound2.content);
-//   expect(messageFound1.author).not.toBe(messageFound2.author);
-//   expect(messageFound1.target).not.toBe(messageFound2.target);
-//   // expect(messageFound1.postedAt).not.toBe(messageFound2.postedAt);
-//   // expect(messageFound.deliveryStatus).not.toBe(message1.deliveryStatus);
-//   expect(messageFound1.chatID).not.toBe(messageFound2.chatID);
-//   // expect(messageFound.unread).not.toBe(message1.unread);
-// });
+test("update a medical supply status to Notreserved", async () => {
+  const result = await MedicalSupply.updateMedicalSupplyToNotReserved(medicalSupply1_id);
+  const medicalSupply = await MedicalSupply.findOne({_id:medicalSupply1_id});
+  console.log(medicalSupply);
+
+  expect(medicalSupply.isReserved).toBe(false);
+  expect(medicalSupply.receiver).toBe(null);
+});
+
+
+test("find  medical supplies by name", async () => {
+  const result = await MedicalSupply.findMedicalSupplyByName("medical");
+  expect(result).toHaveLength(2);
+});
+
+
+test("delete a medical supply", async () => {
+  const result = await MedicalSupply.deleteMedicalSupplyById(medicalSupply1_id);
+  const medicalSupply = await MedicalSupply.findOne({_id:medicalSupply1_id,isDeleted:false});
+  expect(medicalSupply).toBe(null);
+});
+
