@@ -5,7 +5,7 @@
     "collectCoverageFrom": [
       "./models/event.js",
       "./controllers/eventController.js",
-      "./routes/event.js'"
+      "./routes/event.js"
     ],
     "testPathIgnorePatterns": []
   },

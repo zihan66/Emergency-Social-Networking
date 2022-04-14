@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1649906417198" clover="3.2.0">
-  <project timestamp="1649906417199" name="All files">
-    <metrics statements="90" coveredstatements="76" conditionals="14" coveredconditionals="8" methods="12" coveredmethods="12" elements="116" coveredelements="96" complexity="0" loc="90" ncloc="90" packages="2" files="2" classes="2"/>
+<coverage generated="1649915231150" clover="3.2.0">
+  <project timestamp="1649915231150" name="All files">
+    <metrics statements="100" coveredstatements="86" conditionals="14" coveredconditionals="8" methods="12" coveredmethods="12" elements="126" coveredelements="106" complexity="0" loc="100" ncloc="100" packages="3" files="3" classes="3"/>
     <package name="controllers">
       <metrics statements="65" coveredstatements="51" conditionals="8" coveredconditionals="5" methods="7" coveredmethods="7"/>
       <file name="eventController.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/controllers/eventController.js">
@@ -102,6 +102,22 @@
         <line num="47" count="2" type="stmt"/>
         <line num="50" count="3" type="stmt"/>
         <line num="52" count="3" type="stmt"/>
+      </file>
+    </package>
+    <package name="routes">
+      <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="event.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/routes/event.js">
+        <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
       </file>
     </package>
   </project>
