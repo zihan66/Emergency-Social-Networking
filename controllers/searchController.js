@@ -162,10 +162,17 @@ class searchController {
 
   static async searchMedicalSupply(req, res) {
     console.log("Enter searchMedicalSupply");
-    const query = req.query;
-    console.log("query!!!!!", query);
+    const query = req.query.q;
+    const searchContent = query.toLowerCase();
+    console.log("searchContent",searchContent);
+    const filteredContents = removeStopWords(searchContent);
+    if (filteredContents.length === 0) {
+      res.status(200).json([]);
+      return;
+    }
+    
     try {
-      const result = await MedicalSupply.findMedicalSupplyByName(query.q);
+      const result = await MedicalSupply.findMedicalSupplyByName(searchContent);
       console.log("result", result);
       res.status(200).json(result);
     } catch (error) {

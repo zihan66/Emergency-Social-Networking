@@ -15,8 +15,17 @@ socket.on("postNewMedicalSupply", (medicalSupply) => {
   appendMedicalSupply(medicalSupply);
 });
 socket.on("deleteMedicalSupply", (data) => {
-  const medicalSupply = document.getElementById(data.id);
-  medicalSupply.innerHTML = '<div class="deleteMedicalSupply"> deleted <div>';
+  const deletedMedicalSupply = document.getElementById(data.id);
+  deletedMedicalSupply.innerHTML = '<div class="deleteMedicalSupply"> deleted <div>';
+});
+socket.on("reserved", (medicalSupply) => {
+  const reservedMedicalSupply = document.getElementById(medicalSupply.id);
+  reservedMedicalSupply.innerHTML = '<div class="reservedLabel"> reserved <div>'; 
+});
+socket.on("cancelReservation", (data) => {
+  const MedicalSupplyCancelReser = document.getElementById(data.id);
+  MedicalSupplyCancelReser.innerHTML = `<button class="ui inverted button compact">
+                                reserve </button>`;
 });
 
 window.addEventListener("load", async () => {

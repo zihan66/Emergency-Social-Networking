@@ -64,7 +64,7 @@ medicalSupplySchema.statics.findMedicalSupplyByName = async function (
 ) {
   console.log("MedicalSupplyname", searchContent);
   const medicalSupply = await this.find({
-    name: { $regex: searchContent },
+    name: { $regex: searchContent, $options: 'i'},
     isDeleted: false,
   });
   return medicalSupply;
