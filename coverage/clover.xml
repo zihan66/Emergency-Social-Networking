@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1649980174761" clover="3.2.0">
-  <project timestamp="1649980174762" name="All files">
-    <metrics statements="105" coveredstatements="75" conditionals="4" coveredconditionals="2" methods="16" coveredmethods="12" elements="125" coveredelements="89" complexity="0" loc="105" ncloc="105" packages="4" files="4" classes="4"/>
+<coverage generated="1649980881445" clover="3.2.0">
+  <project timestamp="1649980881446" name="All files">
+    <metrics statements="105" coveredstatements="82" conditionals="4" coveredconditionals="2" methods="16" coveredmethods="13" elements="125" coveredelements="97" complexity="0" loc="105" ncloc="105" packages="4" files="4" classes="4"/>
     <package name="controllers">
-      <metrics statements="51" coveredstatements="35" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="6"/>
+      <metrics statements="51" coveredstatements="42" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="7"/>
       <file name="blogController.js" path="F:\leetcode\18652\iteration4\s22-ESN-SA2\controllers\blogController.js">
-        <metrics statements="51" coveredstatements="35" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="6"/>
+        <metrics statements="51" coveredstatements="42" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="7"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -17,17 +17,17 @@
         <line num="12" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
         <line num="31" count="0" type="stmt"/>
         <line num="32" count="0" type="stmt"/>
         <line num="33" count="0" type="stmt"/>
         <line num="34" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
         <line num="63" count="1" type="stmt"/>
         <line num="64" count="1" type="stmt"/>
         <line num="65" count="1" type="stmt"/>

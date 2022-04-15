@@ -294,11 +294,11 @@ test("Can search private message", () => {
 test("Can post new blog", () => {
   return (async () => {
     await agent
-      .post(HOST + "/blog/")
+      .post(HOST + "/blog")
       .send({
         content: "112233",
         author: "HakanSearch",
-        postedAt: moment().format(),
+        postedAt: "testTime",
         deliveryStatus: "OK",
         type: "blog",
         picture: "ambulance",
@@ -339,7 +339,7 @@ test("Get a blog error", () => {
       .get(HOST + "/blog/123456789012")
       .send()
       .then((res, err) => {
-        // expect(err).toBe(undefined);
+        expect(err).not.toBe(undefined);
         // expect(res.statusCode).toBe(200);
       })
       .catch((e) => {
@@ -355,7 +355,7 @@ test("Like a blog", () => {
       .post(HOST + "/blog/like/123456789012")
       .send()
       .then((res, err) => {
-        // expect(err).toBe(undefined);
+        expect(err).not.toBe(undefined);
         // expect(res.statusCode).toBe(200);
       })
       .catch((e) => {
@@ -370,7 +370,7 @@ test("Dislike a blog", () => {
       .post(HOST + "/blog/dislike/123456789012")
       .send()
       .then((res, err) => {
-        // expect(err).toBe(undefined);
+        expect(err).not.toBe(undefined);
         expect(res.statusCode).toBe(404);
       })
       .catch((e) => {
