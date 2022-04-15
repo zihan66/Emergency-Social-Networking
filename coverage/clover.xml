@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1649980881445" clover="3.2.0">
-  <project timestamp="1649980881446" name="All files">
-    <metrics statements="105" coveredstatements="82" conditionals="4" coveredconditionals="2" methods="16" coveredmethods="13" elements="125" coveredelements="97" complexity="0" loc="105" ncloc="105" packages="4" files="4" classes="4"/>
+<coverage generated="1649983339670" clover="3.2.0">
+  <project timestamp="1649983339670" name="All files">
+    <metrics statements="112" coveredstatements="90" conditionals="4" coveredconditionals="2" methods="16" coveredmethods="14" elements="132" coveredelements="106" complexity="0" loc="112" ncloc="112" packages="4" files="4" classes="4"/>
     <package name="controllers">
       <metrics statements="51" coveredstatements="42" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="7"/>
       <file name="blogController.js" path="F:\leetcode\18652\iteration4\s22-ESN-SA2\controllers\blogController.js">
@@ -17,17 +17,17 @@
         <line num="12" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="21" count="1" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
+        <line num="18" count="6" type="stmt"/>
+        <line num="19" count="6" type="stmt"/>
+        <line num="20" count="6" type="stmt"/>
+        <line num="21" count="6" type="stmt"/>
+        <line num="22" count="6" type="stmt"/>
         <line num="31" count="0" type="stmt"/>
         <line num="32" count="0" type="stmt"/>
         <line num="33" count="0" type="stmt"/>
         <line num="34" count="0" type="stmt"/>
-        <line num="36" count="1" type="stmt"/>
-        <line num="37" count="1" type="stmt"/>
+        <line num="36" count="6" type="stmt"/>
+        <line num="37" count="6" type="stmt"/>
         <line num="63" count="1" type="stmt"/>
         <line num="64" count="1" type="stmt"/>
         <line num="65" count="1" type="stmt"/>
@@ -60,9 +60,9 @@
       </file>
     </package>
     <package name="lib">
-      <metrics statements="32" coveredstatements="20" conditionals="4" coveredconditionals="2" methods="7" coveredmethods="6"/>
+      <metrics statements="37" coveredstatements="25" conditionals="4" coveredconditionals="2" methods="7" coveredmethods="6"/>
       <file name="blogStrategy.js" path="F:\leetcode\18652\iteration4\s22-ESN-SA2\lib\blogStrategy.js">
-        <metrics statements="32" coveredstatements="20" conditionals="4" coveredconditionals="2" methods="7" coveredmethods="6"/>
+        <metrics statements="37" coveredstatements="25" conditionals="4" coveredconditionals="2" methods="7" coveredmethods="6"/>
         <line num="1" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
@@ -74,43 +74,50 @@
         <line num="16" count="0" type="stmt"/>
         <line num="20" count="1" type="stmt"/>
         <line num="21" count="1" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
         <line num="26" count="1" type="stmt"/>
-        <line num="30" count="1" type="stmt"/>
-        <line num="31" count="1" type="stmt"/>
-        <line num="35" count="1" type="stmt"/>
-        <line num="36" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="38" count="1" type="stmt"/>
-        <line num="40" count="0" type="stmt"/>
-        <line num="41" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="44" count="0" type="stmt"/>
-        <line num="45" count="0" type="stmt"/>
-        <line num="50" count="1" type="stmt"/>
-        <line num="51" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="53" count="1" type="stmt"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="56" count="0" type="stmt"/>
-        <line num="57" count="0" type="stmt"/>
-        <line num="59" count="0" type="stmt"/>
-        <line num="60" count="0" type="stmt"/>
-        <line num="83" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="43" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="60" count="1" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="62" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="66" count="0" type="stmt"/>
+        <line num="67" count="0" type="stmt"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="94" count="1" type="stmt"/>
       </file>
     </package>
     <package name="models">
-      <metrics statements="10" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <metrics statements="12" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="blog.js" path="F:\leetcode\18652\iteration4\s22-ESN-SA2\models\blog.js">
-        <metrics statements="10" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <metrics statements="12" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="4" count="2" type="stmt"/>
         <line num="19" count="2" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="59" count="2" type="stmt"/>
-        <line num="60" count="2" type="stmt"/>
-        <line num="62" count="2" type="stmt"/>
-        <line num="63" count="2" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="69" count="2" type="stmt"/>
+        <line num="70" count="2" type="stmt"/>
+        <line num="72" count="2" type="stmt"/>
+        <line num="73" count="2" type="stmt"/>
       </file>
     </package>
     <package name="routes">

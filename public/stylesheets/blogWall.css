@@ -155,7 +155,7 @@ textarea {
   font-size: 12px;
 }
 
-.self-blog {
+/* .self-blog {
   font-size: 14px;
   color: whitesmoke;
   border: 1px solid #ffddaa;
@@ -166,4 +166,20 @@ textarea {
   width: 95%;
   display: table;
   background-color: rgb(95, 91, 91);
+} */
+
+
+.self-blog {
+  /* font-size: 14px; */
+  font-size: 14px;
+  text-align: center;
+  /* color: whitesmoke; */
+  color:rgba(255, 0, 0, 0.79)
+  border: 1px solid #ffddaa;
+  border-radius: 5px;
+  margin-left: 5%;
+  margin-bottom: 2rem;
+  padding: 5px 8px;
+  width: 95%;
+  display: table;
 }

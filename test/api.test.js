@@ -307,6 +307,7 @@ test("Can post new blog", () => {
         nextContentLink: "null",
         likeCount: "0",
         dislikeCount: "0",
+        _id: "123456789012",
       })
       .then((res, err) => {
         expect(err).toBe(undefined);
@@ -320,6 +321,29 @@ test("Can post new blog", () => {
 
 test("Get blogs", () => {
   return (async () => {
+    await agent
+      .post(HOST + "/blog")
+      .send({
+        content: "112233",
+        author: "HakanSearch",
+        postedAt: "testTime",
+        deliveryStatus: "OK",
+        type: "blog",
+        picture: "ambulance",
+        text: "testText",
+        prevContentLink: "null",
+        nextContentLink: "null",
+        likeCount: "0",
+        dislikeCount: "0",
+        _id: "123456789012",
+      })
+      .then((res, err) => {
+        expect(err).toBe(undefined);
+        expect(res.statusCode).toBe(201);
+      })
+      .catch((e) => {
+        // deal with it
+      });
     await agent
       .get(HOST + "/blog/")
       .send()
@@ -335,6 +359,29 @@ test("Get blogs", () => {
 
 test("Get a blog error", () => {
   return (async () => {
+    await agent
+      .post(HOST + "/blog")
+      .send({
+        content: "112233",
+        author: "HakanSearch",
+        postedAt: "testTime",
+        deliveryStatus: "OK",
+        type: "blog",
+        picture: "ambulance",
+        text: "testText",
+        prevContentLink: "null",
+        nextContentLink: "null",
+        likeCount: "0",
+        dislikeCount: "0",
+        _id: "123456789012",
+      })
+      .then((res, err) => {
+        expect(err).toBe(undefined);
+        expect(res.statusCode).toBe(201);
+      })
+      .catch((e) => {
+        // deal with it
+      });
     await agent
       .get(HOST + "/blog/123456789012")
       .send()
@@ -352,6 +399,29 @@ test("Get a blog error", () => {
 test("Like a blog", () => {
   return (async () => {
     await agent
+      .post(HOST + "/blog")
+      .send({
+        content: "112233",
+        author: "HakanSearch",
+        postedAt: "testTime",
+        deliveryStatus: "OK",
+        type: "blog",
+        picture: "ambulance",
+        text: "testText",
+        prevContentLink: "null",
+        nextContentLink: "null",
+        likeCount: "0",
+        dislikeCount: "0",
+        _id: "123456789012",
+      })
+      .then((res, err) => {
+        expect(err).toBe(undefined);
+        expect(res.statusCode).toBe(201);
+      })
+      .catch((e) => {
+        // deal with it
+      });
+    await agent
       .post(HOST + "/blog/like/123456789012")
       .send()
       .then((res, err) => {
@@ -367,6 +437,29 @@ test("Like a blog", () => {
 test("Dislike a blog", () => {
   return (async () => {
     await agent
+      .post(HOST + "/blog")
+      .send({
+        content: "112233",
+        author: "HakanSearch",
+        postedAt: "testTime",
+        deliveryStatus: "OK",
+        type: "blog",
+        picture: "ambulance",
+        text: "testText",
+        prevContentLink: "null",
+        nextContentLink: "null",
+        likeCount: "0",
+        dislikeCount: "0",
+        _id: "123456789012",
+      })
+      .then((res, err) => {
+        expect(err).toBe(undefined);
+        expect(res.statusCode).toBe(201);
+      })
+      .catch((e) => {
+        // deal with it
+      });
+    await agent
       .post(HOST + "/blog/dislike/123456789012")
       .send()
       .then((res, err) => {
@@ -381,6 +474,29 @@ test("Dislike a blog", () => {
 
 test("Delete a blog", () => {
   return (async () => {
+    await agent
+      .post(HOST + "/blog")
+      .send({
+        content: "112233",
+        author: "HakanSearch",
+        postedAt: "testTime",
+        deliveryStatus: "OK",
+        type: "blog",
+        picture: "ambulance",
+        text: "testText",
+        prevContentLink: "null",
+        nextContentLink: "null",
+        likeCount: "0",
+        dislikeCount: "0",
+        _id: "123456789012",
+      })
+      .then((res, err) => {
+        expect(err).toBe(undefined);
+        expect(res.statusCode).toBe(201);
+      })
+      .catch((e) => {
+        // deal with it
+      });
     await agent
       .post(HOST + "/blog/delete/123456789012")
       .send()

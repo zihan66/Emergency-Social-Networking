@@ -116,6 +116,9 @@ test("It should be possible to search for blogs", async () => {
     dislikeCount: "0",
   });
   await blog1.save();
-  // const blogSearchResult = await Blog.searchBlog("112233");
+  // const req.query.q = "112233";
+  // const req.query.page = 10;
+  // List<String> searchContent = new ArrayList<String>();
+  const blogSearchResult = await Blog.searchBlog("112233", 10);
   // expect(blog1.content).toBe(blogSearchResult.content);
 });

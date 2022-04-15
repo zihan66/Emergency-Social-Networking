@@ -18,15 +18,25 @@ const blogSchema = new mongoose.Schema({
 
 blogSchema.statics.searchBlog = async function (
   searchContent,
-  // limit
+  limit
 ) {
-  const result = await this.find({
-    type: "blog",
-    content: { $in: convertListOfStringToListOfRegex(searchContent) },
-  })
-    .sort({ postedAt: -1 })
-    // .limit(limit);
-  return result;
+  // if(!searchContent){
+  //   return null;
+  // }
+  // if(searchContent == "undefined"){
+  //   return null;
+  // }
+  try{
+    const result = await this.find({
+      type: "blog",
+      content: { $in: convertListOfStringToListOfRegex(searchContent) },
+    })
+      .sort({ postedAt: -1 })
+      .limit(limit);
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // blogSchema.statics.searchPrivateBlog = async function (
