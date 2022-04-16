@@ -1,0 +1,107 @@
+<link rel="stylesheet" href="/stylesheets/blog.css" />
+<div class="blog-wrapper">
+  <header class="blog-header">
+    <button id="backToBlogWall" class="ui inverted button compact">
+      backToBlogWall
+    </button>
+    <button id="leave" class="ui inverted button compact">
+      Back to Directory
+    </button>
+  </header>
+  <div class="ui raised very padded text container segment">
+    <center>
+      <h2 class="ui header"><%= blog.content %></h2>
+      <p><%= blog.postedAt %></p>
+      <p>By: <%= blog.author %> <img src="../images/<%= blog.deliveryStatus %>.png" height="15" width="12"></p>
+      <img src="../images/<%= blog.picture %>.jpg">
+    </center>
+      <p> </p>
+      <p><%= blog.text %></p>
+  </div>
+  <p> </p>
+  <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
+  <p> </p>
+  <center>
+    <button id="delete-button" class="normalButton">
+      delete
+      <i class="paper plane outline icon"></i>
+    </button>
+    <a href="/blog/newBlog">
+      <button id="newBlog-button" class="normalButton">
+        New Blog
+        <i class="paper plane outline icon"></i>
+      </button>
+    </a>
+    <p> </p>
+    <div class="likeButtonDiv">
+      <button id="like-button" class="theLikeButton">
+        I like this blog
+        <i class="heart icon"></i>
+      </button>
+    </div>
+    <div class="dislikeButtonDiv">
+      <button id="dislike-button" class="theDislikeButton">
+        I dislike this blog
+        <i class="heart outline icon"></i>
+      </button>
+    </div>
+    <!-- <p> </p>
+    <div class="ui labeled button" tabindex="0">
+      <div class="ui red button">
+        <i class="heart icon"></i> Like
+      </div>
+      <a class="ui basic red left pointing label">
+        <%= blog.likeCount %>
+      </a>
+    </div>  -->
+    <img src="../images/plusHeart.jpg" height="28" width="28" class="plusHeart">
+    <textarea id="blogID" hidden><%= blog._id %></textarea>
+  </center>
+
+  <p> </p>
+  <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
+  <p> </p>
+
+  <div class="ui raised very padded text container segment">
+    <center>
+      <!-- <p>_id of this Blog:</p> -->
+      <p>Header Content:</p>
+      <input type = "text" id="editBlogContent" value="<%= blog.content %>"/>
+      <!-- <p>Header Content:</p>
+      <textarea id="editBlogContent" ><%= blog.content %></textarea> -->
+      <p>Header text:</p>
+      <textarea id="editBlogText"><%= blog.text %></textarea>
+      <p>Header Picture Name:</p>
+      <!-- <textarea id="editBlogPicture"><%= blog.picture %></textarea> -->
+      <input type = "text" id="editBlogPicture" value="<%= blog.picture %>"/>
+      <p> </p>
+      <button id="edit-button" class="editBlogButton">
+        edit&post a new blog
+        <i class="paper plane outline icon"></i>
+      </button>
+      <!-- <button id="edit-button" class="theEditButton">
+        edit and post a new blog
+        <i class="paper plane outline icon"></i>
+      </button> -->
+      <!-- <p><%= blog %></p> -->
+    </center>
+    <!-- <div class="message-container">
+      <span class="header1">
+      </span>
+      <div class="message-list">
+      </div>
+    </div> -->
+  </div>
+</div>
+  <!-- <div class="input-area-container">
+    <textarea id="msg"></textarea>
+    <button id="msg-button">
+      <i class="paper plane outline icon"></i>
+    </button>
+  </div> -->
+  <script src="https://cdn.jsdelivr.net/npm/brownies"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://momentjs.com/downloads/moment.js"></script>
+  <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.min.js"></script>
+  <script src="/javascripts/blog.js"></script>
+</div>

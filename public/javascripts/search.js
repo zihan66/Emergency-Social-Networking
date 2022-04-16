@@ -168,6 +168,63 @@ const searchPublicMessage = async (searchContent) => {
   }
 };
 
+const searchBlog = async (searchContent) => {
+  try {
+    searchResult.innerHTML = "";
+    const response = await fetch(
+      `/search/blog?q=${searchContent}&page=${page}`,
+      {
+        method: "get",
+        headers: {
+          Authorization: `Bearer ${cookies.jwtToken}`,
+        },
+      }
+    );
+    const blogResponse = await response.json();
+    const blogInfo = blogResponse.result;
+    const moreResult = blogResponse.moreResult;
+    if (blogInfo.length == 0) {
+      searchResultIsEmpty();
+      return;
+    }
+    // const blogInfo =  await response.json();
+    // const moreResult = false;
+    console.log("blogInfo", blogInfo);
+    for (let i = 0; i < blogInfo.length; i++) {
+      const item = document.createElement("li");
+      const author = blogInfo[i].author;
+      const content = blogInfo[i].content;
+      const deliveryStatus = blogInfo[i].deliveryStatus;
+      const postedAt = blogInfo[i].postedAt;
+      const userStatus = statusImage(deliveryStatus);
+
+      if (author === cookies.username) item.className = "self-message";
+      else item.className = "other-message";
+      item.innerHTML = `${content}
+                                        <span class="MsgUsername">Sent by ${
+                                          author === cookies.username
+                                            ? "you"
+                                            : author
+                                        } </span>`;
+      const p = document.createElement("p");
+      p.innerHTML = `<span class="MsgStatus">${author}'s status: <img src="../images/${userStatus}.png"> ${deliveryStatus}</span>`;
+      item.appendChild(p);
+      item.innerHTML += `<span class="MsgTimestamp">${moment(postedAt).format(
+        "MMM Do YY, h:mm:ss"
+      )}</span>`;
+      searchResult.appendChild(item);
+    }
+    if (moreResult === true) {
+      const label = document.createElement("div");
+      label.innerHTML = `<center><button onclick="viewMoreBlog()" id="viewMore" class="ui inverted button compact">
+                                    View More </button></center>`;
+      searchResult.appendChild(label);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const searchPrivateMessage = async (searchContent) => {
   try {
     searchResult.innerHTML = "";
@@ -319,6 +376,11 @@ const viewMorePublicMsg = () => {
   page = page + 1;
   searchPublicMessage(searchContent);
 };
+const viewMoreBlog = () => {
+  const searchContent = searchInput.value;
+  page = page + 1;
+  searchBlog(searchContent);
+};
 const viewMorePrivateMsg = () => {
   const searchContent = searchInput.value;
   page = page + 1;
@@ -351,6 +413,11 @@ window.addEventListener("load", () => {
     searchTitle.innerHTML = "Search Public Messages";
   }
 
+  if (criteria === "blog") {
+    hint.innerHTML = "<span>Please enter search content";
+    searchTitle.innerHTML = "Search Blogs";
+  }
+
   if (criteria === "privateMessage") {
     hint.innerHTML = "<span>Please enter search content";
     searchTitle.innerHTML = "Search Private Messages";
@@ -376,6 +443,9 @@ sendMsg.addEventListener("click", async () => {
   }
   if (criteria === "publicMessage") {
     searchPublicMessage(searchContent);
+  }
+  if (criteria === "blog") {
+    searchBlog(searchContent);
   }
   if (criteria === "announcement") {
     searchAnnouncement(searchContent);
@@ -405,5 +475,7 @@ leave.addEventListener("click", (e) => {
     window.location.href = `/chats/${chatID}/${username}`;
   } else if (criteria === "announcement") {
     window.location.href = "/announcement";
+  } else if (criteria === "blog") {
+    window.location.href = "/blogWall";
   }
 });
