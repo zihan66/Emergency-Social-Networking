@@ -5,8 +5,10 @@ const chatRoute = require("./chat");
 const searchRoute = require("./search");
 const peformanceRoute = require("./performance");
 const eventRoute = require("./event");
+const medicalSupplyRoute = require("./medicalSupply");
 const suspend = require("../middlewares/suspend");
 const auth = require("../middlewares/auth");
+const MedicalSupply = require("../models/medicalSupply");
 
 const router = express.Router();
 /* GET home page. */
@@ -67,11 +69,18 @@ router.get("/myEvent/newEvent", auth, (req, res) => {
   res.render("newEvent", { title: "newEvent" });
 });
 
+router.get("/provideMedicalSupply", (req, res) => {
+  res.render("medicalSupply", { title: "medicalSupply" });
+});
+router.get("/reserveMedicalSupply", (req, res) => {
+  res.render("medicalSupplyReservation", { title: "medicalSupplyReservation" });
+});
 router.use("/users", userRoute);
 router.use("/messages", messageRoute);
 router.use("/chats", suspend, chatRoute);
 router.use("/performances", peformanceRoute);
 router.use("/search", suspend, searchRoute);
 router.use("/events", suspend, eventRoute);
+router.use("/medicalSupplies", medicalSupplyRoute);
 
 module.exports = router;

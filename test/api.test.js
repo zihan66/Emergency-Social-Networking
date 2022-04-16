@@ -91,6 +91,7 @@ test("Can search user by status", () => {
       .then((err, res) => {
         expect(err).toBe(null);
         let users = res.body;
+        console.log("users!!!!!!!!")
         expect(users).toContain({ username: "001" });
         expect(users).toContain({ username: "002" });
       })

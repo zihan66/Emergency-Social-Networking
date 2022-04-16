@@ -76,6 +76,7 @@ const appendAllUsers = (users) => {
   users.map(addSingleUser);
 };
 
+
 socket.on("userList", (users) => {
   userList.innerHTML = "";
   const allUSer = appendAllUsers(users);
@@ -171,8 +172,12 @@ unread.addEventListener("click", async () => {
     unreadMsgBlock.style.display = "block";
   }
   //alert(unreadMsgBlock.style.display);
+<<<<<<< HEAD
 
   if (unreadMsgBlock.style.display === "block") {
+=======
+  if(unreadMsgBlock.style.display === "block" ){
+>>>>>>> Iteration4-JiachengLu
     try {
       const unreadMsgs = await fetch(
         `/messages/private/unread?username=${cookies.username}`,

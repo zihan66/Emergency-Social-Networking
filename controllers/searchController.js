@@ -2,6 +2,7 @@ const User = require("../models/user");
 const Message = require("../models/message").Message;
 const Chat = require("../models/chat");
 const Status = require("../models/status");
+const MedicalSupply = require("../models/medicalSupply");
 
 const removeStopWords = require("../lib/stopWords");
 class searchController {
@@ -154,6 +155,26 @@ class searchController {
         result.pop();
       }
       res.status(200).json({ moreResult, result });
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+  }
+
+  static async searchMedicalSupply(req, res) {
+    console.log("Enter searchMedicalSupply");
+    const query = req.query.q;
+    const searchContent = query.toLowerCase();
+    console.log("searchContent",searchContent);
+    const filteredContents = removeStopWords(searchContent);
+    if (filteredContents.length === 0) {
+      res.status(200).json([]);
+      return;
+    }
+    
+    try {
+      const result = await MedicalSupply.findMedicalSupplyByName(searchContent);
+      console.log("result", result);
+      res.status(200).json(result);
     } catch (error) {
       res.status(500).json({ error });
     }
