@@ -1,11 +1,14 @@
 const moment = require("moment");
-const normalStrategy = require("../lib/announcementMessageStrategy").normalStrategy;
+const normalStrategy = require("../lib/announcementMessageStrategy")
+  .normalStrategy;
 const User = require("../models/user");
 const socket = require("../socket");
 class AnnouncementMessageController {
   constructor(strategy) {
     this.strategy = strategy;
-    this.createNewAnnouncementMessage = this.createNewAnnouncementMessage.bind(this);
+    this.createNewAnnouncementMessage = this.createNewAnnouncementMessage.bind(
+      this
+    );
     this.getAnnouncementMessage = this.getAnnouncementMessage.bind(this);
   }
 

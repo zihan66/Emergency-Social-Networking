@@ -1,5 +1,6 @@
 let agent = require("superagent");
 let app = require("../app");
+const axios = require("axios");
 
 require("dotenv").config();
 const mongoose = require("mongoose");
@@ -30,18 +31,15 @@ afterAll(async () => {
   await server.close();
 });
 
-
 const user001 = {
   username: "001",
   password: "1234",
   islogin: true,
   lastStatusCode: "OK",
   isAcknowledge: true,
-  isDonor:true,
-  bloodType:'O',
-
+  isDonor: true,
+  bloodType: "O",
 };
-
 
 const user002 = {
   username: "002",
@@ -54,24 +52,22 @@ const user002 = {
 };
 
 const msg001 = {
-  id:0,
+  id: 0,
   content: "Hello, I am 001",
   username: "001",
 };
 
-const msg002 = { id:1, content: "I am 002", username: "002" };
+const msg002 = { id: 1, content: "I am 002", username: "002" };
 
 const msg003 = {
-  id:2,
+  id: 2,
   content: "Hello",
   username: "001",
   messageType: "Private",
   target: "002",
 };
 
-
 let chat_id = 345;
-
 
 // search user by status
 test("Can search user by status", () => {
@@ -104,6 +100,7 @@ test("Can search user by status", () => {
       .then((err, res) => {
         expect(err).toBe(null);
         let users = res.body;
+        console.log("users!!!!!!!!");
         expect(users).toContain({ username: "001" });
         expect(users).toContain({ username: "002" });
       })
@@ -219,7 +216,6 @@ test("Get announcement", () => {
   })().catch((e) => {});
 });
 
-
 test("Can post a chat", () => {
   return (async () => {
     await agent
@@ -228,9 +224,7 @@ test("Can post a chat", () => {
       .then((res, err) => {
         expect(err).toBe(undefined);
         expect(res.statusCode).toBe(201);
-        // chat_id = res.body.find((c) => c.chatID);
-        // chat_id = res.body.chatID;
-        // console.log(res.body);
+        chat_id = res.body.chatID;
       })
       .catch((e) => {
         // deal with it
@@ -320,7 +314,6 @@ test("Can search private message", () => {
   })().catch((e) => {});
 });
 
-
 test("Can search status", () => {
   return (async () => {
     await agent
@@ -336,8 +329,6 @@ test("Can search status", () => {
   })().catch((e) => {});
 });
 
-
-
 test("Can get all private chats", () => {
   return (async () => {
     await agent
@@ -352,7 +343,6 @@ test("Can get all private chats", () => {
   })().catch((e) => {});
 });
 
-
 test("Can render to chart Donor page", () => {
   return (async () => {
     await agent
@@ -366,7 +356,6 @@ test("Can render to chart Donor page", () => {
       .catch((e) => {});
   })().catch((e) => {});
 });
-
 
 test("Can get all donors", () => {
   return (async () => {
@@ -399,15 +388,13 @@ test("Can Update User Blood Type", () => {
   })().catch((e) => {});
 });
 
-
-
 test("Can Become Donor", () => {
   return (async () => {
     await agent
       .put(HOST + "/users/001/isDonor")
       .send({
         bloodType: "O",
-        isDonor:true
+        isDonor: true,
       })
       .then((err, res) => {
         expect(err).toBe(null);
@@ -418,7 +405,6 @@ test("Can Become Donor", () => {
       .catch((e) => {});
   })().catch((e) => {});
 });
-
 
 test("Can Get One User Record", () => {
   return (async () => {
@@ -433,7 +419,6 @@ test("Can Get One User Record", () => {
       .catch((e) => {});
   })().catch((e) => {});
 });
-
 
 test("Can Set User Status", () => {
   return (async () => {
@@ -466,7 +451,6 @@ test("Can User Login", () => {
   })().catch((e) => {});
 });
 
-
 test("Can User offline", () => {
   return (async () => {
     await agent
@@ -480,7 +464,6 @@ test("Can User offline", () => {
       .catch((e) => {});
   })().catch((e) => {});
 });
-
 
 test("Can Get All Users ", () => {
   return (async () => {
@@ -496,8 +479,6 @@ test("Can Get All Users ", () => {
   })().catch((e) => {});
 });
 
-
-
 test("Can Performances Start Test ", () => {
   return (async () => {
     await agent
@@ -511,7 +492,6 @@ test("Can Performances Start Test ", () => {
       .catch((e) => {});
   })().catch((e) => {});
 });
-
 
 test("Can Performances Start Stop ", () => {
   return (async () => {
@@ -527,7 +507,6 @@ test("Can Performances Start Stop ", () => {
   })().catch((e) => {});
 });
 
-
 test("Can User update acknowledgement ", () => {
   return (async () => {
     await agent
@@ -542,8 +521,6 @@ test("Can User update acknowledgement ", () => {
   })().catch((e) => {});
 });
 
-
-
 test("Can messages private unread ", () => {
   return (async () => {
     await agent
@@ -557,6 +534,3 @@ test("Can messages private unread ", () => {
       .catch((e) => {});
   })().catch((e) => {});
 });
-
-
-

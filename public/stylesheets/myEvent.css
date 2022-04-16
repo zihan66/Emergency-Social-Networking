@@ -1,0 +1,78 @@
+.event-wall-wrapper {
+    position  : relative;
+    background: rgb(10, 3, 3, 0.89);
+    height    : 100%;
+    overflow  : auto
+}
+
+.ui.menu.event-header {
+    display         : flex;
+    align-items     : center;
+    height          : 3.5rem;
+    color           : whitesmoke;
+    background-color: #24292f;
+}
+
+.right-items {
+    position: absolute;
+    right   : 10px;
+}
+
+.left-items {
+    position: absolute;
+    left    : 10px;
+}
+
+#leave {
+    font-size: 12px;
+    padding  : 6px, 8px
+}
+
+h2 {
+    font-size    : 22px;
+    margin-top   : 5px;
+    margin-bottom: 5px;
+    text-align   : center;
+    color        : whitesmoke;
+}
+
+ul {
+    padding: 0;
+}
+
+.single-event {
+    width : 82%;
+    margin: 10px auto 30px auto;
+}
+
+.ui.card {
+    background-color: #737c7e;
+    width           : 100%;
+}
+
+.card-header {
+    font-size : 20px;
+    text-align: center;
+    color     : #ffddaa;
+}
+
+.ui.sub.header {
+    margin-top: 5px;
+    font-size : 15px
+}
+
+.circular.ui.icon.button {
+    float: right;
+}
+
+.info {
+    color: whitesmoke;
+}
+
+.extra.content {
+    color: #ffddaa !important;
+}
+
+.content {
+    padding: 0.7em !important;
+}

@@ -4,10 +4,13 @@ const messageRoute = require("./message");
 const chatRoute = require("./chat");
 const searchRoute = require("./search");
 const peformanceRoute = require("./performance");
+const eventRoute = require("./event");
+const medicalSupplyRoute = require("./medicalSupply");
 const suspend = require("../middlewares/suspend");
 const auth = require("../middlewares/auth");
 const canAskForDonor = require("../middlewares/canAskForDonor");
 const canBeDonor = require("../middlewares/canBeDonor");
+const MedicalSupply = require("../models/medicalSupply");
 
 const router = express.Router();
 /* GET home page. */
@@ -39,7 +42,7 @@ router.get("/directory", auth, (req, res) => {
   res.render("directory", { title: "directory" });
 });
 
-router.get("/newDonor", auth, canBeDonor,(req, res) => {
+router.get("/newDonor", auth, canBeDonor, (req, res) => {
   res.render("newDonor", { title: "newDonor" });
 });
 
@@ -60,10 +63,30 @@ router.get("/searchPage/:criteria/:chatID/:username", (req, res) => {
   res.render("search", { title: "search" });
 });
 
+router.get("/eventWall", auth, (req, res) => {
+  res.render("eventWall", { title: "eventWall" });
+});
+
+router.get("/myEvent", auth, (req, res) => {
+  res.render("myEvent", { title: "myEvent" });
+});
+
+router.get("/myEvent/newEvent", auth, (req, res) => {
+  res.render("newEvent", { title: "newEvent" });
+});
+
+router.get("/provideMedicalSupply", (req, res) => {
+  res.render("medicalSupply", { title: "medicalSupply" });
+});
+router.get("/reserveMedicalSupply", (req, res) => {
+  res.render("medicalSupplyReservation", { title: "medicalSupplyReservation" });
+});
 router.use("/users", userRoute);
 router.use("/messages", messageRoute);
 router.use("/chats", suspend, chatRoute);
 router.use("/performances", peformanceRoute);
 router.use("/search", suspend, searchRoute);
+router.use("/events", suspend, eventRoute);
+router.use("/medicalSupplies", medicalSupplyRoute);
 
 module.exports = router;

@@ -26,6 +26,7 @@ class shareStatusController {
 
   static async setStatus(req, res) {
     const user = req.params;
+    console.log("setStatus", user);
     const io = socket.getInstance();
     try {
       let result = await User.findOne({ username: user.username });

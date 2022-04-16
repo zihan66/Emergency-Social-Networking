@@ -1,0 +1,20 @@
+<link rel="stylesheet" href="/stylesheets/myEvent.css" />
+<div class="event-wall-wrapper">
+  <div class="ui menu event-header">
+    <div class="left-items">
+      <button id="leave" class="ui inverted button compact">
+        Back to Event Wall
+      </button>
+    </div>
+    <div class="right-items" id="my-event">
+      <button id="new-event" class="ui button compact">Create New Event</button>
+    </div>
+  </div>
+  <h2>Events Created By Me</h2>
+  <div class="event-content">
+    <ul class="event-list"></ul>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/javascripts/myEvent.js"></script>

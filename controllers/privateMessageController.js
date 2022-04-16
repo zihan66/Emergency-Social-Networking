@@ -16,7 +16,6 @@ class PrivateMessageController {
         username2
       );
       if (existedChat) {
-        console.log("existed");
         res.status(404).json({});
         return;
       }
@@ -132,9 +131,7 @@ class PrivateMessageController {
   }
 
   static async getUserAllUnreadMsg(req, res) {
-    console.log("hello");
     const { username } = req.query;
-    console.log("username", username);
     try {
       if (username) {
         const messages = await Message.find({

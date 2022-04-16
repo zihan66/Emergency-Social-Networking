@@ -1,0 +1,101 @@
+.new-event-wrapper {
+    position  : relative;
+    background: rgb(10, 3, 3, 0.89);
+    height    : 100%;
+    overflow  : auto
+}
+
+.event-content {
+    padding: 20px 5%
+}
+
+.ui.menu.event-header {
+    height          : 3.5rem;
+    display         : flex;
+    align-items     : center;
+    color           : whitesmoke;
+    background-color: #24292f;
+}
+
+.left-items {
+    position: absolute;
+    left    : 10px;
+}
+
+#leave {
+    font-size: 12px;
+    padding  : 6px, 8px
+}
+
+input {
+    background: #737c7e !important;
+    height    : 2rem;
+}
+
+h4 {
+    font-size    : 22px !important;
+    margin-top   : 5px;
+    margin-bottom: 5px;
+    text-align   : center;
+    color        : whitesmoke !important;
+}
+
+select {
+    background: #737c7e !important;
+    height    : 2rem !important;
+    padding   : 0 !important;
+}
+
+label {
+    font-size: 16px !important;
+    color    : whitesmoke !important;
+}
+
+
+textarea {
+    background: #737c7e !important;
+}
+
+
+.fields {
+    margin-left  : 0 !important;
+    margin-bottom: 1rem !important;
+}
+
+#zipCode {
+    width  : 30%;
+    display: inline-block !important;
+    margin : 0 !important;
+
+}
+
+#state {
+    width  : 30%;
+    display: inline-block !important;
+    margin : 0 !important;
+}
+
+#city {
+    width  : 40%;
+    padding: 0;
+}
+
+#eventType {
+    width: 50%;
+}
+
+#standard_calendar {
+    width: 65%;
+}
+
+#create {
+    width  : 5rem;
+    height : 5rem;
+    margin : 1.5rem auto;
+    display: block;
+}
+
+#hint {
+    color    : red;
+    font-size: 12px;
+}
