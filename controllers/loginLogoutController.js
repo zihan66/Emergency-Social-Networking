@@ -71,6 +71,8 @@ class loginLogoutController {
         res.clearCookie("username");
 
         res.status(200).json({});
+      } else {
+        res.status(500).json({});
       }
     } catch (e) {
       res.status(200).send({ status: false, message: e.message });

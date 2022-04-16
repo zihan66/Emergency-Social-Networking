@@ -6,7 +6,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const Socket = require("../socket");
 
-let PORT = 3000;
+let PORT = 3003;
 let HOST = "http://localhost:" + PORT;
 let connection;
 var server;
@@ -423,7 +423,7 @@ test("Can Get One User Record", () => {
 test("Can Set User Status", () => {
   return (async () => {
     await agent
-      .put(HOST + "/users/001/status/ok")
+      .put(HOST + "/users/001/status/OK")
       .then((err, res) => {
         expect(err).toBe(null);
         expect(res.statusCode).toBe(200);
@@ -551,6 +551,7 @@ test("Can post new blog", () => {
         likeCount: "0",
         dislikeCount: "0",
         _id: "123456789012",
+        username: "001",
       })
       .then((res, err) => {
         expect(err).toBe(undefined);
@@ -579,6 +580,7 @@ test("Get blogs", () => {
         likeCount: "0",
         dislikeCount: "0",
         _id: "123456789012",
+        username: "001",
       })
       .then((res, err) => {
         expect(err).toBe(undefined);
@@ -616,6 +618,7 @@ test("Get a blog error", () => {
         nextContentLink: "null",
         likeCount: "0",
         dislikeCount: "0",
+        username: "001",
         _id: "123456789012",
       })
       .then((res, err) => {
@@ -656,6 +659,7 @@ test("Like a blog", () => {
         likeCount: "0",
         dislikeCount: "0",
         _id: "123456789012",
+        username: "001",
       })
       .then((res, err) => {
         expect(err).toBe(undefined);
@@ -669,7 +673,7 @@ test("Like a blog", () => {
       .send()
       .then((res, err) => {
         expect(err).not.toBe(undefined);
-        // expect(res.statusCode).toBe(200);
+        expect(res.statusCode).toBe(200);
       })
       .catch((e) => {
         // deal with it
@@ -752,4 +756,3 @@ test("Delete a blog", () => {
       });
   })().catch((e) => {});
 });
-

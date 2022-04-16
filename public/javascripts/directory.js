@@ -239,42 +239,6 @@ logout.addEventListener("click", async (e) => {
   }
 });
 
-const publicButton = document.querySelector("#go-to");
-publicButton.addEventListener("click", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  window.location.href = "/publicWall";
-});
-
-const blogButton = document.querySelector("#go-to2");
-blogButton.addEventListener("click", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  window.location.href = "/blogWall";
-});
-
-const clickHamburger = () => {
-  const hamburger = document.querySelector(".links");
-  if (hamburger.style.display === "block") {
-    hamburger.style.display = "";
-  } else {
-    hamburger.style.display = "block";
-  }
-};
-const hamburger = document.getElementById("bar");
-hamburger.addEventListener("click", clickHamburger);
-
-// const clickHamburger2 = () => {
-//   const hamburger2 = document.querySelector(".links2");
-//   if (hamburger2.style.display === "block") {
-//     hamburger2.style.display = "";
-//   } else {
-//     hamburger2.style.display = "block";
-//   }
-// };
-// const hamburger2 = document.getElementById("status-bar");
-// hamburger2.addEventListener("click", clickHamburger2);
-
 const setGreyButton = document.querySelector("#setGreyButton");
 setGreyButton.addEventListener("click", async (e) => {
   e.preventDefault();

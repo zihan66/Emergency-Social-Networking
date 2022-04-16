@@ -50,7 +50,6 @@ test("It should be possible to save a new blog", async () => {
   expect(blogFound.dislikeCount).toBe(blog1.dislikeCount);
 });
 
-
 test("It should be possible to delete a new blog", async () => {
   const blog1 = new Blog({
     content: "112233",

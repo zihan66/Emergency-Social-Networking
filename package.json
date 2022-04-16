@@ -1,14 +1,6 @@
 {
   "name": "fse-emergency-social-network",
   "version": "0.0.0",
-  "jest": {
-    "collectCoverageFrom": [
-      "./models/event.js",
-      "./controllers/eventController.js",
-      "./routes/event.js"
-    ],
-    "testPathIgnorePatterns": []
-  },
   "private": true,
   "scripts": {
     "start": "node ./bin/www",

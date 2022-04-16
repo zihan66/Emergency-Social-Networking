@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.88% </span>
+                <span class="strong">90.32% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>24/27</span>
+                <span class='fraction'>28/31</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.88% </span>
+                <span class="strong">90.32% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>24/27</span>
+                <span class='fraction'>28/31</span>
             </div>
         
             
@@ -120,10 +120,16 @@
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -133,10 +139,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -148,6 +153,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -170,13 +177,18 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const socket = require("../socket");
@@ -186,52 +198,58 @@ class provideMedicalSupplyController {
     try {
       const io = socket.getInstance();
       const medicalSupply = {
-          provider: req.body.provider,
-          name: req.body.name
+        provider: req.body.provider,
+        name: req.body.name,
       };
       const newMedicalSupply = await MedicalSupply.create(medicalSupply);
-      //io.emit("newMedicalSupply", )
-      console.log("newMedicalSupply",newMedicalSupply);
-      res.status(201).json({newMedicalSupply});
-&nbsp;
+      console.log("newMedicalSupply", newMedicalSupply);
+      io.emit("postNewMedicalSupply", newMedicalSupply);
+      res.status(201).json({ newMedicalSupply });
     } catch (error) {
 <span class="cstat-no" title="statement not covered" >      res.status(500).json({ error });</span>
     }
   }
-  static async getUserMedicalSupply(req, res){
-      console.log("getUserMedicalSupply!!!");
-      //const query = req.query ;
-      //console.log(query);
-      const params = req.params
-      try {
-        const result = await MedicalSupply.findMedicalSupplyByProvider(params.provider);
-        console.log("result",result);
-        res.status(200).json(result);
-      } catch (error) {
-<span class="cstat-no" title="statement not covered" >        res.status(500).json({ error });</span>
-      }
+  static async getUserMedicalSupply(req, res) {
+    console.log("getUserMedicalSupply!!!");
+    //const query = req.query ;
+    //console.log(query);
+    const params = req.params;
+    try {
+      const result = await MedicalSupply.findMedicalSupplyByProvider(
+        params.provider
+      );
+      console.log("result", result);
+      res.status(200).json(result);
+    } catch (error) {
+<span class="cstat-no" title="statement not covered" >      res.status(500).json({ error });</span>
+    }
   }
-//   static async getAllMedicalSupply(req, res){
-//     try {
-//       const result = await MedicalSupply.findAllMedicalSupply();
-//       console.log("result",result);
-//       res.status(200).json(result);
-//     } catch (error) {
-//       res.status(500).json({ error });
-//     }
-// }
-  static async deleteUserMedicalSupply(req, res){
+  //   static async getAllMedicalSupply(req, res){
+  //     try {
+  //       const result = await MedicalSupply.findAllMedicalSupply();
+  //       console.log("result",result);
+  //       res.status(200).json(result);
+  //     } catch (error) {
+  //       res.status(500).json({ error });
+  //     }
+  // }
+  static async deleteUserMedicalSupply(req, res) {
+    const io = socket.getInstance();
     console.log("deleteUserMedicalSupply!!!!!");
-    const params = req.params ;
+    const params = req.params;
     console.log(params);
     try {
-      const result = await MedicalSupply.deleteMedicalSupplyById(params.medicalSupplyId);
-      console.log("result",result);
+      const result = await MedicalSupply.deleteMedicalSupplyById(
+        params.medicalSupplyId
+      );
+      console.log("result", result);
+      const emitData = { id: params.medicalSupplyId };
+      io.emit("deleteMedicalSupply", emitData);
       res.status(200).json();
     } catch (error) {
 <span class="cstat-no" title="statement not covered" >      res.status(500).json({ error });</span>
     }
-}
+  }
 }
 module.exports = provideMedicalSupplyController;
 &nbsp;</pre></td></tr></table></pre>
@@ -241,7 +259,7 @@ module.exports = provideMedicalSupplyController;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Apr 13 2022 22:39:49 GMT-0700 (北美太平洋夏令时间)
+                at Sat Apr 16 2022 16:57:09 GMT-0700 (Pacific Daylight Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>
