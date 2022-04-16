@@ -3,17 +3,9 @@
   "version": "0.0.0",
   "jest": {
     "collectCoverageFrom": [
-<<<<<<< HEAD
       "./models/event.js",
       "./controllers/eventController.js",
       "./routes/event.js"
-=======
-      "./models/medicalSupply.js",
-      "./controllers/provideMedicalSupplyController.js",
-      "./controllers/reserveMedicalSupplyController.js",
-      "./routes/medicalSupply.js",
-      "./routes/search.js"
->>>>>>> Iteration4-JiachengLu
     ],
     "testPathIgnorePatterns": []
   },
