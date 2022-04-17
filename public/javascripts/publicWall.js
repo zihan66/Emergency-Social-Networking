@@ -3,6 +3,7 @@ const msgList = document.querySelector(".message-list");
 //const infScroll = new InfiniteScroll(msgList);
 const { cookies } = brownies;
 // eslint-disable-next-line no-undef
+
 const socket = io({ URL: "http://localhost:3000", autoConnect: false });
 
 const getAllMessages = async () => {
@@ -22,7 +23,6 @@ const getAllMessages = async () => {
 
 const addSingleMessage = (message, before) => {
   const { content, author, deliveryStatus, postedAt } = message;
-
   const item = document.createElement("li");
   let userStatus = "";
   if (deliveryStatus === "OK") userStatus = "green";

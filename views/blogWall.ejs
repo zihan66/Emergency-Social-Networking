@@ -1,0 +1,29 @@
+<link rel="stylesheet" href="/stylesheets/blogWall.css" />
+<div class="blog-wall-wrapper">
+  <header class="chat-header">
+    <span class="header1">Blogs</span>
+    <button id="newBlog" class="ui inverted button compact">
+      newBlog
+    </button>
+    <button id="search" class="ui inverted button compact">
+      search
+    </button>
+    <button id="leave" class="ui inverted button compact">
+      BackToDirectory
+    </button>
+  </header>
+  <div class="blog-container">
+    <ul class="blog-list"></ul>
+  </div>
+  <div class="input-area-container">
+    <!-- <textarea id="msg"></textarea>
+    <button id="msg-button">
+      <i class="paper plane outline icon"></i>
+    </button> -->
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/brownies"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://momentjs.com/downloads/moment.js"></script>
+  <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.min.js"></script>
+  <script src="/javascripts/blogWall.js"></script>
+</div>

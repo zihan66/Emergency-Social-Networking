@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="/stylesheets/eventWall.css" />
+<div class="event-wall-wrapper">
+  <div class="ui menu event-header">
+    <div class="left-items">
+      <button id="leave" class="ui inverted button compact">
+        Back to Directory
+      </button>
+    </div>
+    <div class="right-items" id="my-event">
+      <i class="bookmark icon" id="bar"></i>
+      Manage My Events
+    </div>
+  </div>
+  <h2>Events</h2>
+  <div class="event-content">
+    <ul class="event-list"></ul>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/javascripts/eventWall.js"></script>

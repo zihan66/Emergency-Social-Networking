@@ -5,7 +5,7 @@ const { cookies } = brownies;
 const socket = io({ URL: "http://localhost:3000", autoConnect: false });
 const pathname = document.URL.split("/");
 const chatID = pathname[pathname.length - 2];
-const another = pathname[pathname.length - 1];
+const another = pathname[pathname.length - 1].split('?')[0];
 console.log(`/messages/private?chatID=${chatID}`);
 
 const getCorrectStatusSpan = (deliveryStatus) => {
@@ -142,9 +142,10 @@ sendButton.addEventListener("click", async (e) => {
     content: msgContent,
     target: another,
     chatID,
+    isToDonor:window.location.search.includes('isToDonor=true') 
   };
   try {
-    const response = await fetch("/messages/private", {
+    const response = await fetch(`/messages/private`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",

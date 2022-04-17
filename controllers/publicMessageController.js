@@ -12,7 +12,6 @@ class PublicMessageController {
   async createNewPublicMessage(req, res) {
     try {
       const io = socket.getInstance();
-      console.log(req.body);
       const user = await User.findOne({ username: req.body.username });
       const currentMessage = {
         content: req.body.content,

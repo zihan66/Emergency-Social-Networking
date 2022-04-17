@@ -1,0 +1,69 @@
+<link rel="stylesheet" href="/stylesheets/newBlog.css" />
+<div class="blog-wall-wrapper">
+  <header class="chat-header">
+    <span class="header1">Blog Wall</span>
+    <button id="backToBlogWall" class="ui inverted button compact">
+      backToBlogWall
+    </button>
+    <button id="leave" class="ui inverted button compact">
+      Back to Directory
+    </button>
+  </header>
+  <!-- <div class="blog-container">
+    <ul class="blog-list"></ul>
+  </div> -->
+  <!-- <form action = "/blog/newBlog" method = "POST">
+    <textarea id="msg2"></textarea>
+    <button id="msg-button2">
+      <i class="paper plane outline icon"></i>
+    </button>
+  </form> -->
+  
+  <div class="ui raised very padded text container segment">
+    <center>
+      <h2 class="ui header">Post a new Blog</h2>
+      <p>header: </p>
+      <!-- <textarea id="msg"></textarea> -->
+      <input type = "text" name = "first_name" id="msg" value="header content"/>
+      <p> </p>
+      <p>picture Tag: </p>
+      <p> </p>
+      <div class="ui form" >
+        <div class="field">
+          <select id="pictureSelect">
+            <option value="">default_pic</option>
+            <option value="1">ambulance</option>
+            <option value="0">doctor</option>
+          </select>
+        </div>
+      </div>
+      <p> </p>
+      <p>Blog Text:</p>
+      <p> </p>
+      <div class="field">
+        <textarea id="blogText">input you blog here.</textarea>
+      </div>
+      <p> </p>
+      <button id="msg-button">
+        <i class="paper plane outline icon"></i>
+      </button>
+      <p> </p>
+      <p>*default_pic stands for undefined tag</p>
+      <p>*DO NOT only contain simple words in your header, 
+        otherwise others might not find your blog by searching.</p>
+    </center>
+    
+    
+  </div>
+  <!-- <div class="input-area-container">
+    <!-- <textarea id="msg2"></textarea> -->
+    <p> </p>
+    
+    <p>. </p>
+  </div> -->
+  <script src="https://cdn.jsdelivr.net/npm/brownies"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://momentjs.com/downloads/moment.js"></script>
+  <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.min.js"></script>
+  <script src="/javascripts/newBlog.js"></script>
+</div>

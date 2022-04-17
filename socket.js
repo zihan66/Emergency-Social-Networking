@@ -9,6 +9,7 @@ class Socket {
     this.io.on("connection", (socket) => {
       const username = socket.handshake.auth.username;
       this.hasName[username] = socket.id;
+      console.log("this.hasName", this.hasName);
     });
   }
 

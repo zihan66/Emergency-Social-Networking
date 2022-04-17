@@ -47,14 +47,12 @@ class JoinController {
   }
 
   static async acknowledge(req, res) {
-    console.log("enter acknowledgement");
     try {
       // eslint-disable-next-line max-len
       const acknowledge = await User.updateOne(
         { username: req.params.username },
         { isAcknowledge: true }
       );
-      console.log("acknowlege", acknowledge);
       res.location("/directory");
       res.status(200).json();
     } catch (error) {

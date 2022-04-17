@@ -4,7 +4,6 @@ const msgList = document.querySelector(".message-list");
 const { cookies } = brownies;
 // eslint-disable-next-line no-undef
 const socket = io({ URL: "http://localhost:3000", autoConnect: false });
-
 const getAllMessages = async () => {
   try {
     const response = await fetch("/messages/announcement", {

@@ -1,0 +1,149 @@
+<link rel="stylesheet" href="/stylesheets/directory.css" />
+<div class="directory-wrapper">
+  <header class="directory-header">
+    <span class="header1">Donor List</span>
+
+    <a href="./directory">
+      <button id="Back" class="ui inverted button compact">
+          Back
+     </button>
+    </a>
+     
+  </header>
+
+  <div class="hamburger-menu">
+    <div class="links">
+      <div class="menu-item">
+        <ul class="directory_profile"></ul>
+        <!-- <button class="ui inverted whitesmoke button" id="user-profile"> -->
+        <!-- My Status:<var>directory_profile_username</var> <var>directory_profile_status</var> -->
+        <!-- </button> -->
+      </div>
+      <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
+      <div class="menu-item">
+        <button class="ui inverted whitesmoke button" id="status-bar">
+          Set Status:
+        </button>
+      </div>
+      <div class="links2">
+        <!-- <div class="ham-img">
+        </div> -->
+        <p></p>
+        <form class="ui form">
+          <button id="setRedButton" class="ui inverted button compact">
+            <img
+              class="ui rounded-image"
+              height="30"
+              width="30"
+              src="/images/red.png"
+            />
+            <i> Emergency </i>
+            <i class="circle outline icon"></i>
+          </button>
+          <button id="setGreenButton" class="ui inverted button compact">
+            <img
+              class="ui rounded-image"
+              height="30"
+              width="30"
+              src="/images/green.png"
+            />
+            <i> I am OK </i>
+            <i class="circle outline icon"></i>
+          </button>
+          <p></p>
+          <button id="setYellowButton" class="ui inverted button compact">
+            <img
+              class="ui rounded-image"
+              height="30"
+              width="30"
+              src="/images/yellow.png"
+            />
+            <i> I need Help </i>
+            <i class="circle outline icon"></i>
+          </button>
+          <button id="setGreyButton" class="ui inverted button compact">
+            <img
+              class="ui rounded-image"
+              height="30"
+              width="30"
+              src="/images/grey.png"
+            />
+            <i> Undefined </i>
+            <i class="circle outline icon"></i>
+          </button>
+        </form>
+      </div>
+      <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
+      <button id="go-to" class="ui inverted whitesmoke button">
+        Public Messages
+      </button>
+      <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
+      <a href="./measure">
+        <button class="ui inverted whitesmoke button" id="measure-bar">
+          Measure
+        </button>
+      </a>
+      <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
+      <a href="./announcement">
+        <button class="ui inverted whitesmoke button" id="announcement-bar">
+          Announcement
+        </button>
+      </a>
+      <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
+      <button id="logout" class="ui inverted whitesmoke button">Logout</button>
+      <HR WIDTH="90%" SIZE="7" ALIGN="middle" NOSHADE />
+    </div>
+  </div>
+  <div class="directory-container">
+    <ul class="user-list"></ul>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="flex-wrap flex-middle flex-direction-column">
+            <div class="flex-wrap flex-middle flex-center">
+              <div style="margin-right: 20px;"> Your Blood Type</div>
+              <select id="BloodTypeSelect"  aria-label="Default select example">
+              </select>
+            </div>
+          </div>
+          
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" id="modal-confirm"  class="btn btn-outline-dark">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal2 -->
+  <div class="modal fade" id="myModal2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+        <div class="modal-body">
+          you have entered a different blood type, are you sure to confirm?
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-light" id="modal-Back2" >Back</button>
+          <button class="btn btn-warning"  id="modal-confirm2" >confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/brownies"></script>
+  
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/javascripts/askForDonor.js"></script>
+</div>
