@@ -1,7 +1,7 @@
 exclude:
 - /views/.*
 - /coverage/.*
-- /bower_components/infinite-scroll/.*
+- /bower_components/.*
 - /public/images/.*
 - /public/stylesheets/.*
 - /public/javascripts/common/.*
