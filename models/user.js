@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
   lastStatusCode: { type: String, default: "unknown" },
   bloodType: { type: String, default: "unknown" },
   isDonor: { type: Boolean, default: false }
-  // lastStatusUpdateTime: {type: String, default: "unknownTime"},
+
 });
 
 userSchema.statics.findAllUsers = async function () {

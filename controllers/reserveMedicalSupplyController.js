@@ -5,7 +5,7 @@ const MedicalSupply = require("../models/medicalSupply");
 class reserveMedicalSupplyController {
   static async getAllMedicalSupply(req, res) {
     console.log("getAllMedicalSupply!!!!!!!");
-    //console.log("username",cookies.username);
+
     try {
       const result = await MedicalSupply.findAllMedicalSupply();
       console.log("result", result);
@@ -38,37 +38,12 @@ class reserveMedicalSupplyController {
         const emitData = { id: id };
         io.emit("cancelReservation", emitData);
       }
-      //console.log("result", result);
+
       res.status(200).json();
     } catch (error) {
       res.status(500).json({ error });
     }
   }
-  // static async cancelReservation(req, res) {
-  //   const params = req.params;
-  //   console.log(params);
-  //   try {
-  //     const result = await MedicalSupply.updateMedicalSupplyToNotReserved(
-  //       params.medicalSupplyId
-  //     );
-  //     console.log("result", result);
-  //     res.status(200).json();
-  //   } catch (error) {
-  //     res.status(500).json({ error });
-  //   }
-  // }
 
-  // static async searchMedicalSupply(req, res) {
-  //   console.log("Enter searchMedicalSupply");
-  //   const query = req.query;
-  //   console.log("query!!!!!", query);
-  //   try {
-  //     const result = await MedicalSupply.findMedicalSupplyByName(query.q);
-  //     console.log("result", result);
-  //     res.status(200).json(result);
-  //   } catch (error) {
-  //     res.status(500).json({ error });
-  //   }
-  // }
 }
 module.exports = reserveMedicalSupplyController;

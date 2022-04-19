@@ -62,9 +62,7 @@ router.get("/chatroom/:chatid/:target", auth, (req, res) => {
   res.render("chatRoom", { title: "chatRoom" });
 });
 
-// router.get("/blog/:blogID", auth, (req, res) => {
-//   res.render("blog", { title: "blog" });
-// });
+
 
 router.use("/users", suspend, userRoute);
 
@@ -94,9 +92,11 @@ router.get("/myEvent/newEvent", auth, (req, res) => {
 router.get("/provideMedicalSupply", (req, res) => {
   res.render("medicalSupply", { title: "medicalSupply" });
 });
+
 router.get("/reserveMedicalSupply", (req, res) => {
   res.render("medicalSupplyReservation", { title: "medicalSupplyReservation" });
 });
+
 router.use("/users", userRoute);
 router.use("/messages", messageRoute);
 router.use("/chats", suspend, chatRoute);

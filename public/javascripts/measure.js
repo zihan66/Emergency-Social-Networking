@@ -17,7 +17,7 @@ const sendOneTestMessage = async () => {
     await interrupthandler();
     return;
   }
-  // countOfPost += 1;
+
   const { username } = cookies;
   console.log(username);
   const testBody = { username: username, content: "qwertyuiopasdfghjklz" };
@@ -77,7 +77,6 @@ const interrupthandler = async () => {
 
 
 const stopPost = async () => {
-  // clearInterval(intervalGetID);
   clearInterval(intervalPostID);
   numberOfPostPerSec = (countOfPost / (duration / 2)).toFixed(2);
   console.log("counterOfPost", countOfPost);
@@ -86,8 +85,7 @@ const stopPost = async () => {
 };
 
 const stopGet = async () => {
-  // clearInterval(intervalGetID);
-  // clearInterval(intervalPostID);
+
   await interrupthandler();
   console.log("counterOfGet", countOfGet);
   numberOfGetPerSec = (countOfGet / (duration / 2)).toFixed(2);
@@ -162,8 +160,6 @@ getMeasureData.addEventListener("click", async (e) => {
       body: JSON.stringify(data),
     });
 
-    // const expectedPostCount = (duration * 1000) / interval;
-
     if (response.status === 200) {
       timeoutPostID = setTimeout(stopPost, (duration * 1000) / 2);
       intervalPostID = setInterval(sendOneTestMessage, interval);
@@ -172,7 +168,6 @@ getMeasureData.addEventListener("click", async (e) => {
     console.log(error);
   }
 
-  // testInProgress = false;
 });
 
 const leave = document.querySelector("#leave");

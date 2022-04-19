@@ -12,10 +12,6 @@ medicalSupplySchema.statics.findMedicalSupplyByProvider = async function (
   username
 ) {
   console.log("username", username);
-  //const medicalSupply = await this.find({ provider: username}, {isDeleted:false},);
-  //   const medicalSupply = await this.find({
-  //     $and: [{ provider: username }, { isDeleted: false }],
-  //   });
   const medicalSupply = await this.find({
     provider: username,
     isDeleted: false,

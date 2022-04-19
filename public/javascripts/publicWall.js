@@ -1,6 +1,6 @@
 const msgContainer = document.querySelector(".message-container");
 const msgList = document.querySelector(".message-list");
-//const infScroll = new InfiniteScroll(msgList);
+
 const { cookies } = brownies;
 // eslint-disable-next-line no-undef
 
@@ -68,7 +68,7 @@ sendButton.addEventListener("click", async (e) => {
   const { username } = cookies;
   e.preventDefault();
   e.stopPropagation();
-  //if (!msgContent) return;
+
   msgInput.value = "";
   const requestBody = { username, content: msgContent };
   try {

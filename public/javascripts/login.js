@@ -659,7 +659,7 @@ loginOrSignUp.addEventListener("click", async (e) => {
       body: JSON.stringify(data),
     });
 
-    //const result = await response.json();
+
     if (response.status === 404) {
       modal.style.display = "block";
       confirmButton.addEventListener("click", async (e) => {

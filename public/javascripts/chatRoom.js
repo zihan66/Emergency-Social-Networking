@@ -161,7 +161,7 @@ sendButton.addEventListener("click", async (e) => {
 
 window.addEventListener("load", async () => {
   try {
-    // const status = await getUserStatus(username);
+
     socket.auth = { username: cookies.username };
     socket.connect();
     const repsonse = await fetch(`/users/${another}`, {

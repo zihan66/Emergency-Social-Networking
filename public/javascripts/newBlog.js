@@ -1,6 +1,5 @@
 const msgContainer = document.querySelector(".blog-container");
 const msgList = document.querySelector(".blog-list");
-//const infScroll = new InfiniteScroll(msgList);
 const { cookies } = brownies;
 // eslint-disable-next-line no-undef
 const socket = io({ URL: "http://localhost:3000", autoConnect: false });
@@ -57,28 +56,22 @@ const appendPreviousBlogs = (blogs) => {
   msgContainer.scrollTop = msgContainer.scrollHeight;
 };
 
-// socket.on("blog", (blog) => {
-//   addSingleBlog(blog, true);
-//   msgContainer.scrollTop = msgContainer.scrollHeight;
-// });
+
 
 
 
 const sendButton = document.getElementById("msg-button");
+
 sendButton.addEventListener("click", async (e) => {
   const msgInput = document.getElementById("msg");
   var msgInput2 = document.getElementById("pictureSelect");
   const msgInput3 = document.getElementById("blogText");
-  // console.log("msgInput2: ",msgInput2);
   const msgContent = msgInput.value;
-  // const pictureSelect = msgInput2.value;
   var pictureSelect = msgInput2.options[msgInput2.selectedIndex].text;
-  // console.log("pictureSelect: ",pictureSelect);
   const text = msgInput3.value;
   const { username } = cookies;
   e.preventDefault();
   e.stopPropagation();
-  //if (!msgContent) return;
   msgInput.value = "";
   const requestBody = { username, content: msgContent, picture: pictureSelect, text: text};
   console.log("picture:",requestBody.picture);
@@ -98,22 +91,6 @@ sendButton.addEventListener("click", async (e) => {
   msgInput.focus();
 });
 
-// window.addEventListener("load", async () => {
-//   try {
-//     socket.auth = { username: cookies.username };
-//     socket.connect();
-//     const response = await fetch("/blog", {
-//       method: "get",
-//       headers: {
-//         Authorization: `Bearer ${cookies.jwtToken}`,
-//       },
-//     });
-//     const data = await response.json();
-//     appendPreviousBlogs(data);
-//   } catch (err) {
-//     console.error(err);
-//   }
-// });
 
 const leave = document.querySelector("#leave");
 leave.addEventListener("click", (e) => {
