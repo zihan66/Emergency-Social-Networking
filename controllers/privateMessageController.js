@@ -84,9 +84,13 @@ class PrivateMessageController {
       const authorSocketId = socket.hasName[authorUser.username];
       const targetSocketId = socket.hasName[targetUser.username];
       io.sockets.to(authorSocketId).emit("privateMessage", message);
-      if (targetSocketId !== undefined){
-        if(isToDonor){
-          io.sockets.emit("askForDonorMessage", {user: authorUser.username, target:targetUser.username, url: `/chats/${chatID}/${authorUser.username}?isToDonor=true`});
+      if (targetSocketId !== undefined) {
+        if (isToDonor) {
+          io.sockets.emit("askForDonorMessage", {
+            user: authorUser.username,
+            target: targetUser.username,
+            url: `/chats/${chatID}/${authorUser.username}?isToDonor=true`,
+          });
         }
         io.sockets.to(targetSocketId).emit("privateMessage", message);
       }
@@ -101,7 +105,6 @@ class PrivateMessageController {
   static async getUserAllChats(req, res) {
     try {
       const { username } = req.query;
-      console.log(req.params);
       if (!username) {
         res.status(400).send({ error: "error" });
       }
@@ -166,34 +169,30 @@ class PrivateMessageController {
     }
   }
 
-  static renderchats (req, res) {
+  static renderchats(req, res) {
+    const { isToDonor } = req.query;
 
-      const { isToDonor } = req.query;
-      
-      if (isToDonor) {
-        try {
-          const io = socket.getInstance();
-          const { chatid, target } = req.params;
-          const author = req.cookies.username;
+    if (isToDonor) {
+      try {
+        const io = socket.getInstance();
+        const { chatid, target } = req.params;
+        const author = req.cookies.username;
 
-          
-          const authorSocketId = socket.hasName[author];
-          const targetSocketId = socket.hasName[target];
+        const authorSocketId = socket.hasName[author];
+        const targetSocketId = socket.hasName[target];
 
-          const message = { content: "I NEED BLOOD!", target, author };
-          io.sockets.to(authorSocketId).emit("privateMessage", message);
-          if (targetSocketId !== undefined) {
-            io.sockets.to(targetSocketId).emit("privateMessage", message);
-          }
-          
-        } catch (error) {
-          console.log("error", error);
+        const message = { content: "I NEED BLOOD!", target, author };
+        io.sockets.to(authorSocketId).emit("privateMessage", message);
+        if (targetSocketId !== undefined) {
+          io.sockets.to(targetSocketId).emit("privateMessage", message);
         }
-        
+      } catch (error) {
+        console.log("error", error);
       }
-
-      res.render("chatRoom", { title: "chats" });
     }
+
+    res.render("chatRoom", { title: "chats" });
+  }
 }
 
 module.exports = PrivateMessageController;

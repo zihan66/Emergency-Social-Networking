@@ -11,7 +11,6 @@ class provideMedicalSupplyController {
         name: req.body.name,
       };
       const newMedicalSupply = await MedicalSupply.create(medicalSupply);
-      console.log("newMedicalSupply", newMedicalSupply);
       io.emit("postNewMedicalSupply", newMedicalSupply);
       res.status(201).json({ newMedicalSupply });
     } catch (error) {
@@ -19,15 +18,11 @@ class provideMedicalSupplyController {
     }
   }
   static async getUserMedicalSupply(req, res) {
-    console.log("getUserMedicalSupply!!!");
-    //const query = req.query ;
-    //console.log(query);
     const params = req.params;
     try {
       const result = await MedicalSupply.findMedicalSupplyByProvider(
         params.provider
       );
-      console.log("result", result);
       res.status(200).json(result);
     } catch (error) {
       res.status(500).json({ error });
@@ -44,14 +39,11 @@ class provideMedicalSupplyController {
   // }
   static async deleteUserMedicalSupply(req, res) {
     const io = socket.getInstance();
-    console.log("deleteUserMedicalSupply!!!!!");
     const params = req.params;
-    console.log(params);
     try {
       const result = await MedicalSupply.deleteMedicalSupplyById(
         params.medicalSupplyId
       );
-      console.log("result", result);
       const emitData = { id: params.medicalSupplyId };
       io.emit("deleteMedicalSupply", emitData);
       res.status(200).json();

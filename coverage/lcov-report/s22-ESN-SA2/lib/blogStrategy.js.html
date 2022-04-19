@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.56% </span>
+                <span class="strong">69.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/37</span>
+                <span class='fraction'>25/36</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.56% </span>
+                <span class="strong">69.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>25/37</span>
+                <span class='fraction'>25/36</span>
             </div>
         
             
@@ -156,9 +156,7 @@
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -173,7 +171,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -229,7 +226,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -268,7 +264,6 @@ class normalStrategy {
 &nbsp;
 <span class="fstat-no" title="function not covered" >  as</span>ync createBlog(blog) {
 <span class="cstat-no" title="statement not covered" >    await Blog.create(blog);</span>
-<span class="cstat-no" title="statement not covered" >    console.log("inside normal");</span>
   }
 &nbsp;
   async getBlogs() {
@@ -295,13 +290,13 @@ class normalStrategy {
     // }
     const blogID = blogIDSearch;
     const blogs = await Blog.findOne({ _id: blogID });
-    <span class="missing-if-branch" title="else path not taken" >E</span>if(!blogs){
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!blogs) {
       // res.status(404).json({});
       return null;
     }
     const likeCount = <span class="cstat-no" title="statement not covered" >blogs.likeCount + 1;</span>
-<span class="cstat-no" title="statement not covered" >    try{</span>
-<span class="cstat-no" title="statement not covered" >      await Blog.updateOne({ _id: blogIDSearch },{ likeCount: likeCount });</span>
+<span class="cstat-no" title="statement not covered" >    try {</span>
+<span class="cstat-no" title="statement not covered" >      await Blog.updateOne({ _id: blogIDSearch }, { likeCount: likeCount });</span>
     } catch (error) {
 <span class="cstat-no" title="statement not covered" >      console.log("error", error);</span>
 <span class="cstat-no" title="statement not covered" >      res.status(500).json({ error });</span>
@@ -314,19 +309,18 @@ class normalStrategy {
     // }
     const blogID = blogIDSearch;
     const blogs = await Blog.findOne({ _id: blogID });
-    <span class="missing-if-branch" title="else path not taken" >E</span>if(!blogs){
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!blogs) {
       // res.status(404).json({});
       return null;
     }
     const likeCount = <span class="cstat-no" title="statement not covered" >blogs.likeCount - 1;</span>
-<span class="cstat-no" title="statement not covered" >    try{</span>
-<span class="cstat-no" title="statement not covered" >      await Blog.updateOne({ _id: blogIDSearch },{ likeCount: likeCount });</span>
+<span class="cstat-no" title="statement not covered" >    try {</span>
+<span class="cstat-no" title="statement not covered" >      await Blog.updateOne({ _id: blogIDSearch }, { likeCount: likeCount });</span>
     } catch (error) {
 <span class="cstat-no" title="statement not covered" >      console.log("error", error);</span>
 <span class="cstat-no" title="statement not covered" >      res.status(500).json({ error });</span>
     }
   }
-&nbsp;
 }
 &nbsp;
 // class testStrategy {
@@ -355,7 +349,7 @@ exports.normalStrategy = normalStrategy;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Sat Apr 16 2022 18:36:21 GMT-0700 (Pacific Daylight Time)
+                at Mon Apr 18 2022 19:30:47 GMT-0700 (Pacific Daylight Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -60,7 +60,6 @@ class EventController {
       }
       await Event.joinEvent(eventId, username);
       const updatedEvent = await Event.findOne({ _id: eventId });
-      console.log(updatedEvent);
       const io = socket.getInstance();
       io.sockets.emit("eventUpdate", updatedEvent);
 

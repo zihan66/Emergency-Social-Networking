@@ -70,7 +70,6 @@ class searchController {
   }
 
   static async searchBlog(req, res) {
-    console.log("searchlog test");
     const query = req.query.q;
     if (!query) {
       res.status(400).json({ message: "Invalid query" });
@@ -89,10 +88,7 @@ class searchController {
     }
     try {
       const numberOfResult = page * 10 + 1;
-      let result = await Blog.searchBlog(
-        filteredContents,
-        numberOfResult
-      );
+      let result = await Blog.searchBlog(filteredContents, numberOfResult);
       if (result.length === numberOfResult) {
         moreResult = true;
         result.pop();
@@ -102,7 +98,6 @@ class searchController {
       res.status(500).json({ error });
     }
   }
-
 
   static async searchAnnouncement(req, res) {
     const query = req.query.q;
@@ -172,7 +167,6 @@ class searchController {
 
   static async searchStatus(req, res) {
     const query = req.query.q;
-    console.log("req.query", req.query);
     const { chatId, page } = req.query;
     let moreResult = false;
     if (!query) {
@@ -198,16 +192,14 @@ class searchController {
   }
 
   static async searchMedicalSupply(req, res) {
-    console.log("Enter searchMedicalSupply");
     const query = req.query.q;
     const searchContent = query.toLowerCase();
-    console.log("searchContent",searchContent);
     const filteredContents = removeStopWords(searchContent);
     if (filteredContents.length === 0) {
       res.status(200).json([]);
       return;
     }
-    
+
     try {
       const result = await MedicalSupply.findMedicalSupplyByName(searchContent);
       console.log("result", result);

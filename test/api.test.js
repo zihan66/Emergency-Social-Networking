@@ -100,7 +100,6 @@ test("Can search user by status", () => {
       .then((err, res) => {
         expect(err).toBe(null);
         let users = res.body;
-        console.log("users!!!!!!!!");
         expect(users).toContain({ username: "001" });
         expect(users).toContain({ username: "002" });
       })
@@ -697,6 +696,7 @@ test("Dislike a blog", () => {
         nextContentLink: "null",
         likeCount: "0",
         dislikeCount: "0",
+        username: "001",
         _id: "123456789012",
       })
       .then((res, err) => {
@@ -735,6 +735,7 @@ test("Delete a blog", () => {
         nextContentLink: "null",
         likeCount: "0",
         dislikeCount: "0",
+        username: "001",
         _id: "123456789012",
       })
       .then((res, err) => {

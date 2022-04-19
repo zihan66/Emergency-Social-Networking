@@ -18,7 +18,6 @@ class shareStatusController {
       // const userLastUpdateTime = user.lastStatusUpdateTime;
       // merge into a list
       const userInformationList = { userUsername, userIsLogin, userLastStatus };
-      console.log(userInformationList);
       res.status(200).json(userInformationList);
     } catch (error) {
       console.log(error);
@@ -27,7 +26,6 @@ class shareStatusController {
 
   static async setStatus(req, res) {
     const user = req.params;
-    console.log("setStatus", user);
     const io = socket.getInstance();
     try {
       let result = await User.findOne({ username: user.username });
@@ -36,8 +34,6 @@ class shareStatusController {
         return;
       }
 
-      console.log(user.username);
-      console.log(user.lastStatusCode);
       await User.updateOne(
         { username: user.username },
         { lastStatusCode: user.lastStatusCode }
@@ -47,9 +43,8 @@ class shareStatusController {
         statusCode: user.lastStatusCode,
         updatedAt: moment().format(),
       };
-      console.log("statusChange", statusChange);
+
       const input_user = user;
-      console.log("emit_test user:", input_user);
 
       io.emit("updateStatus", input_user);
 

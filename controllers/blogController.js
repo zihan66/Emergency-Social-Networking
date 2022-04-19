@@ -17,7 +17,6 @@ class blogController {
   async createNewBlog(req, res) {
     try {
       const io = socket.getInstance();
-      console.log(req.body);
       const user = await User.findOne({ username: req.body.username });
       const currentBlog = {
         content: req.body.content,
@@ -28,7 +27,6 @@ class blogController {
         picture: req.body.picture,
         text: req.body.text,
       };
-      console.log("currentBlog.picture: ",currentBlog.picture);
       await this.strategy.createBlog(currentBlog);
       io.sockets.emit("blog", currentBlog);
       res.status(201).json({});
@@ -80,7 +78,7 @@ class blogController {
       console.log(error);
     }
   }
-  async deleteABlog(req, res){
+  async deleteABlog(req, res) {
     try {
       const blogIDSearch = req.params.blogID;
       // console.log("blogIDSearch:", blogIDSearch);
@@ -91,7 +89,7 @@ class blogController {
       console.log(error);
     }
   }
-  async likeABlog(req, res){
+  async likeABlog(req, res) {
     try {
       const blogIDSearch = req.params.blogID;
       // console.log("blogIDSearch:", blogIDSearch);
@@ -106,7 +104,7 @@ class blogController {
     }
   }
 
-  async dislikeABlog(req, res){
+  async dislikeABlog(req, res) {
     try {
       const blogIDSearch = req.params.blogID;
       // console.log("blogIDSearch:", blogIDSearch);
@@ -125,8 +123,6 @@ class blogController {
     this.strategy = strategy;
   }
 }
-
-
 
 const ns = new normalStrategy();
 blogController = new blogController(ns);

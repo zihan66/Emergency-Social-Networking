@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.88% </span>
+                <span class="strong">47.1% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>68/142</span>
+                <span class='fraction'>65/138</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.88% </span>
+                <span class="strong">47.1% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>68/142</span>
+                <span class='fraction'>65/138</span>
             </div>
         
             
@@ -276,15 +276,7 @@
 <a name='L211'></a><a href='#L211'>211</a>
 <a name='L212'></a><a href='#L212'>212</a>
 <a name='L213'></a><a href='#L213'>213</a>
-<a name='L214'></a><a href='#L214'>214</a>
-<a name='L215'></a><a href='#L215'>215</a>
-<a name='L216'></a><a href='#L216'>216</a>
-<a name='L217'></a><a href='#L217'>217</a>
-<a name='L218'></a><a href='#L218'>218</a>
-<a name='L219'></a><a href='#L219'>219</a>
-<a name='L220'></a><a href='#L220'>220</a>
-<a name='L221'></a><a href='#L221'>221</a>
-<a name='L222'></a><a href='#L222'>222</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L214'></a><a href='#L214'>214</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -360,7 +352,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -376,9 +367,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -386,7 +374,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -461,7 +448,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -484,8 +470,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -577,7 +561,6 @@ class searchController {
   }
 &nbsp;
 <span class="fstat-no" title="function not covered" >  st</span>atic async searchBlog(req, res) {
-<span class="cstat-no" title="statement not covered" >    console.log("searchlog test");</span>
     const query = <span class="cstat-no" title="statement not covered" >req.query.q;</span>
 <span class="cstat-no" title="statement not covered" >    if (!query) {</span>
 <span class="cstat-no" title="statement not covered" >      res.status(400).json({ message: "Invalid query" });</span>
@@ -596,10 +579,7 @@ class searchController {
     }
 <span class="cstat-no" title="statement not covered" >    try {</span>
       const numberOfResult = <span class="cstat-no" title="statement not covered" >page * 10 + 1;</span>
-      let result = <span class="cstat-no" title="statement not covered" >await Blog.searchBlog(</span>
-        filteredContents,
-        numberOfResult
-      );
+      let result = <span class="cstat-no" title="statement not covered" >await Blog.searchBlog(filteredContents, numberOfResult);</span>
 <span class="cstat-no" title="statement not covered" >      if (result.length === numberOfResult) {</span>
 <span class="cstat-no" title="statement not covered" >        moreResult = true;</span>
 <span class="cstat-no" title="statement not covered" >        result.pop();</span>
@@ -609,7 +589,6 @@ class searchController {
 <span class="cstat-no" title="statement not covered" >      res.status(500).json({ error });</span>
     }
   }
-&nbsp;
 &nbsp;
   static async searchAnnouncement(req, res) {
     const query = req.query.q;
@@ -679,7 +658,6 @@ class searchController {
 &nbsp;
   static async searchStatus(req, res) {
     const query = req.query.q;
-    console.log("req.query", req.query);
     const { chatId, page } = req.query;
     let moreResult = false;
     <span class="missing-if-branch" title="if path not taken" >I</span>if (!query) {
@@ -705,16 +683,14 @@ class searchController {
   }
 &nbsp;
   static async searchMedicalSupply(req, res) {
-    console.log("Enter searchMedicalSupply");
     const query = req.query.q;
     const searchContent = query.toLowerCase();
-    console.log("searchContent",searchContent);
     const filteredContents = removeStopWords(searchContent);
     <span class="missing-if-branch" title="if path not taken" >I</span>if (filteredContents.length === 0) {
 <span class="cstat-no" title="statement not covered" >      res.status(200).json([]);</span>
 <span class="cstat-no" title="statement not covered" >      return;</span>
     }
-    
+&nbsp;
     try {
       const result = await MedicalSupply.findMedicalSupplyByName(searchContent);
       console.log("result", result);
@@ -733,7 +709,7 @@ module.exports = searchController;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Sat Apr 16 2022 18:36:21 GMT-0700 (Pacific Daylight Time)
+                at Mon Apr 18 2022 19:30:47 GMT-0700 (Pacific Daylight Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>
