@@ -1,2 +1,4 @@
 exclude:
 - /test/.*
+- /coverage/.*
+- /bower_components/.*
