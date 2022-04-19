@@ -3,3 +3,4 @@ exclude:
 - /coverage/.*
 - /public/images/.*
 - /public/stylesheets/.*
+- /public/javascripts/common/.*
