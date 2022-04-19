@@ -1,4 +1,5 @@
 exclude:
-- /test/.*
+- /views/.*
 - /coverage/.*
-- /bower_components/.*
+- /public/images/.*
+- /public/stylesheets/.*
