@@ -1,6 +1,7 @@
 exclude:
 - /views/.*
 - /coverage/.*
+- /bower_components/.*
 - /public/images/.*
 - /public/stylesheets/.*
 - /public/javascripts/common/.*
