@@ -26,7 +26,7 @@ class PrivateMessageController {
       };
       const response = await Chat.create(currentChat);
       res.location(`/chats/${currentChat.chatID}/${username2}`);
-      res.status(201).json();
+      res.status(201).json({ chatID: currentChat.chatID });
     } catch (error) {
       console.log("error", error);
       res.status(500).json({ error });
@@ -42,6 +42,7 @@ class PrivateMessageController {
     try {
       if (!chat) {
         res.status(404).json();
+        return;
       }
       await Message.update(
         { chatID, unread: true, target: req.cookies.username },
@@ -50,9 +51,7 @@ class PrivateMessageController {
       const messages = await Message.find({ chatID });
       res.status(200).json({ messages });
     } catch (error) {
-      res.status(404).json({
-        message: "ChatID does not exist",
-      });
+      res.status(500).json({});
     }
   }
 
@@ -65,7 +64,7 @@ class PrivateMessageController {
       });
       const authorUser = await User.findOne({ username: author });
       const targetUser = await User.findOne({ username: target });
-      if (chat == null || authorUser == null || targetUser == null) {
+      if (chat == null) {
         res.status(404).json({});
         return;
       }
@@ -95,7 +94,7 @@ class PrivateMessageController {
         io.sockets.to(targetSocketId).emit("privateMessage", message);
       }
 
-      res.status(201).json({});
+      res.status(201).json({ chatID });
     } catch (e) {
       console.log(e);
       res.status(500).send({ error: "error" });

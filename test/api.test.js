@@ -34,7 +34,7 @@ afterAll(async () => {
 const user001 = {
   username: "001",
   password: "1234",
-  islogin: true,
+  isLogin: true,
   lastStatusCode: "OK",
   isAcknowledge: true,
   isDonor: true,
@@ -44,7 +44,7 @@ const user001 = {
 const user002 = {
   username: "002",
   password: "1234",
-  islogin: true,
+  isLogin: true,
   lastStatusCode: "OK",
   isAcknowledge: true,
   isDonor: false,
@@ -69,8 +69,7 @@ const msg003 = {
 
 let chat_id = 345;
 
-// search user by status
-test("Can search user by status", () => {
+test("Can create user", () => {
   return (async () => {
     await agent
       .post(HOST + "/users")
@@ -93,7 +92,48 @@ test("Can search user by status", () => {
       .catch((e) => {
         // deal with it
       });
+  })().catch((e) => {
+    // deal with chain fail
+  });
+});
 
+test("Can User Login", () => {
+  return (async () => {
+    await agent
+      .put(HOST + "/users/001/online")
+      .send({
+        password: "1234",
+      })
+      .then((err, res) => {
+        expect(err).toBe(null);
+        expect(res.statusCode).toBe(200);
+        // let messages = res.body;
+        // expect(messages).toContain("002");
+      })
+      .catch((e) => {});
+
+    await agent
+      .put(HOST + "/users/001/status/OK")
+      .send({})
+      .then((err, res) => {
+        expect(err).toBe(null);
+        expect(res.statusCode).toBe(200);
+      })
+      .catch((e) => {});
+
+    await agent
+      .put(HOST + "/users/002/status/OK")
+      .send({})
+      .then((err, res) => {
+        expect(err).toBe(null);
+        expect(res.statusCode).toBe(200);
+      })
+      .catch((e) => {});
+  })().catch((e) => {});
+});
+
+test("Can search user by status", () => {
+  return (async () => {
     await agent
       .get(HOST + "/search/users")
       .query({ status: "OK" })
@@ -104,9 +144,7 @@ test("Can search user by status", () => {
         expect(users).toContain({ username: "002" });
       })
       .catch((e) => {});
-  })().catch((e) => {
-    // deal with chain fail
-  });
+  })();
 });
 
 // search username
@@ -124,26 +162,6 @@ test("Can search user by name", () => {
   })().catch((e) => {});
 });
 
-test("measure performance test", () => {
-  return (async () => {
-    await agent
-      .post(HOST + "/performance")
-      .then((err, res) => {
-        expect(err).toBe(null);
-        expect(res.statusCode).toBe(201);
-      })
-      .catch((e) => {});
-
-    await agent
-      .delete(HOST + "/performance")
-      .then((err, res) => {
-        expect(err).toBe(null);
-        expect(res.statusCode).toBe(201);
-      })
-      .catch((e) => {});
-  })().catch((e) => {});
-});
-
 test("Can post public message", () => {
   return (async () => {
     await agent
@@ -151,6 +169,15 @@ test("Can post public message", () => {
       .send(msg001)
       .then(function (err, res) {
         expect(res.statusCode).toBe(201);
+      })
+      .catch((e) => {
+        // deal with it
+      });
+
+    await agent
+      .get(HOST + "/messages/public")
+      .then(function (err, res) {
+        expect(res.statusCode).toBe(200);
       })
       .catch((e) => {
         // deal with it
@@ -200,6 +227,21 @@ test("Can search announcement", () => {
   })().catch((e) => {});
 });
 
+test("Can search public message", () => {
+  return (async () => {
+    await agent
+      .get(HOST + "/search/publicMessage")
+      .query({ q: "Hello", page: 1 })
+      .then((err, res) => {
+        expect(err).toBe(null);
+        expect(res.statusCode).toBe(200);
+        let announcements = res.body;
+        expect(announcements).toContain("Hello");
+      })
+      .catch((e) => {});
+  })().catch((e) => {});
+});
+
 test("Get announcement", () => {
   return (async () => {
     await agent
@@ -215,7 +257,7 @@ test("Get announcement", () => {
   })().catch((e) => {});
 });
 
-test("Can post a chat", () => {
+test("Can post private message", () => {
   return (async () => {
     await agent
       .post(HOST + "/chats")
@@ -228,26 +270,7 @@ test("Can post a chat", () => {
       .catch((e) => {
         // deal with it
       });
-  })().catch((e) => {});
-});
-
-// test('Can get a chat', () => {
-//     return (async () => {
-//         await agent.get(HOST + '/chats/' + chat_id).send()
-//             .then((res, err) => {
-//                 expect(err).toBe(undefined);
-//                 expect(res.statusCode).toBe(200);
-//             }).catch(e => {
-//                 // deal with it
-//             });
-//     })().catch(e => {
-//
-//     })
-//
-// });
-
-test("Can post private message", () => {
-  return (async () => {
+    console.log(chat_id);
     await agent
       .post(HOST + "/messages/private")
       .send({
@@ -279,30 +302,9 @@ test("Can post private message", () => {
       .catch((e) => {
         // deal with it
       });
-  })().catch((e) => {});
-});
 
-// search private message
-test("Can search private message", () => {
-  return (async () => {
     await agent
-      .get(HOST + "/search/privateMessage")
-      .query({ q: "Hello", chatId: chat_id, page: 1 })
-      .then((err, res) => {
-        expect(err).toBe(null);
-        expect(res.statusCode).toBe(200);
-        // let messages = res.body;
-        // expect(messages).toContain("002");
-      })
-      .catch((e) => {});
-  })().catch((e) => {});
-});
-
-test("Can search private message", () => {
-  return (async () => {
-    await agent
-      .get(HOST + "/search/privateMessage")
-      .query({ q: "How are you", chatId: chat_id, page: 1 })
+      .get(HOST + `/messages/private?chat_id=${chat_id}`)
       .then((err, res) => {
         expect(err).toBe(null);
         expect(res.statusCode).toBe(200);
@@ -405,41 +407,28 @@ test("Can Become Donor", () => {
   })().catch((e) => {});
 });
 
+test("Can Not Become Donor", () => {
+  return (async () => {
+    await agent
+      .put(HOST + "/users/002/isDonor")
+      .send({
+        bloodType: "O",
+        isDonor: true,
+      })
+      .then((err, res) => {
+        expect(err).toBe(null);
+        expect(res.statusCode).toBe(200);
+        // let messages = res.body;
+        // expect(messages).toContain("002");
+      })
+      .catch((e) => {});
+  })().catch((e) => {});
+});
+
 test("Can Get One User Record", () => {
   return (async () => {
     await agent
       .get(HOST + "/users/001")
-      .then((err, res) => {
-        expect(err).toBe(null);
-        expect(res.statusCode).toBe(200);
-        // let messages = res.body;
-        // expect(messages).toContain("002");
-      })
-      .catch((e) => {});
-  })().catch((e) => {});
-});
-
-test("Can Set User Status", () => {
-  return (async () => {
-    await agent
-      .put(HOST + "/users/001/status/OK")
-      .then((err, res) => {
-        expect(err).toBe(null);
-        expect(res.statusCode).toBe(200);
-        // let messages = res.body;
-        // expect(messages).toContain("002");
-      })
-      .catch((e) => {});
-  })().catch((e) => {});
-});
-
-test("Can User Login", () => {
-  return (async () => {
-    await agent
-      .put(HOST + "/users/001/online")
-      .send({
-        password: "1234",
-      })
       .then((err, res) => {
         expect(err).toBe(null);
         expect(res.statusCode).toBe(200);
@@ -457,6 +446,75 @@ test("Can User offline", () => {
       .then((err, res) => {
         expect(err).toBe(null);
         expect(res.statusCode).toBe(200);
+        // let messages = res.body;
+        // expect(messages).toContain("002");
+      })
+      .catch((e) => {});
+  })().catch((e) => {});
+});
+
+test("Can search private message", () => {
+  return (async () => {
+    await agent
+      .get(HOST + "/search/privateMessage")
+      .query({ q: "How are you", chatId: chat_id, page: 1 })
+      .then((err, res) => {
+        expect(err).toBe(null);
+        expect(res.statusCode).toBe(200);
+        // let messages = res.body;
+        // expect(messages).toContain("002");
+      })
+      .catch((e) => {});
+  })().catch((e) => {});
+});
+
+test("Cannot search invalid query", () => {
+  return (async () => {
+    await agent
+      .get(HOST + "/search/privateMessage")
+      .then((err, res) => {
+        expect(err).toBe(null);
+        expect(res.statusCode).toBe(403);
+        // let messages = res.body;
+        // expect(messages).toContain("002");
+      })
+      .catch((e) => {});
+
+    await agent
+      .get(HOST + "/search/users")
+      .then((err, res) => {
+        expect(err).toBe(null);
+        expect(res.statusCode).toBe(403);
+        // let messages = res.body;
+        // expect(messages).toContain("002");
+      })
+      .catch((e) => {});
+
+    await agent
+      .get(HOST + "/search/publicMessage")
+      .then((err, res) => {
+        expect(err).toBe(null);
+        expect(res.statusCode).toBe(403);
+        // let messages = res.body;
+        // expect(messages).toContain("002");
+      })
+      .catch((e) => {});
+
+    await agent
+      .get(HOST + "/search/status")
+      .then((err, res) => {
+        expect(err).toBe(null);
+        expect(res.statusCode).toBe(403);
+        // let messages = res.body;
+        // expect(messages).toContain("002");
+      })
+      .catch((e) => {});
+
+    await agent
+      .get(HOST + "/search/announcement")
+      .then((err, res) => {
+        expect(err).toBe(null);
+        expect(res.statusCode).toBe(403);
         // let messages = res.body;
         // expect(messages).toContain("002");
       })
@@ -523,7 +581,7 @@ test("Can User update acknowledgement ", () => {
 test("Can messages private unread ", () => {
   return (async () => {
     await agent
-      .put(HOST + `/messages/private/${msg001.id}/unread`)
+      .put(HOST + `/messages/private/unread?username=002`)
       .then((err, res) => {
         expect(err).toBe(null);
         expect(res.statusCode).toBe(200);
@@ -755,5 +813,109 @@ test("Delete a blog", () => {
       .catch((e) => {
         // deal with it
       });
+  })().catch((e) => {});
+});
+
+test("Can create an event", () => {
+  return (async () => {
+    await agent
+      .post(HOST + "/events")
+      .send({
+        title: "test",
+        location: "1800 Holleamn Drive, MTV, CA, 98609",
+        host: "test",
+        type: "other",
+        details: "test",
+        startTime: "April 29, 2222 11:40 AM",
+      })
+      .then((err, res) => {
+        expect(err).toBe(null);
+        expect(res.statusCode).toBe(201);
+      })
+      .catch((e) => {});
+  })().catch((e) => {});
+});
+
+test("Can Join/Unjoin an  event", () => {
+  return (async () => {
+    const response = await axios.get(HOST + "/events");
+    const data = response.data[0];
+    const { _id: eventId } = data;
+    await agent
+      .put(HOST + `/events/${eventId}/join?username=zihan`)
+      .then((err, res) => {
+        expect(err).toBe(null);
+        expect(res.statusCode).toBe(200);
+      })
+      .catch((e) => {});
+    await agent
+      .put(HOST + `/events/${eventId}/unjoin?username=zihan`)
+      .then((err, res) => {
+        expect(err).toBe(null);
+        expect(res.statusCode).toBe(200);
+      })
+      .catch((e) => {});
+  })().catch((e) => {});
+});
+
+test("Cannot unjoin a event created by me", () => {
+  return (async () => {
+    const response = await axios.get(HOST + "/events");
+    const data = response.data[0];
+    const { _id: eventId } = data;
+    await agent
+      .put(HOST + `/events/${eventId}/unjoin?username=test`)
+      .then((res) => {
+        expect(err).toBe(null);
+        expect(res.statusCode).toBe(200);
+      })
+      .catch((e) => {});
+  })().catch((e) => {});
+});
+
+test("Can get events by host", () => {
+  return (async () => {
+    await agent
+      .get(HOST + `/events/zihan`)
+      .then((res) => {
+        expect(err).toBe(null);
+        expect(res.statusCode).toBe(200);
+      })
+      .catch((e) => {});
+  })().catch((e) => {});
+});
+
+test("Can delete an event", () => {
+  return (async () => {
+    const response = await axios.get(HOST + "/events");
+    const data = response.data[0];
+    const { _id: eventId } = data;
+    await agent
+      .delete(HOST + `/events/${eventId}`)
+      .then((err, res) => {
+        expect(err).toBe(null);
+        expect(res.statusCode).toBe(200);
+      })
+      .catch((e) => {});
+  })().catch((e) => {});
+});
+
+test("measure performance test", () => {
+  return (async () => {
+    await agent
+      .post(HOST + "/performance")
+      .then((err, res) => {
+        expect(err).toBe(null);
+        expect(res.statusCode).toBe(201);
+      })
+      .catch((e) => {});
+
+    await agent
+      .delete(HOST + "/performance")
+      .then((err, res) => {
+        expect(err).toBe(null);
+        expect(res.statusCode).toBe(201);
+      })
+      .catch((e) => {});
   })().catch((e) => {});
 });

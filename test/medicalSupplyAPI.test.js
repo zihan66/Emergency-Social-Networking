@@ -23,9 +23,6 @@ beforeAll(async () => {
 
 afterAll(async () => {
   const collections = await mongoose.connection.db.collections();
-  for (let collection of collections) {
-    await collection.deleteMany({});
-  }
   await mongoose.connection.close();
   await server.close();
 });

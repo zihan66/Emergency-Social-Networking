@@ -24,6 +24,10 @@ router.put("/:username/acknowledgement", auth, joinController.acknowledge);
 
 router.put("/:username/isDonor", suspend, donorsController.updateUserByDonor);
 
-router.put("/:username/updateBloodType", suspend, donorsController.updateBloodType);
+router.put(
+  "/:username/updateBloodType",
+  suspend,
+  donorsController.updateBloodType
+);
 
 module.exports = router;

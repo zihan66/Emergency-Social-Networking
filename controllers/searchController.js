@@ -32,6 +32,7 @@ class searchController {
       const result = await User.findUserByStatus(status);
       res.status(200).json(result);
     } catch (error) {
+      console.log(error);
       res.status(500).json({ error });
     }
   }
