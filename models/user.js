@@ -18,7 +18,9 @@ const userSchema = new mongoose.Schema({
   isAcknowledge: { type: Boolean, default: false },
   lastStatusCode: { type: String, default: "unknown" },
   bloodType: { type: String, default: "unknown" },
-  isDonor: { type: Boolean, default: false }
+  isDonor: { type: Boolean, default: false },
+  privilege: { type: String, default: "citizen" },
+  accountStatus: { type: String, default: "active" },
   // lastStatusUpdateTime: {type: String, default: "unknownTime"},
 });
 

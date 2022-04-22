@@ -39,7 +39,7 @@ class reserveMedicalSupplyController {
         io.emit("cancelReservation", emitData);
       }
       //console.log("result", result);
-      res.status(200).json();
+      res.status(204).json();
     } catch (error) {
       res.status(500).json({ error });
     }
