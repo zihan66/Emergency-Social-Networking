@@ -20,7 +20,7 @@ router.put(
   suspend,
   shareStatusController.setStatus
 );
-router.put("/:username/acknowledgement", joinController.acknowledge);
+router.put("/:username/acknowledgement", auth, joinController.acknowledge);
 
 router.put("/:username/isDonor", suspend, donorsController.updateUserByDonor);
 

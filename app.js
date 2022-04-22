@@ -26,9 +26,11 @@ app.use(express.static(path.join(__dirname, "public")));
 // establish database connection
 mongoose.set("useCreateIndex", true);
 mongoose.set("autoIndex", false);
+/* istanbul ignore next */
 if (process.env.ENVIRONMENT === "DEV") {
   mongoose.connect(process.env.DEV_DATABASE);
 } else {
+  /* istanbul ignore next */
   mongoose.connect(process.env.DATABASE);
 }
 app.use("/", index);
@@ -43,6 +45,7 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
+  /* istanbul ignore next */
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
   // render the error page

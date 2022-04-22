@@ -143,6 +143,7 @@ class searchController {
         numberOfResult,
         chatID
       );
+      /* istanbul ignore next */
       if (result.length === numberOfResult) {
         moreResult = true;
         result.pop();
@@ -169,6 +170,7 @@ class searchController {
     try {
       const another = await Chat.findAnotherUser(req.cookies.username, chatId);
       let result = await Status.searchStatusHistory(another, numberOfResult);
+      /* istanbul ignore next */
       if (result.length === numberOfResult) {
         moreResult = true;
         result.pop();
@@ -181,6 +183,7 @@ class searchController {
     const query = req.query.q;
     const searchContent = query.toLowerCase();
     const filteredContents = removeStopWords(searchContent);
+    /* istanbul ignore next */
     if (filteredContents.length === 0) {
       res.status(200).json([]);
       return;

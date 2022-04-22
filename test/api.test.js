@@ -57,6 +57,12 @@ const msg001 = {
   username: "001",
 };
 
+const testMessage = {
+  id: 4,
+  content: "Test",
+  username: "001",
+};
+
 const msg002 = { id: 1, content: "I am 002", username: "002" };
 
 const msg003 = {
@@ -235,15 +241,17 @@ test("Can post public message", () => {
       .catch((e) => {
         // deal with it
       });
-
-    await agent
-      .get(HOST + "/messages/public")
-      .then(function (err, res) {
-        expect(res.statusCode).toBe(200);
-      })
-      .catch((e) => {
-        // deal with it
-      });
+    for (let i = 0; i < 11; i++) {
+      await agent
+        .post(HOST + "/messages/public")
+        .send(testMessage)
+        .then(function (err, res) {
+          expect(res.statusCode).toBe(201);
+        })
+        .catch((e) => {
+          // deal with it
+        });
+    }
   })().catch((e) => {});
 });
 
@@ -254,7 +262,21 @@ test("Can post announcement", () => {
       .send(msg001)
       .then(function (err, res) {
         expect(res.statusCode).toBe(201);
+      })
+      .catch((e) => {
+        // deal with it
       });
+    for (let j = 0; j < 11; j++) {
+      await agent
+        .post(HOST + "/messages/announcement")
+        .send(testMessage)
+        .then(function (err, res) {
+          expect(res.statusCode).toBe(201);
+        })
+        .catch((e) => {
+          // deal with it
+        });
+    }
   })().catch((e) => {});
 });
 
@@ -264,6 +286,17 @@ test("Can search public message", () => {
     await agent
       .get(HOST + "/search/publicMessage")
       .query({ q: "Hello", page: 1 })
+      .then((err, res) => {
+        expect(err).toBe(null);
+        expect(res.statusCode).toBe(200);
+        let messages = res.body;
+        expect(messages).toContain("Hello");
+      })
+      .catch((e) => {});
+
+    await agent
+      .get(HOST + "/search/publicMessage")
+      .query({ q: "Test", page: 1 })
       .then((err, res) => {
         expect(err).toBe(null);
         expect(res.statusCode).toBe(200);
@@ -290,6 +323,17 @@ test("Can search announcement", () => {
     await agent
       .get(HOST + "/search/announcement")
       .query({ q: "Hello", page: 1 })
+      .then((err, res) => {
+        expect(err).toBe(null);
+        expect(res.statusCode).toBe(200);
+        let announcements = res.body;
+        expect(announcements).toContain("Hello");
+      })
+      .catch((e) => {});
+
+    await agent
+      .get(HOST + "/search/announcement")
+      .query({ q: "Test", page: 1 })
       .then((err, res) => {
         expect(err).toBe(null);
         expect(res.statusCode).toBe(200);

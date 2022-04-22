@@ -5,7 +5,9 @@
   "jest": {
     "coveragePathIgnorePatterns": [
       "lib",
-      "routes/index.js"
+      "routes/index.js",
+      "middlewares/canAskForDonor.js",
+      "middlewares/canBeDonor.js"
     ]
   },
   "scripts": {
