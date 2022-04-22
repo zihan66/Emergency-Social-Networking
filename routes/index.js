@@ -62,8 +62,6 @@ router.get("/chatroom/:chatid/:target", auth, (req, res) => {
   res.render("chatRoom", { title: "chatRoom" });
 });
 
-
-
 router.use("/users", suspend, userRoute);
 
 router.get("/measure", (req, res) => {
@@ -96,6 +94,10 @@ router.get("/provideMedicalSupply", (req, res) => {
 router.get("/reserveMedicalSupply", (req, res) => {
   res.render("medicalSupplyReservation", { title: "medicalSupplyReservation" });
 });
+
+// router.get("/public/javascripts/common/constants.js", (req, res) => {
+//   res.sendFile("/public/javascripts/common/constants.js"); //change this to your file path
+// });
 
 router.use("/users", userRoute);
 router.use("/messages", messageRoute);

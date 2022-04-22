@@ -27,15 +27,16 @@ const deleteEvent = async (eventId) => {
   }
 };
 
-const createCard = (
-  title,
-  startTime,
-  location,
-  host,
-  type,
-  details,
-  participants
-) => {
+const createCard = (params) => {
+  const {
+    title,
+    startTime,
+    location,
+    host,
+    type,
+    details,
+    participants,
+  } = params;
   const participantsString = participants.join(",");
   const card = document.createElement("div");
   card.className = "ui card";
@@ -85,15 +86,15 @@ const appendSingleEvent = (event) => {
       item.remove();
     }
   };
-  const card = createCard(
+  const card = createCard({
     title,
     startTime,
     location,
     host,
     type,
     details,
-    participants
-  );
+    participants,
+  });
   const extraContent = document.createElement("div");
   extraContent.className = "extra content";
   extraContent.innerText = "You are going to this event";

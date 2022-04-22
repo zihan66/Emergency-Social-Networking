@@ -53,15 +53,16 @@ const unjoin = async (eventId) => {
   }
 };
 
-const createCard = (
-  title,
-  startTime,
-  location,
-  host,
-  type,
-  details,
-  participants
-) => {
+const createCard = (params) => {
+  const {
+    title,
+    startTime,
+    location,
+    host,
+    type,
+    details,
+    participants,
+  } = params;
   const participantsString = participants.join(",");
   console.log(participantsString);
   const card = document.createElement("div");
@@ -120,15 +121,15 @@ const appendSingleEvent = (event) => {
   extraContent.className = "extra content";
   extraContent.innerText = isGoing ? "You are going to this event" : "";
   extraContent.appendChild(button);
-  const card = createCard(
+  const card = createCard({
     title,
     startTime,
     location,
     host,
     type,
     details,
-    participants
-  );
+    participants,
+  });
   card.appendChild(extraContent);
   item.appendChild(card);
   eventList.appendChild(item);

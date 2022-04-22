@@ -1,4 +1,4 @@
-const { reservedUsernameList } = require('./common/constants');
+import reservedUsernameList from "../javascripts/common/constants.js";
 
 // Get the modal
 const modal = document.querySelector(".modal-wrapper");
@@ -56,7 +56,6 @@ loginOrSignUp.addEventListener("click", async (e) => {
       },
       body: JSON.stringify(data),
     });
-
 
     if (response.status === 404) {
       modal.style.display = "block";
