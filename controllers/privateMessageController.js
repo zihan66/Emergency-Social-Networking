@@ -7,10 +7,6 @@ class PrivateMessageController {
   static async createNewPrivateChat(req, res) {
     try {
       const { username1, username2 } = req.body;
-      if (username1 === undefined || username2 === undefined) {
-        res.status(404).json({});
-        return;
-      }
       const existedChat = await Chat.findChatBetweenTwoUsers(
         username1,
         username2
@@ -40,10 +36,6 @@ class PrivateMessageController {
     });
 
     try {
-      if (!chat) {
-        res.status(404).json();
-        return;
-      }
       await Message.update(
         { chatID, unread: true, target: req.cookies.username },
         { $set: { unread: false } }
@@ -64,10 +56,6 @@ class PrivateMessageController {
       });
       const authorUser = await User.findOne({ username: author });
       const targetUser = await User.findOne({ username: target });
-      if (chat == null) {
-        res.status(404).json({});
-        return;
-      }
       let currentMessage = {
         content,
         author: authorUser.username,
@@ -104,18 +92,9 @@ class PrivateMessageController {
   static async getUserAllChats(req, res) {
     try {
       const { username } = req.query;
-      if (!username) {
-        res.status(400).send({ error: "error" });
-      }
       const existedUser = await User.findOne({
         username,
       });
-      if (!existedUser) {
-        res.status(404).json({
-          message: "username does not exist",
-        });
-        return;
-      }
       const chats = await Chat.findChatsOfUser(username);
       const result = chats.map((chat) => {
         const { username1, username2, chatID } = chat;

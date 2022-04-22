@@ -52,10 +52,7 @@ class loginLogoutController {
       res.status(200).json({
         jwtToken: token,
       });
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({ error });
-    }
+    } catch (error) {}
   }
 
   static async logout(req, res) {
@@ -63,29 +60,21 @@ class loginLogoutController {
     const io = socket.getInstance();
     try {
       let result = await User.findOne({ username: user.username });
-      if (result) {
-        await User.updateOne({ username: user.username }, { isLogin: false });
-        const userList = await User.findAllUsers();
-        io.emit("userList", userList);
-        res.clearCookie("jwtToken");
-        res.clearCookie("username");
+      await User.updateOne({ username: user.username }, { isLogin: false });
+      const userList = await User.findAllUsers();
+      io.emit("userList", userList);
+      res.clearCookie("jwtToken");
+      res.clearCookie("username");
 
-        res.status(200).json({});
-      } else {
-        res.status(500).json({});
-      }
-    } catch (e) {
-      res.status(200).send({ status: false, message: e.message });
-    }
+      res.status(200).json({});
+    } catch (e) {}
   }
 
   static async getAllUsers(req, res) {
     try {
       const userList = await User.findAllUsers();
       res.status(200).json(userList);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
 }
 module.exports = loginLogoutController;

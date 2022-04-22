@@ -75,13 +75,14 @@ test("findChatBetweenTwoUsersReturnCheck", async () => {
     chatID: new Date().getTime().toString(36),
   });
   await hakanChat2.save();
-  const chat = await Chat.findChatBetweenTwoUsers("Hakan","Hakan2");
-  const chat2 = await Chat.findChatBetweenTwoUsers("Hakan2","Hakan");
+  const chat = await Chat.findChatBetweenTwoUsers("Hakan", "Hakan2");
+  const chat2 = await Chat.findChatBetweenTwoUsers("Hakan2", "Hakan");
   expect(chat.chatID).toBe(chat2.chatID);
 });
 
 //findChatsOfUser
 test("findChatsOfUserReturnCheck", async () => {
+  const chatID = new Date().getTime().toString(36);
   const hakanChat = new Chat({
     username1: "Hakan",
     username2: "Hakan2",
@@ -91,11 +92,14 @@ test("findChatsOfUserReturnCheck", async () => {
   const hakanChat2 = new Chat({
     username1: "Hakan3",
     username2: "Hakan4",
-    chatID: new Date().getTime().toString(36),
+    chatID,
   });
   await hakanChat2.save();
   const chat = await Chat.findChatsOfUser("Hakan");
+  const anotherUser = await Chat.findAnotherUser("Hakan4", chatID);
+  const anotherUser2 = await Chat.findAnotherUser("Hakan2", chatID);
+  expect(anotherUser).toBe("Hakan2");
+  expect(anotherUser2).toBe("Hakan");
   const chat2 = await Chat.findChatsOfUser("Hakan2");
   expect(chat.chatID).toBe(chat2.chatID);
 });
-

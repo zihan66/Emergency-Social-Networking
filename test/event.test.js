@@ -81,3 +81,12 @@ test("It should be possible to delete an event", async () => {
   const event = await Event.findOne({ title: "test2" });
   expect(event).toBeNull();
 });
+
+test("It should be not possible to find an event without username", async () => {
+  const res = await Event.findEventByHost("");
+  const leave = await Event.leaveEvent("", "");
+  const join = await Event.joinEvent("", "");
+  expect(res).toBe(undefined);
+  expect(leave).toBe(undefined);
+  expect(join).toBe(undefined);
+});

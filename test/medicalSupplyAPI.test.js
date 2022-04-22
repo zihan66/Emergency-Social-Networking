@@ -235,6 +235,11 @@ test("can search medical supplies by name", () => {
   return (async () => {
     await agent
       .get(HOST + "/search/medicalSupplies")
+      .query({ q: "the" })
+      .then((res) => {});
+
+    await agent
+      .get(HOST + "/search/medicalSupplies")
       .query({ q: "medical" })
       .then((res) => {
         const searchResult = res.body;
