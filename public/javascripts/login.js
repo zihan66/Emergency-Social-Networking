@@ -679,7 +679,7 @@ loginOrSignUp.addEventListener("click", async (e) => {
       return;
     }
     if (response.status === 401) {
-      if (result.message === "password is wrong") {
+      if (result.error === "password is wrong") {
         const ele = document.querySelector("#password-hint");
         ele.innerHTML = "user does not exist or password is incorrect";
         return;

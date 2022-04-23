@@ -24,10 +24,7 @@ const addSingleUser = (user) => {
   item.addEventListener("click", async function (e) {
     e.preventDefault();
     const username2 = this.id;
-    const chatID = userChatMap.get(this.id);
-    if (userChatMap.has(username2)) {
-      window.location.href = `/users/edit/${username2}`;
-    }
+    window.location.href = `/users/edit/${username2}`;
   });
   // let userStatus = "";
   // if (lastStatusCode === "OK") userStatus = "green";
@@ -134,14 +131,6 @@ window.addEventListener("load", async () => {
   }
 });
 
-const clickUnreadMsgBlock = () => {
-  const unreadMsgBlock = document.querySelector(".unreadMsgBlock");
-  if (unreadMsgBlock.style.display === "block") {
-    unreadMsgBlock.style.display = "";
-  } else {
-    unreadMsgBlock.style.display = "block";
-  }
-};
 
 const calculateMsgNum = (username) => {
   if (msgNumMap.has(username)) {
@@ -152,126 +141,9 @@ const calculateMsgNum = (username) => {
   }
 };
 
-const logout = document.querySelector("#logout");
-logout.addEventListener("click", async (e) => {
+const leave = document.querySelector("#leave");
+leave.addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation();
-  const { username } = cookies;
-  try {
-    const response = await fetch(`/users/${username}/offline`, {
-      method: "put",
-      headers: {
-        Authorization: `Bearer ${cookies.jwtToken}`,
-      },
-    });
-    window.location.href = "/";
-  } catch (error) {
-    console.log(error);
-  }
+  window.location.href = "/directory";
 });
-
-const setGreyButton = document.querySelector("#setGreyButton");
-setGreyButton.addEventListener("click", async (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  const { username } = cookies;
-  const lastStatusCode = "UNKNOWN";
-  try {
-    const response = await fetch(
-      `/users/${username}/status/${lastStatusCode}`,
-      {
-        method: "put",
-        headers: {
-          Authorization: `Bearer ${cookies.jwtToken}`,
-        },
-      }
-    );
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-const setRedButton = document.querySelector("#setRedButton");
-setRedButton.addEventListener("click", async (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  const { username } = cookies;
-  const lastStatusCode = "EMERGENCY";
-  try {
-    const response = await fetch(
-      `/users/${username}/status/${lastStatusCode}`,
-      {
-        method: "put",
-        headers: {
-          Authorization: `Bearer ${cookies.jwtToken}`,
-        },
-      }
-    );
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-const setGreenButton = document.querySelector("#setGreenButton");
-setGreenButton.addEventListener("click", async (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  const { username } = cookies;
-  const lastStatusCode = "OK";
-  try {
-    const response = await fetch(
-      `/users/${username}/status/${lastStatusCode}`,
-      {
-        method: "put",
-        headers: {
-          Authorization: `Bearer ${cookies.jwtToken}`,
-        },
-      }
-    );
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-const setYellowButton = document.querySelector("#setYellowButton");
-setYellowButton.addEventListener("click", async (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  const { username } = cookies;
-  const lastStatusCode = "HELP";
-  try {
-    const response = await fetch(
-      `/users/${username}/status/${lastStatusCode}`,
-      {
-        method: "put",
-        headers: {
-          Authorization: `Bearer ${cookies.jwtToken}`,
-        },
-      }
-    );
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-
-const becomeDonnorBt = document.querySelector("#BecomeDonnor");
-
-becomeDonnorBt.addEventListener("click", () => {
-  if (cookies.lastStatusCode == "OK") {
-    window.location.href = "/newDonor";
-  } else {
-    alert("You are not eligible to be a donor due to your current status");
-  }
-});
-
-const askforBloodBt = document.querySelector("#AskforBlood");
-
-askforBloodBt.addEventListener("click", () => {
-  if (cookies.lastStatusCode == "EMERGENCY") {
-    window.location.href = "/askForDonor";
-  } else {
-    alert("You are not eligible to ask for blood due to your current status");
-  }
-});
-$(".ui.sidebar").sidebar("attach events", "#bar");
