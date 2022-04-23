@@ -48,6 +48,10 @@ router.get("/directory", auth, (req, res) => {
   res.render("directory", { title: "directory" });
 });
 
+router.get("/directoryForAdmin", auth, (req, res) => {
+  res.render("directoryForAdmin", { title: "directoryForAdmin" });
+});
+
 router.get("/newDonor", auth, canBeDonor, (req, res) => {
   res.render("newDonor", { title: "newDonor" });
 });

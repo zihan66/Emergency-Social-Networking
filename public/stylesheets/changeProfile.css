@@ -1,0 +1,211 @@
+.editProfile-wrapper {
+  position  : relative;
+  /* background: rgb(10, 3, 3, 0.89); */
+  background: rgba(255, 255, 255, 0.755);
+  height    : 100%;
+}
+
+.editProfile-wrapper .editProfile-header {
+  display         : flex;
+  align-items     : center;
+  height          : 3.5rem;
+  padding         : 10px 10px;
+  justify-content : space-between;
+  color           : whitesmoke;
+  background-color: rgb(91, 89, 89);
+  /* background-color: #24292f; */
+}
+
+#leave {
+  height       : 2rem;
+  border-radius: 8px;
+  color        : rgba(255, 0, 0, 0.79);
+  border       : none;
+}
+
+.header1 {
+  display      : block;
+  color        : #ffddaa;
+  text-align   : center;
+  font-size    : 22px;
+  margin-bottom: 5%;
+}
+
+.message-container {
+  padding   : 15px 12px;
+  box-sizing: border-box;
+  height    : calc(100% - 80px);
+  overflow  : auto;
+}
+
+
+.avatar {
+  font-size: 2rem;
+}
+
+
+
+.other-content {
+  margin-top   : 5px;
+  padding      : 1rem 1rem;
+  border       : 1px solid #ffddaa;
+  border-radius: 5px;
+  color        : #eeece8;
+  text-align   : left;
+}
+
+.self-content {
+  margin-top   : 5px;
+  padding      : 1rem 1rem;
+  border       : 1px solid #ffddaa;
+  border-radius: 5px;
+  background   : #656861;
+  color        : #eeece8;
+  text-align   : left;
+}
+
+
+.other-message {
+  font-size    : 14px;
+  color        : whitesmoke;
+  margin-bottom: 2rem;
+  padding      : 5px 8px;
+  width        : 70%;
+  display      : table;
+}
+
+.input-area-container {
+  position                  : absolute;
+  display                   : flex;
+  bottom                    : 0;
+  height                    : 44px;
+  padding                   : 5px 8px;
+  width                     : 100%;
+  box-sizing                : border-box;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius : 8px;
+  background-color          : rgb(104, 107, 107);
+}
+
+textarea {
+  /* display      : inline-block;
+  border       : none; */
+  border-radius: 3px;
+  /* color        : whitesmoke !important; */
+  outline      : none;
+  /* background   : rgb(19, 17, 17); */
+  height: 200px;
+  width        : 90%;
+}
+
+
+#msg-button {
+  display         : inline-block;
+  margin-left     : 8px;
+  width           : 58px;
+  height          : 100%;
+  border-radius   : 8px;
+  color           : rgba(255, 0, 0, 0.79);
+  background-color: #ffddaa;
+  border          : none;
+}
+
+.status {
+  width : 15px;
+  height: 15px;
+}
+
+.username {
+  text-align   : end;
+  color        : #ffddaa;
+  margin-bottom: 4px;
+  font-size    : 14px;
+}
+
+
+
+.time-stamp {
+  color     : rgb(156, 132, 104);
+  font-size : 12px;
+  text-align: end;
+}
+
+.self-message {
+  float        : right;
+  font-size    : 14px;
+  color        : whitesmoke;
+  margin-bottom: 2rem;
+  padding      : 5px 8px;
+  width        : 70%;
+  display      : table;
+  text-align   : right;
+}
+
+
+.dislikeButtonDiv {
+  display: none;
+  /* color: whitesmoke;
+  background-color: rgb(108, 114, 121); */
+}
+
+.likeButtonDiv {
+  /* display: none; */
+  /* color: whitesmoke;
+  background-color: rgb(108, 114, 121); */
+}
+.normalButton{
+  display         : inline-block;
+  margin-left     : 8px;
+  width           : 100px;
+  height          : 30px;
+  border-radius   : 8px;
+  color           : rgba(255, 0, 0, 0.79);
+  background-color: #ffddaa;
+  border          : none;
+}
+
+.editProfileButton{
+  display         : inline-block;
+  margin-left     : 8px;
+  width           : 200px;
+  height          : 30px;
+  border-radius   : 8px;
+  color           : rgba(255, 0, 0, 0.79);
+  background-color: #ffddaa;
+  border          : none;
+}
+
+.theLikeButton{
+  display         : inline-block;
+  margin-left     : 8px;
+  width           : 200px;
+  height          : 60px;
+  border-radius   : 8px;
+  /* color           : rgba(255, 0, 0, 0.79);
+  background-color: #ffddaa; */
+  border          : none;
+}
+
+.theDislikeButton{
+  display         : inline-block;
+  margin-left     : 8px;
+  width           : 200px;
+  height          : 60px;
+  border-radius   : 8px;
+  /* color           : rgba(122, 122, 122, 0.79);
+  background-color: #ffddaa; */
+  border          : none;
+}
+
+.plusHeart{
+  display: none;
+}
+
+
+#username-hint,
+#password-hint {
+  display   : inline-block;
+  color     : rgba(255, 0, 0, 0.79);
+  font-size : 12px;
+  margin-top: 5px;
+}

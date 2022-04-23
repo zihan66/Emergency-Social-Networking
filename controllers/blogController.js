@@ -73,6 +73,7 @@ class blogController {
       // console.log("req:", req);
       const blog = await this.strategy.getABlog(blogIDSearch);
       res.render("blog", { blog: blog });
+      // res.status(200).json(blog);
     } catch (error) {
       console.log(error);
     }

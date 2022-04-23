@@ -34,4 +34,5 @@ router.put(
 router.put("/:username/inactive", administerUserProfileController.ChangeToInactive);
 router.put("/:username/active", administerUserProfileController.ChangeToActive);
 router.put("/:username",administerUserProfileController.updateUserProfile)
+router.get("/edit/:username", suspend, administerUserProfileController.renderOneUserRecord);
 module.exports = router;

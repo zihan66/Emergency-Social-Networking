@@ -4,13 +4,57 @@ const socket = require("../socket");
 const User = require("../models/user");
 
 class administerUserProfileController {
-
   static async LogoutOneUser(io, target, cause) {
-
     // const io = socket.getInstance();
     const targetSocketId = socket.hasName[target.username];
     io.sockets.to(targetSocketId).emit("ejectOneUser", cause);
+  }
 
+  static async renderOneUserRecord(req, res) {
+    try {
+      const user =
+        (await User.findOne({ username: req.params.username })) || {};
+      // sensitive
+      const password = user.password;
+      const isAcknowledge = user.isAcknowledge;
+      // non-sensitive
+      const isLogin = user.isLogin;
+      const lastStatusCode = user.lastStatusCode;
+      const username = user.username;
+      const privilege = user.privilege;
+      const accountStatus = user.accountStatus;
+      const myPrivilege = req.cookies.privilege;
+      // const userLastUpdateTime = user.lastStatusUpdateTime;
+      // merge into a list
+      const userInformationList = {
+        username,
+        password,
+        isLogin,
+        isAcknowledge,
+        lastStatusCode,
+        privilege,
+        accountStatus,
+        myPrivilege,
+      };
+      console.log(userInformationList);
+      // res.status(200).json(userInformationList);
+
+      // const myName = req.cookies.username;
+      // const me = (await User.findOne({ username: myName })) || {};
+      // const myPrivilege = me.privilege;
+      if (myPrivilege == "Administrator" || myPrivilege == "administrator") {
+        res.render("changeProfile", {
+          userInformationList: userInformationList,
+        });
+      } else {
+        // res.render("needToBeAdmin", { title: "needToBeAdmin" });
+        res.render("changeProfile", {
+          userInformationList: userInformationList,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   static async ChangeToInactive(req, res) {
@@ -93,7 +137,6 @@ class administerUserProfileController {
         return;
       }
 
-    
       if (modifiedPassword != null) {
         console.log("enter modifiedPassword ");
         await User.updateOne(
