@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/iteration5-logout.iml" filepath="$PROJECT_DIR$/.idea/iteration5-logout.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/iteration5-refactor.iml" filepath="$PROJECT_DIR$/.idea/iteration5-refactor.iml" />
+>>>>>>> iteration5-refactor
     </modules>
   </component>
 </project>

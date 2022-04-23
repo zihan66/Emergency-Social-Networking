@@ -56,22 +56,6 @@ socket.on("donorList", (users) => {
   directoryContainer.scrollTop = 0;
 });
 
-// socket.on("updateStatus", (user) => {
-//   const id = `${user.username}Status`;
-//   const statusUpdated = user.lastStatusCode;
-//   const userStatus = statusImage(statusUpdated);
-
-//   const updateStatus = document.getElementById(`${id}`);
-//   updateStatus.innerHTML = `<img src="../images/${userStatus}.png"> ${statusUpdated}`;
-// });
-
-// socket.on("privateMessage", (message) => {
-//   console.log("I am in");
-//   const { target, author } = message;
-//   if (target === cookies.username)
-//     window.alert("You received a new message from " + author);
-  
-// });
 
 
 window.addEventListener("load", async () => {

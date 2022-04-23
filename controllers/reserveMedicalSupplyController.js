@@ -40,4 +40,5 @@ class reserveMedicalSupplyController {
     }
   }
 }
+
 module.exports = reserveMedicalSupplyController;

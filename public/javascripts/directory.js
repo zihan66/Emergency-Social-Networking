@@ -49,11 +49,7 @@ const addSingleUser = (user) => {
       }
     }
   });
-  // let userStatus = "";
-  // if (lastStatusCode === "OK") userStatus = "green";
-  // else if (lastStatusCode === "HELP") userStatus = "yellow";
-  // else if (lastStatusCode === "EMERGENCY") userStatus = "red";
-  // else userStatus = "grey";
+
   const userStatus = statusImage(lastStatusCode);
   item.className = "user";
   item.id = `${username}`;
@@ -122,14 +118,6 @@ socket.on("ejectOneUser", async (cause) => {
   }
 });
 
-// const addUnreadMsg = (username) => {
-//   const unreadMsgList = document.querySelector(".unreadMsgList");
-//   const item = document.createElement("li");
-//   item.id = `${username}`;
-//   item.innerHTML = `<span> ${username}</span><span class="msgNum"></span>`;
-//   unreadMsgList.appendChild(item);
-// }
-
 window.addEventListener("load", async () => {
   try {
     socket.auth = { username: cookies.username };
@@ -178,14 +166,12 @@ const calculateMsgNum = (username) => {
 };
 const unread = document.getElementById("unread");
 unread.addEventListener("click", async () => {
-  //clickUnreadMsgBlock();
   const unreadMsgBlock = document.querySelector(".unreadMsgBlock");
   if (unreadMsgBlock.style.display === "block") {
     unreadMsgBlock.style.display = "";
   } else {
     unreadMsgBlock.style.display = "block";
   }
-  //alert(unreadMsgBlock.style.display);
 
   if (unreadMsgBlock.style.display === "block") {
     try {
@@ -210,7 +196,6 @@ unread.addEventListener("click", async () => {
           msgNum = 1;
           msgNumMap.set(unreadMsgsData[i].username, msgNum);
         }
-        //calculateMsgNum(unreadMsgsData[i].username);
       }
       console.log("unreadMsgMap", unreadMsgMap);
       console.log("msgNumMap", msgNumMap);

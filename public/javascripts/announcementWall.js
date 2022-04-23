@@ -1,6 +1,6 @@
 const msgContainer = document.querySelector(".message-container");
 const msgList = document.querySelector(".message-list");
-//const infScroll = new InfiniteScroll(msgList);
+
 const { cookies } = brownies;
 // eslint-disable-next-line no-undef
 const socket = io({ URL: "http://localhost:3000", autoConnect: false });

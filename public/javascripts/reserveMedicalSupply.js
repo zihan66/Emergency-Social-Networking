@@ -42,10 +42,7 @@ window.addEventListener("load", async () => {
     });
     const allMedicalSupply = await response.json();
     for (let i = 0; i < allMedicalSupply.length; i++) {
-      // const medicalSupplyName = allMedicalSupply[i].name;
-      // const id = allMedicalSupply[i]._id;
-      // const isReserved = allMedicalSupply[i].isReserved;
-      //appendMedicalSupply(id, medicalSupplyName, isReserved);
+
       appendMedicalSupply(allMedicalSupply[i]);
     }
   } catch (error) {
@@ -103,27 +100,7 @@ const appendMedicalSupply = (medicalSupply) => {
     reserved.appendChild(item);
   }
 };
-// const appendMedicalSupply = (id, medicalSupplyName, isReserved) => {
-//   const item = document.createElement("li");
-//   item.className = "allMedicalSupplies";
-//   if (isReserved) {
-//     item.innerHTML = `<span class="medicalSupplyName">${medicalSupplyName}</span>
-//         <span id="${id}" class="cancel">
-//           <button class="ui inverted button compact">
-//           cancel
-//           </button>
-//         </span>`;
-//   } else if (!isReserved) {
-//     item.innerHTML = `<span class="medicalSupplyName">${medicalSupplyName}</span>
-//         <span id="${id}" class="reserve">
-//           <button class="ui inverted button compact">
-//           reserve
-//           </button>
-//         </span>`;
-//   }
-//   allMedicalSupply.appendChild(item);
-//   buttonClick(id);
-// };
+
 const reserveMedicalSupply = async (id) => {
   const operationButton = document.getElementById(id);
   try {
@@ -211,26 +188,7 @@ const searchMedicalSupply = async (searchContent) => {
     for (let i = 0; i < medicalSupplyMatched.length; i++) {
       appendMedicalSupply(medicalSupplyMatched[i]);
     }
-    // allMedicalSupply.innerHTML = `<div class="online"> online </div> <hr/>
-    //                                    <div class="onlineUsers"> </div>
-    //                                    <div class="offline"> offline </div> <hr/>
-    //                                   <div class="offlineUsers"> </div>`;
-    // const onlineUser = document.querySelector(".onlineUsers");
-    // const offlineUser = document.querySelector(".offlineUsers");
-    // for (let i = 0; i < usernameInfo.length; i++) {
-    //   const userStatus = statusImage(usernameInfo[i].lastStatusCode);
-    //   const item = document.createElement("li");
-    //   item.className = "userSearchResult";
-    //   item.innerHTML = `<span class="directoryUsername">${usernameInfo[i].username}</span>
-    //                                 <span class="directoryStatus">Status:</span>
-    //                                 <span><img src="../images/${userStatus}.png">${usernameInfo[i].lastStatusCode}</span>`;
 
-    //   if (usernameInfo[i].isLogin === true) {
-    //     onlineUser.appendChild(item);
-    //   } else if (usernameInfo[i].isLogin === false) {
-    //     offlineUser.appendChild(item);
-    //   }
-    // }
   } catch (error) {
     console.log(error);
   }
