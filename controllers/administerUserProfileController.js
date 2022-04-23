@@ -58,44 +58,42 @@ class administerUserProfileController {
       console.log("modifiedPassword", modifiedPassword);
       const modifiedPrivilege = req.body.privilege;
 
-      if (modifiedUsername != null) {
-        console.log("enter modifiedUsername");
-        const isExist = await User.findOne({ username: modifiedUsername });
-        if (isExist) {
-          res.status(400).json({ error: "this username has existed" });
-          return;
-        }
-        await User.updateOne(
-          { username: username },
-          { username: modifiedUsername }
-        );
+      console.log("enter modifiedUsername");
+      const isExist = await User.findOne({ username: modifiedUsername });
+      if (isExist) {
+        res.status(400).json({ error: "this username has existed" });
+        return;
       }
+
+      const allAdministrator = await User.find({
+        privilege: "administrator",
+      });
+      const user = await User.findOne({ username: username });
+      console.log("user", user);
+      if (
+        user.privilege === "administrator" &&
+        allAdministrator.length == 1 &&
+        modifiedPrivilege != "administrator"
+      ) {
+        res.status(400).json({ error: "at least one administrator" });
+        return;
+      }
+
+    
       if (modifiedPassword != null) {
         console.log("enter modifiedPassword ");
         await User.updateOne(
           { username: username },
-          { password: modifiedPassword }
+          {
+            password: modifiedPassword,
+            username: modifiedUsername,
+            privilege: modifiedPrivilege,
+          }
         );
-      }
-      if (modifiedPrivilege != null) {
-        const allAdministrator = await User.find({
-          privilege: "administrator",
-        });
-        const params = req.params;
-        const username = params.username;
-        const user = await User.findOne({ username: username });
-        console.log("user", user);
-        if (
-          user.privilege === "administrator" &&
-          allAdministrator.length == 1 &&
-          modifiedPrivilege != "administrator"
-        ) {
-          res.status(400).json({ error: "at least one administrator" });
-          return;
-        }
+      } else {
         await User.updateOne(
           { username: username },
-          { privilege: modifiedPrivilege }
+          { username: modifiedUsername, privilege: modifiedPrivilege }
         );
       }
       res.status(204).json();
