@@ -239,6 +239,25 @@ logout.addEventListener("click", async (e) => {
   }
 });
 
+const directoryForAdmin = document.querySelector("#directoryForAdmin");
+directoryForAdmin.addEventListener("click", async (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  const { username, privilege } = cookies;
+  console.log("my privilege:",privilege);
+  const myPrivilege = privilege;
+  if(myPrivilege == "Administrator" || myPrivilege == "administrator"){
+    window.location.href = "/directoryForAdmin";
+  }
+  else{
+    alert("You are not admin!");
+    window.location.href = "/directory";
+  }
+  
+  
+});
+
+
 const setGreyButton = document.querySelector("#setGreyButton");
 setGreyButton.addEventListener("click", async (e) => {
   e.preventDefault();

@@ -37,3 +37,11 @@ sendButton.addEventListener("click", async (e) => {
   }
   msgInput.focus();
 });
+
+
+const leave = document.querySelector("#leave");
+leave.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  window.location.href = "/directoryForAdmin";
+});
