@@ -152,6 +152,7 @@ class administerUserProfileController {
       }
       res.status(204).json();
     } catch (error) {
+      console.log("error", error);
       res.status(500).json({ error });
     }
   }

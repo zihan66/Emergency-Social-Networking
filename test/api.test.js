@@ -398,30 +398,7 @@ test("Can post private message", () => {
       .catch((e) => {
         // deal with it
       });
-<<<<<<< HEAD
     console.log(chat_id);
-=======
-  })().catch((e) => {});
-});
-
-test('Can get a chat', () => {
-    return (async () => {
-        await agent.get(HOST + '/chats/' + chat_id).send()
-            .then((res, err) => {
-                expect(err).toBe(undefined);
-                expect(res.statusCode).toBe(200);
-            }).catch(e => {
-                // deal with it
-            });
-    })().catch(e => {
-
-    })
-
-});
-
-test("Can post private message", () => {
-  return (async () => {
->>>>>>> iteration5-refactor
     await agent
       .post(HOST + "/messages/private")
       .send({
@@ -810,7 +787,6 @@ test("Get a blog error", () => {
       .send()
       .then((res, err) => {
         expect(err).not.toBe(undefined);
-
       })
       .catch((e) => {
         // deal with it
@@ -927,7 +903,6 @@ test("Delete a blog", () => {
       .post(HOST + "/blog/delete/123456789012")
       .send()
       .then((res, err) => {
-
         expect(res.statusCode).toBe(404);
       })
       .catch((e) => {

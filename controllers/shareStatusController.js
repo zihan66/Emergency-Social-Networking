@@ -6,9 +6,7 @@ const socket = require("../socket");
 class shareStatusController {
   static async getOneUserRecord(req, res) {
     try {
-      const user =
-        (await User.findOne({ username: req.params.username })) || {};
-      sensitive;
+      const user = await User.findOne({ username: req.params.username });
       const userPassword = user.password;
       const userIsAcknowledge = user.isAcknowledge;
       // non-sensitive
@@ -24,7 +22,6 @@ class shareStatusController {
         privilege,
         accountStatus,
       };
-      console.log(userInformationList);
       res.status(200).json(userInformationList);
     } catch (error) {
       console.log(error);
@@ -52,7 +49,6 @@ class shareStatusController {
   //     console.log(error);
   //   }
   // }
-
 
   static async setStatus(req, res) {
     const user = req.params;
