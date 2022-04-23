@@ -11,6 +11,8 @@ const suspend = require("../middlewares/suspend");
 const auth = require("../middlewares/auth");
 const canAskForDonor = require("../middlewares/canAskForDonor");
 const canBeDonor = require("../middlewares/canBeDonor");
+const administratorPrivilege = require("../middlewares/administratorPrivilege");
+const coordinatorPrivilege= require("../middlewares/coordinatorPrivilege");
 
 const router = express.Router();
 /* GET home page. */
@@ -68,7 +70,7 @@ router.get("/chatroom/:chatid/:target", auth, (req, res) => {
 
 router.use("/users", suspend, userRoute);
 
-router.get("/measure", (req, res) => {
+router.get("/measure", auth, administratorPrivilege,(req, res) => {
   res.render("measure", { title: "measure" });
 });
 
@@ -91,10 +93,10 @@ router.get("/myEvent/newEvent", auth, (req, res) => {
   res.render("newEvent", { title: "newEvent" });
 });
 
-router.get("/provideMedicalSupply", (req, res) => {
+router.get("/provideMedicalSupply", auth, (req, res) => {
   res.render("medicalSupply", { title: "medicalSupply" });
 });
-router.get("/reserveMedicalSupply", (req, res) => {
+router.get("/reserveMedicalSupply", auth, (req, res) => {
   res.render("medicalSupplyReservation", { title: "medicalSupplyReservation" });
 });
 router.use("/users", userRoute);

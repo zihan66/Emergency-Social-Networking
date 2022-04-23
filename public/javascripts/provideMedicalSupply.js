@@ -100,7 +100,7 @@ const deleteMedicalSupply = (id) => {
           Authorization: `Bearer ${cookies.jwtToken}`,
         },
       });
-      if (response.status === 200) {
+      if (response.status === 204) {
         yourMedicalSupplies.innerHTML = "";
         getUserMedicalSupply();
       }

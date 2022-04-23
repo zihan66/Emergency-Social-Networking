@@ -659,7 +659,7 @@ loginOrSignUp.addEventListener("click", async (e) => {
       body: JSON.stringify(data),
     });
 
-    //const result = await response.json();
+    const result = await response.json();
     if (response.status === 404) {
       modal.style.display = "block";
       confirmButton.addEventListener("click", async (e) => {
@@ -679,9 +679,15 @@ loginOrSignUp.addEventListener("click", async (e) => {
       return;
     }
     if (response.status === 401) {
-      const ele = document.querySelector("#password-hint");
-      ele.innerHTML = "user does not exist or password is incorrect";
-      return;
+      if (result.message === "password is wrong") {
+        const ele = document.querySelector("#password-hint");
+        ele.innerHTML = "user does not exist or password is incorrect";
+        return;
+      } else {
+        const ele = document.querySelector("#password-hint");
+        ele.innerHTML = "Your Account Status is inactive";
+        return;
+      }
     }
     if (response.status === 200) {
       window.location.href = response.headers.get("Location");

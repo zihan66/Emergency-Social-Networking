@@ -19,14 +19,22 @@ const userSchema = new mongoose.Schema({
   lastStatusCode: { type: String, default: "unknown" },
   bloodType: { type: String, default: "unknown" },
   isDonor: { type: Boolean, default: false },
+  privilege: { type: String, default: "citizen" },
+  accountStatus: { type: String, default: "active" },
   // lastStatusUpdateTime: {type: String, default: "unknownTime"},
 });
 
 userSchema.statics.findAllUsers = async function () {
-  const onlineUsers = await this.find({ isLogin: true }).sort({
+  const onlineUsers = await this.find({
+    isLogin: true,
+    accountStatus: "active",
+  }).sort({
     username: 1,
   });
-  const offlineUsers = await this.find({ isLogin: false }).sort({
+  const offlineUsers = await this.find({
+    isLogin: false,
+    accountStatus: "active",
+  }).sort({
     username: 1,
   });
   const wholeUserList = onlineUsers.concat(offlineUsers);

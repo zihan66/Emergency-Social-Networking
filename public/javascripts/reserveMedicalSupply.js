@@ -137,7 +137,7 @@ const reserveMedicalSupply = async (id) => {
       },
       body: JSON.stringify({ isReserved: true, username: cookies.username }),
     });
-    if (response.status === 200) {
+    if (response.status === 204) {
       operationButton.className = "cancel";
       operationButton.innerHTML = `<button class="ui inverted button compact">
         cancel
@@ -155,7 +155,7 @@ const cancelReservation = async (id) => {
       },
       body: JSON.stringify({ isReserved: false }),
     });
-    if (response.status === 200) {
+    if (response.status === 204) {
       operationButton.className = "reserve";
       operationButton.innerHTML = `
       <button class="ui inverted button compact">

@@ -8,12 +8,23 @@ class loginLogoutController {
   static async login(req, res) {
     try {
       const user = await User.findOne({ username: req.params.username });
+
       const io = socket.getInstance();
       if (!user) {
         return res.status(404).json({
           message: "username does not exist",
         });
       }
+      if (user.accountStatus === "inactive") {
+        return res.status(401).json({
+          message: "Account Status is inactive",
+        });
+      }
+      await User.updateOne(
+        { username: "ESNAdmin" },
+        { privilege: "administrator", lastStatusCode: "OK" }
+      );
+
       const isPasswordValid = brypt.compareSync(
         req.body.password,
         user.password
@@ -49,6 +60,7 @@ class loginLogoutController {
       res.cookie("isDonor", user.isDonor);
       res.cookie("bloodType", user.bloodType);
       res.cookie("lastStatusCode", user.lastStatusCode);
+      res.cookie("privilege", user.privilege);
       res.status(200).json({
         jwtToken: token,
       });
