@@ -3,7 +3,9 @@ const Message = require("../models/message").Message;
 const User = require("../models/user");
 const Chat = require("../models/chat");
 const socket = require("../socket");
+
 class PrivateMessageController {
+
   static async createNewPrivateChat(req, res) {
     try {
       const { username1, username2 } = req.body;
@@ -28,6 +30,7 @@ class PrivateMessageController {
       res.status(500).json({ error });
     }
   }
+
   //eslint-disable-next-line consistent-return
   static async getPrivateMessage(req, res) {
     const { chatID } = req.query;
@@ -70,6 +73,7 @@ class PrivateMessageController {
 
       const authorSocketId = socket.hasName[authorUser.username];
       const targetSocketId = socket.hasName[targetUser.username];
+
       io.sockets.to(authorSocketId).emit("privateMessage", message);
       /* istanbul ignore next */
       if (targetSocketId !== undefined) {

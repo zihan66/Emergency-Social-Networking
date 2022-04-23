@@ -2,7 +2,17 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const socket = require("../socket");
 const User = require("../models/user");
+
 class administerUserProfileController {
+
+  static async LogoutOneUser(io, target, cause) {
+
+    // const io = socket.getInstance();
+    const targetSocketId = socket.hasName[target.username];
+    io.sockets.to(targetSocketId).emit("ejectOneUser", cause);
+
+  }
+
   static async ChangeToInactive(req, res) {
     try {
       console.log("ChangeToinactive");
@@ -13,6 +23,7 @@ class administerUserProfileController {
       const username = params.username;
       const user = await User.findOne({ username: username });
       console.log("user", user);
+
       if (user.privilege === "administrator" && allAdministrator.length == 1) {
         res.status(400).json({ error: "at least one activeadministrator" });
         return;
@@ -23,13 +34,15 @@ class administerUserProfileController {
       );
       const message = { inform: "your account status has been inactive" };
       //io emit
-      io.emit("inactive", message);
+      // io.emit("inactive", message);
+      await this.LogoutOneUser(io, user, "account change to inactive", res);
       console.log("accountStatus", accountStatus);
       res.status(204).json();
     } catch (error) {
       res.status(500).json({ error });
     }
   }
+
   static async ChangeToActive(req, res) {
     try {
       console.log("ChangeToActive");
@@ -45,6 +58,7 @@ class administerUserProfileController {
       res.status(500).json({ error });
     }
   }
+
   static async updateUserProfile(req, res) {
     try {
       console.log("updateUserProfile!!!");
