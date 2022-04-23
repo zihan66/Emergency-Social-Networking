@@ -9,10 +9,8 @@ class administerUserProfileController {
       const io = socket.getInstance();
       const allAdministrator = await User.find({ privilege: "administrator" });
       console.log("administrator", allAdministrator.length);
-
       const params = req.params;
       const username = params.username;
-
       const user = await User.findOne({ username: username });
       console.log("user", user);
       if (user.privilege === "administrator" && allAdministrator.length == 1) {
@@ -23,7 +21,7 @@ class administerUserProfileController {
         { username: username },
         { accountStatus: "inactive" }
       );
-      const message = { inform:"your account status has been inactive"};
+      const message = { inform: "your account status has been inactive" };
       //io emit
       io.emit("inactive", message);
       console.log("accountStatus", accountStatus);
@@ -62,6 +60,11 @@ class administerUserProfileController {
 
       if (modifiedUsername != null) {
         console.log("enter modifiedUsername");
+        const isExist = await User.findOne({ username: modifiedUsername });
+        if (isExist) {
+          res.status(400).json({ error: "this username has existed" });
+          return;
+        }
         await User.updateOne(
           { username: username },
           { username: modifiedUsername }
@@ -75,16 +78,21 @@ class administerUserProfileController {
         );
       }
       if (modifiedPrivilege != null) {
-        const allAdministrator = await User.find({ privilege: "administrator" });
+        const allAdministrator = await User.find({
+          privilege: "administrator",
+        });
         const params = req.params;
         const username = params.username;
         const user = await User.findOne({ username: username });
         console.log("user", user);
-        if (user.privilege === "administrator" && allAdministrator.length == 1 && modifiedPrivilege != "administrator") {
+        if (
+          user.privilege === "administrator" &&
+          allAdministrator.length == 1 &&
+          modifiedPrivilege != "administrator"
+        ) {
           res.status(400).json({ error: "at least one administrator" });
           return;
         }
-        
         await User.updateOne(
           { username: username },
           { privilege: modifiedPrivilege }
