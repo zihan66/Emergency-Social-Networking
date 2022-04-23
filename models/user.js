@@ -25,10 +25,10 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.statics.findAllUsers = async function () {
-  const onlineUsers = await this.find({ isLogin: true }).sort({
+  const onlineUsers = await this.find({ isLogin: true , accountStatus: "active"}).sort({
     username: 1,
   });
-  const offlineUsers = await this.find({ isLogin: false }).sort({
+  const offlineUsers = await this.find({ isLogin: false, accountStatus: "active"}).sort({
     username: 1,
   });
   const wholeUserList = onlineUsers.concat(offlineUsers);

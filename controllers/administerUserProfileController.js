@@ -16,16 +16,18 @@ class administerUserProfileController {
       const user = await User.findOne({ username: username });
       console.log("user", user);
       if (user.privilege === "administrator" && allAdministrator.length == 1) {
-        res.status(500).json({ message: "at least one activeadministrator" });
+        res.status(400).json({ error: "at least one activeadministrator" });
+        return;
       }
       const accountStatus = await User.updateOne(
         { username: username },
         { accountStatus: "inactive" }
       );
       const message = { inform:"your account status has been inactive"};
+      //io emit
       io.emit("inactive", message);
       console.log("accountStatus", accountStatus);
-      res.status(200).json();
+      res.status(204).json();
     } catch (error) {
       res.status(500).json({ error });
     }
@@ -73,6 +75,16 @@ class administerUserProfileController {
         );
       }
       if (modifiedPrivilege != null) {
+        const allAdministrator = await User.find({ privilege: "administrator" });
+        const params = req.params;
+        const username = params.username;
+        const user = await User.findOne({ username: username });
+        console.log("user", user);
+        if (user.privilege === "administrator" && allAdministrator.length == 1 && modifiedPrivilege != "administrator") {
+          res.status(400).json({ error: "at least one administrator" });
+          return;
+        }
+        
         await User.updateOne(
           { username: username },
           { privilege: modifiedPrivilege }

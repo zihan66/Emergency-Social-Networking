@@ -6,12 +6,5 @@ const suspend = async (req, res, next) => {
     next();
   }
 };
-// const User = require("../models/user");
-// const privilege = (req, res, next) =>{
-//   const username = req.paras.username;
-//   const user = User.findOne({username: username});
-//   if(user.privilege === "citizen"){
 
-//   }
-// }
 module.exports = suspend;
