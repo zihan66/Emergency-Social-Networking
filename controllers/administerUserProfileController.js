@@ -3,6 +3,44 @@ const jwt = require("jsonwebtoken");
 const socket = require("../socket");
 const User = require("../models/user");
 class administerUserProfileController {
+
+  static async renderOneUserRecord(req, res) {
+    try {
+      const user =
+        (await User.findOne({ username: req.params.username })) || {};
+      // sensitive
+      const password = user.password;
+      const isAcknowledge = user.isAcknowledge;
+      // non-sensitive
+      const isLogin = user.isLogin;
+      const lastStatusCode = user.lastStatusCode;
+      const username = user.username;
+      const privilege = user.privilege;
+      const accountStatus = user.accountStatus;
+      const myPrivilege = req.cookies.privilege
+      // const userLastUpdateTime = user.lastStatusUpdateTime;
+      // merge into a list
+      const userInformationList = { username, password, isLogin, isAcknowledge, lastStatusCode, privilege, accountStatus, myPrivilege};
+      console.log(userInformationList);
+      // res.status(200).json(userInformationList);
+      
+
+      // const myName = req.cookies.username;
+      // const me = (await User.findOne({ username: myName })) || {};
+      // const myPrivilege = me.privilege;
+      if(myPrivilege == "Administrator" || myPrivilege == "administrator"){
+        res.render("changeProfile",{userInformationList:userInformationList});
+      }
+      else{
+        // res.render("needToBeAdmin", { title: "needToBeAdmin" });
+        res.render("changeProfile",{userInformationList:userInformationList});
+      }
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   static async ChangeToInactive(req, res) {
     try {
       console.log("ChangeToinactive");
@@ -52,19 +90,16 @@ class administerUserProfileController {
       const username = params.username;
       console.log("username", username);
       console.log("body", req.body);
+
       const modifiedUsername = req.body.username;
       console.log("modifiedUsername", modifiedUsername);
       const modifiedPassword = req.body.password;
       console.log("modifiedPassword", modifiedPassword);
       const modifiedPrivilege = req.body.privilege;
+      console.log("modifiedPrivilege", modifiedPrivilege);
+      const modifiedAccountStatus = req.body.accountStatus;
+      console.log("modifiedAccountStatus", modifiedAccountStatus);
 
-      if (modifiedUsername != null) {
-        console.log("enter modifiedUsername");
-        await User.updateOne(
-          { username: username },
-          { username: modifiedUsername }
-        );
-      }
       if (modifiedPassword != null) {
         console.log("enter modifiedPassword ");
         await User.updateOne(
@@ -73,9 +108,24 @@ class administerUserProfileController {
         );
       }
       if (modifiedPrivilege != null) {
+        console.log("enter modifiedPrivilege ");
         await User.updateOne(
           { username: username },
           { privilege: modifiedPrivilege }
+        );
+      }
+      if (modifiedAccountStatus != null) {
+        console.log("enter modifiedAccountStatus ");
+        await User.updateOne(
+          { username: username },
+          { accountStatus: modifiedAccountStatus }
+        );
+      }
+      if (modifiedUsername != null) {
+        console.log("enter modifiedUsername");
+        await User.updateOne(
+          { username: username },
+          { username: modifiedUsername }
         );
       }
       res.status(204).json();

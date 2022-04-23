@@ -1,0 +1,70 @@
+<link rel="stylesheet" href="/stylesheets/changeProfile.css" />
+<div class="editProfile-wrapper">
+  <header class="editProfile-header">
+    <button id="leave" class="ui inverted button compact">
+      Back to Directory
+    </button>
+  </header>
+
+  <div class="ui raised very padded text container segment">
+    <center>
+      <p>username:</p>
+      <input type = "text" id="editUsername" value="<%= userInformationList.username %>"/>
+      <p>password:</p>
+      <input type = "text" id="editPassword" value="<%= userInformationList.password %>"/>
+      <!-- <p>privilege:</p>
+      <input type = "text" id="editPrivilege" value="<%= userInformationList.privilege %>"/>
+      <p>accountStatus:</p>
+      <input type = "text" id="editAccountStatus" value="<%= userInformationList.accountStatus %>"/> -->
+      <p>privilege:</p>
+      <div class="ui form" >
+        <div class="field">
+          <select id="editPrivilege">
+            <option value="">citizen</option>
+            <option value="1">coordinator</option>
+            <option value="0">administrator</option>
+          </select>
+        </div>
+      </div>
+      <p>accountStatus:</p>
+      <div class="ui form" >
+        <div class="field">
+          <select id="editAccountStatus">
+            <option value="">active</option>
+            <option value="1">inactive</option>
+          </select>
+        </div>
+      </div>
+      <p>  </p>
+      <button id="edit-button" class="editProfileButton">
+        edit profile
+        <i class="paper plane outline icon"></i>
+      </button>
+
+
+      <p>  </p>
+      <p>. </p>
+      <p>  </p>
+      <p>. </p>
+      <p>   </p>
+      <p>Header Content:</p>
+      <p><%= userInformationList.username %></p>
+      <p><%= userInformationList.password %></p>
+      <!-- <p><%= userInformationList.isLogin %></p> -->
+      <!-- <p><%= userInformationList.isAcknowledge %></p> -->
+      <!-- <p><%= userInformationList.lastStatusCode %></p> -->
+      <p><%= userInformationList.privilege %></p>
+      <p><%= userInformationList.accountStatus %></p>
+      <p></p>
+      <p>My priviledge: <%= userInformationList.myPrivilege %></p>
+    </center>
+  </div>
+</div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/brownies"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://momentjs.com/downloads/moment.js"></script>
+  <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.min.js"></script>
+  <script src="/javascripts/changeProfile.js"></script>
+</div>

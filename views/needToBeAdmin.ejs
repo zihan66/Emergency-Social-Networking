@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="/stylesheets/needToBeAdmin.css" />
+<div class="login-container">
+  <div class="title">
+    <img class="ui rounded-image" src="/images/logo.png" />
+    <h1>Emergency SN</h1>
+    <center>
+      <label>You need to be admin to view this page.</label>
+      <p> </p>
+      <a href="/directory">
+        <button class="normalButton">
+          Back to directory
+          <i class="paper plane outline icon"></i>
+        </button>
+      </a>
+    </center>
+  </div>
+  
+  <%- include('modal.ejs') %> <%- include('footer.ejs') %>
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- <script type="module" src="/javascripts/needToBeAdmin.js"></script> -->
+</div>

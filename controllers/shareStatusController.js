@@ -25,6 +25,29 @@ class shareStatusController {
     }
   }
 
+  // static async renderOneUserRecord(req, res) {
+  //   try {
+  //     const user =
+  //       (await User.findOne({ username: req.params.username })) || {};
+  //     // sensitive
+  //     const userPassword = user.password;
+  //     const userIsAcknowledge = user.isAcknowledge;
+  //     // non-sensitive
+  //     const userIsLogin = user.isLogin;
+  //     const userLastStatus = user.lastStatusCode;
+  //     const userUsername = user.username;
+  //     // const userLastUpdateTime = user.lastStatusUpdateTime;
+  //     // merge into a list
+  //     const userInformationList = { userUsername, userIsLogin, userLastStatus };
+  //     console.log(userInformationList);
+  //     // res.status(200).json(userInformationList);
+  //     res.render("changeProfile",{userInformationList:userInformationList});
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
+
   static async setStatus(req, res) {
     const user = req.params;
     console.log("setStatus", user);

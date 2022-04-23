@@ -1,0 +1,90 @@
+.login-container {
+    height          : 100%;
+    background-color: rgba(10, 3, 3, 0.89);
+    padding-top     : 5%;
+  }
+  
+  h1 {
+    text-align: center;
+    color     : whitesmoke;
+  }
+  
+  a {
+    color: #ffddaa;
+  }
+  
+  a:hover {
+    color: rgba(255, 0, 0, 0.79);
+  }
+  
+  .rounded-image {
+    display: block;
+    margin : 10px auto;
+    width  : 80px;
+    height : 80px;
+  }
+  
+  .login-form {
+    width : 220px;
+    margin: 20px auto;
+  }
+  
+  
+  label {
+    color: whitesmoke !important;
+  }
+  
+  .ui.button {
+    display    : block;
+    text-align : center;
+    margin     : 30px auto;
+    background : #ffddaa;
+    font-weight: 700;
+    color      : rgba(255, 0, 0, 0.79);
+  }
+  
+  .form-footer {
+    text-align: center;
+    color     : whitesmoke;
+    font-size : 18px;
+  }
+  
+  #username-hint,
+  #password-hint {
+    display   : inline-block;
+    color     : rgba(255, 0, 0, 0.79);
+    font-size : 12px;
+    margin-top: 5px;
+  }
+  
+  @media only screen and (max-width: 518px) {
+    .signup-form {
+      width : 180px;
+      margin: 10px auto;
+    }
+  
+    input {
+      font-size: 14px;
+      height   : 30px;
+    }
+  
+    .signup-container {
+      padding-top: 20%;
+    }
+  
+    .ui.button {
+      height : 35px;
+      padding: 8px 10px;
+    }
+  }
+
+  .normalButton{
+    display         : inline-block;
+    margin-left     : 8px;
+    width           : 160px;
+    height          : 40px;
+    border-radius   : 8px;
+    color           : rgba(255, 0, 0, 0.79);
+    background-color: #ffddaa;
+    border          : none;
+  }
