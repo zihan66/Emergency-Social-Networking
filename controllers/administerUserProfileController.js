@@ -47,10 +47,7 @@ class administerUserProfileController {
           userInformationList: userInformationList,
         });
       } else {
-        // res.render("needToBeAdmin", { title: "needToBeAdmin" });
-        res.render("changeProfile", {
-          userInformationList: userInformationList,
-        });
+        res.render("needToBeAdmin", { title: "needToBeAdmin" });
       }
     } catch (error) {
       console.log(error);

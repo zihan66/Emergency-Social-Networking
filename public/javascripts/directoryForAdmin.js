@@ -19,16 +19,8 @@ const statusImage = (lastStatusCode) => {
 };
 
 const addSingleUser = (user) => {
-  const { username, lastStatusCode, isLogin, priviledge, active} = user;
+  const { username, lastStatusCode, isLogin, priviledge, active } = user;
   const item = document.createElement("li");
-  item.addEventListener("click", async function (e) {
-    e.preventDefault();
-    const username2 = this.id;
-    const chatID = userChatMap.get(this.id);
-    if (userChatMap.has(username2)) {
-      window.location.href = `/users/edit/${username2}`;
-    }
-  });
   // let userStatus = "";
   // if (lastStatusCode === "OK") userStatus = "green";
   // else if (lastStatusCode === "HELP") userStatus = "yellow";
@@ -45,6 +37,11 @@ const addSingleUser = (user) => {
     <span class="status">
     <span id="${username}Status" class=${userStatus}><img src="../images/${userStatus}.png"> </span>
 </span></div>`;
+  item.addEventListener("click", async function (e) {
+    e.preventDefault();
+    const username2 = this.id;
+    window.location.href = `/users/edit/${username2}`;
+  });
   userList.appendChild(item);
 };
 
@@ -101,34 +98,16 @@ window.addEventListener("load", async () => {
   try {
     // const myPrivilege = req.cookies.privilege
     // if(myPrivilege == "Administrator" || myPrivilege == "administrator"){
-      socket.auth = { username: cookies.username };
-      socket.connect();
-      const allUser = await fetch("/users", {
-        method: "get",
-        headers: {
-          Authorization: `Bearer ${cookies.jwtToken}`,
-        },
-      });
-      const allUserData = await allUser.json();
-      appendAllUsers(allUserData);
-
-      const chatPrivateInfo = await fetch(`/chats?username=${cookies.username}`, {
-        method: "get",
-        headers: {
-          Authorization: `Bearer ${cookies.jwtToken}`,
-        },
-      });
-      const chatPrivateData = await chatPrivateInfo.json();
-      const chats = chatPrivateData.chats;
-      for (let i = 0; i < chats.length; i++) {
-        userChatMap.set(chats[i].username, chats[i].chatID);
-      }
-    // }
-    // else{
-    //   console.log("call window.location.href login");
-    //   window.location.href = "/login";
-    // }
-    
+    socket.auth = { username: cookies.username };
+    socket.connect();
+    const allUser = await fetch("/users", {
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${cookies.jwtToken}`,
+      },
+    });
+    const allUserData = await allUser.json();
+    appendAllUsers(allUserData);
   } catch (err) {
     console.log(err);
   }
@@ -253,7 +232,6 @@ setYellowButton.addEventListener("click", async (e) => {
     console.log(error);
   }
 });
-
 
 const becomeDonnorBt = document.querySelector("#BecomeDonnor");
 

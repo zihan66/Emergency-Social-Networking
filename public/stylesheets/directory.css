@@ -1,7 +1,7 @@
 .directory-wrapper {
   position  : relative;
   background: rgb(10, 3, 3, 0.89);
-  height    : 100%;
+  height    : 100% !important;
   overflow  : auto;
 }
 
@@ -97,9 +97,10 @@ li>p {
 }
 
 .unreadMsgs button {
-  position   : relative;
-  width      : 150px;
+  position: relative;
+  width   : 150px;
 }
+
 /* #unread{
 
   cursor       : pointer;
@@ -120,6 +121,7 @@ li>p {
   opacity         : 0.8;
   overflow        : scroll;
 }
+
 .unreadMsgList {
   color          : #ffddaa;
   padding        : 10px 10px;
