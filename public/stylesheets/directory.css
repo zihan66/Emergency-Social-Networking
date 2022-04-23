@@ -92,25 +92,47 @@ li>p {
 }
 
 .unreadMsgs {
-  width      : 160px;
+  width      : 150px;
   margin-left: 20px;
 }
 
 .unreadMsgs button {
   position   : relative;
-  width      : 160px;
-  /* width   : 93px; */
+  width      : 150px;
 }
+/* #unread{
+
+  cursor       : pointer;
+  border       : 1px solid white;
+  padding-left: 4px;
+  border-radius: 5px;
+  width        : 95%;
+
+} */
 
 .unreadMsgBlock {
   position        : absolute;
   display         : none;
   /* width        : 1px; */
-  width           : 93px;
+  width           : 150px;
   height          : 200px;
   background-color: rgb(108, 114, 121);
   opacity         : 0.8;
   overflow        : scroll;
+}
+.unreadMsgList {
+  color          : #ffddaa;
+  padding        : 10px 10px;
+  text-decoration: none;
+  font-size      : 20px;
+  display        : block;
+  list-style-type: none;
+  text-align     : center;
+}
+
+.unreadMsgList li {
+  cursor       : pointer;
+  margin-bottom: 10px;
 }
 
 .search {
@@ -146,20 +168,7 @@ li>p {
   cursor       : pointer;
 }
 
-.unreadMsgList {
-  color          : #ffddaa;
-  padding        : 10px 10px;
-  text-decoration: none;
-  font-size      : 20px;
-  display        : block;
-  list-style-type: none;
-  text-align     : center;
-}
 
-.unreadMsgList li {
-  cursor       : pointer;
-  margin-bottom: 10px;
-}
 
 .msgNum {
   border-radius   : 50%;

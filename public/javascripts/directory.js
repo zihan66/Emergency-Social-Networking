@@ -109,6 +109,9 @@ socket.on("privateMessage", (message) => {
   // document.querySelector(".msgNum").innerHTML = `${msgNumMap.get(message.author)}`;
   //addUnreadMsg(message.author);
 });
+socket.on("inactive",(message)=>{
+  console.log(message);
+})
 
 // const addUnreadMsg = (username) => {
 //   const unreadMsgList = document.querySelector(".unreadMsgList");

@@ -22,6 +22,8 @@ class administerUserProfileController {
         { username: username },
         { accountStatus: "inactive" }
       );
+      const message = { inform:"your account status has been inactive"};
+      io.emit("inactive", message);
       console.log("accountStatus", accountStatus);
       res.status(200).json();
     } catch (error) {
@@ -31,7 +33,6 @@ class administerUserProfileController {
   static async ChangeToActive(req, res) {
     try {
       console.log("ChangeToActive");
-      const io = socket.getInstance();
       const params = req.params;
       const username = params.username;
       const accountStatus = await User.updateOne(
@@ -47,7 +48,6 @@ class administerUserProfileController {
   static async updateUserProfile(req, res) {
     try {
       console.log("updateUserProfile!!!");
-      const io = socket.getInstance();
       const params = req.params;
       const username = params.username;
       console.log("username", username);
