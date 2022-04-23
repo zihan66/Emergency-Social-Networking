@@ -50,16 +50,19 @@ const appendPreviousMessages = (messages) => {
   msgContainer.scrollTop = msgContainer.scrollHeight;
 };
 
+// update public messages
 socket.on("publicMessage", (message) => {
   addSingleMessage(message, true);
   msgContainer.scrollTop = msgContainer.scrollHeight;
 });
 
+// inform user of incoming private message
 socket.on("privateMessage", (message) => {
   const { target, author } = message;
   if (target === cookies.username)
     window.alert("You received a new message from " + author);
 });
+
 
 const sendButton = document.getElementById("msg-button");
 sendButton.addEventListener("click", async (e) => {

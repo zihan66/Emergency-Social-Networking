@@ -76,12 +76,14 @@ const appendAllUsers = (users) => {
   users.map(addSingleUser);
 };
 
+// update user list
 socket.on("userList", (users) => {
   userList.innerHTML = "";
   const allUSer = appendAllUsers(users);
   directoryContainer.scrollTop = 0;
 });
 
+// update status
 socket.on("updateStatus", (user) => {
   const id = `${user.username}Status`;
   const statusUpdated = user.lastStatusCode;
@@ -94,24 +96,32 @@ socket.on("updateStatus", (user) => {
   updateStatus.innerHTML = `<img src="../images/${userStatus}.png"> ${statusUpdated}`;
 });
 
+// inform user of incoming private message
 socket.on("privateMessage", (message) => {
   console.log("I am in");
   const { target, author } = message;
   if (target === cookies.username)
     window.alert("You received a new message from " + author);
-  // const unreadMsgList = document.querySelector(".unreadMsgList");
-  // const item = document.createElement("li");
-  // item.id = `${message.author}`;
-  // calculateMsgNum(message.author);
-  // msgNumMap.forEach(function(value,key){
-  //   unreadMsgList.appendChild(item);
-  // })
-  // document.querySelector(".msgNum").innerHTML = `${msgNumMap.get(message.author)}`;
-  //addUnreadMsg(message.author);
 });
-socket.on("inactive",(message)=>{
-  console.log(message);
-})
+
+// inform user of force injection
+socket.on("ejectOneUser",async (cause) => {
+  console.log(cause);
+  window.alert("You are logged out due to " + cause);
+  const {username} = cookies;
+  try {
+    const response = await fetch(`/users/${username}/offline`, {
+      method: "put",
+      headers: {
+        Authorization: `Bearer ${cookies.jwtToken}`,
+      },
+    });
+    window.location.href = "/";
+  } catch (error) {
+    console.log(error);
+  }
+
+});
 
 // const addUnreadMsg = (username) => {
 //   const unreadMsgList = document.querySelector(".unreadMsgList");
@@ -224,6 +234,7 @@ unread.addEventListener("click", async () => {
   }
 });
 
+
 const logout = document.querySelector("#logout");
 logout.addEventListener("click", async (e) => {
   e.preventDefault();
@@ -241,6 +252,7 @@ logout.addEventListener("click", async (e) => {
     console.log(error);
   }
 });
+
 
 const setGreyButton = document.querySelector("#setGreyButton");
 setGreyButton.addEventListener("click", async (e) => {
