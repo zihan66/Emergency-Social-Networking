@@ -200,3 +200,12 @@ textarea {
 .plusHeart{
   display: none;
 }
+
+
+#username-hint,
+#password-hint {
+  display   : inline-block;
+  color     : rgba(255, 0, 0, 0.79);
+  font-size : 12px;
+  margin-top: 5px;
+}

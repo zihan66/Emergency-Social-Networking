@@ -10,8 +10,12 @@
     <center>
       <p>username:</p>
       <input type = "text" id="editUsername" value="<%= userInformationList.username %>"/>
-      <p>password:</p>
-      <input type = "text" id="editPassword" value="<%= userInformationList.password %>"/>
+      <span id="username-hint"></span>
+      <p> </p>
+      <p>new password:</p>
+      <input type = "text" id="editPassword"/>
+      <span id="password-hint"></span>
+      <p> </p>
       <!-- <p>privilege:</p>
       <input type = "text" id="editPrivilege" value="<%= userInformationList.privilege %>"/>
       <p>accountStatus:</p>
@@ -26,6 +30,7 @@
           </select>
         </div>
       </div>
+      <p> </p>
       <p>accountStatus:</p>
       <div class="ui form" >
         <div class="field">
