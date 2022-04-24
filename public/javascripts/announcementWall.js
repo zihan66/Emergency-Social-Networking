@@ -66,29 +66,31 @@ socket.on("privateMessage", (message) => {
 });
 
 const sendButton = document.getElementById("msg-button");
-sendButton.addEventListener("click", async (e) => {
-  const msgInput = document.getElementById("msg");
-  const msgContent = msgInput.value;
-  const { username } = cookies;
-  e.preventDefault();
-  e.stopPropagation();
-  if (!msgContent) return;
-  msgInput.value = "";
-  const requestBody = { username, content: msgContent };
-  try {
-    const response = await fetch("/messages/announcement", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${cookies.jwtToken}`,
-      },
-      body: JSON.stringify(requestBody),
-    });
-  } catch (error) {
-    console.error(error);
-  }
-  msgInput.focus();
-});
+if (sendButton) {
+  sendButton.addEventListener("click", async (e) => {
+    const msgInput = document.getElementById("msg");
+    const msgContent = msgInput.value;
+    const { username } = cookies;
+    e.preventDefault();
+    e.stopPropagation();
+    if (!msgContent) return;
+    msgInput.value = "";
+    const requestBody = { username, content: msgContent };
+    try {
+      const response = await fetch("/messages/announcement", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cookies.jwtToken}`,
+        },
+        body: JSON.stringify(requestBody),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+    msgInput.focus();
+  });
+}
 
 window.addEventListener("load", async () => {
   try {

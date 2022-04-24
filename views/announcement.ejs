@@ -10,12 +10,14 @@
   <div class="message-container">
     <ul class="message-list"></ul>
   </div>
+  <% if(isAdmin){ %>
   <div class="input-area-container">
     <textarea id="msg"></textarea>
     <button id="msg-button">
       <i class="paper plane outline icon"></i>
     </button>
   </div>
+  <% } else{ %> <% } %>
   <script src="https://cdn.jsdelivr.net/npm/brownies"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://momentjs.com/downloads/moment.js"></script>

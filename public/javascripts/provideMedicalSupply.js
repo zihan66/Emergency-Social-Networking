@@ -1,5 +1,4 @@
 const { cookies } = brownies;
-import ejectUser from "../javascripts/common/logout.js";
 const sendMsg = document.getElementById("sendMsg-button");
 const deleteMsg = document.getElementById("deleteMsg-button");
 const yourMedicalSupplies = document.querySelector(".yourMedicalSuppliesList");

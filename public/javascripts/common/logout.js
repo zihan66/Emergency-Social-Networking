@@ -1,7 +1,7 @@
 const { cookies } = brownies;
 
 async function ejectUser(message) {
-  window.alert(`${message}. You will be redirected to the index page soon`);
+  window.alert(`${message}. You will be logged out soon and please relog in`);
   const { userId } = cookies;
   try {
     const response = await fetch(`/users/${userId}/offline`, {
@@ -14,7 +14,6 @@ async function ejectUser(message) {
   } catch (error) {
     console.log(error);
   }
-  setTimeout(() => {}, 2000);
   window.location.href = "/";
 }
 

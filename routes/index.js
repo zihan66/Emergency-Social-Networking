@@ -33,7 +33,10 @@ router.get("/blogWall", suspend, auth, (req, res) => {
 });
 
 router.get("/announcement", auth, (req, res) => {
-  res.render("announcement", { title: "announcement" });
+  const isAdmin =
+    req.cookies.privilege && req.cookies.privilege === "administrator";
+  console.log(isAdmin);
+  res.render("announcement", { title: "announcement", isAdmin: isAdmin });
 });
 
 router.get("/welcome", auth, (req, res) => {

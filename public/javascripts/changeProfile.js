@@ -1,9 +1,9 @@
 import reservedUsernameList from "../javascripts/common/constants.js";
 import ejectUser from "../javascripts/common/logout.js";
+const { cookies } = brownies;
 const socket = io({ URL: "http://localhost:3000", autoConnect: false });
 socket.auth = { username: cookies.username };
 socket.connect();
-const { cookies } = brownies;
 // inform user of force injection
 socket.on("ejectOneUser", async (message) => {
   ejectUser(message);

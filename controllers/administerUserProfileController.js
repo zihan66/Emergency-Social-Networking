@@ -18,8 +18,6 @@ class administerUserProfileController {
       const privilege = user.privilege;
       const accountStatus = user.accountStatus;
       const myPrivilege = req.cookies.privilege;
-      // const userLastUpdateTime = user.lastStatusUpdateTime;
-      // merge into a list
       const userInformationList = {
         username,
         password,
@@ -30,20 +28,12 @@ class administerUserProfileController {
         accountStatus,
         myPrivilege,
       };
-      console.log(userInformationList);
-      // res.status(200).json(userInformationList);
-      // const myName = req.cookies.username;
-      // const me = (await User.findOne({ username: myName })) || {};
-      // const myPrivilege = me.privilege;
       if (myPrivilege == "Administrator" || myPrivilege == "administrator") {
         res.render("changeProfile", {
           userInformationList: userInformationList,
         });
       } else {
         res.render("needToBeAdmin", { title: "needToBeAdmin" });
-        // res.render("changeProfile", {
-        //   userInformationList: userInformationList,
-        // });
       }
     } catch (error) {
       console.log(error);
@@ -149,6 +139,7 @@ class administerUserProfileController {
           { username: modifiedUsername, privilege: modifiedPrivilege }
         );
       }
+      socket.sendLogOutEvent(username, "Your account status has changed!");
       res.status(204).json();
     } catch (error) {
       console.log("error", error);
