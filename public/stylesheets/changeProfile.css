@@ -209,3 +209,38 @@ textarea {
   font-size : 12px;
   margin-top: 5px;
 }
+
+
+.theActiveButton{
+  display         : inline-block;
+  margin-left     : 8px;
+  width           : 200px;
+  height          : 60px;
+  border-radius   : 8px;
+  /* color           : rgba(255, 0, 0, 0.79);
+  background-color: #ffddaa; */
+  border          : none;
+}
+
+.theInactiveButton{
+  display         : inline-block;
+  margin-left     : 8px;
+  width           : 200px;
+  height          : 60px;
+  border-radius   : 8px;
+  /* color           : rgba(122, 122, 122, 0.79);
+  background-color: #ffddaa; */
+  border          : none;
+}
+
+.activeButtonDiv {
+  display: none;
+  /* color: whitesmoke;
+  background-color: rgb(108, 114, 121); */
+}
+
+.inactiveButtonDiv {
+  /* display: none; */
+  /* color: whitesmoke;
+  background-color: rgb(108, 114, 121); */
+}

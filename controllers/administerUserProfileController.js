@@ -48,6 +48,9 @@ class administerUserProfileController {
         });
       } else {
         res.render("needToBeAdmin", { title: "needToBeAdmin" });
+        // res.render("changeProfile", {
+        //   userInformationList: userInformationList,
+        // });
       }
     } catch (error) {
       console.log(error);
@@ -69,11 +72,13 @@ class administerUserProfileController {
         res.status(400).json({ error: "at least one activeadministrator" });
         return;
       }
+      console.log("ChangeToinactive2");
       const accountStatus = await User.updateOne(
         { username: username },
         { accountStatus: "inactive" }
       );
       const message = { inform: "your account status has been inactive" };
+      console.log("ChangeToinactive3");
       //io emit
       // io.emit("inactive", message);
       await this.LogoutOneUser(io, user, "account change to inactive", res);
@@ -89,6 +94,7 @@ class administerUserProfileController {
       console.log("ChangeToActive");
       const params = req.params;
       const username = params.username;
+      console.log("ChangeToActive,username: ", username);
       const accountStatus = await User.updateOne(
         { username: username },
         { accountStatus: "active" }
@@ -104,6 +110,7 @@ class administerUserProfileController {
     try {
       console.log("updateUserProfile!!!");
       const params = req.params;
+      console.log("params", params);
       const username = params.username;
       console.log("username", username);
       console.log("body", req.body);
@@ -115,7 +122,8 @@ class administerUserProfileController {
 
       console.log("enter modifiedUsername");
       const isExist = await User.findOne({ username: modifiedUsername });
-      if (isExist) {
+      if (isExist && username != modifiedUsername) {
+        console.log("this username has existed");
         res.status(400).json({ error: "this username has existed" });
         return;
       }
@@ -123,6 +131,7 @@ class administerUserProfileController {
       const allAdministrator = await User.find({
         privilege: "administrator",
       });
+      console.log(" User.findOne({ userna");
       const user = await User.findOne({ username: username });
       console.log("user", user);
       if (
@@ -133,8 +142,9 @@ class administerUserProfileController {
         res.status(400).json({ error: "at least one administrator" });
         return;
       }
-
-      if (modifiedPassword != null) {
+      console.log("modifiedPassword: ", modifiedPassword);
+      // if (modifiedPassword != null) {
+      if (modifiedPassword.length != 0) {
         console.log("enter modifiedPassword ");
         await User.updateOne(
           { username: username },

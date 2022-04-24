@@ -1,14 +1,17 @@
 <link rel="stylesheet" href="/stylesheets/changeProfile.css" />
+
 <div class="editProfile-wrapper">
   <header class="editProfile-header">
     <button id="leave" class="ui inverted button compact">
-      Back to Directory
+      Back to Directory For Admin
     </button>
   </header>
 
   <div class="ui raised very padded text container segment">
     <center>
-      <p>username:</p>
+      <p><%= userInformationList.username %> <%= userInformationList.privilege %> <%= userInformationList.accountStatus %></p>
+
+      <p>new username:</p>
       <input type = "text" id="editUsername" value="<%= userInformationList.username %>"/>
       <span id="username-hint"></span>
       <p> </p>
@@ -31,7 +34,7 @@
         </div>
       </div>
       <p> </p>
-      <p>accountStatus:</p>
+      <!-- <p>accountStatus:</p>
       <div class="ui form" >
         <div class="field">
           <select id="editAccountStatus">
@@ -40,12 +43,29 @@
           </select>
         </div>
       </div>
-      <p>  </p>
+      <p>  </p> -->
       <button id="edit-button" class="editProfileButton">
         edit profile
         <i class="paper plane outline icon"></i>
       </button>
 
+      <p> </p>
+    <div class="activeButtonDiv">
+      <button id="active-button" class="theActiveButton">
+        active this blog
+        <i class="heart icon"></i>
+      </button>
+    </div>
+    <div class="inactiveButtonDiv">
+      <button id="inactive-button" class="theInactiveButton">
+        inactive this blog
+        <i class="heart outline icon"></i>
+      </button>
+    </div>
+
+    <p>username:</p>
+      <input type = "text" id="oldUserName" value="<%= userInformationList.username %>"/>
+    <p> </p>
 
       <p>  </p>
       <p>. </p>
