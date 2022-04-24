@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1650788302756" clover="3.2.0">
-  <project timestamp="1650788302756" name="All files">
-    <metrics statements="888" coveredstatements="769" conditionals="93" coveredconditionals="71" methods="101" coveredmethods="89" elements="1082" coveredelements="929" complexity="0" loc="888" ncloc="888" packages="5" files="35" classes="35"/>
-    <package name="iteration5-refactor">
+<coverage generated="1650838653037" clover="3.2.0">
+  <project timestamp="1650838653037" name="All files">
+    <metrics statements="877" coveredstatements="780" conditionals="87" coveredconditionals="76" methods="100" coveredmethods="90" elements="1064" coveredelements="946" complexity="0" loc="877" ncloc="877" packages="5" files="34" classes="34"/>
+    <package name="s22-ESN-SA2">
       <metrics statements="45" coveredstatements="42" conditionals="2" coveredconditionals="2" methods="7" coveredmethods="6"/>
-      <file name="app.js" path="/Users/pinzhini/Desktop/iteration5-refactor/app.js">
+      <file name="app.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/app.js">
         <metrics statements="33" coveredstatements="33" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -40,7 +40,7 @@
         <line num="59" count="3" type="stmt"/>
         <line num="62" count="2" type="stmt"/>
       </file>
-      <file name="socket.js" path="/Users/pinzhini/Desktop/iteration5-refactor/socket.js">
+      <file name="socket.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/socket.js">
         <metrics statements="12" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="4"/>
         <line num="1" count="3" type="stmt"/>
         <line num="7" count="2" type="stmt"/>
@@ -50,91 +50,91 @@
         <line num="11" count="0" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
         <line num="17" count="66" type="stmt"/>
-        <line num="21" count="1" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
+        <line num="21" count="4" type="stmt"/>
+        <line num="22" count="4" type="stmt"/>
         <line num="26" count="3" type="stmt"/>
         <line num="28" count="3" type="stmt"/>
       </file>
     </package>
-    <package name="iteration5-refactor.controllers">
-      <metrics statements="600" coveredstatements="495" conditionals="77" coveredconditionals="61" methods="63" coveredmethods="54"/>
-      <file name="administerUserProfileController.js" path="/Users/pinzhini/Desktop/iteration5-refactor/controllers/administerUserProfileController.js">
-        <metrics statements="73" coveredstatements="51" conditionals="21" coveredconditionals="15" methods="4" coveredmethods="3"/>
+    <package name="s22-ESN-SA2.controllers">
+      <metrics statements="600" coveredstatements="509" conditionals="77" coveredconditionals="66" methods="63" coveredmethods="55"/>
+      <file name="administerUserProfileController.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/controllers/administerUserProfileController.js">
+        <metrics statements="73" coveredstatements="65" conditionals="21" coveredconditionals="20" methods="4" coveredmethods="4"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
         <line num="4" count="2" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="11" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="39" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="11" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="32" count="1" type="cond" truecount="3" falsecount="1"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
         <line num="40" count="0" type="stmt"/>
-        <line num="44" count="0" type="stmt"/>
-        <line num="50" count="0" type="stmt"/>
-        <line num="55" count="2" type="stmt"/>
-        <line num="56" count="2" type="stmt"/>
-        <line num="57" count="2" type="stmt"/>
-        <line num="58" count="2" type="stmt"/>
-        <line num="59" count="2" type="stmt"/>
-        <line num="60" count="2" type="stmt"/>
-        <line num="61" count="2" type="stmt"/>
-        <line num="62" count="2" type="stmt"/>
-        <line num="63" count="2" type="stmt"/>
-        <line num="64" count="2" type="stmt"/>
-        <line num="66" count="2" type="cond" truecount="4" falsecount="0"/>
-        <line num="68" count="1" type="stmt"/>
-        <line num="69" count="1" type="stmt"/>
-        <line num="71" count="1" type="stmt"/>
+        <line num="45" count="2" type="stmt"/>
+        <line num="46" count="2" type="stmt"/>
+        <line num="47" count="2" type="stmt"/>
+        <line num="48" count="2" type="stmt"/>
+        <line num="49" count="2" type="stmt"/>
+        <line num="50" count="2" type="stmt"/>
+        <line num="51" count="2" type="stmt"/>
+        <line num="52" count="2" type="stmt"/>
+        <line num="53" count="2" type="stmt"/>
+        <line num="54" count="2" type="stmt"/>
+        <line num="56" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="58" count="1" type="stmt"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
         <line num="75" count="1" type="stmt"/>
         <line num="76" count="1" type="stmt"/>
         <line num="77" count="1" type="stmt"/>
-        <line num="79" count="0" type="stmt"/>
-        <line num="80" count="0" type="stmt"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="79" count="1" type="stmt"/>
+        <line num="80" count="1" type="stmt"/>
+        <line num="84" count="1" type="stmt"/>
         <line num="85" count="1" type="stmt"/>
-        <line num="86" count="1" type="stmt"/>
-        <line num="87" count="1" type="stmt"/>
-        <line num="88" count="1" type="stmt"/>
-        <line num="89" count="1" type="stmt"/>
-        <line num="90" count="1" type="stmt"/>
-        <line num="94" count="1" type="stmt"/>
-        <line num="95" count="1" type="stmt"/>
-        <line num="97" count="0" type="stmt"/>
-        <line num="98" count="0" type="stmt"/>
+        <line num="87" count="0" type="stmt"/>
+        <line num="88" count="0" type="stmt"/>
+        <line num="94" count="5" type="stmt"/>
+        <line num="96" count="5" type="stmt"/>
+        <line num="98" count="5" type="stmt"/>
+        <line num="100" count="5" type="stmt"/>
+        <line num="102" count="5" type="stmt"/>
         <line num="104" count="5" type="stmt"/>
         <line num="106" count="5" type="stmt"/>
         <line num="108" count="5" type="stmt"/>
-        <line num="110" count="5" type="stmt"/>
-        <line num="112" count="5" type="stmt"/>
-        <line num="114" count="5" type="stmt"/>
-        <line num="116" count="5" type="stmt"/>
-        <line num="118" count="5" type="stmt"/>
-        <line num="119" count="5" type="cond" truecount="4" falsecount="0"/>
-        <line num="121" count="1" type="stmt"/>
-        <line num="122" count="1" type="stmt"/>
-        <line num="125" count="4" type="stmt"/>
-        <line num="129" count="4" type="stmt"/>
-        <line num="130" count="4" type="stmt"/>
-        <line num="132" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="138" count="1" type="stmt"/>
-        <line num="139" count="1" type="stmt"/>
-        <line num="143" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="145" count="1" type="stmt"/>
-        <line num="154" count="2" type="stmt"/>
-        <line num="159" count="3" type="stmt"/>
-        <line num="161" count="0" type="stmt"/>
-        <line num="162" count="0" type="stmt"/>
-        <line num="168" count="2" type="stmt"/>
+        <line num="109" count="5" type="cond" truecount="4" falsecount="0"/>
+        <line num="111" count="1" type="stmt"/>
+        <line num="112" count="1" type="stmt"/>
+        <line num="115" count="4" type="stmt"/>
+        <line num="119" count="4" type="stmt"/>
+        <line num="120" count="4" type="stmt"/>
+        <line num="122" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="128" count="1" type="stmt"/>
+        <line num="129" count="1" type="stmt"/>
+        <line num="133" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="135" count="1" type="stmt"/>
+        <line num="144" count="2" type="stmt"/>
+        <line num="149" count="3" type="stmt"/>
+        <line num="150" count="3" type="stmt"/>
+        <line num="152" count="0" type="stmt"/>
+        <line num="153" count="0" type="stmt"/>
+        <line num="159" count="2" type="stmt"/>
       </file>
-      <file name="announcementMessageController.js" path="/Users/pinzhini/Desktop/iteration5-refactor/controllers/announcementMessageController.js">
+      <file name="announcementMessageController.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/controllers/announcementMessageController.js">
         <metrics statements="24" coveredstatements="20" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -161,7 +161,7 @@
         <line num="49" count="2" type="stmt"/>
         <line num="51" count="2" type="stmt"/>
       </file>
-      <file name="blogController.js" path="/Users/pinzhini/Desktop/iteration5-refactor/controllers/blogController.js">
+      <file name="blogController.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/controllers/blogController.js">
         <metrics statements="48" coveredstatements="40" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="7"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -212,7 +212,7 @@
         <line num="95" count="2" type="stmt"/>
         <line num="97" count="2" type="stmt"/>
       </file>
-      <file name="donorsController.js" path="/Users/pinzhini/Desktop/iteration5-refactor/controllers/donorsController.js">
+      <file name="donorsController.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/controllers/donorsController.js">
         <metrics statements="22" coveredstatements="22" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -237,7 +237,7 @@
         <line num="47" count="1" type="stmt"/>
         <line num="51" count="2" type="stmt"/>
       </file>
-      <file name="eventController.js" path="/Users/pinzhini/Desktop/iteration5-refactor/controllers/eventController.js">
+      <file name="eventController.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/controllers/eventController.js">
         <metrics statements="57" coveredstatements="57" conditionals="8" coveredconditionals="8" methods="7" coveredmethods="7"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -297,7 +297,7 @@
         <line num="92" count="1" type="stmt"/>
         <line num="97" count="2" type="stmt"/>
       </file>
-      <file name="joinController.js" path="/Users/pinzhini/Desktop/iteration5-refactor/controllers/joinController.js">
+      <file name="joinController.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/controllers/joinController.js">
         <metrics statements="31" coveredstatements="27" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="1"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -331,7 +331,7 @@
         <line num="61" count="0" type="stmt"/>
         <line num="65" count="2" type="stmt"/>
       </file>
-      <file name="loginLogoutController.js" path="/Users/pinzhini/Desktop/iteration5-refactor/controllers/loginLogoutController.js">
+      <file name="loginLogoutController.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/controllers/loginLogoutController.js">
         <metrics statements="50" coveredstatements="38" conditionals="8" coveredconditionals="6" methods="3" coveredmethods="3"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -384,7 +384,7 @@
         <line num="91" count="1" type="stmt"/>
         <line num="95" count="2" type="stmt"/>
       </file>
-      <file name="measurePerformanceController.js" path="/Users/pinzhini/Desktop/iteration5-refactor/controllers/measurePerformanceController.js">
+      <file name="measurePerformanceController.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/controllers/measurePerformanceController.js">
         <metrics statements="23" coveredstatements="21" conditionals="4" coveredconditionals="3" methods="4" coveredmethods="4"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -410,7 +410,7 @@
         <line num="35" count="1" type="stmt"/>
         <line num="40" count="2" type="stmt"/>
       </file>
-      <file name="privateMessageController.js" path="/Users/pinzhini/Desktop/iteration5-refactor/controllers/privateMessageController.js">
+      <file name="privateMessageController.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/controllers/privateMessageController.js">
         <metrics statements="67" coveredstatements="43" conditionals="4" coveredconditionals="2" methods="9" coveredmethods="6"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -480,7 +480,7 @@
         <line num="177" count="1" type="stmt"/>
         <line num="181" count="2" type="stmt"/>
       </file>
-      <file name="provideMedicalSupplyController.js" path="/Users/pinzhini/Desktop/iteration5-refactor/controllers/provideMedicalSupplyController.js">
+      <file name="provideMedicalSupplyController.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/controllers/provideMedicalSupplyController.js">
         <metrics statements="25" coveredstatements="22" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -508,7 +508,7 @@
         <line num="51" count="0" type="stmt"/>
         <line num="55" count="2" type="stmt"/>
       </file>
-      <file name="publicMessageController.js" path="/Users/pinzhini/Desktop/iteration5-refactor/controllers/publicMessageController.js">
+      <file name="publicMessageController.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/controllers/publicMessageController.js">
         <metrics statements="24" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -535,7 +535,7 @@
         <line num="46" count="2" type="stmt"/>
         <line num="48" count="2" type="stmt"/>
       </file>
-      <file name="reserveMedicalSupplyController.js" path="/Users/pinzhini/Desktop/iteration5-refactor/controllers/reserveMedicalSupplyController.js">
+      <file name="reserveMedicalSupplyController.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/controllers/reserveMedicalSupplyController.js">
         <metrics statements="24" coveredstatements="22" conditionals="4" coveredconditionals="3" methods="2" coveredmethods="2"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -562,7 +562,7 @@
         <line num="39" count="0" type="stmt"/>
         <line num="44" count="2" type="stmt"/>
       </file>
-      <file name="searchController.js" path="/Users/pinzhini/Desktop/iteration5-refactor/controllers/searchController.js">
+      <file name="searchController.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/controllers/searchController.js">
         <metrics statements="103" coveredstatements="87" conditionals="24" coveredconditionals="20" methods="8" coveredmethods="7"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -668,7 +668,7 @@
         <line num="195" count="1" type="stmt"/>
         <line num="200" count="2" type="stmt"/>
       </file>
-      <file name="shareStatusController.js" path="/Users/pinzhini/Desktop/iteration5-refactor/controllers/shareStatusController.js">
+      <file name="shareStatusController.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/controllers/shareStatusController.js">
         <metrics statements="29" coveredstatements="27" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -701,20 +701,17 @@
         <line num="79" count="2" type="stmt"/>
       </file>
     </package>
-    <package name="iteration5-refactor.middlewares">
-      <metrics statements="23" coveredstatements="13" conditionals="6" coveredconditionals="0" methods="5" coveredmethods="3"/>
-      <file name="administratorPrivilege.js" path="/Users/pinzhini/Desktop/iteration5-refactor/middlewares/administratorPrivilege.js">
-        <metrics statements="8" coveredstatements="3" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
+    <package name="s22-ESN-SA2.middlewares">
+      <metrics statements="12" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
+      <file name="administratorPrivilege.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/middlewares/administratorPrivilege.js">
+        <metrics statements="5" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="0" type="stmt"/>
         <line num="4" count="0" type="stmt"/>
-        <line num="5" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="11" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
       </file>
-      <file name="auth.js" path="/Users/pinzhini/Desktop/iteration5-refactor/middlewares/auth.js">
+      <file name="auth.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/middlewares/auth.js">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
@@ -722,26 +719,15 @@
         <line num="9" count="1" type="stmt"/>
         <line num="22" count="2" type="stmt"/>
       </file>
-      <file name="coordinatorPrivilege.js" path="/Users/pinzhini/Desktop/iteration5-refactor/middlewares/coordinatorPrivilege.js">
-        <metrics statements="8" coveredstatements="3" conditionals="4" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="2" type="stmt"/>
-        <line num="2" count="2" type="stmt"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="4" count="0" type="stmt"/>
-        <line num="5" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="11" count="2" type="stmt"/>
-      </file>
-      <file name="suspend.js" path="/Users/pinzhini/Desktop/iteration5-refactor/middlewares/suspend.js">
+      <file name="suspend.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/middlewares/suspend.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="2" count="2" type="stmt"/>
         <line num="11" count="2" type="stmt"/>
       </file>
     </package>
-    <package name="iteration5-refactor.models">
+    <package name="s22-ESN-SA2.models">
       <metrics statements="124" coveredstatements="123" conditionals="8" coveredconditionals="8" methods="26" coveredmethods="26"/>
-      <file name="blog.js" path="/Users/pinzhini/Desktop/iteration5-refactor/models/blog.js">
+      <file name="blog.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/models/blog.js">
         <metrics statements="12" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -756,7 +742,7 @@
         <line num="72" count="3" type="stmt"/>
         <line num="73" count="3" type="stmt"/>
       </file>
-      <file name="chat.js" path="/Users/pinzhini/Desktop/iteration5-refactor/models/chat.js">
+      <file name="chat.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/models/chat.js">
         <metrics statements="12" coveredstatements="12" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -771,7 +757,7 @@
         <line num="31" count="4" type="stmt"/>
         <line num="32" count="4" type="stmt"/>
       </file>
-      <file name="event.js" path="/Users/pinzhini/Desktop/iteration5-refactor/models/event.js">
+      <file name="event.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/models/event.js">
         <metrics statements="25" coveredstatements="25" conditionals="6" coveredconditionals="6" methods="5" coveredmethods="5"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -799,7 +785,7 @@
         <line num="50" count="3" type="stmt"/>
         <line num="52" count="3" type="stmt"/>
       </file>
-      <file name="medicalSupply.js" path="/Users/pinzhini/Desktop/iteration5-refactor/models/medicalSupply.js">
+      <file name="medicalSupply.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/models/medicalSupply.js">
         <metrics statements="22" coveredstatements="22" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
         <line num="1" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
@@ -824,7 +810,7 @@
         <line num="63" count="3" type="stmt"/>
         <line num="64" count="3" type="stmt"/>
       </file>
-      <file name="message.js" path="/Users/pinzhini/Desktop/iteration5-refactor/models/message.js">
+      <file name="message.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/models/message.js">
         <metrics statements="16" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -843,7 +829,7 @@
         <line num="58" count="3" type="stmt"/>
         <line num="59" count="3" type="stmt"/>
       </file>
-      <file name="status.js" path="/Users/pinzhini/Desktop/iteration5-refactor/models/status.js">
+      <file name="status.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/models/status.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
@@ -853,7 +839,7 @@
         <line num="17" count="2" type="stmt"/>
         <line num="19" count="2" type="stmt"/>
       </file>
-      <file name="user.js" path="/Users/pinzhini/Desktop/iteration5-refactor/models/user.js">
+      <file name="user.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/models/user.js">
         <metrics statements="30" coveredstatements="30" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="7"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -887,9 +873,9 @@
         <line num="89" count="4" type="stmt"/>
       </file>
     </package>
-    <package name="iteration5-refactor.routes">
+    <package name="s22-ESN-SA2.routes">
       <metrics statements="96" coveredstatements="96" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="blog.js" path="/Users/pinzhini/Desktop/iteration5-refactor/routes/blog.js">
+      <file name="blog.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/routes/blog.js">
         <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -904,7 +890,7 @@
         <line num="15" count="2" type="stmt"/>
         <line num="24" count="2" type="stmt"/>
       </file>
-      <file name="chat.js" path="/Users/pinzhini/Desktop/iteration5-refactor/routes/chat.js">
+      <file name="chat.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/routes/chat.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -914,7 +900,7 @@
         <line num="7" count="2" type="stmt"/>
         <line num="11" count="2" type="stmt"/>
       </file>
-      <file name="event.js" path="/Users/pinzhini/Desktop/iteration5-refactor/routes/event.js">
+      <file name="event.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/routes/event.js">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -927,7 +913,7 @@
         <line num="10" count="2" type="stmt"/>
         <line num="12" count="2" type="stmt"/>
       </file>
-      <file name="medicalSupply.js" path="/Users/pinzhini/Desktop/iteration5-refactor/routes/medicalSupply.js">
+      <file name="medicalSupply.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/routes/medicalSupply.js">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -940,7 +926,7 @@
         <line num="12" count="2" type="stmt"/>
         <line num="17" count="2" type="stmt"/>
       </file>
-      <file name="message.js" path="/Users/pinzhini/Desktop/iteration5-refactor/routes/message.js">
+      <file name="message.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/routes/message.js">
         <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -958,7 +944,7 @@
         <line num="36" count="2" type="stmt"/>
         <line num="42" count="2" type="stmt"/>
       </file>
-      <file name="performance.js" path="/Users/pinzhini/Desktop/iteration5-refactor/routes/performance.js">
+      <file name="performance.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/routes/performance.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -967,7 +953,7 @@
         <line num="6" count="2" type="stmt"/>
         <line num="7" count="2" type="stmt"/>
       </file>
-      <file name="search.js" path="/Users/pinzhini/Desktop/iteration5-refactor/routes/search.js">
+      <file name="search.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/routes/search.js">
         <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -982,7 +968,7 @@
         <line num="13" count="2" type="stmt"/>
         <line num="14" count="2" type="stmt"/>
       </file>
-      <file name="user.js" path="/Users/pinzhini/Desktop/iteration5-refactor/routes/user.js">
+      <file name="user.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/routes/user.js">
         <metrics statements="24" coveredstatements="24" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
