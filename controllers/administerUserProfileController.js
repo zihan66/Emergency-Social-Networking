@@ -32,7 +32,6 @@ class administerUserProfileController {
       };
       console.log(userInformationList);
       // res.status(200).json(userInformationList);
-
       // const myName = req.cookies.username;
       // const me = (await User.findOne({ username: myName })) || {};
       // const myPrivilege = me.privilege;
@@ -63,7 +62,7 @@ class administerUserProfileController {
       console.log("user", user);
 
       if (user.privilege === "administrator" && allAdministrator.length == 1) {
-        res.status(400).json({ error: "at least one activeadministrator" });
+        res.status(400).json({ error: "at least one active administrator" });
         return;
       }
       const accountStatus = await User.updateOne(

@@ -6,7 +6,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const Socket = require("../socket");
 
-let PORT = 3003;
+let PORT = 3000;
 let HOST = "http://localhost:" + PORT;
 let connection;
 var server;
@@ -51,6 +51,40 @@ const user002 = {
   bloodType: "A",
 };
 
+const dummy = {
+    username: "dummy",
+    password: "123xyz",
+    isLogin: false,
+    lastStatusCode: "OK",
+    isAcknowledge: true,
+    isDonor: false,
+    bloodType: "A",
+    privilege: "citizen",
+    accountStatus: "inactive",
+};
+
+const foo = {
+    username: "foo",
+    password: "123xyz",
+    isLogin: true,
+    lastStatusCode: "OK",
+    isAcknowledge: true,
+    isDonor: false,
+    bloodType: "A",
+    privilege: "citizen",
+    accountStatus: "active",
+};
+
+const testAdmin = {
+    username: "ESNAdmin",
+    password: "admin",
+    isLogin: true,
+    lastStatusCode: "OK",
+    isAcknowledge: true,
+    isDonor: true,
+    bloodType: "O",
+};
+
 const msg001 = {
   id: 0,
   content: "Hello, I am 001",
@@ -63,7 +97,11 @@ const testMessage = {
   username: "001",
 };
 
-const msg002 = { id: 1, content: "I am 002", username: "002" };
+const msg002 = {
+    id: 1,
+    content: "I am 002",
+    username: "002",
+};
 
 const msg003 = {
   id: 2,
@@ -215,7 +253,6 @@ test("Can search user by status", () => {
   })();
 });
 
-// search username
 test("Can search user by name", () => {
   return (async () => {
     await agent
@@ -280,7 +317,6 @@ test("Can post announcement", () => {
   })().catch((e) => {});
 });
 
-// search public message
 test("Can search public message", () => {
   return (async () => {
     await agent
@@ -370,7 +406,7 @@ test("Can search public message", () => {
   })().catch((e) => {});
 });
 
-test("Get announcement", () => {
+test("Get post announcement", () => {
   return (async () => {
     await agent
       .get(HOST + "/messages/announcement")
@@ -472,7 +508,7 @@ test("Can get all private chats", () => {
   })().catch((e) => {});
 });
 
-test("Can render to chart Donor page", () => {
+test("Can render private chat page when need blood", () => {
   return (async () => {
     await agent
       .get(HOST + `/chats/${chat_id}/002?isToDonor=true`)
@@ -500,7 +536,7 @@ test("Can get all donors", () => {
   })().catch((e) => {});
 });
 
-test("Can Update User Blood Type", () => {
+test("Can update blood type", () => {
   return (async () => {
     await agent
       .put(HOST + "/users/001/updateBloodType")
@@ -517,7 +553,7 @@ test("Can Update User Blood Type", () => {
   })().catch((e) => {});
 });
 
-test("Can Become Donor", () => {
+test("Can become a donor", () => {
   return (async () => {
     await agent
       .put(HOST + "/users/001/isDonor")
@@ -535,7 +571,7 @@ test("Can Become Donor", () => {
   })().catch((e) => {});
 });
 
-test("Can Not Become Donor", () => {
+test("Can delete a donor", () => {
   return (async () => {
     await agent
       .put(HOST + "/users/002/isDonor")
@@ -553,7 +589,7 @@ test("Can Not Become Donor", () => {
   })().catch((e) => {});
 });
 
-test("Can Get One User Record", () => {
+test("Can get a citizen's record", () => {
   return (async () => {
     await agent
       .get(HOST + "/users/001")
@@ -567,7 +603,7 @@ test("Can Get One User Record", () => {
   })().catch((e) => {});
 });
 
-test("Can User offline", () => {
+test("Can logout a user", () => {
   return (async () => {
     await agent
       .put(HOST + "/users/001/offline")
@@ -661,7 +697,7 @@ test("Cannot search invalid query", () => {
   })().catch((e) => {});
 });
 
-test("Can Get All Users ", () => {
+test("Can retrieve all users", () => {
   return (async () => {
     await agent
       .get(HOST + "/users")
@@ -688,7 +724,8 @@ test("Can messages private unread ", () => {
       .catch((e) => {});
   })().catch((e) => {});
 });
-test("Can post new blog", () => {
+
+test("Can post a new blog", () => {
   return (async () => {
     await agent
       .post(HOST + "/blog")
@@ -717,7 +754,7 @@ test("Can post new blog", () => {
   })().catch((e) => {});
 });
 
-test("Get blogs", () => {
+test("Can get blogs", () => {
   return (async () => {
     await agent
       .post(HOST + "/blog")
@@ -931,7 +968,7 @@ test("Can create an event", () => {
   })().catch((e) => {});
 });
 
-test("Can Join/Unjoin an  event", () => {
+test("Can Join/Unjoin an event", () => {
   return (async () => {
     const response = await axios.get(HOST + "/events");
     const data = response.data[0];
@@ -953,7 +990,7 @@ test("Can Join/Unjoin an  event", () => {
   })().catch((e) => {});
 });
 
-test("Cannot Join/Unjoin an  unexisted event", async () => {
+test("Cannot Join/Unjoin a non-existing event", async () => {
   await agent
     .put(HOST + `/events/6262435ed7ab8de2ad036855/join?username=test`)
     .then((res) => {
@@ -1064,3 +1101,218 @@ test("measure performance test", () => {
       .catch((e) => {});
   })().catch((e) => {});
 });
+
+test("Can login as administrator", () => {
+    return (async () => {
+        await agent
+            .post(HOST + "/users")
+            .send(testAdmin)
+            .then((res, err) => {
+                expect(err).toBe(undefined);
+                expect(res.statusCode).toBe(201);
+                // expect(testAdmin.privilege).toBe("administrator");
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+
+        await agent
+            .put(HOST + "users/ESNAdmin")
+            .send({ privilege: "administrator" })
+            .then((res, err) => {
+                expect(err).toBe(404);
+                expect(res.statusCode).toBe(200);
+                expect(testAdmin.privilege).toBe("administrator");
+            })
+            .catch((e) => {
+
+            });
+
+    })().catch((e) => {
+
+    });
+});
+
+test("Cannot get citizen profile if not administrator", () => {
+    return (async () => {
+        // TODO: try to render user profile as a citizen
+    })().catch((e) => {});
+});
+
+test("Can update citizen's username", () => {
+    let oldName = "foo"
+    let newName = "duck"
+
+    return (async () => {
+       await agent
+           .put(HOST + `users/${oldName}`)
+           .send({ username: newName })
+           .then((res, err) => {
+               expect(err).toBe(404);
+               expect(res.statusCode).toBe(200);
+           })
+           .catch((e) => {
+
+           });
+
+    })().catch((e) => {
+    });
+});
+
+test("Can update citizen's password", () => {
+
+    return (async () => {
+        await agent
+            .put(HOST + "users/001")
+            .send({ password: 12306 })
+            .then((res, err) => {
+                expect(err).toBe(404);
+                expect(res.statusCode).toBe(200);
+            })
+            .catch((e) => {
+
+            });
+
+    })().catch((e) => {
+    });
+});
+
+test("Can not deactivate the only administrator", () => {
+    return (async () => {
+
+        // await agent
+        //     .post(HOST + "/users")
+        //     .send(testAdmin)
+        //     .then((res, err) => {
+        //         expect(err).toBe(undefined);
+        //         expect(res.statusCode).toBe(200);
+        //     }).catch((e) => {
+        //
+        //     });
+
+        // await agent
+        //     .put(HOST + "/users/ESNAdmin/online")
+        //     .send({ password: "admin" })
+        //     .then((res, err) => {
+        //         expect(err).toBe(undefined);
+        //         expect(res.statusCode).toBe(200);
+        //     }).catch((e) => {
+        //
+        //     });
+
+        await agent
+            .put(HOST + "/users/ESNAdmin/inactivate")
+            .send()
+            .then((res, err) => {
+                expect(err).toBe(undefined);
+                expect(res.statusCode).toBe(400);
+                expect(testAdmin.accountStatus).toBe("active");
+            })
+            .catch((e) => {
+
+            });
+    })().catch((e) => {
+
+    });
+});
+
+test("Can put a user to inactive", () => {
+    return (async () => {
+
+        await agent
+            .post(HOST + "/users")
+            .send(foo)
+            .then((res, err) => {
+                expect(err).toBe(undefined);
+                expect(res.statusCode).toBe(201);
+            })
+            .catch((e) => {
+                // deal with it
+            });
+
+        await agent
+            .put(HOST + "/users/foo/online")
+            .send({ password: "123xyz", })
+            .then((err, res) => {
+                expect(err).toBe(null);
+                expect(res.statusCode).toBe(200);
+            }).catch((e) => {
+                // do something
+            });
+
+        await agent
+            .put(HOST + "/users/foo/inactive")
+            .send()
+            .then((res, err) => {
+                expect(err).toBe(null);
+                expect(res.statusCode).toBe(200);
+                expect(foo.accountStatus).toBe("inactive");
+            }).catch((e) => {
+
+            });
+
+    })().catch((e) => {
+
+    });
+
+});
+
+
+test("Can not login inactive user", () => {
+    return (async () => {
+
+        // await agent
+        //     .post(HOST + "/users")
+        //     .send(foo)
+        //     .then((res, err) => {
+        //         expect(err).toBe(undefined);
+        //         expect(res.statusCode).toBe(201);
+        //     })
+        //     .catch((e) => {
+        //         // console.log(e);
+        //     });
+
+        await agent
+            .post(HOST + "/users/foo/online")
+            .send({ password: "123xyz", })
+            .then((res, err) => {
+                expect(err).toBe(null);
+                expect(res.statusCode).toBe(404);
+                expect(foo.isLogin).toBe(false);
+            })
+            .catch((e) => {
+                // console.log(e);
+            });
+
+    })().catch((e) => {
+
+    });
+
+});
+
+test("Can bring an inactive user back to active", () => {
+    return (async () => {
+
+        await agent
+            .put(HOST + "/users/dummy/active")
+            .send()
+            .then((res, err) => {
+                expect(err).toBe(null);
+                expect(res.statusCode).toBe(200);
+            })
+            .catch((e) => {
+                // console.log(e);
+            });
+
+    })().catch((e) => {
+
+    });
+
+});
+
+
+
+
+
+
+
