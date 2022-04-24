@@ -81,7 +81,7 @@ const testAdmin = {
     isLogin: true,
     lastStatusCode: "OK",
     isAcknowledge: true,
-    isDonor: true,
+    isDonor: false,
     bloodType: "O",
 };
 
@@ -1102,6 +1102,8 @@ test("measure performance test", () => {
   })().catch((e) => {});
 });
 
+
+// iteration 5 part
 test("Can login as administrator", () => {
     return (async () => {
         await agent
@@ -1117,16 +1119,29 @@ test("Can login as administrator", () => {
             });
 
         await agent
-            .put(HOST + "users/ESNAdmin")
-            .send({ privilege: "administrator" })
+            .put(HOST + "/users/ESNAdmin")
+            .send({ username: "ESNAdmin", privilege: "administrator" })
             .then((res, err) => {
                 expect(err).toBe(404);
                 expect(res.statusCode).toBe(200);
                 expect(testAdmin.privilege).toBe("administrator");
             })
-            .catch((e) => {
 
-            });
+    })().catch((e) => {
+
+    });
+});
+
+test("Cannot turn the only administrator to citizen", () => {
+    return (async () => {
+        await agent
+            .put(HOST + "/users/ESNAdmin")
+            .send({ username: "ESNAdmin", privilege: "citizen" })
+            .then((res, err) => {
+                expect(err).toBe(404);
+                expect(res.statusCode).toBe(400);
+                expect(testAdmin.privilege).toBe("administrator");
+            })
 
     })().catch((e) => {
 
@@ -1144,27 +1159,54 @@ test("Can update citizen's username", () => {
     let newName = "duck"
 
     return (async () => {
+        await agent
+            .post(HOST + "/users")
+            .send(foo)
+            .then((res, err) => {
+                expect(err).toBe(undefined);
+                expect(res.statusCode).toBe(201);
+            })
+            .catch((e) => {});
+
        await agent
-           .put(HOST + `users/${oldName}`)
+           .put(HOST + "/users/foo")
            .send({ username: newName })
            .then((res, err) => {
                expect(err).toBe(404);
-               expect(res.statusCode).toBe(200);
+               expect(res.statusCode).toBe(204);
            })
-           .catch((e) => {
+           .catch((e) => {});
 
-           });
-
-    })().catch((e) => {
-    });
+    })().catch((e) => {});
 });
 
 test("Can update citizen's password", () => {
 
     return (async () => {
+
         await agent
-            .put(HOST + "users/001")
-            .send({ password: 12306 })
+            .post(HOST + "/users")
+            .send(foo)
+            .then((res, err) => {
+                expect(err).toBe(undefined);
+                expect(res.statusCode).toBe(201);
+            }).catch((e) => {
+
+            });
+
+        await agent
+            .put(HOST + "/users/foo/online")
+            .send({ username: "foo", password: "123xyz" })
+            .then((res, err) => {
+                expect(err).toBe(undefined);
+                expect(res.statusCode).toBe(200);
+            }).catch((e) => {
+
+            });
+
+        await agent
+            .put(HOST + "/users/foo")
+            .send({ username: "foo", password: 12306 })
             .then((res, err) => {
                 expect(err).toBe(404);
                 expect(res.statusCode).toBe(200);
@@ -1180,28 +1222,8 @@ test("Can update citizen's password", () => {
 test("Can not deactivate the only administrator", () => {
     return (async () => {
 
-        // await agent
-        //     .post(HOST + "/users")
-        //     .send(testAdmin)
-        //     .then((res, err) => {
-        //         expect(err).toBe(undefined);
-        //         expect(res.statusCode).toBe(200);
-        //     }).catch((e) => {
-        //
-        //     });
-
-        // await agent
-        //     .put(HOST + "/users/ESNAdmin/online")
-        //     .send({ password: "admin" })
-        //     .then((res, err) => {
-        //         expect(err).toBe(undefined);
-        //         expect(res.statusCode).toBe(200);
-        //     }).catch((e) => {
-        //
-        //     });
-
         await agent
-            .put(HOST + "/users/ESNAdmin/inactivate")
+            .put(HOST + "/users/ESNAdmin/inactive")
             .send()
             .then((res, err) => {
                 expect(err).toBe(undefined);
@@ -1261,20 +1283,20 @@ test("Can put a user to inactive", () => {
 test("Can not login inactive user", () => {
     return (async () => {
 
-        // await agent
-        //     .post(HOST + "/users")
-        //     .send(foo)
-        //     .then((res, err) => {
-        //         expect(err).toBe(undefined);
-        //         expect(res.statusCode).toBe(201);
-        //     })
-        //     .catch((e) => {
-        //         // console.log(e);
-        //     });
+        await agent
+            .post(HOST + "/users")
+            .send(dummy)
+            .then((res, err) => {
+                expect(err).toBe(undefined);
+                expect(res.statusCode).toBe(201);
+            })
+            .catch((e) => {
+                // console.log(e);
+            });
 
         await agent
-            .post(HOST + "/users/foo/online")
-            .send({ password: "123xyz", })
+            .post(HOST + "/users/dummy/online")
+            .send({ password: "123xyz" })
             .then((res, err) => {
                 expect(err).toBe(null);
                 expect(res.statusCode).toBe(404);
@@ -1308,6 +1330,22 @@ test("Can bring an inactive user back to active", () => {
 
     });
 
+});
+
+test("Cannot change to existing username", () => {
+    return (async () => {
+
+        await agent
+            .put(HOST + "/users/001")
+            .send({ username: "dummy" })
+            .then((res, err) => {
+                expect(err).toBe(404);
+                expect(res.statusCode).toBe(400);
+                expect(foo.username).toBe("001");
+            })
+            .catch((e) => {});
+
+    })().catch((e) => {});
 });
 
 
