@@ -1,3 +1,4 @@
+import ejectUser from "../javascripts/common/logout.js";
 const msgContainer = document.querySelector(".message-container");
 const msgList = document.querySelector(".message-list");
 const { cookies } = brownies;
@@ -5,9 +6,12 @@ const { cookies } = brownies;
 const socket = io({ URL: "http://localhost:3000", autoConnect: false });
 const pathname = document.URL.split("/");
 const chatID = pathname[pathname.length - 2];
-const another = pathname[pathname.length - 1].split('?')[0];
-console.log(`/messages/private?chatID=${chatID}`);
+const another = pathname[pathname.length - 1].split("?")[0];
 
+// inform user of force injection
+socket.on("ejectOneUser", async (message) => {
+  ejectUser(message);
+});
 const getCorrectStatusSpan = (deliveryStatus) => {
   let recStatus = "";
   if (deliveryStatus === "OK") recStatus = "green";
@@ -142,7 +146,7 @@ sendButton.addEventListener("click", async (e) => {
     content: msgContent,
     target: another,
     chatID,
-    isToDonor:window.location.search.includes('isToDonor=true') 
+    isToDonor: window.location.search.includes("isToDonor=true"),
   };
   try {
     const response = await fetch(`/messages/private`, {
@@ -161,7 +165,6 @@ sendButton.addEventListener("click", async (e) => {
 
 window.addEventListener("load", async () => {
   try {
-
     socket.auth = { username: cookies.username };
     socket.connect();
     const repsonse = await fetch(`/users/${another}`, {

@@ -22,6 +22,8 @@ class JoinController {
         password,
       });
 
+      const user = await User.findOne({ username });
+
       const token = jwt.sign(
         {
           id: String(newUser._id),
@@ -34,8 +36,13 @@ class JoinController {
       // user signup successfully, update the userlist and send it to front-end
       const userList = await User.findAllUsers();
       io.emit("userList", userList);
+      res.cookie("userId", user._id.toString());
       res.cookie("jwtToken", token);
-      res.cookie("username", username);
+      res.cookie("username", user.username);
+      res.cookie("isDonor", user.isDonor);
+      res.cookie("bloodType", user.bloodType);
+      res.cookie("lastStatusCode", user.lastStatusCode);
+      res.cookie("privilege", user.privilege);
       res.location("/welcome");
       res.status(201).json({
         jwtToken: token,

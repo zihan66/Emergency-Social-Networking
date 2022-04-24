@@ -3,15 +3,13 @@
   <header class="directory-header">
     <span class="header1">Donor List</span>
 
-     <button id="BecomeDonnor" class="ui inverted button compact">
-          Donate or Undo
-     </button>
+    <button id="BecomeDonnor" class="ui inverted button compact">
+      Donate or Undo
+    </button>
 
-      <a href="./directory">
-        <button id="Back" class="ui inverted button compact">
-            Back
-        </button>
-      </a>
+    <a href="./directory">
+      <button id="Back" class="ui inverted button compact">Back</button>
+    </a>
   </header>
 
   <div class="hamburger-menu">
@@ -102,68 +100,101 @@
   </div>
 
   <!-- Modal -->
-<div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="flex-wrap flex-middle flex-direction-column">
-          <div class="flex-wrap flex-middle flex-center">
-            <div style="margin-right: 20px;"> Your Blood Type</div>
-            <select id="BloodTypeSelect"  aria-label="Default select example">
-              <option value="AB">AB</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="O">O</option>
-            </select>
-          </div>
-
-          <div id="DonnorBt" class=" flex-wrap flex-direction-column">
-              <button id="becomeDonnorBt" type="button" class="btn btn-outline-dark" style="margin: 10px;">
-                I hereby confirm that <br/> 
-                I am willing to become a donor
-              </button>
-              <button id="cancellDonnorBt" type="button" class="btn btn-outline-dark" style="margin: 10px;">
-                I am no longer interested
-              </button>
-          </div>
-
-        
-
-        </div>
-        
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" id="modal-confirm"  class="btn btn-outline-dark">OK</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="modal fade" id="askDonorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div
+    class="modal fade"
+    id="myModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="modal-body">
+          <div class="flex-wrap flex-middle flex-direction-column">
+            <div class="flex-wrap flex-middle flex-center">
+              <div style="margin-right: 20px">Your Blood Type</div>
+              <select id="BloodTypeSelect" aria-label="Default select example">
+                <option value="AB">AB</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="O">O</option>
+              </select>
+            </div>
 
+            <div id="DonnorBt" class="flex-wrap flex-direction-column">
+              <button
+                id="becomeDonnorBt"
+                type="button"
+                class="btn btn-outline-dark"
+                style="margin: 10px"
+              >
+                I hereby confirm that <br />
+                I am willing to become a donor
+              </button>
+              <button
+                id="cancellDonnorBt"
+                type="button"
+                class="btn btn-outline-dark"
+                style="margin: 10px"
+              >
+                I am no longer interested
+              </button>
+            </div>
+          </div>
         </div>
-    
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="button" id="modal-confirm" class="btn btn-outline-dark">
+            OK
+          </button>
+        </div>
       </div>
     </div>
   </div>
-  
-  
+
+  <div
+    class="modal fade"
+    id="askDonorModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body"></div>
+      </div>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/brownies"></script>
-  
+
   <script src="/socket.io/socket.io.js"></script>
-  <script src="/javascripts/newDonor.js"></script>
+  <script type="module" src="/javascripts/newDonor.js"></script>
   <script src="/javascripts/common/showAskDonorModal.js"></script>
 </div>

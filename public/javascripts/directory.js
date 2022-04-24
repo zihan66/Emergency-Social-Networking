@@ -7,7 +7,7 @@ const socket = io({ URL: "http://localhost:3000", autoConnect: false });
 const userChatMap = new Map();
 const msgNumMap = new Map();
 const unreadMsgMap = new Map();
-const getAllUsers = async () => {};
+import ejectUser from "../javascripts/common/logout.js";
 
 const statusImage = (lastStatusCode) => {
   let userStatus = "";
@@ -101,21 +101,8 @@ socket.on("privateMessage", (message) => {
 });
 
 // inform user of force injection
-socket.on("ejectOneUser", async (cause) => {
-  console.log(cause);
-  window.alert("You are logged out due to " + cause);
-  const { username } = cookies;
-  try {
-    const response = await fetch(`/users/${username}/offline`, {
-      method: "put",
-      headers: {
-        Authorization: `Bearer ${cookies.jwtToken}`,
-      },
-    });
-    window.location.href = "/";
-  } catch (error) {
-    console.log(error);
-  }
+socket.on("ejectOneUser", async (message) => {
+  ejectUser(message);
 });
 
 window.addEventListener("load", async () => {
@@ -222,9 +209,9 @@ const logout = document.querySelector("#logout");
 logout.addEventListener("click", async (e) => {
   e.preventDefault();
   e.stopPropagation();
-  const { username } = cookies;
+  const { userId } = cookies;
   try {
-    const response = await fetch(`/users/${username}/offline`, {
+    const response = await fetch(`/users/${userId}/offline`, {
       method: "put",
       headers: {
         Authorization: `Bearer ${cookies.jwtToken}`,

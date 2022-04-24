@@ -1,3 +1,4 @@
+import ejectUser from "../javascripts/common/logout.js";
 let intervalPostID;
 let intervalGetID;
 let duration;
@@ -55,7 +56,6 @@ const getAllTestMessages = async () => {
   }
 };
 
-
 const interrupthandler = async () => {
   testInProgress = false;
   clearTimeout(timeoutPostID);
@@ -72,9 +72,7 @@ const interrupthandler = async () => {
   } catch (error) {
     console.log(error);
   }
-
 };
-
 
 const stopPost = async () => {
   clearInterval(intervalPostID);
@@ -85,7 +83,6 @@ const stopPost = async () => {
 };
 
 const stopGet = async () => {
-
   await interrupthandler();
   console.log("counterOfGet", countOfGet);
   numberOfGetPerSec = (countOfGet / (duration / 2)).toFixed(2);
@@ -125,7 +122,6 @@ getMeasureData.addEventListener("click", async (e) => {
   countOfGet = 0;
 
   resultContainer.innerHTML = "";
-
 
   const eleDuration = document.querySelector("#duration-hint");
   eleDuration.innerHTML = "";
@@ -167,7 +163,6 @@ getMeasureData.addEventListener("click", async (e) => {
   } catch (error) {
     console.log(error);
   }
-
 });
 
 const leave = document.querySelector("#leave");

@@ -1,11 +1,14 @@
 const msgContainer = document.querySelector(".message-container");
 const msgList = document.querySelector(".message-list");
-
+import ejectUser from "../javascripts/common/logout.js";
 const { cookies } = brownies;
 // eslint-disable-next-line no-undef
 
 const socket = io({ URL: "http://localhost:3000", autoConnect: false });
-
+// inform user of force injection
+socket.on("ejectOneUser", async (message) => {
+  ejectUser(message);
+});
 const getAllMessages = async () => {
   try {
     const response = await fetch("/messages/public", {
@@ -62,7 +65,6 @@ socket.on("privateMessage", (message) => {
   if (target === cookies.username)
     window.alert("You received a new message from " + author);
 });
-
 
 const sendButton = document.getElementById("msg-button");
 sendButton.addEventListener("click", async (e) => {

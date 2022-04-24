@@ -8,7 +8,7 @@ class loginLogoutController {
   static async login(req, res) {
     try {
       const user = await User.findOne({ username: req.params.username });
-
+      console.log(user);
       const io = socket.getInstance();
       if (!user) {
         return res.status(404).json({
@@ -20,10 +20,6 @@ class loginLogoutController {
           message: "Account Status is inactive",
         });
       }
-      await User.updateOne(
-        { username: "ESNAdmin" },
-        { privilege: "administrator", lastStatusCode: "OK" }
-      );
 
       const isPasswordValid = brypt.compareSync(
         req.body.password,
@@ -55,6 +51,7 @@ class loginLogoutController {
       // user login successfully, update the userlist and send it to front-end
       const userList = await User.findAllUsers();
       io.emit("userList", userList);
+      res.cookie("userId", user._id.toString());
       res.cookie("jwtToken", token);
       res.cookie("username", req.params.username);
       res.cookie("isDonor", user.isDonor);
@@ -71,15 +68,21 @@ class loginLogoutController {
     const user = req.params;
     const io = socket.getInstance();
     try {
-      let result = await User.findOne({ username: user.username });
-      await User.updateOne({ username: user.username }, { isLogin: false });
+      await User.updateOne({ _id: user.userId }, { isLogin: false });
       const userList = await User.findAllUsers();
       io.emit("userList", userList);
+      res.clearCookie("userId");
       res.clearCookie("jwtToken");
       res.clearCookie("username");
+      res.clearCookie("isDonor");
+      res.clearCookie("bloodType");
+      res.clearCookie("lastStatusCode");
+      res.clearCookie("privilege");
 
       res.status(200).json({});
-    } catch (e) {}
+    } catch (e) {
+      res.status(500).json({ e });
+    }
   }
 
   static async getAllUsers(req, res) {

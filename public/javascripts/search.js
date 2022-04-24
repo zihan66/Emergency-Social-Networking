@@ -1,4 +1,5 @@
 const { cookies } = brownies;
+
 const sendMsg = document.getElementById("sendMsg-button");
 const deleteMsg = document.getElementById("deleteMsg-button");
 const searchResult = document.querySelector(".searchResultList");

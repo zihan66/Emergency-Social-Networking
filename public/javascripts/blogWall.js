@@ -1,3 +1,4 @@
+import ejectUser from "../javascripts/common/logout.js";
 const msgContainer = document.querySelector(".blog-container");
 const msgList = document.querySelector(".blog-list");
 
@@ -20,8 +21,21 @@ const getAllBlogs = async () => {
   }
 };
 
+// inform user of force injection
+socket.on("ejectOneUser", async (message) => {
+  ejectUser(message);
+});
+
 const addSingleBlog = (blog, before) => {
-  const { content, author, deliveryStatus, postedAt, picture,likeCount, _id} = blog;
+  const {
+    content,
+    author,
+    deliveryStatus,
+    postedAt,
+    picture,
+    likeCount,
+    _id,
+  } = blog;
 
   const item = document.createElement("li");
   item.addEventListener("click", async function (e) {

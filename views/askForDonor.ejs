@@ -4,11 +4,8 @@
     <span class="header1">Donor List</span>
 
     <a href="./directory">
-      <button id="Back" class="ui inverted button compact">
-          Back
-     </button>
+      <button id="Back" class="ui inverted button compact">Back</button>
     </a>
-     
   </header>
 
   <div class="hamburger-menu">
@@ -99,51 +96,83 @@
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div
+    class="modal fade"
+    id="myModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="modal-body">
           <div class="flex-wrap flex-middle flex-direction-column">
             <div class="flex-wrap flex-middle flex-center">
-              <div style="margin-right: 20px;"> Your Blood Type</div>
-              <select id="BloodTypeSelect"  aria-label="Default select example">
-              </select>
+              <div style="margin-right: 20px">Your Blood Type</div>
+              <select
+                id="BloodTypeSelect"
+                aria-label="Default select example"
+              ></select>
             </div>
           </div>
-          
-          
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" id="modal-confirm"  class="btn btn-outline-dark">OK</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="button" id="modal-confirm" class="btn btn-outline-dark">
+            OK
+          </button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Modal2 -->
-  <div class="modal fade" id="myModal2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div
+    class="modal fade"
+    id="myModal2"
+    aria-hidden="true"
+    aria-labelledby="exampleModalToggleLabel2"
+    tabindex="-1"
+  >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
+        <div class="modal-header">
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
         <div class="modal-body">
           you have entered a different blood type, are you sure to confirm?
         </div>
         <div class="modal-footer">
-          <button class="btn btn-light" id="modal-Back2" >Back</button>
-          <button class="btn btn-warning"  id="modal-confirm2" >confirm</button>
+          <button class="btn btn-light" id="modal-Back2">Back</button>
+          <button class="btn btn-warning" id="modal-confirm2">confirm</button>
         </div>
       </div>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/brownies"></script>
-  
+
   <script src="/socket.io/socket.io.js"></script>
-  <script src="/javascripts/askForDonor.js"></script>
+  <script type="module" src="/javascripts/askForDonor.js"></script>
 </div>

@@ -1,4 +1,5 @@
 const { cookies } = brownies;
+import ejectUser from "../javascripts/common/logout.js";
 const sendMsg = document.getElementById("sendMsg-button");
 const deleteMsg = document.getElementById("deleteMsg-button");
 const allMedicalSupply = document.querySelector(".allMedicalSupplyList");
@@ -16,11 +17,13 @@ socket.on("postNewMedicalSupply", (medicalSupply) => {
 });
 socket.on("deleteMedicalSupply", (data) => {
   const deletedMedicalSupply = document.getElementById(data.id);
-  deletedMedicalSupply.innerHTML = '<div class="deleteMedicalSupply"> deleted <div>';
+  deletedMedicalSupply.innerHTML =
+    '<div class="deleteMedicalSupply"> deleted <div>';
 });
 socket.on("reserved", (medicalSupply) => {
   const reservedMedicalSupply = document.getElementById(medicalSupply.id);
-  reservedMedicalSupply.innerHTML = '<div class="reservedLabel"> reserved <div>'; 
+  reservedMedicalSupply.innerHTML =
+    '<div class="reservedLabel"> reserved <div>';
 });
 socket.on("cancelReservation", (data) => {
   const MedicalSupplyCancelReser = document.getElementById(data.id);
@@ -42,7 +45,6 @@ window.addEventListener("load", async () => {
     });
     const allMedicalSupply = await response.json();
     for (let i = 0; i < allMedicalSupply.length; i++) {
-
       appendMedicalSupply(allMedicalSupply[i]);
     }
   } catch (error) {
@@ -188,7 +190,6 @@ const searchMedicalSupply = async (searchContent) => {
     for (let i = 0; i < medicalSupplyMatched.length; i++) {
       appendMedicalSupply(medicalSupplyMatched[i]);
     }
-
   } catch (error) {
     console.log(error);
   }

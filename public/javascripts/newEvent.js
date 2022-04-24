@@ -1,4 +1,5 @@
 $("#standard_calendar").calendar();
+import ejectUser from "../javascripts/common/logout.js";
 const { cookies } = brownies;
 const submitButton = document.querySelector("#create");
 

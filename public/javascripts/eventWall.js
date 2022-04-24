@@ -1,3 +1,4 @@
+import ejectUser from "../javascripts/common/logout.js";
 const socket = io({ URL: "http://localhost:3000", autoConnect: false });
 const { cookies } = brownies;
 const eventList = document.querySelector("ul");
@@ -5,7 +6,10 @@ const myEventButton = document.querySelector("#my-event");
 myEventButton.addEventListener("click", () => {
   window.location.href = "/myEvent";
 });
-
+// inform user of force injection
+socket.on("ejectOneUser", async (message) => {
+  ejectUser(message);
+});
 const leave = document.querySelector("#leave");
 leave.addEventListener("click", (e) => {
   e.preventDefault();

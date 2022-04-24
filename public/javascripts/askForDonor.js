@@ -1,6 +1,7 @@
 const directoryContainer = document.querySelector(".directory-container");
 const userList = document.querySelector(".user-list");
 const userprofile = document.querySelector("user-directory-profile");
+import ejectUser from "../javascripts/common/logout.js";
 const { cookies } = brownies;
 // eslint-disable-next-line no-undef
 const socket = io({ URL: "http://localhost:3000", autoConnect: false });
@@ -14,7 +15,11 @@ const bloodTypes = ["AB", "A", "B", "O"];
 
 let bloodType = cookies.bloodType;
 let cacheBloodType;
-let isDonor = ''
+let isDonor = "";
+// inform user of force injection
+socket.on("ejectOneUser", async (message) => {
+  ejectUser(message);
+});
 
 const initSelect = (curBloodType = bloodType) => {
   let str = "";
@@ -70,7 +75,10 @@ const addSingleUser = (user) => {
     e.preventDefault();
     const username2 = this.id;
     const chatID = userChatMap.get(this.id);
-    const isMath = bloodType == "O" || cookies.bloodType == "AB" || cookies.bloodType === bloodType
+    const isMath =
+      bloodType == "O" ||
+      cookies.bloodType == "AB" ||
+      cookies.bloodType === bloodType;
 
     if (!isMath) {
       alert("bloodType mismatch!");
@@ -101,7 +109,7 @@ const addSingleUser = (user) => {
       }
     }
   });
-  
+
   item.className = "user";
   item.id = `${username}`;
   item.innerHTML = ` 
@@ -118,17 +126,16 @@ const addSingleUser = (user) => {
 
 const userBonorList = ({ userDonors = [] }) => {
   const { username } = cookies;
-  const _users = userDonors.filter((e) => e&&e.username !== username);
+  const _users = userDonors.filter((e) => e && e.username !== username);
   _users.map(addSingleUser);
 };
 
 socket.on("donorList", (users) => {
   userList.innerHTML = "";
-  
+
   const allUSer = userBonorList({ userDonors: users });
   directoryContainer.scrollTop = 0;
 });
-
 
 window.addEventListener("load", async () => {
   try {
@@ -154,8 +161,6 @@ window.addEventListener("load", async () => {
     for (let i = 0; i < chats.length; i++) {
       userChatMap.set(chats[i].username, chats[i].chatID);
     }
-
-
   } catch (err) {
     console.log(err);
   }
@@ -163,20 +168,16 @@ window.addEventListener("load", async () => {
 
 const bloodTypeSelect = document.querySelector("#BloodTypeSelect");
 
-
 bloodTypeSelect.addEventListener("change", (e) => {
   let value = e.target.value;
 
-  if (value !== bloodType){
+  if (value !== bloodType) {
     cacheBloodType = value;
-    myModal2.show()
+    myModal2.show();
   }
-  
 });
 
-
-initSelect()
-
+initSelect();
 
 const becomeDonnorBt = document.querySelector("#becomeDonnorBt");
 const cancellDonnorBt = document.querySelector("#cancellDonnorBt");
@@ -187,23 +188,22 @@ const modalConfirm2 = document.querySelector("#modal-confirm2");
 const modalBack2 = document.querySelector("#modal-Back2");
 
 modalConfirm.addEventListener("click", async (e) => {
- let body = {
-   bloodType: cacheBloodType,
- };
- bloodType = cacheBloodType;
- cookies.bloodType = cacheBloodType;
- const res = await fetch(`/users/${cookies.username}/updateBloodType`, {
-   method: "put",
-   headers: {
-     "Content-Type": "application/json",
-     Authorization: `Bearer ${cookies.jwtToken}`,
-   },
-   body: JSON.stringify(body),
- });
+  let body = {
+    bloodType: cacheBloodType,
+  };
+  bloodType = cacheBloodType;
+  cookies.bloodType = cacheBloodType;
+  const res = await fetch(`/users/${cookies.username}/updateBloodType`, {
+    method: "put",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${cookies.jwtToken}`,
+    },
+    body: JSON.stringify(body),
+  });
 
   myModal.hide();
 });
-
 
 modalBack2.addEventListener("click", async (e) => {
   myModal2.hide();

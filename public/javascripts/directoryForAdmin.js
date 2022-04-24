@@ -1,3 +1,4 @@
+import ejectUser from "../javascripts/common/logout.js";
 const directoryContainer = document.querySelector(".directory-container");
 const userList = document.querySelector(".user-list");
 const userprofile = document.querySelector("user-directory-profile");
@@ -8,7 +9,10 @@ const userChatMap = new Map();
 const msgNumMap = new Map();
 const unreadMsgMap = new Map();
 const getAllUsers = async () => {};
-
+// inform user of force injection
+socket.on("ejectOneUser", async (message) => {
+  ejectUser(message);
+});
 const statusImage = (lastStatusCode) => {
   let userStatus = "";
   if (lastStatusCode === "OK") userStatus = "green";

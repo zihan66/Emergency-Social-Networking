@@ -1,9 +1,13 @@
+import ejectUser from "../javascripts/common/logout.js";
 const msgContainer = document.querySelector(".blog-container");
 const msgList = document.querySelector(".blog-list");
 const { cookies } = brownies;
 // eslint-disable-next-line no-undef
 const socket = io({ URL: "http://localhost:3000", autoConnect: false });
-
+// inform user of force injection
+socket.on("ejectOneUser", async (message) => {
+  ejectUser(message);
+});
 const getAllBlogs = async () => {
   try {
     const response = await fetch("/blog", {
@@ -20,7 +24,7 @@ const getAllBlogs = async () => {
 };
 
 const addSingleBlog = (blog, before) => {
-  const { content, author, deliveryStatus, postedAt, _id} = blog;
+  const { content, author, deliveryStatus, postedAt, _id } = blog;
 
   const item = document.createElement("li");
   item.addEventListener("click", async function (e) {
@@ -56,10 +60,6 @@ const appendPreviousBlogs = (blogs) => {
   msgContainer.scrollTop = msgContainer.scrollHeight;
 };
 
-
-
-
-
 const sendButton = document.getElementById("msg-button");
 
 sendButton.addEventListener("click", async (e) => {
@@ -73,8 +73,13 @@ sendButton.addEventListener("click", async (e) => {
   e.preventDefault();
   e.stopPropagation();
   msgInput.value = "";
-  const requestBody = { username, content: msgContent, picture: pictureSelect, text: text};
-  console.log("picture:",requestBody.picture);
+  const requestBody = {
+    username,
+    content: msgContent,
+    picture: pictureSelect,
+    text: text,
+  };
+  console.log("picture:", requestBody.picture);
   try {
     const response = await fetch("/blog", {
       method: "post",
@@ -90,7 +95,6 @@ sendButton.addEventListener("click", async (e) => {
   }
   msgInput.focus();
 });
-
 
 const leave = document.querySelector("#leave");
 leave.addEventListener("click", (e) => {

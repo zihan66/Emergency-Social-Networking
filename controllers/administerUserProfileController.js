@@ -4,12 +4,6 @@ const socket = require("../socket");
 const User = require("../models/user");
 
 class administerUserProfileController {
-  static async LogoutOneUser(io, target, cause) {
-    // const io = socket.getInstance();
-    const targetSocketId = socket.hasName[target.username];
-    io.sockets.to(targetSocketId).emit("ejectOneUser", cause);
-  }
-
   static async renderOneUserRecord(req, res) {
     try {
       const user =
@@ -72,19 +66,15 @@ class administerUserProfileController {
         res.status(400).json({ error: "at least one activeadministrator" });
         return;
       }
-      console.log("ChangeToinactive2");
       const accountStatus = await User.updateOne(
         { username: username },
         { accountStatus: "inactive" }
       );
-      const message = { inform: "your account status has been inactive" };
-      console.log("ChangeToinactive3");
-      //io emit
-      // io.emit("inactive", message);
-      await this.LogoutOneUser(io, user, "account change to inactive", res);
+      socket.sendLogOutEvent(username, "Your account status has changed!");
       console.log("accountStatus", accountStatus);
       res.status(204).json();
     } catch (error) {
+      console.log(error);
       res.status(500).json({ error });
     }
   }
