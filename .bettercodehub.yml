@@ -7,4 +7,6 @@ exclude:
   - /lib
 
 test:
-  exclude: -/public
+  exclude:
+    -/public/.*
+
