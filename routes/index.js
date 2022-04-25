@@ -50,7 +50,7 @@ router.get("/directory", auth, (req, res) => {
   res.render("directory", { title: "directory" });
 });
 
-router.get("/directoryForAdmin", auth, (req, res) => {
+router.get("/directoryForAdmin", auth, administratorPrivilege, (req, res) => {
   res.render("directoryForAdmin", { title: "directoryForAdmin" });
 });
 

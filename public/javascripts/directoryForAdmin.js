@@ -91,24 +91,7 @@ socket.on("privateMessage", (message) => {
   const { target, author } = message;
   if (target === cookies.username)
     window.alert("You received a new message from " + author);
-  // const unreadMsgList = document.querySelector(".unreadMsgList");
-  // const item = document.createElement("li");
-  // item.id = `${message.author}`;
-  // calculateMsgNum(message.author);
-  // msgNumMap.forEach(function(value,key){
-  //   unreadMsgList.appendChild(item);
-  // })
-  // document.querySelector(".msgNum").innerHTML = `${msgNumMap.get(message.author)}`;
-  //addUnreadMsg(message.author);
 });
-
-// const addUnreadMsg = (username) => {
-//   const unreadMsgList = document.querySelector(".unreadMsgList");
-//   const item = document.createElement("li");
-//   item.id = `${username}`;
-//   item.innerHTML = `<span> ${username}</span><span class="msgNum"></span>`;
-//   unreadMsgList.appendChild(item);
-// }
 
 window.addEventListener("load", async () => {
   try {
@@ -136,11 +119,6 @@ window.addEventListener("load", async () => {
     for (let i = 0; i < chats.length; i++) {
       userChatMap.set(chats[i].username, chats[i].chatID);
     }
-    // }
-    // else{
-    //   console.log("call window.location.href login");
-    //   window.location.href = "/login";
-    // }
   } catch (err) {
     console.log(err);
   }

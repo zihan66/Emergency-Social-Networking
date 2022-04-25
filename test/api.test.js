@@ -1153,6 +1153,18 @@ test("Cannot get citizen profile if not administrator", () => {
   })().catch((e) => {});
 });
 
+test("Cannot get citizen profile if not administrator", () => {
+  return (async () => {
+    await agent
+      .get(HOST + "/measure;")
+      .then((res, err) => {
+        expect(err).toBe(undefined);
+        expect(res.statusCode).toBe(200);
+      })
+      .catch((e) => {});
+  })().catch((e) => {});
+});
+
 test("Can update citizen's username", () => {
   let oldName = "foo";
   let newName = "duck";
