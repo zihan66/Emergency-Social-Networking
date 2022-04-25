@@ -68,7 +68,7 @@ sendButton.addEventListener("click", async (e) => {
       body: JSON.stringify(requestBody),
     });
     console.log("response:", response);
-    const result = await response;
+
     if (
       response.status === 200 ||
       response.status === 201 ||
@@ -76,6 +76,7 @@ sendButton.addEventListener("click", async (e) => {
     ) {
       window.location.href = `/users/edit/${username}`;
     } else {
+      const result = await response.json();
       if (result.error === "at least one administrator") {
         alert("at least one administrator!");
         return;
@@ -169,7 +170,7 @@ inactiveButton.addEventListener("click", async (e) => {
       return;
     } else {
       const result = await response.json();
-      if (result.error === "at least one active administrator") {
+      if (result.error === "at least one administrator") {
         alert("at least one active administrator!");
         return;
       } else {
