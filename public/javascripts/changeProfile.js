@@ -134,6 +134,25 @@ activeButton.addEventListener("click", async (e) => {
       },
       // body: JSON.stringify(requestBody),
     });
+    console.log("response:", response);
+    const result = await response.json();
+    if (
+      response.status === 200 ||
+      response.status === 201 ||
+      response.status === 204
+    ) {
+      // window.location.href = `/directoryForAdmin`;
+      window.location.href = `/users/edit/${username}`;
+    } else {
+      if (result.error === "at least one active administrator") {
+        alert("at least one active administrator!");
+        return;
+      } else {
+        //
+        alert("unknown error");
+        return;
+      }
+    }
     window.location.href = `/users/edit/${oldUserName}`;
   } catch (error) {
     console.error(error);
