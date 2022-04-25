@@ -18,8 +18,6 @@ sendButton.addEventListener("click", async (e) => {
   const username = msgInput.value;
   const password = msgInput2.value;
   var privilege = msgInput3.options[msgInput3.selectedIndex].text;
-  // var accountStatus = msgInput4.options[msgInput4.selectedIndex].text;
-  // const { username } = cookies;
   e.preventDefault();
   e.stopPropagation();
   //if (!msgContent) return;
@@ -69,9 +67,6 @@ sendButton.addEventListener("click", async (e) => {
       },
       body: JSON.stringify(requestBody),
     });
-    // if(response.status === 401 || response.status === 400 || response.status === 401 ||){
-
-    // }
     console.log("response:", response);
     const result = await response;
     if (
@@ -79,7 +74,6 @@ sendButton.addEventListener("click", async (e) => {
       response.status === 201 ||
       response.status === 204
     ) {
-      // window.location.href = `/directoryForAdmin`;
       window.location.href = `/users/edit/${username}`;
     } else {
       if (result.error === "at least one administrator") {
@@ -89,7 +83,6 @@ sendButton.addEventListener("click", async (e) => {
         alert("this username has existed!");
         return;
       } else {
-        //
         alert("unknown error");
         return;
       }
@@ -141,7 +134,7 @@ activeButton.addEventListener("click", async (e) => {
       response.status === 204
     ) {
       // window.location.href = `/directoryForAdmin`;
-      window.location.href = `/users/edit/${username}`;
+      window.location.href = `/users/edit/${oldUserName}`;
     } else {
       const result = await response.json();
       if (result.error === "at least one active administrator") {

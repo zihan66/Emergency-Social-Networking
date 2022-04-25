@@ -68,7 +68,7 @@ const appendAllUsers = (users) => {
   users.map(addSingleUser);
 };
 
-socket.on("userList", (users) => {
+socket.on("userListForAdmin", (users) => {
   userList.innerHTML = "";
   const allUSer = appendAllUsers(users);
   directoryContainer.scrollTop = 0;

@@ -49,8 +49,6 @@ class administerUserProfileController {
       const params = req.params;
       const username = params.username;
       const user = await User.findOne({ username: username });
-      console.log("user", user);
-      console.log(username);
 
       if (user.privilege === "administrator" && allAdministrator.length == 1) {
         res.status(400).json({ error: "at least one active administrator" });
@@ -60,7 +58,14 @@ class administerUserProfileController {
         { username: username },
         { accountStatus: "inactive" }
       );
-      socket.sendLogOutEvent(username, "Your account status has changed!");
+      socket.sendLogOutEvent(
+        username,
+        "The information of your account has been updated"
+      );
+      const userList = await User.findAllUsers();
+      const userListWithInactive = await User.findAllUsersForAdmin();
+      io.emit("userList", userList);
+      io.emit("userListForAdmin", userListWithInactive);
       res.status(204).json();
     } catch (error) {
       console.log(error);
@@ -70,7 +75,7 @@ class administerUserProfileController {
 
   static async ChangeToActive(req, res) {
     try {
-      console.log("ChangeToActive");
+      const io = socket.getInstance();
       const params = req.params;
       const username = params.username;
       console.log("ChangeToActive,username: ", username);
@@ -78,7 +83,10 @@ class administerUserProfileController {
         { username: username },
         { accountStatus: "active" }
       );
-      console.log("accountStatus", accountStatus);
+      const userList = await User.findAllUsers();
+      const userListWithInactive = await User.findAllUsersForAdmin();
+      io.emit("userList", userList);
+      io.emit("userListForAdmin", userListWithInactive);
       res.status(204).json();
     } catch (error) {
       console.log(error);
@@ -91,7 +99,7 @@ class administerUserProfileController {
 
     try {
       const params = req.params;
-
+      const io = socket.getInstance();
       const username = params.username;
 
       const modifiedUsername = req.body.username;
@@ -139,6 +147,10 @@ class administerUserProfileController {
         );
       }
       socket.sendLogOutEvent(username, "Your account status has changed!");
+      const userList = await User.findAllUsers();
+      const userListWithInactive = await User.findAllUsersForAdmin();
+      io.emit("userList", userList);
+      io.emit("userListForAdmin", userListWithInactive);
       res.status(204).json();
     } catch (error) {
       console.log(error);
