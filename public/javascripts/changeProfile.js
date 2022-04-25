@@ -26,9 +26,9 @@ sendButton.addEventListener("click", async (e) => {
   const oldUserName = oldUserNameInput.value;
   if (!oldUserName) return;
 
-  if (username.length == 0) {
+  if (username.length <= 3) {
     const ele = document.querySelector("#username-hint");
-    ele.innerHTML = "Username cannot be empty";
+    ele.innerHTML = "Username need to have at least 3 characters";
     return;
   }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1650863632845" clover="3.2.0">
-  <project timestamp="1650863632845" name="All files">
-    <metrics statements="914" coveredstatements="813" conditionals="91" coveredconditionals="77" methods="104" coveredmethods="94" elements="1109" coveredelements="984" complexity="0" loc="914" ncloc="914" packages="5" files="34" classes="34"/>
+<coverage generated="1650866584878" clover="3.2.0">
+  <project timestamp="1650866584879" name="All files">
+    <metrics statements="913" coveredstatements="812" conditionals="91" coveredconditionals="77" methods="104" coveredmethods="94" elements="1108" coveredelements="983" complexity="0" loc="913" ncloc="913" packages="5" files="34" classes="34"/>
     <package name="s22-ESN-SA2">
       <metrics statements="45" coveredstatements="42" conditionals="2" coveredconditionals="2" methods="7" coveredmethods="6"/>
       <file name="app.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/app.js">
@@ -57,9 +57,9 @@
       </file>
     </package>
     <package name="s22-ESN-SA2.controllers">
-      <metrics statements="627" coveredstatements="535" conditionals="79" coveredconditionals="67" methods="65" coveredmethods="57"/>
+      <metrics statements="626" coveredstatements="534" conditionals="79" coveredconditionals="67" methods="65" coveredmethods="57"/>
       <file name="administerUserProfileController.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/controllers/administerUserProfileController.js">
-        <metrics statements="96" coveredstatements="88" conditionals="21" coveredconditionals="20" methods="6" coveredmethods="6"/>
+        <metrics statements="95" coveredstatements="87" conditionals="21" coveredconditionals="20" methods="6" coveredmethods="6"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
@@ -83,79 +83,78 @@
         <line num="45" count="2" type="stmt"/>
         <line num="46" count="2" type="stmt"/>
         <line num="47" count="2" type="stmt"/>
-        <line num="48" count="2" type="stmt"/>
-        <line num="49" count="2" type="stmt"/>
-        <line num="50" count="2" type="stmt"/>
         <line num="51" count="2" type="stmt"/>
-        <line num="53" count="2" type="cond" truecount="4" falsecount="0"/>
-        <line num="54" count="1" type="stmt"/>
-        <line num="55" count="1" type="stmt"/>
+        <line num="52" count="2" type="stmt"/>
+        <line num="53" count="2" type="stmt"/>
+        <line num="55" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="56" count="1" type="stmt"/>
         <line num="57" count="1" type="stmt"/>
-        <line num="61" count="1" type="stmt"/>
-        <line num="65" count="1" type="stmt"/>
-        <line num="66" count="1" type="stmt"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="63" count="1" type="stmt"/>
         <line num="67" count="1" type="stmt"/>
         <line num="68" count="1" type="stmt"/>
         <line num="69" count="1" type="stmt"/>
         <line num="70" count="1" type="stmt"/>
-        <line num="71" count="4" type="stmt"/>
-        <line num="73" count="1" type="stmt"/>
-        <line num="77" count="1" type="stmt"/>
-        <line num="81" count="1" type="stmt"/>
-        <line num="82" count="1" type="stmt"/>
+        <line num="71" count="1" type="stmt"/>
+        <line num="72" count="1" type="stmt"/>
+        <line num="73" count="4" type="stmt"/>
+        <line num="75" count="1" type="stmt"/>
+        <line num="79" count="1" type="stmt"/>
         <line num="83" count="1" type="stmt"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="86" count="0" type="stmt"/>
-        <line num="91" count="1" type="stmt"/>
-        <line num="92" count="1" type="stmt"/>
+        <line num="84" count="1" type="stmt"/>
+        <line num="85" count="1" type="stmt"/>
+        <line num="87" count="0" type="stmt"/>
+        <line num="88" count="0" type="stmt"/>
         <line num="93" count="1" type="stmt"/>
         <line num="94" count="1" type="stmt"/>
         <line num="95" count="1" type="stmt"/>
         <line num="96" count="1" type="stmt"/>
-        <line num="100" count="1" type="stmt"/>
-        <line num="101" count="1" type="stmt"/>
+        <line num="97" count="1" type="stmt"/>
+        <line num="98" count="1" type="stmt"/>
         <line num="102" count="1" type="stmt"/>
         <line num="103" count="1" type="stmt"/>
         <line num="104" count="1" type="stmt"/>
         <line num="105" count="1" type="stmt"/>
-        <line num="106" count="5" type="stmt"/>
-        <line num="108" count="1" type="stmt"/>
-        <line num="112" count="1" type="stmt"/>
-        <line num="116" count="1" type="stmt"/>
-        <line num="117" count="1" type="stmt"/>
+        <line num="106" count="1" type="stmt"/>
+        <line num="107" count="1" type="stmt"/>
+        <line num="108" count="5" type="stmt"/>
+        <line num="110" count="1" type="stmt"/>
+        <line num="114" count="1" type="stmt"/>
         <line num="118" count="1" type="stmt"/>
-        <line num="120" count="0" type="stmt"/>
-        <line num="121" count="0" type="stmt"/>
-        <line num="126" count="5" type="stmt"/>
+        <line num="119" count="1" type="stmt"/>
+        <line num="120" count="1" type="stmt"/>
+        <line num="122" count="0" type="stmt"/>
+        <line num="123" count="0" type="stmt"/>
         <line num="128" count="5" type="stmt"/>
-        <line num="129" count="5" type="stmt"/>
         <line num="130" count="5" type="stmt"/>
         <line num="131" count="5" type="stmt"/>
+        <line num="132" count="5" type="stmt"/>
         <line num="133" count="5" type="stmt"/>
         <line num="135" count="5" type="stmt"/>
         <line num="137" count="5" type="stmt"/>
         <line num="139" count="5" type="stmt"/>
-        <line num="140" count="5" type="cond" truecount="4" falsecount="0"/>
-        <line num="141" count="1" type="stmt"/>
-        <line num="142" count="1" type="stmt"/>
-        <line num="145" count="4" type="stmt"/>
-        <line num="149" count="4" type="stmt"/>
-        <line num="150" count="4" type="stmt"/>
-        <line num="152" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="157" count="1" type="stmt"/>
-        <line num="158" count="1" type="stmt"/>
-        <line num="162" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="163" count="1" type="stmt"/>
-        <line num="172" count="2" type="stmt"/>
-        <line num="177" count="3" type="stmt"/>
-        <line num="178" count="3" type="stmt"/>
-        <line num="179" count="3" type="stmt"/>
+        <line num="141" count="5" type="stmt"/>
+        <line num="142" count="5" type="cond" truecount="4" falsecount="0"/>
+        <line num="143" count="1" type="stmt"/>
+        <line num="144" count="1" type="stmt"/>
+        <line num="147" count="4" type="stmt"/>
+        <line num="152" count="4" type="stmt"/>
+        <line num="153" count="4" type="stmt"/>
+        <line num="155" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="160" count="1" type="stmt"/>
+        <line num="161" count="1" type="stmt"/>
+        <line num="165" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="166" count="1" type="stmt"/>
+        <line num="175" count="2" type="stmt"/>
         <line num="180" count="3" type="stmt"/>
         <line num="181" count="3" type="stmt"/>
         <line num="182" count="3" type="stmt"/>
-        <line num="184" count="0" type="stmt"/>
-        <line num="185" count="0" type="stmt"/>
-        <line num="190" count="2" type="stmt"/>
+        <line num="183" count="3" type="stmt"/>
+        <line num="184" count="3" type="stmt"/>
+        <line num="185" count="3" type="stmt"/>
+        <line num="187" count="0" type="stmt"/>
+        <line num="188" count="0" type="stmt"/>
+        <line num="193" count="2" type="stmt"/>
       </file>
       <file name="announcementMessageController.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/controllers/announcementMessageController.js">
         <metrics statements="24" coveredstatements="20" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
