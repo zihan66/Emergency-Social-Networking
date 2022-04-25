@@ -81,7 +81,7 @@ class administerUserProfileController {
       console.log("ChangeToinactive3");
       //io emit
       // io.emit("inactive", message);
-      await this.LogoutOneUser(io, user, "account change to inactive", res);
+      // await this.LogoutOneUser(io, user, "account change to inactive", res);
       console.log("accountStatus", accountStatus);
       res.status(204).json();
     } catch (error) {

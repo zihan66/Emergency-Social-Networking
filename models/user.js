@@ -45,6 +45,30 @@ userSchema.statics.findAllUsers = async function () {
   return filteredUserList;
 };
 
+userSchema.statics.findAllUsersForAdmin = async function () {
+  const onlineUsers = await this.find({
+    // isLogin: true,
+    // accountStatus: "active",
+  }).sort({
+    username: 1,
+  });
+  // const offlineUsers = await this.find({
+  //   // isLogin: false,
+    // accountStatus: "inactive",
+  // }).sort({
+  //   username: 1,
+  // });
+  // const wholeUserList = onlineUsers.concat(offlineUsers);
+  const wholeUserList = onlineUsers;
+  
+  const filteredUserList = wholeUserList.map((user) => {
+    const { username, isLogin, lastStatusCode, accountStatus, privilege} = user;
+    return { username, isLogin, lastStatusCode, accountStatus, privilege };
+  });
+  return filteredUserList;
+};
+
+
 userSchema.statics.searchUsersByUsername = async function (searchContent) {
   const onlineUsers = await this.find({
     isLogin: true,

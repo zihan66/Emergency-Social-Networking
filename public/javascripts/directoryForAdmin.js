@@ -19,7 +19,7 @@ const statusImage = (lastStatusCode) => {
 };
 
 const addSingleUser = (user) => {
-  const { username, lastStatusCode, isLogin, priviledge, active} = user;
+  const { username, lastStatusCode, isLogin, privilege, active, accountStatus} = user;
   const item = document.createElement("li");
   item.addEventListener("click", async function (e) {
     e.preventDefault();
@@ -37,10 +37,10 @@ const addSingleUser = (user) => {
   item.innerHTML = ` <div><span class="avat">
   <i class="address card icon"></i>
     </span>
-    <span class="username">${username}</span>
-    <span class="online">${isLogin ? "online" : "offline"}</span>
+    <span class="username"> ${username} </span>
+    <span class="online"> ${accountStatus} ${privilege}</span>
     <span class="status">
-    <span id="${username}Status" class=${userStatus}><img src="../images/${userStatus}.png"> </span>
+    <span id="${username}Status" class=${userStatus}> <img src="../images/${userStatus}.png"> </span>
 </span></div>`;
   userList.appendChild(item);
 };
@@ -100,7 +100,7 @@ window.addEventListener("load", async () => {
     // if(myPrivilege == "Administrator" || myPrivilege == "administrator"){
       socket.auth = { username: cookies.username };
       socket.connect();
-      const allUser = await fetch("/users", {
+      const allUser = await fetch("/users/?mode=admin", {
         method: "get",
         headers: {
           Authorization: `Bearer ${cookies.jwtToken}`,

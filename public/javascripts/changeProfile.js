@@ -653,7 +653,29 @@ sendButton.addEventListener("click", async (e) => {
       },
       body: JSON.stringify(requestBody),
     });
-    window.location.href = `/directoryForAdmin`;
+    // if(response.status === 401 || response.status === 400 || response.status === 401 ||){
+
+    // }
+    console.log("response:",response);
+    const result = await response;
+    if ((response.status === 200) || (response.status === 201) || (response.status === 204)) {
+      // window.location.href = `/directoryForAdmin`;
+      window.location.href = `/users/edit/${username}`;
+    }
+    else{
+      if (result.error === "at least one administrator") {
+        alert("at least one administrator!");
+        return;
+      }
+      else if(result.error === "this username has existed"){
+        alert("this username has existed!");
+        return;
+      } 
+      else { //
+        alert("unknown error");
+        return;
+      }
+    }
   } catch (error) {
     console.error(error);
   }
@@ -696,7 +718,7 @@ activeButton.addEventListener("click", async (e) => {
       },
       // body: JSON.stringify(requestBody),
     });
-    // window.location.href = "/userWall";
+    window.location.href = `/users/edit/${oldUserName}`;
   } catch (error) {
     console.error(error);
   }
@@ -731,10 +753,9 @@ inactiveButton.addEventListener("click", async (e) => {
       },
       // body: JSON.stringify(requestBody),
     });
-    // window.location.href = "/userWall";
+    window.location.href = `/users/edit/${oldUserName}`;
   } catch (error) {
     console.error(error);
   }
 });
-
 

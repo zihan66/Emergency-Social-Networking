@@ -9,8 +9,9 @@
 
   <div class="ui raised very padded text container segment">
     <center>
-      <p><%= userInformationList.username %> <%= userInformationList.privilege %> <%= userInformationList.accountStatus %></p>
-
+      <h2><%= userInformationList.username %></h2>
+      <p><%= userInformationList.privilege %> <%= userInformationList.accountStatus %></p>
+      <p> </p>
       <p>new username:</p>
       <input type = "text" id="editUsername" value="<%= userInformationList.username %>"/>
       <span id="username-hint"></span>
@@ -24,16 +25,55 @@
       <p>accountStatus:</p>
       <input type = "text" id="editAccountStatus" value="<%= userInformationList.accountStatus %>"/> -->
       <p>privilege:</p>
-      <div class="ui form" >
+      <!-- <div class="ui form" >
         <div class="field">
           <select id="editPrivilege">
             <option value="">citizen</option>
             <option value="1">coordinator</option>
-            <option value="0">administrator</option>
+            <option value="0" selected>administrator</option>
           </select>
         </div>
-      </div>
+      </div> -->
       <p> </p>
+      <% switch (userInformationList.privilege) {
+        case 'citizen' : %>
+        <div class="ui form" >
+          <div class="field">
+            <select id="editPrivilege">
+              <option value="" selected>citizen</option>
+              <option value="1">coordinator</option>
+              <option value="0">administrator</option>
+            </select>
+          </div>
+        </div>
+          <% break;
+        
+        case 'coordinator' : %>
+        <div class="ui form" >
+          <div class="field">
+            <select id="editPrivilege">
+              <option value="">citizen</option>
+              <option value="1" selected>coordinator</option>
+              <option value="0">administrator</option>
+            </select>
+          </div>
+        </div>
+          <% break;
+        
+        case 'administrator' : %>
+        <div class="ui form" >
+          <div class="field">
+            <select id="editPrivilege">
+              <option value="">citizen</option>
+              <option value="1">coordinator</option>
+              <option value="0" selected>administrator</option>
+            </select>
+          </div>
+        </div>
+           <% break;
+        
+        } %>
+        <p> </p>
       <!-- <p>accountStatus:</p>
       <div class="ui form" >
         <div class="field">
@@ -44,30 +84,64 @@
         </div>
       </div>
       <p>  </p> -->
+      <p> </p>
       <button id="edit-button" class="editProfileButton">
         edit profile
         <i class="paper plane outline icon"></i>
       </button>
-
       <p> </p>
-    <div class="activeButtonDiv">
-      <button id="active-button" class="theActiveButton">
-        active this blog
-        <i class="heart icon"></i>
-      </button>
-    </div>
-    <div class="inactiveButtonDiv">
-      <button id="inactive-button" class="theInactiveButton">
-        inactive this blog
-        <i class="heart outline icon"></i>
-      </button>
-    </div>
 
-    <p>username:</p>
-      <input type = "text" id="oldUserName" value="<%= userInformationList.username %>"/>
-    <p> </p>
+      <!-- old version -->
+      <!-- <div class="activeButtonDiv">
+        <button id="active-button" class="theActiveButton">
+          active this user
+          <i class="heart icon"></i>
+        </button>
+      </div>
+      <div class="inactiveButtonDiv">
+        <button id="inactive-button" class="theInactiveButton" display="none">
+          inactive this user
+          <i class="heart outline icon"></i>
+        </button>
+      </div> -->
+      <!-- end -->
 
-      <p>  </p>
+      <% if (userInformationList.accountStatus == "active") { %>
+        <div class="activeButtonDiv" hidden>
+          <button id="active-button" class="theActiveButton">
+            active this user
+            <i class="eye icon"></i>
+          </button>
+        </div>
+        <div class="inactiveButtonDiv" >
+          <button id="inactive-button" class="theInactiveButton">
+            inactive this user
+            <i class="eye slash icon"></i>
+          </button>
+        </div>
+      <%} else { %>
+        <div class="activeButtonDiv" >
+          <button id="active-button" class="theActiveButton" >
+            active this user
+            <i class="eye icon"></i>
+          </button>
+        </div>
+        <div class="inactiveButtonDiv" hidden>
+          <button id="inactive-button" class="theInactiveButton" >
+            inactive this user
+            <i class="eye slash icon"></i>
+          </button>
+        </div>
+      <% } %>
+
+      <!-- <p>username:</p> -->
+        <input type = "text" id="oldUserName" value="<%= userInformationList.username %>" hidden/>
+      <p> </p>
+
+
+
+      <!-- test -->
+      <!-- <p>  </p>
       <p>. </p>
       <p>  </p>
       <p>. </p>
@@ -75,13 +149,11 @@
       <p>Header Content:</p>
       <p><%= userInformationList.username %></p>
       <p><%= userInformationList.password %></p>
-      <!-- <p><%= userInformationList.isLogin %></p> -->
-      <!-- <p><%= userInformationList.isAcknowledge %></p> -->
-      <!-- <p><%= userInformationList.lastStatusCode %></p> -->
       <p><%= userInformationList.privilege %></p>
       <p><%= userInformationList.accountStatus %></p>
       <p></p>
-      <p>My priviledge: <%= userInformationList.myPrivilege %></p>
+      <p>My priviledge: <%= userInformationList.myPrivilege %></p> -->
+      <!-- test END-->
     </center>
   </div>
 </div>

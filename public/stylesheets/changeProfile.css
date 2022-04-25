@@ -233,14 +233,14 @@ textarea {
   border          : none;
 }
 
-.activeButtonDiv {
-  display: none;
-  /* color: whitesmoke;
-  background-color: rgb(108, 114, 121); */
-}
-
-.inactiveButtonDiv {
+/* .activeButtonDiv { */
   /* display: none; */
   /* color: whitesmoke;
   background-color: rgb(108, 114, 121); */
-}
+/* } */
+
+/* .inactiveButtonDiv { */
+  /* display: none; */
+  /* color: whitesmoke;
+  background-color: rgb(108, 114, 121); */
+/* } */

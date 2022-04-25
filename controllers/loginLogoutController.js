@@ -84,7 +84,15 @@ class loginLogoutController {
 
   static async getAllUsers(req, res) {
     try {
-      const userList = await User.findAllUsers();
+      const { mode } = req.query;
+      console.log("getAllUsers mode:",mode);
+      let userList;
+      if(mode == "admin"){
+        userList = await User.findAllUsersForAdmin();
+      }
+      else{
+        userList = await User.findAllUsers();
+      }
       res.status(200).json(userList);
     } catch (error) {}
   }
