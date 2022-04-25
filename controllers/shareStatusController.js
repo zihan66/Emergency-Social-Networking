@@ -6,38 +6,55 @@ const socket = require("../socket");
 class shareStatusController {
   static async getOneUserRecord(req, res) {
     try {
-      const user =
-        (await User.findOne({ username: req.params.username })) || {};
-      // sensitive
+      const user = await User.findOne({ username: req.params.username });
       const userPassword = user.password;
       const userIsAcknowledge = user.isAcknowledge;
       // non-sensitive
       const userIsLogin = user.isLogin;
       const userLastStatus = user.lastStatusCode;
       const userUsername = user.username;
-      // const userLastUpdateTime = user.lastStatusUpdateTime;
-      // merge into a list
-      const userInformationList = { userUsername, userIsLogin, userLastStatus };
-      console.log(userInformationList);
+      const privilege = user.privilege;
+      const accountStatus = user.accountStatus;
+      const userInformationList = {
+        userUsername,
+        userIsLogin,
+        userLastStatus,
+        privilege,
+        accountStatus,
+      };
       res.status(200).json(userInformationList);
     } catch (error) {
       console.log(error);
     }
   }
 
+  // static async renderOneUserRecord(req, res) {
+  //   try {
+  //     const user =
+  //       (await User.findOne({ username: req.params.username })) || {};
+  //     // sensitive
+  //     const userPassword = user.password;
+  //     const userIsAcknowledge = user.isAcknowledge;
+  //     // non-sensitive
+  //     const userIsLogin = user.isLogin;
+  //     const userLastStatus = user.lastStatusCode;
+  //     const userUsername = user.username;
+  //     // const userLastUpdateTime = user.lastStatusUpdateTime;
+  //     // merge into a list
+  //     const userInformationList = { userUsername, userIsLogin, userLastStatus };
+  //     console.log(userInformationList);
+  //     // res.status(200).json(userInformationList);
+  //     res.render("changeProfile",{userInformationList:userInformationList});
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
   static async setStatus(req, res) {
     const user = req.params;
-    console.log("setStatus", user);
     const io = socket.getInstance();
     try {
       let result = await User.findOne({ username: user.username });
-      if (!result) {
-        res.status(500).json({});
-        return;
-      }
-
-      console.log(user.username);
-      console.log(user.lastStatusCode);
       await User.updateOne(
         { username: user.username },
         { lastStatusCode: user.lastStatusCode }
@@ -47,9 +64,8 @@ class shareStatusController {
         statusCode: user.lastStatusCode,
         updatedAt: moment().format(),
       };
-      console.log("statusChange", statusChange);
+
       const input_user = user;
-      console.log("emit_test user:", input_user);
 
       io.emit("updateStatus", input_user);
 

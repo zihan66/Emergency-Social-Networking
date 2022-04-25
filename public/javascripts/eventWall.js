@@ -1,3 +1,4 @@
+import ejectUser from "../javascripts/common/logout.js";
 const socket = io({ URL: "http://localhost:3000", autoConnect: false });
 const { cookies } = brownies;
 const eventList = document.querySelector("ul");
@@ -5,7 +6,10 @@ const myEventButton = document.querySelector("#my-event");
 myEventButton.addEventListener("click", () => {
   window.location.href = "/myEvent";
 });
-
+// inform user of force injection
+socket.on("ejectOneUser", async (message) => {
+  ejectUser(message);
+});
 const leave = document.querySelector("#leave");
 leave.addEventListener("click", (e) => {
   e.preventDefault();
@@ -53,15 +57,16 @@ const unjoin = async (eventId) => {
   }
 };
 
-const createCard = (
-  title,
-  startTime,
-  location,
-  host,
-  type,
-  details,
-  participants
-) => {
+const createCard = (params) => {
+  const {
+    title,
+    startTime,
+    location,
+    host,
+    type,
+    details,
+    participants,
+  } = params;
   const participantsString = participants.join(",");
   console.log(participantsString);
   const card = document.createElement("div");
@@ -120,15 +125,15 @@ const appendSingleEvent = (event) => {
   extraContent.className = "extra content";
   extraContent.innerText = isGoing ? "You are going to this event" : "";
   extraContent.appendChild(button);
-  const card = createCard(
+  const card = createCard({
     title,
     startTime,
     location,
     host,
     type,
     details,
-    participants
-  );
+    participants,
+  });
   card.appendChild(extraContent);
   item.appendChild(card);
   eventList.appendChild(item);

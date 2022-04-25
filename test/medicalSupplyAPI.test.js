@@ -23,9 +23,6 @@ beforeAll(async () => {
 
 afterAll(async () => {
   const collections = await mongoose.connection.db.collections();
-  for (let collection of collections) {
-    await collection.deleteMany({});
-  }
   await mongoose.connection.close();
   await server.close();
 });
@@ -79,9 +76,7 @@ test("Can post a new medical supply", async () => {
     .send()
     .then((res) => {
       let medicalSupplies = res.body;
-      console.log("medicalSupplies", medicalSupplies);
       medicalSupply1_id = medicalSupplies[0]._id;
-      console.log("medicalSupply1_id", medicalSupply1_id);
       expect(medicalSupplies).toContainEqual({
         name: "medicalSupply1",
         provider: "jiacheng",
@@ -161,7 +156,6 @@ test("Can get medical supplies by provider", () => {
       .send()
       .then((res) => {
         let medicalSuppliesMatched = res.body;
-        console.log("medicalSuppliesMatched ", medicalSuppliesMatched);
         expect(medicalSuppliesMatched).toContainEqual({
           name: "medical Supply 1",
           provider: "jiacheng",
@@ -190,7 +184,6 @@ test("Can delete a medical supply by id", () => {
       .delete(HOST + `/medicalSupplies/${medicalSupply1_id}`)
       .send()
       .then((res) => {
-        console.log("statusCode", res.statusCode);
         expect(res.statusCode).toBe(200);
       })
       .catch((err) => {
@@ -207,7 +200,6 @@ test("can get all medical supplies", () => {
       .get(HOST + "/medicalSupplies")
       .send()
       .then((res) => {
-        console.log("allMedicalSupplies", res.body);
         const allMedicalSupplies = res.body;
         expect(allMedicalSupplies).toContainEqual({
           name: "medical gloves",
@@ -243,9 +235,13 @@ test("can search medical supplies by name", () => {
   return (async () => {
     await agent
       .get(HOST + "/search/medicalSupplies")
+      .query({ q: "the" })
+      .then((res) => {});
+
+    await agent
+      .get(HOST + "/search/medicalSupplies")
       .query({ q: "medical" })
       .then((res) => {
-        console.log("searchResultmedicalSupplies", res.body);
         const searchResult = res.body;
         expect(searchResult).toContainEqual({
           name: "medical gloves",

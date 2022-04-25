@@ -18,10 +18,7 @@ class measurePerformanceController {
         measurePerformanceController.resumeNormalOperation(req);
       }, 1000 * (testDuration + 5));
       res.status(200).json({});
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({ error });
-    }
+    } catch (error) {}
   }
 
   static resumeNormalOperation(req) {
@@ -36,10 +33,7 @@ class measurePerformanceController {
     try {
       measurePerformanceController.resumeNormalOperation(req);
       res.status(200).json({});
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({});
-    }
+    } catch (error) {}
   }
 }
 

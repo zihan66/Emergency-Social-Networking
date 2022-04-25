@@ -11,11 +11,6 @@ const medicalSupplySchema = new mongoose.Schema({
 medicalSupplySchema.statics.findMedicalSupplyByProvider = async function (
   username
 ) {
-  console.log("username", username);
-  //const medicalSupply = await this.find({ provider: username}, {isDeleted:false},);
-  //   const medicalSupply = await this.find({
-  //     $and: [{ provider: username }, { isDeleted: false }],
-  //   });
   const medicalSupply = await this.find({
     provider: username,
     isDeleted: false,
@@ -31,7 +26,6 @@ medicalSupplySchema.statics.findAllMedicalSupply = async function () {
 };
 
 medicalSupplySchema.statics.deleteMedicalSupplyById = async function (id) {
-  console.log("id", id);
   const medicalSupply = await this.updateOne({ _id: id }, { isDeleted: true });
   return medicalSupply;
 };
@@ -40,7 +34,6 @@ medicalSupplySchema.statics.updateMedicalSupplyToReserved = async function (
   id,
   receiver
 ) {
-  console.log("id", id);
   const medicalSupply = await this.updateOne(
     { _id: id },
     { isReserved: true, receiver: receiver }
@@ -51,7 +44,6 @@ medicalSupplySchema.statics.updateMedicalSupplyToReserved = async function (
 medicalSupplySchema.statics.updateMedicalSupplyToNotReserved = async function (
   id
 ) {
-  console.log("id", id);
   const medicalSupply = await this.updateOne(
     { _id: id },
     { isReserved: false, receiver: null }
@@ -62,9 +54,8 @@ medicalSupplySchema.statics.updateMedicalSupplyToNotReserved = async function (
 medicalSupplySchema.statics.findMedicalSupplyByName = async function (
   searchContent
 ) {
-  console.log("MedicalSupplyname", searchContent);
   const medicalSupply = await this.find({
-    name: { $regex: searchContent, $options: 'i'},
+    name: { $regex: searchContent, $options: "i" },
     isDeleted: false,
   });
   return medicalSupply;

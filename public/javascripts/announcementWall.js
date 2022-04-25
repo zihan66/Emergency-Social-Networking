@@ -1,6 +1,6 @@
 const msgContainer = document.querySelector(".message-container");
 const msgList = document.querySelector(".message-list");
-//const infScroll = new InfiniteScroll(msgList);
+import ejectUser from "../javascripts/common/logout.js";
 const { cookies } = brownies;
 // eslint-disable-next-line no-undef
 const socket = io({ URL: "http://localhost:3000", autoConnect: false });
@@ -18,6 +18,11 @@ const getAllMessages = async () => {
     console.error(err);
   }
 };
+
+// inform user of force injection
+socket.on("ejectOneUser", async (message) => {
+  ejectUser(message);
+});
 
 const addSingleMessage = (message, before) => {
   const { content, author, deliveryStatus, postedAt } = message;
@@ -61,29 +66,31 @@ socket.on("privateMessage", (message) => {
 });
 
 const sendButton = document.getElementById("msg-button");
-sendButton.addEventListener("click", async (e) => {
-  const msgInput = document.getElementById("msg");
-  const msgContent = msgInput.value;
-  const { username } = cookies;
-  e.preventDefault();
-  e.stopPropagation();
-  if (!msgContent) return;
-  msgInput.value = "";
-  const requestBody = { username, content: msgContent };
-  try {
-    const response = await fetch("/messages/announcement", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${cookies.jwtToken}`,
-      },
-      body: JSON.stringify(requestBody),
-    });
-  } catch (error) {
-    console.error(error);
-  }
-  msgInput.focus();
-});
+if (sendButton) {
+  sendButton.addEventListener("click", async (e) => {
+    const msgInput = document.getElementById("msg");
+    const msgContent = msgInput.value;
+    const { username } = cookies;
+    e.preventDefault();
+    e.stopPropagation();
+    if (!msgContent) return;
+    msgInput.value = "";
+    const requestBody = { username, content: msgContent };
+    try {
+      const response = await fetch("/messages/announcement", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cookies.jwtToken}`,
+        },
+        body: JSON.stringify(requestBody),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+    msgInput.focus();
+  });
+}
 
 window.addEventListener("load", async () => {
   try {

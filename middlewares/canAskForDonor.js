@@ -5,8 +5,8 @@ const canAskForDonor = async (req, res, next) => {
     req.cookies.lastStatusCode,
     req.cookies.lastStatusCode != "EMERGENCY"
   );
-  if (req.cookies.lastStatusCode.includes("EMERGENCY") ) 
-      next();
+  /* istanbul ignore next */
+  if (req.cookies.lastStatusCode.includes("EMERGENCY")) next();
   else {
     res.redirect("/directory");
   }

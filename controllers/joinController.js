@@ -11,16 +11,18 @@ class JoinController {
       const existedUser = await User.findOne({
         username,
       });
-      // if (existedUser) {
-      //   res.status(405).json({
-      //     error: "user has already exists",
-      //   });
-      //   return;
-      // }
+      if (existedUser) {
+        res.status(405).json({
+          error: "user has already exists",
+        });
+        return;
+      }
       const newUser = await User.create({
         username,
         password,
       });
+
+      const user = await User.findOne({ username });
 
       const token = jwt.sign(
         {
@@ -34,16 +36,18 @@ class JoinController {
       // user signup successfully, update the userlist and send it to front-end
       const userList = await User.findAllUsers();
       io.emit("userList", userList);
+      res.cookie("userId", user._id.toString());
       res.cookie("jwtToken", token);
-      res.cookie("username", username);
+      res.cookie("username", user.username);
+      res.cookie("isDonor", user.isDonor);
+      res.cookie("bloodType", user.bloodType);
+      res.cookie("lastStatusCode", user.lastStatusCode);
+      res.cookie("privilege", user.privilege);
       res.location("/welcome");
       res.status(201).json({
         jwtToken: token,
       });
-    } catch (error) {
-      console.log("error", error);
-      res.status(500).json({ error });
-    }
+    } catch (error) {}
   }
 
   static async acknowledge(req, res) {
@@ -55,9 +59,7 @@ class JoinController {
       );
       res.location("/directory");
       res.status(200).json();
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
 }
 module.exports = JoinController;

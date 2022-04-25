@@ -1,0 +1,8 @@
+languages:
+  - name: javascript
+  test: 
+    exclude: 
+      - public
+      - views
+      - lib
+

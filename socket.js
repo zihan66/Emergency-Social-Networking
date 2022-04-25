@@ -16,6 +16,11 @@ class Socket {
   getInstance() {
     return this.io;
   }
+
+  sendLogOutEvent(username, message) {
+    const targetSocketId = this.hasName[username];
+    this.io.to(targetSocketId).emit("ejectOneUser", message);
+  }
 }
 
 socketInstance = new Socket();

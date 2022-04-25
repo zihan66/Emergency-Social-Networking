@@ -1,3 +1,4 @@
+import ejectUser from "../javascripts/common/logout.js";
 const socket = io({ URL: "http://localhost:3000", autoConnect: false });
 const { cookies } = brownies;
 const eventList = document.querySelector("ul");
@@ -5,7 +6,10 @@ const myEventButton = document.querySelector("#new-event");
 myEventButton.addEventListener("click", () => {
   window.location.href = "/myEvent/newEvent";
 });
-
+// inform user of force injection
+socket.on("ejectOneUser", async (message) => {
+  ejectUser(message);
+});
 const leave = document.querySelector("#leave");
 leave.addEventListener("click", (e) => {
   e.preventDefault();
@@ -27,15 +31,16 @@ const deleteEvent = async (eventId) => {
   }
 };
 
-const createCard = (
-  title,
-  startTime,
-  location,
-  host,
-  type,
-  details,
-  participants
-) => {
+const createCard = (params) => {
+  const {
+    title,
+    startTime,
+    location,
+    host,
+    type,
+    details,
+    participants,
+  } = params;
   const participantsString = participants.join(",");
   const card = document.createElement("div");
   card.className = "ui card";
@@ -85,15 +90,15 @@ const appendSingleEvent = (event) => {
       item.remove();
     }
   };
-  const card = createCard(
+  const card = createCard({
     title,
     startTime,
     location,
     host,
     type,
     details,
-    participants
-  );
+    participants,
+  });
   const extraContent = document.createElement("div");
   extraContent.className = "extra content";
   extraContent.innerText = "You are going to this event";

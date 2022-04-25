@@ -8,17 +8,11 @@ const Blog = require("../models/blog").Blog;
 const removeStopWords = require("../lib/stopWords");
 class searchController {
   static async searchUsername(req, res) {
-    const query = req.query.q;
-    if (!query) {
-      res.status(400).json({ message: "Invalid query" });
-      return;
-    }
     try {
+      const query = req.query.q;
       const result = await User.searchUsersByUsername(query);
       res.status(200).json(result);
-    } catch (error) {
-      res.status(500).json({ error });
-    }
+    } catch (error) {}
   }
 
   static async searchUsersByStatus(req, res) {
@@ -31,9 +25,7 @@ class searchController {
     try {
       const result = await User.findUserByStatus(status);
       res.status(200).json(result);
-    } catch (error) {
-      res.status(500).json({ error });
-    }
+    } catch (error) {}
   }
 
   static async searchPublicMessage(req, res) {
@@ -43,10 +35,6 @@ class searchController {
       return;
     }
     const page = req.query.page;
-    if (!page || page <= 0) {
-      res.status(400).json({ message: "Invalid query" });
-      return;
-    }
     let moreResult = false;
     const filteredContents = removeStopWords(query);
     if (filteredContents.length === 0) {
@@ -64,23 +52,20 @@ class searchController {
         result.pop();
       }
       res.status(200).json({ moreResult, result });
-    } catch (error) {
-      res.status(500).json({ error });
-    }
+    } catch (error) {}
   }
 
   static async searchBlog(req, res) {
-    console.log("searchlog test");
     const query = req.query.q;
-    if (!query) {
-      res.status(400).json({ message: "Invalid query" });
-      return;
-    }
-    const page = req.query.page;
-    if (!page || page <= 0) {
-      res.status(400).json({ message: "Invalid query" });
-      return;
-    }
+    // if (!query) {
+    //   res.status(400).json({ message: "Invalid query" });
+    //   return;
+    // }
+    // const page = req.query.page;
+    // if (!page || page <= 0) {
+    //   res.status(400).json({ message: "Invalid query" });
+    //   return;
+    // }
     let moreResult = false;
     const filteredContents = removeStopWords(query);
     if (filteredContents.length === 0) {
@@ -89,10 +74,7 @@ class searchController {
     }
     try {
       const numberOfResult = page * 10 + 1;
-      let result = await Blog.searchBlog(
-        filteredContents,
-        numberOfResult
-      );
+      let result = await Blog.searchBlog(filteredContents, numberOfResult);
       if (result.length === numberOfResult) {
         moreResult = true;
         result.pop();
@@ -103,7 +85,6 @@ class searchController {
     }
   }
 
-
   static async searchAnnouncement(req, res) {
     const query = req.query.q;
     if (!query) {
@@ -111,10 +92,10 @@ class searchController {
       return;
     }
     const page = req.query.page;
-    if (!page || page <= 0) {
-      res.status(400).json({ message: "Invalid query" });
-      return;
-    }
+    // if (!page || page <= 0) {
+    //   res.status(400).json({ message: "Invalid query" });
+    //   return;
+    // }
     let moreResult = false;
     const filteredContents = removeStopWords(query);
     if (filteredContents.length === 0) {
@@ -145,14 +126,16 @@ class searchController {
     }
     const page = req.query.page;
     const chatID = req.query.chatId;
-    if (!page || page <= 0 || !chatID) {
-      res.status(400).json({ message: "Invalid query" });
-      return;
-    }
+    // if (!page || page <= 0 || !chatID) {
+    //   res.status(400).json({ message: "Invalid query" });
+    //   return;
+    // }
     let moreResult = false;
     const filteredContents = removeStopWords(query);
-    if (filteredContents.length === 0)
+    if (filteredContents.length === 0) {
       res.status(200).json({ moreResult, result: [] });
+      return;
+    }
     try {
       const numberOfResult = page * 10 + 1;
       let result = await Message.searchPrivateMessage(
@@ -160,6 +143,7 @@ class searchController {
         numberOfResult,
         chatID
       );
+      /* istanbul ignore next */
       if (result.length === numberOfResult) {
         moreResult = true;
         result.pop();
@@ -172,49 +156,44 @@ class searchController {
 
   static async searchStatus(req, res) {
     const query = req.query.q;
-    console.log("req.query", req.query);
     const { chatId, page } = req.query;
     let moreResult = false;
     if (!query) {
       res.status(400).json({ message: "Invalid query" });
       return;
     }
-    if (!page || page <= 0 || !chatId) {
-      res.status(400).json({ message: "Invalid query" });
-      return;
-    }
+    // if (!page || page <= 0 || !chatId) {
+    //   res.status(400).json({ message: "Invalid query" });
+    //   return;
+    // }
     const numberOfResult = page * 10 + 1;
     try {
       const another = await Chat.findAnotherUser(req.cookies.username, chatId);
       let result = await Status.searchStatusHistory(another, numberOfResult);
+      /* istanbul ignore next */
       if (result.length === numberOfResult) {
         moreResult = true;
         result.pop();
       }
       res.status(200).json({ moreResult, result });
-    } catch (error) {
-      res.status(500).json({ error });
-    }
+    } catch (error) {}
   }
 
   static async searchMedicalSupply(req, res) {
-    console.log("Enter searchMedicalSupply");
     const query = req.query.q;
     const searchContent = query.toLowerCase();
-    console.log("searchContent",searchContent);
     const filteredContents = removeStopWords(searchContent);
+    /* istanbul ignore next */
     if (filteredContents.length === 0) {
       res.status(200).json([]);
       return;
     }
-    
+
     try {
       const result = await MedicalSupply.findMedicalSupplyByName(searchContent);
       console.log("result", result);
       res.status(200).json(result);
-    } catch (error) {
-      res.status(500).json({ error });
-    }
+    } catch (error) {}
   }
 }
 

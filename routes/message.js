@@ -6,6 +6,7 @@ const announcementMessageController = require("../controllers/announcementMessag
 
 const suspend = require("../middlewares/suspend");
 
+
 router.post("/public", publicMessageController.createNewPublicMessage);
 router.get("/public", publicMessageController.getPublicMessage);
 router.post(

@@ -4,7 +4,6 @@ acknowledge.addEventListener("click", async (e) => {
   e.preventDefault();
   try {
     const username = cookies.username;
-    console.log("username", username);
     const response = await fetch(`/users/${username}/acknowledgement`, {
       method: "put",
       headers: {

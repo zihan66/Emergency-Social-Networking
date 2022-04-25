@@ -20,9 +20,7 @@ class EventController {
       });
       res.location("/eventWall");
       res.status(201).json();
-    } catch (error) {
-      res.status(500).json({ error });
-    }
+    } catch (error) {}
   }
 
   static async unjoin(req, res) {
@@ -31,6 +29,7 @@ class EventController {
       const eventId = req.params.eventId;
       const event = await Event.findOne({ _id: eventId });
       if (!event) {
+        console.log(event);
         res.status(403).json({ error: "The Event doesn't exist" });
         return;
       }
@@ -43,10 +42,7 @@ class EventController {
       const io = socket.getInstance();
       io.sockets.emit("eventUpdate", updatedEvent);
       res.status(200).json({});
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({ error });
-    }
+    } catch (error) {}
   }
 
   static async join(req, res) {
@@ -60,15 +56,11 @@ class EventController {
       }
       await Event.joinEvent(eventId, username);
       const updatedEvent = await Event.findOne({ _id: eventId });
-      console.log(updatedEvent);
       const io = socket.getInstance();
       io.sockets.emit("eventUpdate", updatedEvent);
 
       res.status(200).json({});
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({ error });
-    }
+    } catch (error) {}
   }
 
   static async deleteEvent(req, res) {
@@ -83,18 +75,14 @@ class EventController {
       const io = socket.getInstance();
       io.sockets.emit("eventDelete", { host: event.host, eventId });
       res.status(200).json();
-    } catch (error) {
-      res.status(500).json({ error });
-    }
+    } catch (error) {}
   }
 
   static async getPublicEvent(req, res) {
     try {
       const events = await Event.findAllUnexpiredEvent();
       res.status(200).json(events);
-    } catch (error) {
-      res.status(500).json({ error });
-    }
+    } catch (error) {}
   }
 
   static async getEventByHost(req, res) {
@@ -102,9 +90,7 @@ class EventController {
       const username = req.params.username;
       const events = await Event.findEventByHost(username);
       res.status(200).json(events);
-    } catch (error) {
-      res.status(500).json({ error });
-    }
+    } catch (error) {}
   }
 }
 

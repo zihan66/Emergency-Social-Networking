@@ -1,4 +1,5 @@
 const { cookies } = brownies;
+
 const sendMsg = document.getElementById("sendMsg-button");
 const deleteMsg = document.getElementById("deleteMsg-button");
 const searchResult = document.querySelector(".searchResultList");
@@ -130,9 +131,7 @@ const searchPublicMessage = async (searchContent) => {
       searchResultIsEmpty();
       return;
     }
-    // const publicMessageInfo =  await response.json();
-    // const moreResult = false;
-    console.log("publicMessageInfo", publicMessageInfo);
+
     for (let i = 0; i < publicMessageInfo.length; i++) {
       const item = document.createElement("li");
       const author = publicMessageInfo[i].author;
@@ -337,7 +336,6 @@ const searchAnnouncement = async (searchContent) => {
     const announcementResponse = await response.json();
     const announcementInfo = announcementResponse.result;
     const moreResult = announcementResponse.moreResult;
-    console.log("announcementInfo", announcementInfo);
     if (announcementInfo.length == 0) {
       searchResultIsEmpty();
       return;

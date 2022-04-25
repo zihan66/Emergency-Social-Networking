@@ -1,3 +1,4 @@
+import ejectUser from "../javascripts/common/logout.js";
 const msgContainer = document.querySelector(".message-container");
 const msgList = document.querySelector(".message-list");
 const { cookies } = brownies;
@@ -16,6 +17,10 @@ const getCorrectStatusSpan = (deliveryStatus) => {
   else recStatus = "grey";
   return recStatus;
 };
+// inform user of force injection
+socket.on("ejectOneUser", async (message) => {
+  ejectUser(message);
+});
 
 const getAllMessages = async () => {
   try {
@@ -186,8 +191,7 @@ search.addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation();
   window.location.href = "/blogWall";
-});  // TO-DO: remove
-
+}); // TO-DO: remove
 
 // const sendButton = document.getElementById("newBlog-button");
 // sendButton.addEventListener("click", async (e) => {
@@ -304,8 +308,13 @@ editButton.addEventListener("click", async (e) => {
   e.stopPropagation();
   //if (!msgContent) return;
   // msgInput.value = "";
-  const requestBody = { username, content: msgContent, picture: pictureSelect, text: text};
-  console.log("picture:",requestBody.picture);
+  const requestBody = {
+    username,
+    content: msgContent,
+    picture: pictureSelect,
+    text: text,
+  };
+  console.log("picture:", requestBody.picture);
   try {
     const response = await fetch("/blog", {
       method: "post",

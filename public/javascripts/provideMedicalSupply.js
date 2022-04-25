@@ -20,31 +20,7 @@ socket.on("cancelReservation", (data) => {
   const medicalSupply = document.getElementById(`${id}_hint`);
   medicalSupply.innerHTML = "";
 });
-// const appendMedicalSupply = (id, medicalSupplyName) => {
-//   const item = document.createElement("li");
-//   item.className = "yourMedicalSupplies";
-//   item.innerHTML = `<span class="medicalSupplyName">${medicalSupplyName}</span>
-//       <button id="${id}" class="ui inverted button compact">
-//       delete
-//       </button>`;
-//   yourMedicalSupplies.appendChild(item);
-//   deleteMedicalSupply(id);
-//   // const deleteMedicalSupply = document.getElementById(id);
-//   // deleteMedicalSupply.addEventListener("click", async function () {
-//   //   console.log("delete", this.id);
-//   //   const medicalSupplyID = this.id;
-//   //   const response = await fetch(`/medicalSupply/${medicalSupplyID}`, {
-//   //     method: "delete",
-//   //     headers: {
-//   //       Authorization: `Bearer ${cookies.jwtToken}`,
-//   //     },
-//   //   });
-//   //   if (response.status === 200) {
-//   //     yourMedicalSupplies.innerHTML = "";
-//   //     getUserMedicalSupply();
-//   //   }
-//   // });
-// };
+
 const appendMedicalSupply = (data) => {
   const medicalSupplyName = data.name;
   const id = data._id;
@@ -57,9 +33,7 @@ const appendMedicalSupply = (data) => {
       <button class="ui inverted button compact">
       delete
       </button></div>`;
-  // if(isReserved){
-  //   document.getElementById(`${id}_hint`).innerHTML = `Reserved by ${receiver}`;
-  //
+
   if (isReserved) {
     item.innerHTML += `<div class="reservedHint" id="${id}_hint"> Reserved by ${receiver}</div>`;
   } else {
@@ -71,25 +45,6 @@ const appendMedicalSupply = (data) => {
 };
 const deleteMedicalSupply = (id) => {
   const deleteMedicalSupply = document.getElementById(id);
-  // deleteMedicalSupply.addEventListener("click",()=>{
-  //   if(confirm("Are you sure to delete it?")){
-  //     async function() {
-  //       console.log("delete", this.id);
-  //       const medicalSupplyID = this.id;
-  //       const response = await fetch(`/medicalSupplies/${medicalSupplyID}`, {
-  //         method: "delete",
-  //         headers: {
-  //           Authorization: `Bearer ${cookies.jwtToken}`,
-  //         },
-  //       });
-  //       if (response.status === 200) {
-  //         yourMedicalSupplies.innerHTML = "";
-  //         getUserMedicalSupply();
-  //       }
-  //     }
-
-  //   }
-  // })
   deleteMedicalSupply.addEventListener("click", async function () {
     if (confirm("Are you sure to delete it?")) {
       console.log("delete", this.id);
@@ -100,11 +55,12 @@ const deleteMedicalSupply = (id) => {
           Authorization: `Bearer ${cookies.jwtToken}`,
         },
       });
-      if (response.status === 200) {
+      if (response.status === 204) {
         yourMedicalSupplies.innerHTML = "";
         getUserMedicalSupply();
       }
-    }else{}
+    } else {
+    }
   });
 };
 const getUserMedicalSupply = async () => {
@@ -118,8 +74,6 @@ const getUserMedicalSupply = async () => {
     const data = await response.json();
     console.log("data", data);
     for (let i = 0; i < data.length; i++) {
-      // const medicalSupplyName = data[i].name;
-      // const id = data[i]._id;
       appendMedicalSupply(data[i]);
     }
   } catch (err) {
@@ -157,10 +111,6 @@ sendMsg.addEventListener("click", async (e) => {
     console.log("Data", response);
     console.log("responseData", responseData);
     if (response.status === 201) {
-      // const id = responseData.newMedicalSupply._id;
-      // const medicalSupplyName = responseData.newMedicalSupply.name;
-      // console.log("medicalSupplyName", medicalSupplyName);
-      // appendMedicalSupply(id, medicalSupplyName);
       appendMedicalSupply(responseData.newMedicalSupply);
     }
   } catch (err) {

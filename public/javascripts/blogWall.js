@@ -1,6 +1,7 @@
+import ejectUser from "../javascripts/common/logout.js";
 const msgContainer = document.querySelector(".blog-container");
 const msgList = document.querySelector(".blog-list");
-//const infScroll = new InfiniteScroll(msgList);
+
 const { cookies } = brownies;
 // eslint-disable-next-line no-undef
 const socket = io({ URL: "http://localhost:3000", autoConnect: false });
@@ -20,8 +21,21 @@ const getAllBlogs = async () => {
   }
 };
 
+// inform user of force injection
+socket.on("ejectOneUser", async (message) => {
+  ejectUser(message);
+});
+
 const addSingleBlog = (blog, before) => {
-  const { content, author, deliveryStatus, postedAt, picture,likeCount, _id} = blog;
+  const {
+    content,
+    author,
+    deliveryStatus,
+    postedAt,
+    picture,
+    likeCount,
+    _id,
+  } = blog;
 
   const item = document.createElement("li");
   item.addEventListener("click", async function (e) {

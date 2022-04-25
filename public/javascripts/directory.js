@@ -7,7 +7,7 @@ const socket = io({ URL: "http://localhost:3000", autoConnect: false });
 const userChatMap = new Map();
 const msgNumMap = new Map();
 const unreadMsgMap = new Map();
-const getAllUsers = async () => {};
+import ejectUser from "../javascripts/common/logout.js";
 
 const statusImage = (lastStatusCode) => {
   let userStatus = "";
@@ -49,11 +49,7 @@ const addSingleUser = (user) => {
       }
     }
   });
-  // let userStatus = "";
-  // if (lastStatusCode === "OK") userStatus = "green";
-  // else if (lastStatusCode === "HELP") userStatus = "yellow";
-  // else if (lastStatusCode === "EMERGENCY") userStatus = "red";
-  // else userStatus = "grey";
+
   const userStatus = statusImage(lastStatusCode);
   item.className = "user";
   item.id = `${username}`;
@@ -76,12 +72,14 @@ const appendAllUsers = (users) => {
   users.map(addSingleUser);
 };
 
+// update user list
 socket.on("userList", (users) => {
   userList.innerHTML = "";
   const allUSer = appendAllUsers(users);
   directoryContainer.scrollTop = 0;
 });
 
+// update status
 socket.on("updateStatus", (user) => {
   const id = `${user.username}Status`;
   const statusUpdated = user.lastStatusCode;
@@ -94,29 +92,18 @@ socket.on("updateStatus", (user) => {
   updateStatus.innerHTML = `<img src="../images/${userStatus}.png"> ${statusUpdated}`;
 });
 
+// inform user of incoming private message
 socket.on("privateMessage", (message) => {
   console.log("I am in");
   const { target, author } = message;
   if (target === cookies.username)
     window.alert("You received a new message from " + author);
-  // const unreadMsgList = document.querySelector(".unreadMsgList");
-  // const item = document.createElement("li");
-  // item.id = `${message.author}`;
-  // calculateMsgNum(message.author);
-  // msgNumMap.forEach(function(value,key){
-  //   unreadMsgList.appendChild(item);
-  // })
-  // document.querySelector(".msgNum").innerHTML = `${msgNumMap.get(message.author)}`;
-  //addUnreadMsg(message.author);
 });
 
-// const addUnreadMsg = (username) => {
-//   const unreadMsgList = document.querySelector(".unreadMsgList");
-//   const item = document.createElement("li");
-//   item.id = `${username}`;
-//   item.innerHTML = `<span> ${username}</span><span class="msgNum"></span>`;
-//   unreadMsgList.appendChild(item);
-// }
+// inform user of force injection
+socket.on("ejectOneUser", async (message) => {
+  ejectUser(message);
+});
 
 window.addEventListener("load", async () => {
   try {
@@ -166,14 +153,12 @@ const calculateMsgNum = (username) => {
 };
 const unread = document.getElementById("unread");
 unread.addEventListener("click", async () => {
-  //clickUnreadMsgBlock();
   const unreadMsgBlock = document.querySelector(".unreadMsgBlock");
   if (unreadMsgBlock.style.display === "block") {
     unreadMsgBlock.style.display = "";
   } else {
     unreadMsgBlock.style.display = "block";
   }
-  //alert(unreadMsgBlock.style.display);
 
   if (unreadMsgBlock.style.display === "block") {
     try {
@@ -198,7 +183,6 @@ unread.addEventListener("click", async () => {
           msgNum = 1;
           msgNumMap.set(unreadMsgsData[i].username, msgNum);
         }
-        //calculateMsgNum(unreadMsgsData[i].username);
       }
       console.log("unreadMsgMap", unreadMsgMap);
       console.log("msgNumMap", msgNumMap);
@@ -225,9 +209,9 @@ const logout = document.querySelector("#logout");
 logout.addEventListener("click", async (e) => {
   e.preventDefault();
   e.stopPropagation();
-  const { username } = cookies;
+  const { userId } = cookies;
   try {
-    const response = await fetch(`/users/${username}/offline`, {
+    const response = await fetch(`/users/${userId}/offline`, {
       method: "put",
       headers: {
         Authorization: `Bearer ${cookies.jwtToken}`,
@@ -237,6 +221,14 @@ logout.addEventListener("click", async (e) => {
   } catch (error) {
     console.log(error);
   }
+});
+
+const directoryForAdmin = document.querySelector("#directoryForAdmin");
+directoryForAdmin.addEventListener("click", async (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  window.location.href = "/directoryForAdmin";
 });
 
 const setGreyButton = document.querySelector("#setGreyButton");

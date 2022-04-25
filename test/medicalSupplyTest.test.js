@@ -48,7 +48,6 @@ test("find medical supplies by provider", async () => {
   });
   await medicalSupply3.save();
   const result = await MedicalSupply.findMedicalSupplyByProvider("arvin");
-  console.log(result);
   const expectResult = [
     {
       name: "medical thermometer",
@@ -71,7 +70,6 @@ test("find medical supplies by provider", async () => {
 
 test("find all medical supplies", async () => {
   const result = await MedicalSupply.findAllMedicalSupply();
-  console.log(result);
   const expectResult = [
     {
       name: "blood pressure cuff",
@@ -107,33 +105,36 @@ test("find all medical supplies", async () => {
 });
 
 test("update a medical supply status to reserved", async () => {
-  const result = await MedicalSupply.updateMedicalSupplyToReserved(medicalSupply1_id,"mike");
-  const medicalSupply = await MedicalSupply.findOne({_id:medicalSupply1_id });
-  console.log(medicalSupply);
+  const result = await MedicalSupply.updateMedicalSupplyToReserved(
+    medicalSupply1_id,
+    "mike"
+  );
+  const medicalSupply = await MedicalSupply.findOne({ _id: medicalSupply1_id });
 
   expect(medicalSupply.isReserved).toBe(true);
   expect(medicalSupply.receiver).toBe("mike");
 });
 
 test("update a medical supply status to Notreserved", async () => {
-  const result = await MedicalSupply.updateMedicalSupplyToNotReserved(medicalSupply1_id);
-  const medicalSupply = await MedicalSupply.findOne({_id:medicalSupply1_id});
-  console.log(medicalSupply);
+  const result = await MedicalSupply.updateMedicalSupplyToNotReserved(
+    medicalSupply1_id
+  );
+  const medicalSupply = await MedicalSupply.findOne({ _id: medicalSupply1_id });
 
   expect(medicalSupply.isReserved).toBe(false);
   expect(medicalSupply.receiver).toBe(null);
 });
-
 
 test("find  medical supplies by name", async () => {
   const result = await MedicalSupply.findMedicalSupplyByName("medical");
   expect(result).toHaveLength(2);
 });
 
-
 test("delete a medical supply", async () => {
   const result = await MedicalSupply.deleteMedicalSupplyById(medicalSupply1_id);
-  const medicalSupply = await MedicalSupply.findOne({_id:medicalSupply1_id,isDeleted:false});
+  const medicalSupply = await MedicalSupply.findOne({
+    _id: medicalSupply1_id,
+    isDeleted: false,
+  });
   expect(medicalSupply).toBe(null);
 });
-

@@ -2,6 +2,14 @@
   "name": "fse-emergency-social-network",
   "version": "0.0.0",
   "private": true,
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "lib",
+      "routes/index.js",
+      "middlewares/canAskForDonor.js",
+      "middlewares/canBeDonor.js"
+    ]
+  },
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",

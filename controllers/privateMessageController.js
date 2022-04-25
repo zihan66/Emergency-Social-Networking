@@ -3,14 +3,12 @@ const Message = require("../models/message").Message;
 const User = require("../models/user");
 const Chat = require("../models/chat");
 const socket = require("../socket");
+
 class PrivateMessageController {
+
   static async createNewPrivateChat(req, res) {
     try {
       const { username1, username2 } = req.body;
-      if (username1 === undefined || username2 === undefined) {
-        res.status(404).json({});
-        return;
-      }
       const existedChat = await Chat.findChatBetweenTwoUsers(
         username1,
         username2
@@ -26,12 +24,13 @@ class PrivateMessageController {
       };
       const response = await Chat.create(currentChat);
       res.location(`/chats/${currentChat.chatID}/${username2}`);
-      res.status(201).json();
+      res.status(201).json({ chatID: currentChat.chatID });
     } catch (error) {
       console.log("error", error);
       res.status(500).json({ error });
     }
   }
+
   //eslint-disable-next-line consistent-return
   static async getPrivateMessage(req, res) {
     const { chatID } = req.query;
@@ -40,9 +39,6 @@ class PrivateMessageController {
     });
 
     try {
-      if (!chat) {
-        res.status(404).json();
-      }
       await Message.update(
         { chatID, unread: true, target: req.cookies.username },
         { $set: { unread: false } }
@@ -50,9 +46,7 @@ class PrivateMessageController {
       const messages = await Message.find({ chatID });
       res.status(200).json({ messages });
     } catch (error) {
-      res.status(404).json({
-        message: "ChatID does not exist",
-      });
+      res.status(500).json({});
     }
   }
 
@@ -65,10 +59,6 @@ class PrivateMessageController {
       });
       const authorUser = await User.findOne({ username: author });
       const targetUser = await User.findOne({ username: target });
-      if (chat == null || authorUser == null || targetUser == null) {
-        res.status(404).json({});
-        return;
-      }
       let currentMessage = {
         content,
         author: authorUser.username,
@@ -83,15 +73,22 @@ class PrivateMessageController {
 
       const authorSocketId = socket.hasName[authorUser.username];
       const targetSocketId = socket.hasName[targetUser.username];
+
       io.sockets.to(authorSocketId).emit("privateMessage", message);
-      if (targetSocketId !== undefined){
-        if(isToDonor){
-          io.sockets.emit("askForDonorMessage", {user: authorUser.username, target:targetUser.username, url: `/chats/${chatID}/${authorUser.username}?isToDonor=true`});
+      /* istanbul ignore next */
+      if (targetSocketId !== undefined) {
+        /* istanbul ignore next */
+        if (isToDonor) {
+          io.sockets.emit("askForDonorMessage", {
+            user: authorUser.username,
+            target: targetUser.username,
+            url: `/chats/${chatID}/${authorUser.username}?isToDonor=true`,
+          });
         }
         io.sockets.to(targetSocketId).emit("privateMessage", message);
       }
 
-      res.status(201).json({});
+      res.status(201).json({ chatID });
     } catch (e) {
       console.log(e);
       res.status(500).send({ error: "error" });
@@ -101,27 +98,15 @@ class PrivateMessageController {
   static async getUserAllChats(req, res) {
     try {
       const { username } = req.query;
-      console.log(req.params);
-      if (!username) {
-        res.status(400).send({ error: "error" });
-      }
       const existedUser = await User.findOne({
         username,
       });
-      if (!existedUser) {
-        res.status(404).json({
-          message: "username does not exist",
-        });
-        return;
-      }
       const chats = await Chat.findChatsOfUser(username);
       const result = chats.map((chat) => {
         const { username1, username2, chatID } = chat;
-        if (username1 === username) {
-          return { username: username2, chatID };
-        } else {
-          return { username: username1, chatID };
-        }
+        /* istanbul ignore next */
+        if (username1 === username) return { username: username2, chatID };
+        return { username: username1, chatID };
       });
       res.status(200).json({ chats: result });
     } catch (error) {
@@ -166,34 +151,31 @@ class PrivateMessageController {
     }
   }
 
-  static renderchats (req, res) {
+  static renderchats(req, res) {
+    const { isToDonor } = req.query;
+    /* istanbul ignore next */
+    if (isToDonor) {
+      try {
+        const io = socket.getInstance();
+        const { chatid, target } = req.params;
+        const author = req.cookies.username;
 
-      const { isToDonor } = req.query;
-      
-      if (isToDonor) {
-        try {
-          const io = socket.getInstance();
-          const { chatid, target } = req.params;
-          const author = req.cookies.username;
+        const authorSocketId = socket.hasName[author];
+        const targetSocketId = socket.hasName[target];
 
-          
-          const authorSocketId = socket.hasName[author];
-          const targetSocketId = socket.hasName[target];
-
-          const message = { content: "I NEED BLOOD!", target, author };
-          io.sockets.to(authorSocketId).emit("privateMessage", message);
-          if (targetSocketId !== undefined) {
-            io.sockets.to(targetSocketId).emit("privateMessage", message);
-          }
-          
-        } catch (error) {
-          console.log("error", error);
+        const message = { content: "I NEED BLOOD!", target, author };
+        io.sockets.to(authorSocketId).emit("privateMessage", message);
+        /* istanbul ignore next */
+        if (targetSocketId !== undefined) {
+          io.sockets.to(targetSocketId).emit("privateMessage", message);
         }
-        
+      } catch (error) {
+        console.log("error", error);
       }
-
-      res.render("chatRoom", { title: "chats" });
     }
+
+    res.render("chatRoom", { title: "chats" });
+  }
 }
 
 module.exports = PrivateMessageController;

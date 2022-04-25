@@ -11,6 +11,7 @@ const suspend = require("../middlewares/suspend");
 const auth = require("../middlewares/auth");
 const canAskForDonor = require("../middlewares/canAskForDonor");
 const canBeDonor = require("../middlewares/canBeDonor");
+const administratorPrivilege = require("../middlewares/administratorPrivilege");
 
 const router = express.Router();
 /* GET home page. */
@@ -31,7 +32,10 @@ router.get("/blogWall", suspend, auth, (req, res) => {
 });
 
 router.get("/announcement", auth, (req, res) => {
-  res.render("announcement", { title: "announcement" });
+  const isAdmin =
+    req.cookies.privilege && req.cookies.privilege === "administrator";
+  console.log(isAdmin);
+  res.render("announcement", { title: "announcement", isAdmin: isAdmin });
 });
 
 router.get("/welcome", auth, (req, res) => {
@@ -44,6 +48,10 @@ router.get("/login", (req, res) => {
 
 router.get("/directory", auth, (req, res) => {
   res.render("directory", { title: "directory" });
+});
+
+router.get("/directoryForAdmin", auth, administratorPrivilege, (req, res) => {
+  res.render("directoryForAdmin", { title: "directoryForAdmin" });
 });
 
 router.get("/newDonor", auth, canBeDonor, (req, res) => {
@@ -62,13 +70,9 @@ router.get("/chatroom/:chatid/:target", auth, (req, res) => {
   res.render("chatRoom", { title: "chatRoom" });
 });
 
-// router.get("/blog/:blogID", auth, (req, res) => {
-//   res.render("blog", { title: "blog" });
-// });
-
 router.use("/users", suspend, userRoute);
 
-router.get("/measure", (req, res) => {
+router.get("/measure", auth, administratorPrivilege, (req, res) => {
   res.render("measure", { title: "measure" });
 });
 
@@ -91,12 +95,13 @@ router.get("/myEvent/newEvent", auth, (req, res) => {
   res.render("newEvent", { title: "newEvent" });
 });
 
-router.get("/provideMedicalSupply", (req, res) => {
+router.get("/provideMedicalSupply", auth, (req, res) => {
   res.render("medicalSupply", { title: "medicalSupply" });
 });
-router.get("/reserveMedicalSupply", (req, res) => {
+router.get("/reserveMedicalSupply", auth, (req, res) => {
   res.render("medicalSupplyReservation", { title: "medicalSupplyReservation" });
 });
+
 router.use("/users", userRoute);
 router.use("/messages", messageRoute);
 router.use("/chats", suspend, chatRoute);
