@@ -1,10 +1,11 @@
-exclude:
-  - /views/.*
-  - /coverage/.*
-  - /public/images/.*
-  - /public/stylesheets/.*
-  - /public/javascripts/common/.*
-  - /lib
+production:
+  exclude:
+    - /views/.*
+    - /coverage/.*
+    - /public/images/.*
+    - /public/stylesheets/.*
+    - /public/javascripts/common/.*
+    - /lib
 
 test:
   exclude:
