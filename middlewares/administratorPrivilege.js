@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const administratorPrivilege = (req, res, next) => {
+const administratorPrivilege = async (req, res, next) => {
   const username = req.cookies.username;
   const user = await User.findOne({ username: username });
   if (user.privilege === "administrator") {
