@@ -46,6 +46,7 @@ class administerUserProfileController {
       const io = socket.getInstance();
       const allAdministrator = await User.count({
         privilege: "administrator",
+        accountStatus: "active",
       });
       const params = req.params;
       const username = params.username;
@@ -145,6 +146,7 @@ class administerUserProfileController {
 
       const allAdministrator = await User.count({
         privilege: "administrator",
+        accountStatus: "active",
       });
 
       const user = await User.findOne({ username: username });
