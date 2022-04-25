@@ -4,7 +4,6 @@ const socket = require("../socket");
 const User = require("../models/user");
 
 class administerUserProfileController {
-
   static async renderOneUserRecord(req, res) {
     try {
       const user =
@@ -54,7 +53,6 @@ class administerUserProfileController {
       console.log(username);
 
       if (user.privilege === "administrator" && allAdministrator.length == 1) {
-
         res.status(400).json({ error: "at least one active administrator" });
         return;
       }
@@ -63,7 +61,6 @@ class administerUserProfileController {
         { accountStatus: "inactive" }
       );
       socket.sendLogOutEvent(username, "Your account status has changed!");
-      console.log("accountStatus", accountStatus);
       res.status(204).json();
     } catch (error) {
       console.log(error);
@@ -90,11 +87,9 @@ class administerUserProfileController {
   }
 
   static async updateUserProfile(req, res) {
-
     console.log("Profile update start...");
 
     try {
-
       const params = req.params;
 
       const username = params.username;
@@ -107,7 +102,6 @@ class administerUserProfileController {
 
       const isExist = await User.findOne({ username: modifiedUsername });
       if (isExist && username !== modifiedUsername) {
-
         res.status(400).json({ error: "this username has existed" });
         return;
       }
@@ -124,14 +118,12 @@ class administerUserProfileController {
         allAdministrator <= 1 &&
         modifiedPrivilege !== "administrator"
       ) {
-
         res.status(400).json({ error: "at least one administrator" });
         return;
       }
 
       // if (modifiedPassword != null) {
       if (modifiedPassword) {
-
         await User.updateOne(
           { username: username },
           {
@@ -151,7 +143,6 @@ class administerUserProfileController {
     } catch (error) {
       console.log(error);
       res.status(500).json({ error });
-
     }
   }
 }
