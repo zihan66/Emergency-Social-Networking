@@ -135,7 +135,6 @@ activeButton.addEventListener("click", async (e) => {
       // body: JSON.stringify(requestBody),
     });
     console.log("response:", response);
-    const result = await response.json();
     if (
       response.status === 200 ||
       response.status === 201 ||
@@ -144,6 +143,7 @@ activeButton.addEventListener("click", async (e) => {
       // window.location.href = `/directoryForAdmin`;
       window.location.href = `/users/edit/${username}`;
     } else {
+      const result = await response.json();
       if (result.error === "at least one active administrator") {
         alert("at least one active administrator!");
         return;
