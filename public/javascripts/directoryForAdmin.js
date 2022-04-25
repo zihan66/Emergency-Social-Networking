@@ -77,13 +77,12 @@ socket.on("userListForAdmin", (users) => {
 socket.on("updateStatus", (user) => {
   const id = `${user.username}Status`;
   const statusUpdated = user.lastStatusCode;
-  console.log("debug_statusUpdated", statusUpdated);
   cookies.lastStatusCode = statusUpdated;
   const userStatus = statusImage(statusUpdated);
 
   const updateStatus = document.getElementById(`${id}`);
 
-  updateStatus.innerHTML = `<img src="../images/${userStatus}.png"> ${statusUpdated}`;
+  updateStatus.innerHTML = `<img src="../images/${userStatus}.png">`;
 });
 
 socket.on("privateMessage", (message) => {

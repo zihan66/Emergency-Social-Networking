@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1650856373801" clover="3.2.0">
-  <project timestamp="1650856373803" name="All files">
-    <metrics statements="890" coveredstatements="783" conditionals="91" coveredconditionals="77" methods="102" coveredmethods="90" elements="1083" coveredelements="950" complexity="0" loc="890" ncloc="890" packages="5" files="34" classes="34"/>
+<coverage generated="1650863632845" clover="3.2.0">
+  <project timestamp="1650863632845" name="All files">
+    <metrics statements="914" coveredstatements="813" conditionals="91" coveredconditionals="77" methods="104" coveredmethods="94" elements="1109" coveredelements="984" complexity="0" loc="914" ncloc="914" packages="5" files="34" classes="34"/>
     <package name="s22-ESN-SA2">
       <metrics statements="45" coveredstatements="42" conditionals="2" coveredconditionals="2" methods="7" coveredmethods="6"/>
       <file name="app.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/app.js">
@@ -49,7 +49,7 @@
         <line num="10" count="0" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
-        <line num="17" count="66" type="stmt"/>
+        <line num="17" count="72" type="stmt"/>
         <line num="21" count="4" type="stmt"/>
         <line num="22" count="4" type="stmt"/>
         <line num="26" count="3" type="stmt"/>
@@ -57,9 +57,9 @@
       </file>
     </package>
     <package name="s22-ESN-SA2.controllers">
-      <metrics statements="603" coveredstatements="511" conditionals="79" coveredconditionals="67" methods="63" coveredmethods="55"/>
+      <metrics statements="627" coveredstatements="535" conditionals="79" coveredconditionals="67" methods="65" coveredmethods="57"/>
       <file name="administerUserProfileController.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/controllers/administerUserProfileController.js">
-        <metrics statements="72" coveredstatements="64" conditionals="21" coveredconditionals="20" methods="4" coveredmethods="4"/>
+        <metrics statements="96" coveredstatements="88" conditionals="21" coveredconditionals="20" methods="6" coveredmethods="6"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
@@ -87,51 +87,75 @@
         <line num="49" count="2" type="stmt"/>
         <line num="50" count="2" type="stmt"/>
         <line num="51" count="2" type="stmt"/>
-        <line num="52" count="2" type="stmt"/>
-        <line num="53" count="2" type="stmt"/>
-        <line num="55" count="2" type="cond" truecount="4" falsecount="0"/>
-        <line num="56" count="1" type="stmt"/>
+        <line num="53" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="55" count="1" type="stmt"/>
         <line num="57" count="1" type="stmt"/>
-        <line num="59" count="1" type="stmt"/>
-        <line num="63" count="1" type="stmt"/>
-        <line num="64" count="1" type="stmt"/>
-        <line num="66" count="0" type="stmt"/>
-        <line num="67" count="0" type="stmt"/>
-        <line num="72" count="1" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="68" count="1" type="stmt"/>
+        <line num="69" count="1" type="stmt"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="71" count="4" type="stmt"/>
         <line num="73" count="1" type="stmt"/>
-        <line num="74" count="1" type="stmt"/>
-        <line num="75" count="1" type="stmt"/>
-        <line num="76" count="1" type="stmt"/>
         <line num="77" count="1" type="stmt"/>
         <line num="81" count="1" type="stmt"/>
         <line num="82" count="1" type="stmt"/>
-        <line num="84" count="0" type="stmt"/>
+        <line num="83" count="1" type="stmt"/>
         <line num="85" count="0" type="stmt"/>
-        <line num="90" count="5" type="stmt"/>
-        <line num="92" count="5" type="stmt"/>
-        <line num="93" count="5" type="stmt"/>
-        <line num="95" count="5" type="stmt"/>
-        <line num="97" count="5" type="stmt"/>
-        <line num="99" count="5" type="stmt"/>
-        <line num="101" count="5" type="stmt"/>
-        <line num="103" count="5" type="stmt"/>
-        <line num="104" count="5" type="cond" truecount="4" falsecount="0"/>
+        <line num="86" count="0" type="stmt"/>
+        <line num="91" count="1" type="stmt"/>
+        <line num="92" count="1" type="stmt"/>
+        <line num="93" count="1" type="stmt"/>
+        <line num="94" count="1" type="stmt"/>
+        <line num="95" count="1" type="stmt"/>
+        <line num="96" count="1" type="stmt"/>
+        <line num="100" count="1" type="stmt"/>
+        <line num="101" count="1" type="stmt"/>
+        <line num="102" count="1" type="stmt"/>
+        <line num="103" count="1" type="stmt"/>
+        <line num="104" count="1" type="stmt"/>
         <line num="105" count="1" type="stmt"/>
-        <line num="106" count="1" type="stmt"/>
-        <line num="109" count="4" type="stmt"/>
-        <line num="113" count="4" type="stmt"/>
-        <line num="114" count="4" type="stmt"/>
-        <line num="116" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="121" count="1" type="stmt"/>
-        <line num="122" count="1" type="stmt"/>
-        <line num="126" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="127" count="1" type="stmt"/>
-        <line num="136" count="2" type="stmt"/>
-        <line num="141" count="3" type="stmt"/>
-        <line num="142" count="3" type="stmt"/>
-        <line num="144" count="0" type="stmt"/>
-        <line num="145" count="0" type="stmt"/>
-        <line num="150" count="2" type="stmt"/>
+        <line num="106" count="5" type="stmt"/>
+        <line num="108" count="1" type="stmt"/>
+        <line num="112" count="1" type="stmt"/>
+        <line num="116" count="1" type="stmt"/>
+        <line num="117" count="1" type="stmt"/>
+        <line num="118" count="1" type="stmt"/>
+        <line num="120" count="0" type="stmt"/>
+        <line num="121" count="0" type="stmt"/>
+        <line num="126" count="5" type="stmt"/>
+        <line num="128" count="5" type="stmt"/>
+        <line num="129" count="5" type="stmt"/>
+        <line num="130" count="5" type="stmt"/>
+        <line num="131" count="5" type="stmt"/>
+        <line num="133" count="5" type="stmt"/>
+        <line num="135" count="5" type="stmt"/>
+        <line num="137" count="5" type="stmt"/>
+        <line num="139" count="5" type="stmt"/>
+        <line num="140" count="5" type="cond" truecount="4" falsecount="0"/>
+        <line num="141" count="1" type="stmt"/>
+        <line num="142" count="1" type="stmt"/>
+        <line num="145" count="4" type="stmt"/>
+        <line num="149" count="4" type="stmt"/>
+        <line num="150" count="4" type="stmt"/>
+        <line num="152" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="157" count="1" type="stmt"/>
+        <line num="158" count="1" type="stmt"/>
+        <line num="162" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="163" count="1" type="stmt"/>
+        <line num="172" count="2" type="stmt"/>
+        <line num="177" count="3" type="stmt"/>
+        <line num="178" count="3" type="stmt"/>
+        <line num="179" count="3" type="stmt"/>
+        <line num="180" count="3" type="stmt"/>
+        <line num="181" count="3" type="stmt"/>
+        <line num="182" count="3" type="stmt"/>
+        <line num="184" count="0" type="stmt"/>
+        <line num="185" count="0" type="stmt"/>
+        <line num="190" count="2" type="stmt"/>
       </file>
       <file name="announcementMessageController.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/controllers/announcementMessageController.js">
         <metrics statements="24" coveredstatements="20" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
@@ -732,7 +756,7 @@
       </file>
     </package>
     <package name="s22-ESN-SA2.models">
-      <metrics statements="131" coveredstatements="124" conditionals="8" coveredconditionals="8" methods="28" coveredmethods="26"/>
+      <metrics statements="131" coveredstatements="130" conditionals="8" coveredconditionals="8" methods="28" coveredmethods="28"/>
       <file name="blog.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/models/blog.js">
         <metrics statements="12" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="3" type="stmt"/>
@@ -846,44 +870,44 @@
         <line num="19" count="2" type="stmt"/>
       </file>
       <file name="user.js" path="/Users/zihan/Documents/2022Spring/FSE/s22-ESN-SA2/models/user.js">
-        <metrics statements="37" coveredstatements="31" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="7"/>
+        <metrics statements="37" coveredstatements="37" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="9"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
         <line num="5" count="4" type="stmt"/>
         <line num="10" count="19" type="stmt"/>
         <line num="27" count="4" type="stmt"/>
-        <line num="28" count="12" type="stmt"/>
-        <line num="34" count="12" type="stmt"/>
-        <line num="40" count="12" type="stmt"/>
-        <line num="41" count="12" type="stmt"/>
-        <line num="42" count="34" type="stmt"/>
-        <line num="43" count="34" type="stmt"/>
-        <line num="45" count="12" type="stmt"/>
+        <line num="28" count="17" type="stmt"/>
+        <line num="34" count="17" type="stmt"/>
+        <line num="40" count="17" type="stmt"/>
+        <line num="41" count="17" type="stmt"/>
+        <line num="42" count="55" type="stmt"/>
+        <line num="43" count="55" type="stmt"/>
+        <line num="45" count="17" type="stmt"/>
         <line num="48" count="4" type="stmt"/>
-        <line num="49" count="0" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="65" count="0" type="stmt"/>
-        <line num="66" count="0" type="stmt"/>
-        <line num="68" count="0" type="stmt"/>
-        <line num="72" count="4" type="stmt"/>
+        <line num="49" count="5" type="stmt"/>
+        <line num="52" count="5" type="stmt"/>
+        <line num="54" count="5" type="stmt"/>
+        <line num="61" count="23" type="stmt"/>
+        <line num="62" count="23" type="stmt"/>
+        <line num="64" count="5" type="stmt"/>
+        <line num="67" count="4" type="stmt"/>
+        <line num="68" count="1" type="stmt"/>
         <line num="73" count="1" type="stmt"/>
         <line num="78" count="1" type="stmt"/>
-        <line num="83" count="1" type="stmt"/>
+        <line num="79" count="1" type="stmt"/>
+        <line num="80" count="1" type="stmt"/>
+        <line num="81" count="1" type="stmt"/>
         <line num="84" count="1" type="stmt"/>
-        <line num="85" count="1" type="stmt"/>
-        <line num="86" count="1" type="stmt"/>
-        <line num="89" count="1" type="stmt"/>
-        <line num="92" count="4" type="stmt"/>
+        <line num="87" count="4" type="stmt"/>
+        <line num="88" count="1" type="stmt"/>
         <line num="93" count="1" type="stmt"/>
         <line num="98" count="1" type="stmt"/>
+        <line num="99" count="1" type="stmt"/>
+        <line num="100" count="2" type="stmt"/>
+        <line num="101" count="2" type="stmt"/>
         <line num="103" count="1" type="stmt"/>
-        <line num="104" count="1" type="stmt"/>
-        <line num="105" count="2" type="stmt"/>
-        <line num="106" count="2" type="stmt"/>
-        <line num="108" count="1" type="stmt"/>
-        <line num="112" count="4" type="stmt"/>
-        <line num="113" count="4" type="stmt"/>
+        <line num="107" count="4" type="stmt"/>
+        <line num="108" count="4" type="stmt"/>
       </file>
     </package>
     <package name="s22-ESN-SA2.routes">

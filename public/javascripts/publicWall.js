@@ -59,6 +59,11 @@ socket.on("publicMessage", (message) => {
   msgContainer.scrollTop = msgContainer.scrollHeight;
 });
 
+socket.on("publicMessageUpdate", (messages) => {
+  msgContainer.innerHTML = "";
+  appendPreviousMessages(messages);
+});
+
 // inform user of incoming private message
 socket.on("privateMessage", (message) => {
   const { target, author } = message;

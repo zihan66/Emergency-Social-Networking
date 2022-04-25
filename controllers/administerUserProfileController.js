@@ -1,7 +1,7 @@
 require("dotenv").config();
-const jwt = require("jsonwebtoken");
 const socket = require("../socket");
 const User = require("../models/user");
+const Message = require("../models/message").Message;
 
 class administerUserProfileController {
   static async renderOneUserRecord(req, res) {
@@ -44,14 +44,15 @@ class administerUserProfileController {
     try {
       console.log("ChangeToinactive");
       const io = socket.getInstance();
-      const allAdministrator = await User.find({ privilege: "administrator" });
-      console.log("administrator", allAdministrator.length);
+      const allAdministrator = await User.count({
+        privilege: "administrator",
+      });
       const params = req.params;
       const username = params.username;
       const user = await User.findOne({ username: username });
 
-      if (user.privilege === "administrator" && allAdministrator.length == 1) {
-        res.status(400).json({ error: "at least one active administrator" });
+      if (user.privilege === "administrator" && allAdministrator <= 1) {
+        res.status(400).json({ error: "at least one administrator" });
         return;
       }
       const accountStatus = await User.updateOne(
@@ -66,6 +67,20 @@ class administerUserProfileController {
       const userListWithInactive = await User.findAllUsersForAdmin();
       io.emit("userList", userList);
       io.emit("userListForAdmin", userListWithInactive);
+      const usersActive = await User.find({ accountStatus: "active" });
+      const filteredUserList = usersActive.map((user) => {
+        return user.username;
+      });
+      const activePublicMessage = await Message.find({
+        author: { $in: filteredUserList },
+        type: "public",
+      });
+      const activeAnnouncement = await Message.find({
+        author: { $in: filteredUserList },
+        type: "announcement",
+      });
+      io.emit("publicMessageUpdate", activePublicMessage);
+      io.emit("announcementUpdate", activeAnnouncement);
       res.status(204).json();
     } catch (error) {
       console.log(error);
@@ -87,6 +102,20 @@ class administerUserProfileController {
       const userListWithInactive = await User.findAllUsersForAdmin();
       io.emit("userList", userList);
       io.emit("userListForAdmin", userListWithInactive);
+      const usersActive = await User.find({ accountStatus: "active" });
+      const filteredUserList = usersActive.map((user) => {
+        return user.username;
+      });
+      const activePublicMessage = await Message.find({
+        author: { $in: filteredUserList },
+        type: "public",
+      });
+      const activeAnnouncement = await Message.find({
+        author: { $in: filteredUserList },
+        type: "announcement",
+      });
+      io.emit("publicMessageUpdate", activePublicMessage);
+      io.emit("announcementUpdate", activeAnnouncement);
       res.status(204).json();
     } catch (error) {
       console.log(error);

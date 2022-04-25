@@ -59,6 +59,11 @@ socket.on("announcementMessage", (message) => {
   msgContainer.scrollTop = msgContainer.scrollHeight;
 });
 
+socket.on("announcementUpdate", (messages) => {
+  msgContainer.innerHTML = "";
+  appendPreviousMessages(messages);
+});
+
 socket.on("privateMessage", (message) => {
   const { target, author } = message;
   if (target === cookies.username)

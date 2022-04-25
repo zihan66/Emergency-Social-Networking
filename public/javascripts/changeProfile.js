@@ -125,26 +125,10 @@ activeButton.addEventListener("click", async (e) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${cookies.jwtToken}`,
       },
-      // body: JSON.stringify(requestBody),
     });
     console.log("response:", response);
-    if (
-      response.status === 200 ||
-      response.status === 201 ||
-      response.status === 204
-    ) {
-      // window.location.href = `/directoryForAdmin`;
-      window.location.href = `/users/edit/${oldUserName}`;
-    } else {
-      const result = await response.json();
-      if (result.error === "at least one active administrator") {
-        alert("at least one active administrator!");
-        return;
-      } else {
-        //
-        alert("unknown error");
-        return;
-      }
+    if (cookies.username === oldUserName) {
+      ejectUser("The information of your account has been updated");
     }
     window.location.href = `/users/edit/${oldUserName}`;
   } catch (error) {
@@ -156,15 +140,8 @@ const inactiveButton = document.getElementById("inactive-button");
 inactiveButton.addEventListener("click", async (e) => {
   const activeButton = document.querySelector(".activeButtonDiv");
   const inactiveButton = document.querySelector(".inactiveButtonDiv");
-  // const plusHeart = document.querySelector(".plusHeart");
-  // if (activeButton.style.display === "block") {
-  //   activeButton.style.display = "";
-  // } else {
-  //   activeButton.style.display = "block";
-  // }
   activeButton.style.display = "block";
   inactiveButton.style.display = "none";
-  // plusHeart.style.display = "none";
   e.preventDefault();
   e.stopPropagation();
   const msgInput = document.getElementById("oldUserName");
@@ -180,7 +157,27 @@ inactiveButton.addEventListener("click", async (e) => {
       },
       // body: JSON.stringify(requestBody),
     });
-    window.location.href = `/users/edit/${oldUserName}`;
+    if (
+      response.status === 200 ||
+      response.status === 201 ||
+      response.status === 204
+    ) {
+      if (cookies.username === oldUserName) {
+        ejectUser("The information of your account has been updated");
+      }
+      window.location.href = `/users/edit/${oldUserName}`;
+      return;
+    } else {
+      const result = await response.json();
+      if (result.error === "at least one active administrator") {
+        alert("at least one active administrator!");
+        return;
+      } else {
+        //
+        alert("unknown error");
+        return;
+      }
+    }
   } catch (error) {
     console.error(error);
   }
