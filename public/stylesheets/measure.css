@@ -63,7 +63,22 @@
 }
 
 .desc-word {
-  color: white;
-  /*font: caption;*/
+  color    : white;
+  /*font   : caption;*/
   font-size: 16px;
+}
+
+#dimmer {
+  background: rgb(10, 3, 3, 0.89) !important;
+}
+
+#loader {
+  margin-bottom: 50px;
+  border       : none;
+  border-radius: 0;
+  display      : none;
+}
+
+#text {
+  width: 200px;
 }

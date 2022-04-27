@@ -1,14 +1,6 @@
 <link rel="stylesheet" href="/stylesheets/directory.css" />
-<div class="ui left demo vertical inverted sidebar labeled icon menu">
-  <!-- <div class="menu-item">
-    <button class="ui inverted whitesmoke button" id="status-bar">
-      Set Status:
-    </button>
-  </div> -->
+<nav class="ui left demo vertical inverted sidebar labeled icon menu">
   <div class="links2">
-    <!-- <div class="ham-img">
-    </div> -->
-    <p></p>
     <form class="ui form">
       <button id="setRedButton" class="ui inverted button compact">
         <img
@@ -95,7 +87,7 @@
     <i class="share square outline icon"></i>
     Logout
   </a>
-</div>
+</nav>
 <div class="directory-wrapper">
   <header class="directory-header">
     <i class="bars icon" id="bar"></i>
@@ -107,7 +99,7 @@
     </div>
 
     <div class="search">
-      <button id="search" class="ui inverted button compact">
+      <button id="search" class="ui inverted button compact" role="search">
         search <i class="search icon"></i>
       </button>
       <div class="searchCriteriaBlock">
@@ -118,9 +110,9 @@
       </div>
     </div>
   </header>
-  <div class="directory-container">
+  <main class="directory-container">
     <ul class="user-list"></ul>
-  </div>
+  </main>
 
   <div
     class="modal fade"

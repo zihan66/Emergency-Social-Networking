@@ -4,6 +4,12 @@
     <button id="leave" class="ui inverted button compact">Leave</button>
   </header>
   <div class="measure-container">
+    <div class="ui segment" id="loader">
+      <div class="ui active dimmer" id="dimmer">
+        <div class="ui large text loader" id="text">Running test</div>
+      </div>
+      <p></p>
+    </div>
     <label class="desc-word">Duration (s)</label>
     <input type="text" name="duration" class="duration" />
     <span id="duration-hint"></span>

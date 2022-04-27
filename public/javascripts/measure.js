@@ -11,6 +11,7 @@ let timeoutPostID;
 let testInProgress = false;
 const { cookies } = brownies;
 const resultContainer = document.querySelector("#result");
+const loader = document.querySelector("#loader");
 
 const sendOneTestMessage = async () => {
   if (countOfPost >= 1000) {
@@ -61,7 +62,7 @@ const interrupthandler = async () => {
   clearTimeout(timeoutPostID);
   clearInterval(intervalPostID);
   clearInterval(intervalGetID);
-
+  loader.style.display = "none";
   try {
     const response = await fetch(`/performances`, {
       method: "delete",
@@ -107,7 +108,6 @@ stopMeasure.addEventListener("click", async (e) => {
   if (!testInProgress) {
     return;
   }
-
   await interrupthandler();
 });
 
@@ -122,7 +122,6 @@ getMeasureData.addEventListener("click", async (e) => {
   countOfGet = 0;
 
   resultContainer.innerHTML = "";
-
   const eleDuration = document.querySelector("#duration-hint");
   eleDuration.innerHTML = "";
   const eleInterval = document.querySelector("#interval-hint");
@@ -155,9 +154,12 @@ getMeasureData.addEventListener("click", async (e) => {
       },
       body: JSON.stringify(data),
     });
-
+    loader.style.display = "block";
     if (response.status === 200) {
-      timeoutPostID = setTimeout(stopPost, (duration * 1000) / 2);
+      resultContainer.innerHTML = timeoutPostID = setTimeout(
+        stopPost,
+        (duration * 1000) / 2
+      );
       intervalPostID = setInterval(sendOneTestMessage, interval);
     }
   } catch (error) {
